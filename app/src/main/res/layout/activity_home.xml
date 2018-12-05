@@ -2,9 +2,77 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
         tools:context=".HomeActivity">
+
+    <Button
+            android:id="@+id/button_drawer"
+            android:layout_width="32dp"
+            android:layout_height="14dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/ic_menu"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_logo"
+            android:layout_marginTop="68dp"
+            android:layout_gravity="center"/>
+
+    <TextView
+            style="@style/StellarTextView_22sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:layout_width="wrap_content"
+            android:text="@string/login_title"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/StellarTextView_20sp"
+            android:alpha="0.5"
+            android:layout_marginTop="14dp"
+            android:layout_gravity="center"
+            android:text="@string/home_see_you_again"/>
+
+    <ImageView
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="38dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_group"/>
+
+    <View
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+
+
+    <TextView
+            style="@style/StellarTextView_20sp"
+            android:id="@+id/textView_seat_limits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="35dp"
+            android:text="@string/home_remaining_seats"/>
+
+    <Button
+            android:id="@+id/button_book_flight"
+            style="@style/StellarButton"
+            android:text="@string/home_button_book_flight"
+            android:layout_width="match_parent"
+            android:layout_marginStart="23dp"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="23dp"
+            android:layout_marginBottom="23dp"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
