@@ -1,3 +1,174 @@
 <resources>
-    <string name="app_name">stellarjet</string>
+    <string name="app_name">StellarJet</string>
+
+    <!-- Login Activity -->
+    <string name="login_button">Login</string>
+    <string name="login_title">Welcome</string>
+    <string name="login_header">
+        Sign-in using your personal identification number and password</string>
+    <string name="login_accountId">Account ID</string>
+    <string name="login_password">PASSWORD</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+
+    <!-- Authentication Activity  -->
+    <string name="authentication_title">Touch ID</string>
+    <string name="authentication_header">Login using Touch ID &amp; access your account faster</string>
+    <string name="authentication_cancel">Cancel</string>
+
+    <!-- Home Activity -->
+    <string name="home_see_you_again">It\'s nice to see you again!</string>
+    <string name="home_remaining_seats">You have 2 seats in credit!</string>
+    <string name="home_remaining_seats_first_half">You have </string>
+    <string name="home_remaining_seats_second_half">in credit!</string>
+    <string name="home_button_book_flight">Book Flight</string>
+
+    <!-- booking -->
+    <string name="booking_from">From</string>
+    <string name="booking_from_dummy">Delhi Office</string>
+    <string name="booking_from_city">BLR</string>
+    <string name="booking_to">To</string>
+    <string name="booking_to_dummy">Home</string>
+    <string name="booking_to_city">DEL</string>
+    <string name="booking_id">Booking Id</string>
+    <string name="booking_id_sample">00012</string>
+
+    <string name="booking_source_where">Where are we picking you up from?</string>
+    <string name="booking_destination_where">Where are we dropping you?</string>
+    <string name="booking_source_or">Or</string>
+    <string name="booking_somewhere_else">Somewhere else?</string>
+    <string name="booking_source_dummy_one">Home</string>
+    <string name="booking_source_dummy_two">Mumbai Apartment</string>
+    <string name="booking_source_dummy_three">Delhi Office</string>
+
+    <string name="booking_date_header">What day are we taking you?</string>
+    <string name="booking_date_dummy">This Friday, 20 Sep - 7:45 am </string>
+    <string name="booking_date_seats_available">4 seats available</string>
+    <string name="booking_date_pick">Pick Your Date</string>
+    <string name="booking_avail_cities">View available cities</string>
+    <string name="booking_avail_cities_header">As of now our flight services are available \n or following cities</string>
+
+    <string name="booking_seat_choose">Choose Your Seats</string>
+    <string name="booking_confirm_seats">Confirm Seats</string>
+    <string name="booking_confirm_date">Confirm Date</string>
+
+    <string name="booking_guest_title">Guest Info</string>
+    <string name="booking_guest_header">Please provide guest details for the trip</string>
+    <string name="booking_guest_confirm_button">Confirm GUEST</string>
+    <string name="booking_guest_name">Guest Name</string>
+    <string name="booking_guest_mobile_number">Mobile Number</string>
+    <string name="booking_guest_food_preferences">Food preference</string>
+    <string name="booking_guest_food_standard_menu">Standard Menu</string>
+    <string name="booking_guest_food_call_them">Call them</string>
+    <string name="booking_guest_dummy_one">1.Guest Name One</string>
+    <string name="booking_guest_dummy_two">2.Guest Name Two</string>
+    <string name="booking_guest_dummy_three">3.Guest Name Three</string>
+
+    <string name="booking_summary_pickup">PICK UP FROM</string>
+    <string name="booking_summary_pickup_name">Delhi Office</string>
+    <string name="booking_summary_pickup_address">Abaya Heights, Raj Bahavan Road, Delhi</string>
+    <string name="booking_summary_drop">DROP TO</string>
+    <string name="booking_summary_drop_name">Home</string>
+    <string name="booking_summary_drop_address">Snn Raj Serenity, Yelanahalli, Begur Road, Bangalore</string>
+    <string name="booking_summary_day">Friday</string>
+    <string name="booking_summary_date_time">18 Sep, 7:45 am</string>
+    <string name="booking_summary_travelling_with">TRAVELLING WITH</string>
+    <string name="booking_summary_passengers">PASSENGERS</string>
+    <string name="booking_summary_guest_names">Dimple</string>
+    <string name="booking_summary_booked_seats">BOOKED SEATS</string>
+    <string name="booking_summary_booked_seats_names">Golf and Hotel</string>
+    <string name="booking_summary_usual_service">Your usual in-flight service is fine?</string>
+    <string name="booking_summary_button_fine">That’s Fine</string>
+    <string name="booking_summary_button_change">I’d Like a Change</string>
+    <string name="booking_summary_service_with">WITH</string>
+    <string name="booking_summary_service_preferred">Your preferred service</string>
+    <string name="booking_summary_service_usual">Usual Service</string>
+    <string name="booking_summary_button_book_now">Let’s book now</string>
+    <string name="booking_summary_title_trip_details">Trip Details</string>
+
+    <string name="booking_preferences_food_question">What do you like for breakfast?</string>
+    <string name="booking_preferences_kit_question">Would you like to read in the \nmorning?</string>
+    <string name="booking_preferences_update_preferences">Update Preferences</string>
+
+    <string name="booking_success_confirmed">Booking Confirmed</string>
+    <string name="booking_success_arrival_time">We will see you at Home at 6.45am, \n this Friday</string>
+    <string name="booking_success_contact_us">Contact Us</string>
+    <string name="booking_success_contact_us_help_info">Contact us for any further assistance. We are \nhappy to help you</string>
+
+    <string name="booking_title_food_preferences">Food Preferences</string>
+    <string name="booking_title_kit_preferences">Kit Preferences</string>
+    <string name="booking_title_next">Next</string>
+
+    <string name="drawer_info_preferences">Preferences</string>
+    <string name="drawer_info_boarding_pass">Boarding Pass</string>
+    <string name="drawer_info_bookings">Bookings</string>
+
+    <!-- passcode  -->
+    <string name="passcode_title_create_passcode">Create Passcode</string>
+    <string name="passcode_title_confirm_passcode">Confirm Passcode</string>
+    <string name="passcode_title_enter_passcode">Enter Passcode</string>
+    <string name="passcode_title_heading">Please enter a passcode for secure login</string>
+    <string name="passcode_kwypad_one">1</string>
+    <string name="passcode_kwypad_two">2</string>
+    <string name="passcode_kwypad_three">3</string>
+    <string name="passcode_kwypad_four">4</string>
+    <string name="passcode_kwypad_five">5</string>
+    <string name="passcode_kwypad_six">6</string>
+    <string name="passcode_kwypad_seven">7</string>
+    <string name="passcode_kwypad_eight">8</string>
+    <string name="passcode_kwypad_nine">9</string>
+    <string name="passcode_kwypad_zero">0</string>
+    <string name="passcode_kwypad_del">X</string>
+
+    <!-- preferences-->
+    <string name="bookings_head">Please provide guest details for the trip</string>
+    <string name="bookings_dummy_from_data">18 Sep 2018, Fri - 7:45 am</string>
+    <string name="bookings_service_data">2 seats with usual service</string>
+
+    <string name="boardingPass_title">Boarding Pass (1)</string>
+    <string name="boardingPass_dummy_day">This Friday</string>
+    <string name="boardingPass_dummy_time">18 Sep, 7:45 am</string>
+    <string name="boardingPass_title_booked_seats">Booked seats</string>
+    <string name="boardingPass_flight_title">Flight</string>
+    <string name="boardingPass_dummy_flight_name">MU5871</string>
+    <string name="boardingPass_gate_title">Gate</string>
+    <string name="boardingPass_dummy_gate_name">A4</string>
+
+
+    <string name="seat_alpha">Alpha</string>
+    <string name="seat_beta">Bravo</string>
+    <string name="seat_charlie">Charlie</string>
+    <string name="seat_delta">Delta</string>
+    <string name="seat_echo">Echo</string>
+    <string name="seat_foxtrot">Foxtrot</string>
+    <string name="seat_golf">Golf</string>
+    <string name="seat_hotel">Hotel</string>
+    <string name="seat_indigo">Indigo</string>
+    <string name="seat_juliet">Juliet</string>
+    <string name="seat_kilo">Kilo</string>
+    <string name="seat_lima">Lima</string>
+
+    <string name="info_use_current_location">Use current location</string>
+    <string name="info_saved_places">Saved Places</string>
+    <string name="info_address_flat_no">Enter House/flat no</string>
+    <string name="info_address_location">Location</string>
+    <string name="info_address_nickname">Nickname for address</string>
+    <string name="info_button_add_address">Add Address</string>
+    <string name="title_activity_address_map">Map</string>
+
+    <string name="tag_seat_straight">Straight</string>
+    <string name="tag_seat_reverse">Reverse</string>
+
+    <string name="title_activity_add_address_maps">Map</string>
+    <string name="hint_search_map">Search your area in</string>
+    <string name="hint_sample_address">PH Heaven Apartment, \n Jp nagat 7th phase, \n Bhannaerghatta road, Bangalore, KA</string>
+
+    <string name="info_flight_sunrise">S\nu\nn\nr\ni\ns\ne</string>
+    <string name="info_flight_sunset">S\nu\nn\ns\ne\nt</string>
+
+    <string name="info_passenger_title">Passenger Info</string>
+    <string name="info_passenger_heading">Please provide passenger info for the trip</string>
+    <string name="info_passenger_self_question">Are you travelling in this trip?</string>
+    <string name="info_passenger_text">Passenger</string>
+    <string name="info_passenger_cab_service">Need a pickup/drop service?</string>
+
 </resources>

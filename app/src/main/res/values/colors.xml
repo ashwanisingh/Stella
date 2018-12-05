@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorBackgroundTop">#13133f</color>
+    <color name="colorBackgroundBottom">#20204f</color>
+    <color name="colorLoginButton">#d18c11</color>
+    <color name="colorSecondaryButton">#343652</color>
+    <color name="colorBookingsDivider">#cacaca</color>
+    <color name="colorBoardingPassBackground">#2b2b4d</color>
+    <color name="colorAddressDivider">#979797</color>
+    <color name="colorCreditAlert">#ff5731</color>
+    <color name="colorSecondaryButtonColor">#404056</color>
+    <color name="colorPrefButtonColor">#454581</color>
+    <color name="colorBookingCardBg">#20203d</color>
+    <color name="colorEditTextBackground">#373751</color>
+
 </resources>

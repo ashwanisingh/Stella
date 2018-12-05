@@ -1,11 +1,83 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/ic_stellar_bg</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="colorAccent">@color/colorLoginButton</item>
+        <!--<item name="android:fontFamily">@font/arsenal</item>-->
     </style>
 
+    <style name="StellarButton" parent="android:Widget.Material.Button">
+        <item name="android:background">@drawable/drawable_button_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:alpha">0.8</item>
+    </style>
+
+    <style name="StellarTextView_22sp" parent="android:Widget.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="StellarTextView_26sp" parent="android:Widget.TextView">
+        <item name="android:textSize">26sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="StellarTextView_30sp" parent="android:Widget.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="StellarEditText" parent="android:Widget.Material.EditText">
+        <item name="android:background">@drawable/drawable_edittext_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLength">50</item>
+    </style>
+
+    <style name="StellarTextView_20sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StellarTextView_14sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StellarTextView_12sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StellarTextView_16sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StellarTextView_18sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="StellarTextView_10sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="style_checkbox_tick">
+        <item name="colorAccent">@color/colorPrefButtonColor</item>
+        <item name="android:textColorSecondary">@color/colorEditTextBackground</item>
+    </style>
 </resources>
