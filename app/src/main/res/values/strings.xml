@@ -3,10 +3,12 @@
 
     <!-- Login Activity -->
     <string name="login_button">Login</string>
+    <string name="confirm_button">Confirm</string>
     <string name="login_title">Welcome</string>
     <string name="login_header">
-        Sign-in using your personal identification number and password</string>
-    <string name="login_accountId">Account ID</string>
+        Sign-in using your personal identification number and password
+    </string>
+    <string name="login_accountId">email ID / Mobile No</string>
     <string name="login_password">PASSWORD</string>
     <string name="login_forgot_password">Forgot Password?</string>
 
@@ -18,7 +20,7 @@
     <!-- Home Activity -->
     <string name="home_see_you_again">It\'s nice to see you again!</string>
     <string name="home_remaining_seats">You have 2 seats in credit!</string>
-    <string name="home_remaining_seats_first_half">You have </string>
+    <string name="home_remaining_seats_first_half">You have</string>
     <string name="home_remaining_seats_second_half">in credit!</string>
     <string name="home_button_book_flight">Book Flight</string>
 
@@ -41,11 +43,12 @@
     <string name="booking_source_dummy_three">Delhi Office</string>
 
     <string name="booking_date_header">What day are we taking you?</string>
-    <string name="booking_date_dummy">This Friday, 20 Sep - 7:45 am </string>
+    <string name="booking_date_dummy">This Friday, 20 Sep - 7:45 am</string>
     <string name="booking_date_seats_available">4 seats available</string>
     <string name="booking_date_pick">Pick Your Date</string>
     <string name="booking_avail_cities">View available cities</string>
-    <string name="booking_avail_cities_header">As of now our flight services are available \n or following cities</string>
+    <string name="booking_avail_cities_header">As of now our flight services are available \n or following cities
+    </string>
 
     <string name="booking_seat_choose">Choose Your Seats</string>
     <string name="booking_confirm_seats">Confirm Seats</string>
@@ -92,7 +95,9 @@
     <string name="booking_success_confirmed">Booking Confirmed</string>
     <string name="booking_success_arrival_time">We will see you at Home at 6.45am, \n this Friday</string>
     <string name="booking_success_contact_us">Contact Us</string>
-    <string name="booking_success_contact_us_help_info">Contact us for any further assistance. We are \nhappy to help you</string>
+    <string name="booking_success_contact_us_help_info">Contact us for any further assistance. We are \nhappy to help
+        you
+    </string>
 
     <string name="booking_title_food_preferences">Food Preferences</string>
     <string name="booking_title_kit_preferences">Kit Preferences</string>
@@ -160,7 +165,9 @@
 
     <string name="title_activity_add_address_maps">Map</string>
     <string name="hint_search_map">Search your area in</string>
-    <string name="hint_sample_address">PH Heaven Apartment, \n Jp nagat 7th phase, \n Bhannaerghatta road, Bangalore, KA</string>
+    <string name="hint_sample_address">PH Heaven Apartment, \n Jp nagat 7th phase, \n Bhannaerghatta road, Bangalore,
+        KA
+    </string>
 
     <string name="info_flight_sunrise">S\nu\nn\nr\ni\ns\ne</string>
     <string name="info_flight_sunset">S\nu\nn\ns\ne\nt</string>
