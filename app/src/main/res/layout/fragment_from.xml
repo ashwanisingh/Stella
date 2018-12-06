@@ -8,7 +8,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="140dp"
-            tools:context=".booking.FromActivity">
+            tools:context=".booking.PlaceSelectionActivity">
 
         <TextView
                 style="@style/StellarTextView_18sp"
