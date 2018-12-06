@@ -1,126 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              tools:context=".booking.CalendarActivity"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
-    <Button
-            android:id="@+id/button_schedule_back"
-            style="@style/StellarBackButton"/>
-
+    </data>
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginEnd="31dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".booking.CalendarActivity"
+            android:orientation="vertical">
 
-        <TextView
-                android:layout_width="0dp"
+        <Button
+                android:id="@+id/button_schedule_back"
+                style="@style/StellarBackButton"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/StellarTextView_18sp"
-                android:alpha="0.8"
-                android:text = "@string/booking_from_dummy"/>
+                android:gravity="center_vertical"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginEnd="31dp"
+                android:orientation="horizontal">
 
-        <ImageView
-                android:src="@drawable/ic_flight_alone"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <TextView
+                    android:id="@+id/textView_calendar_from"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/StellarTextView_18sp"
+                    android:alpha="0.8"
+                    android:text="@string/booking_from_dummy"/>
+
+            <ImageView
+                    android:src="@drawable/ic_flight_alone"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/boardingPass_flight_title"/>
+
+            <TextView
+                    android:id="@+id/textView_calendar_to"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    style="@style/StellarTextView_18sp"
+                    android:alpha="0.8"
+                    android:text="@string/booking_to_dummy"/>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:alpha="0.1"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/boardingPass_flight_title"/>
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="32dp"
+                android:background="@color/colorAddressDivider"/>
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+        <com.applandeo.materialcalendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="end"
-                style="@style/StellarTextView_18sp"
-                android:alpha="0.8"
-                android:text = "@string/booking_to_dummy"/>
-    </LinearLayout>
+                android:layout_marginStart="29dp"
+                android:layout_marginEnd="29dp"
+                app:abbreviationsBarColor="@color/colorCalendarBackground"
+                app:abbreviationsLabelsColor="@android:color/white"
+                app:anotherMonthsDaysLabelsColor="@color/colorCalendarBackground"
+                app:daysLabelsColor="@android:color/white"
+                app:eventsEnabled="false"
+                app:headerColor="@color/colorCalendarBackground"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button_schedule_back"
+                app:layout_constraintTop_toBottomOf="@+id/button_schedule_back"
+                app:pagesColor="@color/colorCalendarBackground"
+                app:selectionColor="@android:color/white"
+                app:selectionLabelColor="@color/colorCalendarBackground"
+                app:disabledDaysLabelsColor="@color/colorEditTextBackground"
+                app:todayLabelColor="@color/colorLoginButton"
+                app:type="one_day_picker"/>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:alpha="0.1"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorAddressDivider"/>
-
-    <com.applandeo.materialcalendarview.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="29dp"
-            android:layout_marginEnd="29dp"
-            app:abbreviationsBarColor="@color/colorCalendarBackground"
-            app:abbreviationsLabelsColor="@android:color/white"
-            app:anotherMonthsDaysLabelsColor="@color/colorCalendarBackground"
-            app:daysLabelsColor="@android:color/white"
-            app:eventsEnabled="false"
-            app:headerColor="@color/colorCalendarBackground"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button_schedule_back"
-            app:layout_constraintTop_toBottomOf="@+id/button_schedule_back"
-            app:pagesColor="@color/colorCalendarBackground"
-            app:selectionColor="@android:color/white"
-            app:selectionLabelColor="@color/colorCalendarBackground"
-            app:disabledDaysLabelsColor="@color/colorEditTextBackground"
-            app:todayLabelColor="@color/colorLoginButton"
-            app:type="one_day_picker"/>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginBottom="23dp"
-            android:layout_marginEnd="32dp"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/textView_schedule_date"
-                style="@style/StellarTextView_14sp"
-                android:layout_width="0dp"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/booking_date_dummy"/>
+                android:gravity="center"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="33dp"
+                android:layout_marginBottom="23dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
 
-        <TextView
-                android:id="@+id/textView_schedule_seats_available"
-                style="@style/StellarTextView_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.4"
-                android:text="@string/booking_date_seats_available"/>
+            <TextView
+                    android:id="@+id/textView_schedule_date"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/booking_date_dummy"/>
+
+            <TextView
+                    android:id="@+id/textView_schedule_seats_available"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/booking_date_seats_available"/>
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/button_schedule_confirm_date"
+                style="@style/StellarButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="23dp"
+                android:text="@string/booking_confirm_date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
     </LinearLayout>
-
-    <Button
-            android:id="@+id/button_schedule_confirm_date"
-            style="@style/StellarButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginEnd="23dp"
-            android:text="@string/booking_confirm_date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-</LinearLayout>
+</layout>

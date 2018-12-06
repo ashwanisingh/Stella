@@ -183,6 +183,9 @@
     <string name="info_passenger_title">Passenger Info</string>
     <string name="info_passenger_heading">Please provide passenger info for the trip</string>
     <string name="info_passenger_self_question">Are you travelling in this trip?</string>
+    <string name="info_passenger_self">Self</string>
+    <string name="info_passenger_guest">Guest</string>
+
     <string name="info_passenger_text">Passenger</string>
     <string name="info_passenger_cab_service">Need a pickup/drop service?</string>
 
