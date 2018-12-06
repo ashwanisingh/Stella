@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    dataBinding{
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.ns.stellarjet"
         minSdkVersion 21
@@ -36,4 +39,6 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_converter_version"
     implementation project(':networking')
+    // Recycler View
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
