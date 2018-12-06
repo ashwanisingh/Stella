@@ -15,6 +15,10 @@
     <!-- password -->
     <string name="password_header">Please enter your password for /n secure login</string>
 
+    <!-- otp -->
+    <string name="otp_title">OTP</string>
+    <string name="otp_header">Please enter OTP, sent to your mobile \n number</string>
+
     <!-- Authentication Activity  -->
     <string name="authentication_title">Touch ID</string>
     <string name="authentication_header">Login using Touch ID &amp; access your account faster</string>
