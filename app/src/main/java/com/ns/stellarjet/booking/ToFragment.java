@@ -14,10 +14,10 @@ import com.ns.stellarjet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FromFragment extends Fragment {
+public class ToFragment extends Fragment {
 
 
-    public FromFragment() {
+    public ToFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class FromFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_from, container, false);
+        ViewDataBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_to, container, false);
         View mRootView = dataBinding.getRoot();
         return mRootView;
     }

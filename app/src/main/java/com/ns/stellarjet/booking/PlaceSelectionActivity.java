@@ -12,7 +12,6 @@ public class PlaceSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_from);
 
         // obtain DataBinding
         ActivityFromBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_from);
@@ -27,6 +26,5 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout_container ,  new FromFragment())
                 .commit();
-
     }
 }

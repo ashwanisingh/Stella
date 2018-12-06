@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <data>
+
     </data>
     <LinearLayout
-            android:id="@+id/layout_from_base"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -13,7 +13,7 @@
         <TextView
                 style="@style/StellarTextView_18sp"
                 android:alpha="0.5"
-                android:text="@string/booking_from"
+                android:text="@string/booking_to"
                 android:layout_gravity="center"
                 android:textAllCaps="true"
                 android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
                 android:background="@color/colorAddressDivider"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_from"
+                android:id="@+id/recyclerView_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
