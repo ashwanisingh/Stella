@@ -13,7 +13,7 @@
     <string name="login_forgot_password">Forgot Password?</string>
 
     <!-- password -->
-    <string name="password_header">Please enter your password for /n secure login</string>
+    <string name="password_header">Please enter your password for \n secure login</string>
 
     <!-- otp -->
     <string name="otp_title">OTP</string>
@@ -21,7 +21,7 @@
 
     <!-- Authentication Activity  -->
     <string name="authentication_title">Touch ID</string>
-    <string name="authentication_header">Login using Touch ID &amp; access your account faster</string>
+    <string name="authentication_header">Login using Touch ID &amp; access your \n account faster</string>
     <string name="authentication_cancel">Cancel</string>
 
     <!-- Home Activity -->
