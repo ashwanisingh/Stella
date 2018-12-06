@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".booking.BookingConfirmedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,6 +20,12 @@
         </activity>
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.PasswordActivity"/>
+        <activity android:name=".login.OTPActivity"/>
+        <activity android:name=".authenticate.AuthenticationActivity"/>
+        <activity android:name=".booking.PlaceSelectionActivity"/>
+        <activity android:name=".booking.CalendarActivity"/>
+         <activity android:name=".booking.PassengerActivity"/>
+        <!--<activity android:name=".booking.BookingConfirmedActivity"/>-->
     </application>
 
 </manifest>
