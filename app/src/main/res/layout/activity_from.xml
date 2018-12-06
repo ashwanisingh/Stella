@@ -1,39 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
 
     </data>
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".booking.FromActivity">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <Button
                 android:id="@+id/button_from_back"
                 style="@style/StellarBackButton"/>
 
-        <TextView
-                style="@style/StellarTextView_18sp"
-                android:alpha="0.5"
-                android:text="@string/booking_from"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:layout_marginTop="140dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="78dp"
-                android:layout_marginEnd="78dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="30dp"
-                android:background="@color/colorAddressDivider"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_from"
+        <FrameLayout
+                android:id="@+id/frameLayout_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
