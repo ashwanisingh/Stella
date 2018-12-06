@@ -24,6 +24,7 @@
     <string name="authentication_header">Login using Touch ID &amp; access your \n account faster</string>
     <string name="authentication_cancel">Cancel</string>
 
+
     <!-- Home Activity -->
     <string name="home_see_you_again">It\'s nice to see you again!</string>
     <string name="home_remaining_seats">You have 2 seats in credit!</string>
