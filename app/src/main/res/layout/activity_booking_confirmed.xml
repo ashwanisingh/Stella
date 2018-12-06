@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".booking.BookingConfirmedActivity">
+
+        <Button
+                android:id="@+id/button_home"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/ic_home"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/textView_confirmed_title"
+                style="@style/StellarTextView_22sp"
+                android:layout_width="170dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="58dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_page"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_home"/>
+
+        <ImageView
+                android:id="@+id/imageView_tick"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="56dp"
+                android:src="@drawable/ic_ok"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_confirmed_title"/>
+
+        <TextView
+                android:id="@+id/textVIew_confirmed_booking"
+                style="@style/StellarTextView_22sp"
+                android:layout_width="193dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="26dp"
+                android:text="@string/booking_success_confirmed"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_tick"/>
+
+        <TextView
+                android:id="@+id/textView_confirmed_arrival_time"
+                style="@style/StellarTextView_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.5"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/booking_success_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textVIew_confirmed_booking"/>
+
+        <TextView
+                android:id="@+id/textView_confirmed_contact_us_info"
+                style="@style/StellarTextView_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="23dp"
+                android:layout_marginBottom="39dp"
+                android:alpha="0.3"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/personalize_message"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+                style="@style/StellarButton"
+                android:id="@+id/button_confirmed_personalize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:layout_marginEnd="47dp"
+                android:layout_marginBottom="27dp"
+                android:textSize="18sp"
+                android:text="@string/personalize"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/textView_confirmed_contact_us_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

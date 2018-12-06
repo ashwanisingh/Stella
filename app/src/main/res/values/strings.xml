@@ -102,10 +102,15 @@
 
     <string name="booking_success_confirmed">Booking Confirmed</string>
     <string name="booking_success_arrival_time">We will see you at Home at 6.45am, \n this Friday</string>
+    <string name="booking_success_message">Your flight booking is confirmed \nEnjoy your travel with us!</string>
     <string name="booking_success_contact_us">Contact Us</string>
     <string name="booking_success_contact_us_help_info">Contact us for any further assistance. We are \nhappy to help
         you
     </string>
+
+    <!-- personalize-->
+    <string name="personalize">Personalize</string>
+    <string name="personalize_message">Personalize your food menu, pick up and\ndrop assistance</string>
 
     <string name="booking_title_food_preferences">Food Preferences</string>
     <string name="booking_title_kit_preferences">Kit Preferences</string>
