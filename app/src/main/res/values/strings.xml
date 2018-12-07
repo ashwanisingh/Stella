@@ -135,6 +135,11 @@
     <string name="drawer_info_boarding_pass">Boarding Pass</string>
     <string name="drawer_info_bookings">Bookings</string>
 
+    <!--add address -->
+    <string name="address_set_pickup_location">Set pickup location</string>
+    <string name="address_set_drop_location">Set drop location</string>
+
+
     <!-- passcode  -->
     <string name="passcode_title_create_passcode">Create Passcode</string>
     <string name="passcode_title_confirm_passcode">Confirm Passcode</string>
@@ -183,11 +188,12 @@
     <string name="info_use_current_location">Current Location</string>
     <string name="info_using_gps">Using GPS</string>
     <string name="info_saved_address">SAVED ADDRESSES</string>
+    <string name="info_address">ADDRESS</string>
     <string name="info_saved_places">Saved Places</string>
-    <string name="info_address_flat_no">Enter House/flat no</string>
+    <string name="info_address_flat_no">House/flat no</string>
     <string name="info_address_location">Location</string>
-    <string name="info_address_nickname">Nickname for address</string>
-    <string name="info_button_add_address">Add Address</string>
+    <string name="info_address_nickname">Nick Name </string>
+    <string name="info_button_add_address">Confirm Address</string>
     <string name="title_activity_address_map">Map</string>
 
     <string name="tag_seat_straight">Straight</string>

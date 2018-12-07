@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            tools:context=".personalize.AddAddressActivity">
+
+        <FrameLayout
+                android:background="@color/colorCabPreferBackground"
+                android:layout_width="match_parent"
+                android:layout_height="252dp">
+
+            <Button
+                    android:id="@+id/button_add_address_back"
+                    style="@style/StellarBackButton"/>
+        </FrameLayout>
+
+        <TextView
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/address_set_pickup_location"
+                style="@style/StellarTextView_16sp"
+                android:id="@+id/textView_set_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/StellarTextView_12sp"
+                android:textAllCaps="true"
+                android:text="@string/info_address"
+                android:alpha="0.4"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="31dp"
+                android:id="@+id/textView_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/editText_add_address"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="29dp"
+                android:textColor="@android:color/white"
+                android:alpha="0.8"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/StellarTextView_12sp"
+                android:textAllCaps="true"
+                android:text="@string/info_address_flat_no"
+                android:alpha="0.4"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="31dp"
+                android:id="@+id/textView_address_flatno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/editText_add_address_flat_no"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="29dp"
+                android:textColor="@android:color/white"
+                android:alpha="0.8"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/StellarTextView_12sp"
+                android:textAllCaps="true"
+                android:text="@string/info_address_nickname"
+                android:alpha="0.4"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="31dp"
+                android:id="@+id/textView_address_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/editText_add_address_nickname"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@android:color/white"
+                android:alpha="0.8"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                style="@style/StellarButton"
+                android:text="@string/info_button_add_address"
+                android:textAllCaps="true"
+                android:id="@+id/button_add_address_confirm"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+</layout>
