@@ -117,6 +117,8 @@
     <string name="personalize_food_title">Food Preferences</string>
     <string name="personalize_later_button">I’ll do it later</string>
     <string name="personalize_update_title">Please update preferences before \n</string>
+    <string name="personalize_success">Thank you for confirming \n your preferences</string>
+    <string name="personalize_success_safe_flight">We wish you a safe flight!</string>
 
     <!-- cab preferences -->
     <string name="cab_personalize_pickup_title">Pick up</string>
