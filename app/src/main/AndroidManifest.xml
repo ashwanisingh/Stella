@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".personalize.PersonalizeSuccessActivity">
+        <activity android:name=".drawer.DrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,8 +32,9 @@
         <activity android:name=".personalize.SavedAddressActivity"/>
         <activity android:name=".personalize.AddAddressActivity"/>
         <activity android:name=".personalize.FoodPreferencesLaunchActivity"/>
-         <activity android:name=".personalize.FoodPreferenceListActivity"/>
-        <!--<activity android:name=".personalize.PersonalizeSuccessActivity"/>-->
+        <activity android:name=".personalize.FoodPreferenceListActivity"/>
+        <activity android:name=".personalize.PersonalizeSuccessActivity"/>
+        <!--<activity android:name=".drawer.DrawerActivity"/>-->
     </application>
 
 </manifest>

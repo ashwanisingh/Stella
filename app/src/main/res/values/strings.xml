@@ -133,9 +133,14 @@
     <string name="booking_title_kit_preferences">Kit Preferences</string>
     <string name="booking_title_next">Next</string>
 
+    <!-- drawer -->
     <string name="drawer_info_preferences">Preferences</string>
     <string name="drawer_info_boarding_pass">Boarding Pass</string>
-    <string name="drawer_info_bookings">Bookings</string>
+    <string name="drawer_info_bookings">My Bookings</string>
+    <string name="drawer_personal_assistance">Personal Assistance</string>
+    <string name="drawer_help">Contact us for any further assistance. We are \nhappy to help you</string>
+
+
 
     <!--add address -->
     <string name="address_set_pickup_location">Set pickup location</string>
