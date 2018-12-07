@@ -28,8 +28,10 @@
         <activity android:name=".booking.BookingConfirmedActivity"/>
         <activity android:name=".personalize.PersonalizeLaunchActivity"/>
         <activity android:name=".personalize.CabPreferencesActivity"/>
-         <activity android:name=".personalize.SavedAddressActivity"/>
-        <!--<activity android:name=".personalize.AddAddressActivity"/>-->
+        <activity android:name=".personalize.SavedAddressActivity"/>
+        <!-- <activity android:name=".personalize.AddAddressActivity"/> -->
+        <activity android:name=".personalize.FoodPreferencesLaunchActivity">
+        </activity>
     </application>
 
 </manifest>

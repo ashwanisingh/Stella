@@ -192,7 +192,7 @@
     <string name="info_saved_places">Saved Places</string>
     <string name="info_address_flat_no">House/flat no</string>
     <string name="info_address_location">Location</string>
-    <string name="info_address_nickname">Nick Name </string>
+    <string name="info_address_nickname">Nick Name</string>
     <string name="info_button_add_address">Confirm Address</string>
     <string name="title_activity_address_map">Map</string>
 
@@ -219,5 +219,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- food preferences -->
+    <string name="food_title">Food Preferences</string>
+    <string name="food_header">Choose your preferred food category</string>
+    <string name="food_type_veg">Vegetarian</string>
+    <string name="food_type_non_veg">Non - Vegetarian</string>
+    <string name="food_type_continental">Continental</string>
+
 
 </resources>
