@@ -226,6 +226,9 @@
     <string name="food_type_veg">Vegetarian</string>
     <string name="food_type_non_veg">Non - Vegetarian</string>
     <string name="food_type_continental">Continental</string>
+    <string name="food_list_confirm_button">Confirm</string>
+    <string name="food_list_name_dummy">Food 1</string>
+    <string name="food_list_content_dummy">Contains vegetables, fresh fruits and dairy products</string>
 
 
 </resources>
