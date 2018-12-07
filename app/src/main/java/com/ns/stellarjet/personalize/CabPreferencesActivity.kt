@@ -10,8 +10,7 @@ class CabPreferencesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cab_prefernces)
-
+        // obtain binding
         val binding : ActivityCabPreferncesBinding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_cab_prefernces
