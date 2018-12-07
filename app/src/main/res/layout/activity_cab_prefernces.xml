@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            tools:context=".personalize.CabPreferencesActivity">
+
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:id="@+id/button_cab_preferences_back"
+                    style="@style/StellarBackButton"/>
+
+            <TextView
+                    android:layout_marginTop="40dp"
+                    style="@style/StellarTextView_18sp"
+                    android:id="@+id/textView_cab_preferences_title"
+                    android:text="@string/personalize_cab_title"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_cab_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:background="@color/colorCabPreferBackground"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        style="@style/StellarTextView_24sp"
+                        android:id="@+id/textView_pickup_title"
+                        android:text="@string/cab_personalize_pickup_title"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/StellarTextView_12sp"
+                        android:alpha="0.4"
+                        android:text="@string/cab_personalize_optional_title"
+                        android:id="@+id/textView_pickup_optional"
+                        android:gravity="end|bottom"
+                        android:layout_marginEnd="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <TextView
+                    style="@style/StellarTextView_12sp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/cab_personalize_pickup_location"
+                    android:id="@+id/textView_cab_pickup_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    android:id="@+id/editText_pick_location"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/cab_personalize_pickup_enter_location"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:alpha="0.4"
+                    android:maxLength="30"
+                    android:background="@drawable/drawable_edittext_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_cab_drop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:background="@color/colorCabPreferBackground"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        style="@style/StellarTextView_24sp"
+                        android:id="@+id/textView_drop_title"
+                        android:text="@string/cab_personalize_drop_title"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/StellarTextView_12sp"
+                        android:alpha="0.4"
+                        android:text="@string/cab_personalize_optional_title"
+                        android:id="@+id/textView_drop_optional"
+                        android:gravity="end|bottom"
+                        android:layout_marginEnd="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <TextView
+                    style="@style/StellarTextView_12sp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/cab_personalize_drop_location"
+                    android:id="@+id/textView_cab_drop_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    android:id="@+id/editText_drop_location"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/cab_personalize_pickup_enter_location"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:alpha="0.4"
+                    android:maxLength="30"
+                    android:background="@drawable/drawable_edittext_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+        <Button
+                style="@style/StellarButton"
+                android:text="@string/cab_personalize_update_button"
+                android:id="@+id/button_cab_preferences_update"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="23dp"
+                android:layout_marginBottom="21dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+    </LinearLayout>
+</layout>

@@ -14,5 +14,6 @@
     <color name="colorEditTextBackground">#373751</color>
     <color name="colorCalendarBackground">#FF13132F</color>
     <color name="colorPersonalizeButtonBackground">#393956</color>
+    <color name="colorCabPreferBackground">#1E1E37</color>
 
 </resources>

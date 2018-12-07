@@ -115,8 +115,17 @@
     <string name="personalize_header">Please update preferences for the trip</string>
     <string name="personalize_cab_title">Cab Preferences</string>
     <string name="personalize_food_title">Food Preferences</string>
-    <string name="personalize_later_button">I’ll do it latter</string>
+    <string name="personalize_later_button">I’ll do it later</string>
     <string name="personalize_update_title">Please update preferences before \n</string>
+
+    <!-- cab preferences -->
+    <string name="cab_personalize_pickup_title">Pick up</string>
+    <string name="cab_personalize_drop_title">Drop</string>
+    <string name="cab_personalize_optional_title">Optional</string>
+    <string name="cab_personalize_pickup_location">Pick Up Location</string>
+    <string name="cab_personalize_drop_location">Drop Location</string>
+    <string name="cab_personalize_pickup_enter_location">Enter location</string>
+    <string name="cab_personalize_update_button">Update</string>
 
     <string name="booking_title_food_preferences">Food Preferences</string>
     <string name="booking_title_kit_preferences">Kit Preferences</string>
