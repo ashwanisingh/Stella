@@ -180,7 +180,9 @@
     <string name="seat_kilo">Kilo</string>
     <string name="seat_lima">Lima</string>
 
-    <string name="info_use_current_location">Use current location</string>
+    <string name="info_use_current_location">Current Location</string>
+    <string name="info_using_gps">Using GPS</string>
+    <string name="info_saved_address">SAVED ADDRESSES</string>
     <string name="info_saved_places">Saved Places</string>
     <string name="info_address_flat_no">Enter House/flat no</string>
     <string name="info_address_location">Location</string>
