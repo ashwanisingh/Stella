@@ -13,5 +13,6 @@
     <color name="colorBookingCardBg">#20203d</color>
     <color name="colorEditTextBackground">#373751</color>
     <color name="colorCalendarBackground">#FF13132F</color>
+    <color name="colorPersonalizeButtonBackground">#393956</color>
 
 </resources>

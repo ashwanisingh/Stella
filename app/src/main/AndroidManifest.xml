@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".booking.BookingConfirmedActivity">
+        <activity android:name=".personalize.PersonalizeLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -24,8 +24,9 @@
         <activity android:name=".authenticate.AuthenticationActivity"/>
         <activity android:name=".booking.PlaceSelectionActivity"/>
         <activity android:name=".booking.CalendarActivity"/>
-         <activity android:name=".booking.PassengerActivity"/>
-        <!--<activity android:name=".booking.BookingConfirmedActivity"/>-->
+        <activity android:name=".booking.PassengerActivity"/>
+         <activity android:name=".booking.BookingConfirmedActivity"/>
+        <!--<activity android:name=".personalize.PersonalizeLaunchActivity"/>-->
     </application>
 
 </manifest>
