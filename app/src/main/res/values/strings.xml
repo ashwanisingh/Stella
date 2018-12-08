@@ -262,4 +262,14 @@
     <string name="info_preferences_managers_dummy_name">Uma Sekhar</string>
     <string name="info_preferences_managers_dummy_phone">+91 98877 56487</string>
 
+    <!-- manager -->
+    <string name="info_managers_user_detail">User Detail</string>
+    <string name="info_managers_name">Name</string>
+    <string name="info_managers_mobile">Mobile Number</string>
+    <string name="info_managers_email">Email</string>
+    <string name="info_managers_add_user">Add User</string>
+    <string name="info_managers_deactivate">Deactivate</string>
+    <string name="info_managers_delete">Delete</string>
+    <string name="info_managers_cancel">Cancel</string>
+
 </resources>

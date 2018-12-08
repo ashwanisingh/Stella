@@ -19,7 +19,7 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         textView_preferences_managers.setOnClickListener {
             startActivity(Intent(
                 this ,
-                PreferencesManagersAddActivity::class.java
+                PreferencesManagersListActivity::class.java
             ))
         }
 

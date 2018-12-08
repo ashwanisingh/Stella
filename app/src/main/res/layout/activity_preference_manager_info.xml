@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        tools:context=".drawer.PreferenceManagerInfoActivity">
+
+    <LinearLayout
+            android:id="@+id/layout_boarding_pass_details_base"
+            android:orientation="horizontal"
+            android:layout_marginEnd="23dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/button_manager_info_back"
+                style="@style/StellarBackButton"/>
+
+        <TextView
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                style="@style/StellarTextView_20sp"
+                android:text="@string/info_managers_add_user"
+                android:id="@+id/textView_manager_info_title"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        <Button
+                android:id="@+id/button_manager_info_edit"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/ic_edit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="84dp"
+            android:textAllCaps="true"
+            android:text="@string/info_managers_name"
+            android:alpha="0.56"
+            style="@style/StellarTextView_12sp"
+            android:id="@+id/textView_managers_info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/editText_managers_info_name"
+            style="@style/StellarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/drawable_edittext_background"
+            android:inputType="textPersonName"/>
+
+    <TextView
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="21dp"
+            android:textAllCaps="true"
+            android:text="@string/info_managers_mobile"
+            android:alpha="0.56"
+            style="@style/StellarTextView_12sp"
+            android:id="@+id/textView_managers_info_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/editText_managers_info_mobile"
+            style="@style/StellarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/drawable_edittext_background"
+            android:inputType="textPhonetic"/>
+
+    <TextView
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="21dp"
+            android:textAllCaps="true"
+            android:text="@string/info_managers_email"
+            android:alpha="0.56"
+            style="@style/StellarTextView_12sp"
+            android:id="@+id/textView_managers_info_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/editText_managers_info_email"
+            style="@style/StellarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/drawable_edittext_background"
+            android:inputType="textEmailAddress"/>
+
+    <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+    <Button
+            android:text="@string/confirm_button"
+            style="@style/StellarButton"
+            android:layout_marginStart="23dp"
+            android:layout_marginEnd="23dp"
+            android:layout_marginBottom="23dp"
+            android:id="@+id/button_managers_info_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

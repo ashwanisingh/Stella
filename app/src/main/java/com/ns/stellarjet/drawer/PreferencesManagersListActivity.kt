@@ -1,11 +1,12 @@
 package com.ns.stellarjet.drawer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ns.stellarjet.R
 import kotlinx.android.synthetic.main.activity_preferences_managers_add.*
 
-class PreferencesManagersAddActivity : AppCompatActivity() {
+class PreferencesManagersListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,8 +16,11 @@ class PreferencesManagersAddActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        button_manager_add_back.setOnClickListener {
-            
+        button_managers_add.setOnClickListener {
+            startActivity(Intent(
+                this ,
+                PreferenceManagerInfoActivity::class.java
+            ))
         }
     }
 }
