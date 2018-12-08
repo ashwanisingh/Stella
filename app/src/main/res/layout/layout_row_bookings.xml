@@ -69,7 +69,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView_bookings_airport_from"
             app:layout_constraintTop_toTopOf="@+id/textView_bookings_airport_from"/>
 
-
     <View
             android:background="@color/colorBookingsDivider"
             android:layout_width="match_parent"

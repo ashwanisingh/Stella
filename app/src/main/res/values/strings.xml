@@ -41,6 +41,7 @@
     <string name="booking_to_city">New Delhi</string>
     <string name="booking_id">Booking Id</string>
     <string name="booking_airport_sample">HAL Airport</string>
+    <string name="booking_trip_details_title">Trip Details</string>
 
     <string name="booking_source_where">Where are we picking you up from?</string>
     <string name="booking_destination_where">Where are we dropping you?</string>
@@ -76,10 +77,11 @@
 
     <string name="booking_summary_date">Date</string>
     <string name="booking_summary_departure_time">Departure Time</string>
-    <string name="booking_summary_date_dummy">Wed, 27/11/2018</string>
+    <string name="booking_summary_date_dummy">Wed, 27 11 2018</string>
     <string name="booking_summary_departure_time_dummy">07:30 hrs</string>
     <string name="booking_summary_need_personalize">You have personalized your preferences</string>
     <string name="booking_summary_done_personalize">Please personalize your preferences</string>
+    <string name="booking_summary_personalize_time">Please update before 10-Dec-2018, 3:00 pm</string>
 
     <string name="booking_summary_pickup">PICK UP FROM</string>
     <string name="booking_summary_pickup_name">Delhi Office</string>
@@ -91,7 +93,7 @@
     <string name="booking_summary_date_time">18 Sep, 7:45 am</string>
     <string name="booking_summary_travelling_with">TRAVELLING WITH</string>
     <string name="booking_summary_passengers">PASSENGERS</string>
-    <string name="booking_summary_guest_names">Dimple</string>
+    <string name="booking_summary_guest_names">Dimple , Shankar</string>
     <string name="booking_summary_booked_seats">BOOKED SEATS</string>
     <string name="booking_summary_booked_seats_names">Golf and Hotel</string>
     <string name="booking_summary_usual_service">Your usual in-flight service is fine?</string>
@@ -242,8 +244,6 @@
     <string name="food_list_confirm_button">Confirm</string>
     <string name="food_list_name_dummy">Food 1</string>
     <string name="food_list_content_dummy">Contains vegetables, fresh fruits and dairy products</string>
-
-
 
 
 </resources>
