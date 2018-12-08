@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
         <Button
-                android:id="@+id/button_bookings_details_back"
+                android:id="@+id/button_boarding_pass_back"
                 style="@style/StellarBackButton"/>
 
         <TextView
