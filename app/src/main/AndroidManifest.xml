@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".drawer.BoardingPassActivity">
+        <activity android:name=".drawer.BoardingPassDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -37,7 +37,8 @@
         <activity android:name=".drawer.DrawerActivity"/>
         <activity android:name=".drawer.MyBookingsActivity"/>
         <activity android:name=".drawer.BookingsDetailsActivity"/>
-        <!--<activity android:name=".drawer.BoardingPassActivity"/>-->
+        <activity android:name=".drawer.BoardingPassActivity"/>
+        <!--<activity android:name=".drawer.BoardingPassDetailsActivity"/>-->
     </application>
 
 </manifest>

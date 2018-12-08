@@ -95,7 +95,7 @@
     <string name="booking_summary_passengers">PASSENGERS</string>
     <string name="booking_summary_guest_names">Dimple , Shankar</string>
     <string name="booking_summary_booked_seats">BOOKED SEATS</string>
-    <string name="booking_summary_booked_seats_names">Golf and Hotel</string>
+    <string name="booking_summary_booked_seats_names">Golf, Hotel, Alpha, Bravo, Echo and Charlie </string>
     <string name="booking_summary_usual_service">Your usual in-flight service is fine?</string>
     <string name="booking_summary_button_fine">That’s Fine</string>
     <string name="booking_summary_button_change">I’d Like a Change</string>
@@ -188,6 +188,10 @@
     <string name="boardingPass_dummy_gate_name">A4</string>
     <string name="boardingPass_num_seats_title">NO OF SEATS</string>
     <string name="boardingPass_num_seats_dummy">2</string>
+    <string name="boardingPass_reach_plane_by">Reach your plane by</string>
+    <string name="boardingPass_reach_plane_by_dummy">07:15 hrs</string>
+    <string name="boardingPass_aircraft_no">Aircraft Reg No</string>
+    <string name="boardingPass_aircraft_no_dummy">VT-ABC</string>
 
 
     <string name="seat_alpha">Alpha</string>
@@ -233,6 +237,8 @@
     <string name="info_passenger_guest">Guest</string>
 
     <string name="info_passenger_text">Passenger</string>
+    <string name="info_passenger_dummy">Mr.Ragav shekar, Ms. Uma Shankaran N.S,Mr. Manish Pandey, Mr. Arya, Mr. Ramesh,
+    Mr. Raguram Sharma</string>
     <string name="info_passenger_cab_service">Need a pickup/drop service?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
