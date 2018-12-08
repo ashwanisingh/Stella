@@ -95,7 +95,7 @@
     <string name="booking_summary_passengers">PASSENGERS</string>
     <string name="booking_summary_guest_names">Dimple , Shankar</string>
     <string name="booking_summary_booked_seats">BOOKED SEATS</string>
-    <string name="booking_summary_booked_seats_names">Golf, Hotel, Alpha, Bravo, Echo and Charlie </string>
+    <string name="booking_summary_booked_seats_names">Golf, Hotel, Alpha, Bravo, Echo and Charlie</string>
     <string name="booking_summary_usual_service">Your usual in-flight service is fine?</string>
     <string name="booking_summary_button_fine">That’s Fine</string>
     <string name="booking_summary_button_change">I’d Like a Change</string>
@@ -238,7 +238,8 @@
 
     <string name="info_passenger_text">Passenger</string>
     <string name="info_passenger_dummy">Mr.Ragav shekar, Ms. Uma Shankaran N.S,Mr. Manish Pandey, Mr. Arya, Mr. Ramesh,
-    Mr. Raguram Sharma</string>
+        Mr. Raguram Sharma
+    </string>
     <string name="info_passenger_cab_service">Need a pickup/drop service?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -254,5 +255,9 @@
     <string name="food_list_name_dummy">Food 1</string>
     <string name="food_list_content_dummy">Contains vegetables, fresh fruits and dairy products</string>
 
+    <!-- preferences -->
+    <string name="info_preferences_managers">Managers</string>
+    <string name="info_preferences_managers_help">Who can assist you for booking</string>
+    <string name="info_preferences_food_help">Preferred food served during trip</string>
 
 </resources>
