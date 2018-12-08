@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        tools:context=".drawer.MyBookingsActivity">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+        <Button
+                android:id="@+id/button_bookings_back"
+                style="@style/StellarBackButton"/>
+
+        <TextView
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:layout_marginStart="-26dp"
+                style="@style/StellarTextView_18sp"
+                android:text="@string/drawer_info_bookings"
+                android:id="@+id/textView_bookings_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager_my_bookings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.PagerTabStrip
+                android:id="@+id/pager_tab_strip_bookings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="top"
+                android:background="@android:color/transparent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>

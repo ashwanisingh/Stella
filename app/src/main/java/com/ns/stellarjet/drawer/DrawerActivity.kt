@@ -1,5 +1,6 @@
 package com.ns.stellarjet.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ns.stellarjet.R
@@ -24,7 +25,8 @@ class DrawerActivity : AppCompatActivity() {
         }
 
         textView_drawer_bookings.setOnClickListener {
-            //TODO launch Bookings
+            startActivity(
+                Intent(this , MyBookingsActivity::class.java))
         }
 
         textView_drawer_preferences.setOnClickListener {

@@ -35,12 +35,12 @@
     <!-- booking -->
     <string name="booking_from">From</string>
     <string name="booking_from_dummy">Delhi Office</string>
-    <string name="booking_from_city">BLR</string>
+    <string name="booking_from_city">Bangalore</string>
     <string name="booking_to">To</string>
     <string name="booking_to_dummy">Home</string>
-    <string name="booking_to_city">DEL</string>
+    <string name="booking_to_city">New Delhi</string>
     <string name="booking_id">Booking Id</string>
-    <string name="booking_id_sample">00012</string>
+    <string name="booking_airport_sample">HAL Airport</string>
 
     <string name="booking_source_where">Where are we picking you up from?</string>
     <string name="booking_destination_where">Where are we dropping you?</string>
@@ -73,6 +73,13 @@
     <string name="booking_guest_dummy_one">1.Guest Name One</string>
     <string name="booking_guest_dummy_two">2.Guest Name Two</string>
     <string name="booking_guest_dummy_three">3.Guest Name Three</string>
+
+    <string name="booking_summary_date">Date</string>
+    <string name="booking_summary_departure_time">Departure Time</string>
+    <string name="booking_summary_date_dummy">Wed, 27/11/2018</string>
+    <string name="booking_summary_departure_time_dummy">07:30 hrs</string>
+    <string name="booking_summary_need_personalize">You have personalized your preferences</string>
+    <string name="booking_summary_done_personalize">Please personalize your preferences</string>
 
     <string name="booking_summary_pickup">PICK UP FROM</string>
     <string name="booking_summary_pickup_name">Delhi Office</string>
@@ -139,7 +146,6 @@
     <string name="drawer_info_bookings">My Bookings</string>
     <string name="drawer_personal_assistance">Personal Assistance</string>
     <string name="drawer_help">Contact us for any further assistance. We are \nhappy to help you</string>
-
 
 
     <!--add address -->
@@ -236,6 +242,8 @@
     <string name="food_list_confirm_button">Confirm</string>
     <string name="food_list_name_dummy">Food 1</string>
     <string name="food_list_content_dummy">Contains vegetables, fresh fruits and dairy products</string>
+
+
 
 
 </resources>

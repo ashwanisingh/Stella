@@ -34,7 +34,9 @@
         <activity android:name=".personalize.FoodPreferencesLaunchActivity"/>
         <activity android:name=".personalize.FoodPreferenceListActivity"/>
         <activity android:name=".personalize.PersonalizeSuccessActivity"/>
-        <!--<activity android:name=".drawer.DrawerActivity"/>-->
+        <!-- <activity android:name=".drawer.DrawerActivity"/> -->
+        <activity android:name=".drawer.MyBookingsActivity">
+        </activity>
     </application>
 
 </manifest>

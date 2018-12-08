@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/colorBookingCardBg"
+        android:padding="12dp">
+
+    <TextView
+            android:text="@string/booking_from_city"
+            style="@style/StellarTextView_14sp"
+            android:alpha="0.9"
+            android:textAllCaps="true"
+            android:layout_marginTop="23dp"
+            android:id="@+id/textView_bookings_row_from_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="19dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+            android:src="@drawable/ic_flight_alone"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintTop_toTopOf="@+id/textView_bookings_row_from_city"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_bookings_row_from_city"
+            app:layout_constraintEnd_toStartOf="@+id/textView_bookings_row_to_city" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@+id/textView_bookings_row_from_city" android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:text="@string/booking_to_city"
+            style="@style/StellarTextView_14sp"
+            android:alpha="0.9"
+            android:textAllCaps="true"
+            android:layout_marginTop="23dp"
+            android:id="@+id/textView_bookings_row_to_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+            android:alpha="0.4"
+            style="@style/StellarTextView_14sp"
+            android:text="@string/booking_airport_sample"
+            android:id="@+id/textView_bookings_airport_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/textView_bookings_row_from_city"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_bookings_row_from_city"/>
+
+    <TextView
+            android:alpha="0.4"
+            style="@style/StellarTextView_14sp"
+            android:text="@string/booking_airport_sample"
+            android:id="@+id/textView_bookings_airport_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_bookings_airport_from"
+            app:layout_constraintTop_toTopOf="@+id/textView_bookings_airport_from"/>
+
+
+    <View
+            android:background="@color/colorBookingsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:alpha="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_bookings_airport_from" android:id="@+id/view"/>
+
+    <TextView
+            android:text="@string/booking_summary_date"
+            style="@style/StellarTextView_10sp"
+            android:textAllCaps="true"
+            android:alpha="0.4"
+            android:id="@+id/textView_bookings_date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/textView_bookings_airport_from"
+            android:layout_marginTop="19dp"
+            app:layout_constraintTop_toBottomOf="@+id/view"/>
+
+    <TextView
+            android:text="@string/booking_summary_date_dummy"
+            style="@style/StellarTextView_14sp"
+            android:alpha="0.8"
+            android:id="@+id/textView_bookings_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_bookings_date_title"
+            app:layout_constraintStart_toStartOf="@+id/textView_bookings_date_title"/>
+
+    <TextView
+            style="@style/StellarTextView_10sp"
+            android:alpha="0.4"
+            android:textAllCaps="true"
+            android:text="@string/booking_summary_departure_time"
+            android:id="@+id/textView_bookings_departure_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_bookings_date_title"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_bookings_date_title"/>
+
+    <TextView
+            android:text="@string/booking_summary_departure_time_dummy"
+            style="@style/StellarTextView_14sp"
+            android:alpha="0.8"
+            android:id="@+id/textView_bookings_departure_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_bookings_departure_title"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+            android:background="@color/colorBookingsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:alpha="0.1"
+            android:id="@+id/view_bookings_two"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_bookings_date"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+            android:text="@string/booking_summary_need_personalize"
+            style="@style/StellarTextView_14sp"
+            android:id="@+id/textView_booking_personlaize_status"
+            android:textColor="@color/colorLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/textView_bookings_date"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/view_bookings_two"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
