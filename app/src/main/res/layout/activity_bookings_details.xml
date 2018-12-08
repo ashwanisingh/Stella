@@ -106,7 +106,7 @@
     <TextView
             android:text="@string/booking_summary_date_dummy"
             style="@style/StellarTextView_16sp"
-            android:alpha="0.4"
+            android:alpha="0.8"
             android:id="@+id/textView_bookings_details_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

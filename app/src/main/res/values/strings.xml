@@ -177,14 +177,17 @@
     <string name="bookings_dummy_from_data">18 Sep 2018, Fri - 7:45 am</string>
     <string name="bookings_service_data">2 seats with usual service</string>
 
-    <string name="boardingPass_title">Boarding Pass (1)</string>
+    <string name="boardingPass_title">Boarding Pass</string>
+    <string name="boardingPass_details_title">Boarding Pass Details</string>
     <string name="boardingPass_dummy_day">This Friday</string>
     <string name="boardingPass_dummy_time">18 Sep, 7:45 am</string>
     <string name="boardingPass_title_booked_seats">Booked seats</string>
-    <string name="boardingPass_flight_title">Flight</string>
-    <string name="boardingPass_dummy_flight_name">MU5871</string>
+    <string name="boardingPass_flight_title">Flight No</string>
+    <string name="boardingPass_dummy_flight_name">Stellar 1</string>
     <string name="boardingPass_gate_title">Gate</string>
     <string name="boardingPass_dummy_gate_name">A4</string>
+    <string name="boardingPass_num_seats_title">NO OF SEATS</string>
+    <string name="boardingPass_num_seats_dummy">2</string>
 
 
     <string name="seat_alpha">Alpha</string>
