@@ -1,5 +1,6 @@
 package com.ns.stellarjet.drawer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ns.stellarjet.R
@@ -16,7 +17,10 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         }
 
         textView_preferences_managers.setOnClickListener {
-
+            startActivity(Intent(
+                this ,
+                PreferencesManagersAddActivity::class.java
+            ))
         }
 
         textView_preferences_food.setOnClickListener {

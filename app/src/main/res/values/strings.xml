@@ -259,5 +259,7 @@
     <string name="info_preferences_managers">Managers</string>
     <string name="info_preferences_managers_help">Who can assist you for booking</string>
     <string name="info_preferences_food_help">Preferred food served during trip</string>
+    <string name="info_preferences_managers_dummy_name">Uma Sekhar</string>
+    <string name="info_preferences_managers_dummy_phone">+91 98877 56487</string>
 
 </resources>
