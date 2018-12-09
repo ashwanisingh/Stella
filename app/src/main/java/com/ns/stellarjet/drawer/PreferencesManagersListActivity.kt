@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_preferences_managers_add.*
 
 class PreferencesManagersListActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences_managers_add)

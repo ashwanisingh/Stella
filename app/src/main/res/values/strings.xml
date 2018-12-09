@@ -271,5 +271,6 @@
     <string name="info_managers_deactivate">Deactivate</string>
     <string name="info_managers_delete">Delete</string>
     <string name="info_managers_cancel">Cancel</string>
+    <string name="title_activity_preferences_mnagaers_lists">PreferencesMnagaersListsActivity</string>
 
 </resources>

@@ -16,5 +16,9 @@
     <color name="colorPersonalizeButtonBackground">#393956</color>
     <color name="colorCabPreferBackground">#1E1E37</color>
     <color name="colorFoodPreferBackground">#2b2b44</color>
+    <color name="colorBottomSheetManagersName">#8f8e94</color>
+    <color name="colorBottomSheetDivider">#4d4d4d</color>
+    <color name="colorBottomSheetDeactivate">#0076ff</color>
+    <color name="colorBottomSheetDelete">#fe3824</color>
 
 </resources>
