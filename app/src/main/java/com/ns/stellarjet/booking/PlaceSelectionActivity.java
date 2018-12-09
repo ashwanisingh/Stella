@@ -24,7 +24,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         });
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout_container ,  new FromFragment())
+                .replace(R.id.frameLayout_container ,  new ToFragment())
                 .commit();
     }
 }
