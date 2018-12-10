@@ -4,6 +4,7 @@
         android:orientation="vertical"
         android:paddingTop="21dp"
         android:paddingBottom="21dp"
+        android:fitsSystemWindows="true"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
