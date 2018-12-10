@@ -27,32 +27,57 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-         <!--<activity android:name=".home.HomeActivity"/>-->
-        <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".login.PasswordActivity"/>
-        <activity android:name=".login.OTPActivity"/>
-        <activity android:name=".authenticate.AuthenticationActivity"/>
-        <activity android:name=".booking.PlaceSelectionActivity"/>
-        <activity android:name=".booking.CalendarActivity"/>
-        <activity android:name=".booking.PassengerActivity"/>
-        <activity android:name=".booking.BookingConfirmedActivity"/>
-        <activity android:name=".personalize.PersonalizeLaunchActivity"/>
-        <activity android:name=".personalize.CabPreferencesActivity"/>
-        <activity android:name=".personalize.SavedAddressActivity"/>
-        <activity android:name=".personalize.AddAddressActivity"/>
-        <activity android:name=".personalize.FoodPreferencesLaunchActivity"/>
-        <activity android:name=".personalize.FoodPreferenceListActivity"/>
-        <activity android:name=".personalize.PersonalizeSuccessActivity"/>
-        <activity android:name=".drawer.DrawerActivity"/>
-        <activity android:name=".drawer.MyBookingsActivity"/>
-        <activity android:name=".drawer.BookingsDetailsActivity"/>
-        <activity android:name=".drawer.BoardingPassActivity"/>
-        <activity android:name=".drawer.BoardingPassDetailsActivity"/>
-        <activity android:name=".drawer.PreferenceLaunchActivity"/>
-        <!--<activity android:name=".drawer.PreferencesManagersListActivity"/>-->
-        <activity android:name=".drawer.PreferenceManagerInfoActivity"/>
+         <!--<activity android:name=".home.HomeActivity"
+         android:screenOrientation="portrait"/>-->
+        <activity android:name=".login.LoginActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".login.PasswordActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".login.OTPActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".authenticate.AuthenticationActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.PlaceSelectionActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.CalendarActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.PassengerActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.BookingConfirmedActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.PersonalizeLaunchActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.CabPreferencesActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.SavedAddressActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.AddAddressActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.FoodPreferencesLaunchActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.FoodPreferenceListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".personalize.PersonalizeSuccessActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.DrawerActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.MyBookingsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.BookingsDetailsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.BoardingPassActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.BoardingPassDetailsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.PreferenceLaunchActivity"
+                  android:screenOrientation="portrait"/>
+        <!--<activity android:name=".drawer.PreferencesManagersListActivity"
+        android:screenOrientation="portrait"/>-->
+        <activity android:name=".drawer.PreferenceManagerInfoActivity"
+                  android:screenOrientation="portrait"/>
         <activity
                 android:name=".personalize.AddAddressScrollActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/title_activity_add_address_scroll"
                 android:theme="@style/AppTheme"/>
         <!--
@@ -70,6 +95,7 @@
         <!--
         <activity
                 android:name=".personalize.AddAddressMapsActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/title_activity_add_address_maps">
         </activity>
         -->
