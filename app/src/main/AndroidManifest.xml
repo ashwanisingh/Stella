@@ -18,19 +18,21 @@
             android:roundIcon="@mipmap/ic_stellar_launcher"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".drawer.PreferencesManagersListActivity">
+                android:name=".login.LoginActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-         <!--<activity android:name=".home.HomeActivity"
-         android:screenOrientation="portrait"/>-->
-        <activity android:name=".login.LoginActivity"
+        <activity android:name=".home.HomeActivity"
                   android:screenOrientation="portrait"/>
+        <!--<activity android:name=".login.LoginActivity"
+                  android:screenOrientation="portrait"/>-->
         <activity android:name=".login.PasswordActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".login.OTPActivity"

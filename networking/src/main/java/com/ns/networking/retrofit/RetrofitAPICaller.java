@@ -45,7 +45,7 @@ public final class RetrofitAPICaller {
         stellarApiService = digestRetrofit.create(StellarApiService.class);
     }
 
-    public StellarApiService getAckBooksAPIs() {
+    public StellarApiService getStellarJetAPIs() {
         return stellarApiService;
     }
 

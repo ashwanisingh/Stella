@@ -1,15 +1,30 @@
 package com.ns.networking.retrofit;
 
+import android.graphics.Bitmap;
+import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.ValidateCustomerResponse;
+import com.ns.networking.utils.Constants;
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import java.util.List;
+
 public interface StellarApiService {
 
-   /* // login Api
+    // login Api
     @POST(Constants.LOGIN_API)
     @FormUrlEncoded
-    Call<LoginResponse>  doLogin(
-            @Field("email") String email,
+    Call<LoginResponse> doLogin(
+            @Field("username") String username,
             @Field("password") String password
     );
 
+    @POST(Constants.VALIDATE_USER_API)
+    @FormUrlEncoded
+    Call<ValidateCustomerResponse> doValidateCustomer(
+            @Field("username") String username
+    );
+/*
     @GET(Constants.FLIGHT_SCHEDULE_API)
     Call<FlightSchedluesResponse> getFlightSchedules(
             @Query("token") String token,

@@ -5,7 +5,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,7 +52,7 @@ public class StellarJetUtils {
 
     /**
      * This method is used check the internet connection
-     * @param context
+     * @param context to get the Application Context
      * @return
      */
     public static boolean isConnectingToInternet(Context context){
@@ -138,5 +143,18 @@ public class StellarJetUtils {
                 return "Sunday";
         }
         return "";
+    }
+
+    public static void showErrorMessage(
+            Context context , JSONObject jsonObject
+    ){
+        try {
+//            JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+            String errorMessage = jsonObject.getString("message");
+            Toast.makeText(context , errorMessage , Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

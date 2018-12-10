@@ -5,8 +5,10 @@ public class Constants {
 
 //    public static final String BASE_URL = "http://192.168.12.148:8080/auth/";
 //    public static final String BASE_URL = "http://192.168.13.132:8080/auth/";
-    public static final String BASE_URL = "http://35.154.43.51/app/index.php/";
+    public static final String BASE_URL = "http://35.154.43.51/app/v2/public/api/v2/";
     public static final String LOGIN_API = "auth/login";
+    public static final String VALIDATE_USER_API = "user/validate";
+
     public static final String CUSTOMER_DATA_API = "api/v1/customer/data";
     public static final String FLIGHT_SCHEDULE_API = "api/v1/flight_schedule/list";
     public static final String FLIGHT_SEATS_API = "api/v1/flight_seat/list";

@@ -1,10 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 android {
     compileSdkVersion 28
-
-
-
+    androidExtensions {
+        experimental = true
+    }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
@@ -36,4 +38,8 @@ dependencies {
     // JSON Parsing
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_converter_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
