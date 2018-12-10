@@ -14,7 +14,9 @@ class PreferencesManagersListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_preferences_managers_add)
 
         button_manager_add_back.setOnClickListener {
-            onBackPressed()
+//            onBackPressed()
+            var managersBottomFragment = ManagersBottomFragment()
+            managersBottomFragment.show(supportFragmentManager , managersBottomFragment.tag)
         }
 
         button_managers_add.setOnClickListener {

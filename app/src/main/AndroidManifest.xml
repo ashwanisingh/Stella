@@ -9,7 +9,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -20,14 +20,14 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".personalize.AddAddressMapsActivity">
+                android:name=".drawer.PreferencesManagersListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- <activity android:name=".home.HomeActivity"/> -->
+         <!--<activity android:name=".home.HomeActivity"/>-->
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.PasswordActivity"/>
         <activity android:name=".login.OTPActivity"/>
@@ -49,15 +49,12 @@
         <activity android:name=".drawer.BoardingPassActivity"/>
         <activity android:name=".drawer.BoardingPassDetailsActivity"/>
         <activity android:name=".drawer.PreferenceLaunchActivity"/>
-        <activity android:name=".drawer.PreferencesManagersListActivity"/>
+        <!--<activity android:name=".drawer.PreferencesManagersListActivity"/>-->
         <activity android:name=".drawer.PreferenceManagerInfoActivity"/>
-        <!--
         <activity
                 android:name=".personalize.AddAddressScrollActivity"
                 android:label="@string/title_activity_add_address_scroll"
-                android:theme="@style/AppTheme">
-        </activity>
-        -->
+                android:theme="@style/AppTheme"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -70,10 +67,12 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
 
-       <!-- <activity
+        <!--
+        <activity
                 android:name=".personalize.AddAddressMapsActivity"
                 android:label="@string/title_activity_add_address_maps">
-        </activity>-->
+        </activity>
+        -->
     </application>
 
 </manifest>

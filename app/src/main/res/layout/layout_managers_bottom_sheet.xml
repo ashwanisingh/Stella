@@ -7,22 +7,20 @@
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_bottom_sheet"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="200dp"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-
+        android:id="@+id/layout_bottom_sheet">
 
     <TextView
             android:textColor="@color/colorBottomSheetManagersName"
             android:layout_gravity="center"
             android:text="@string/info_preferences_managers_dummy_name"
             style="@style/StellarTextView_14sp"
-            android:id="@+id/textView_bottonsheet_managers_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView_bottomsheet_managers_name"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"/>
 
     <View
+            android:alpha="0.6"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
@@ -35,10 +33,12 @@
             android:textColor="@color/colorBottomSheetDeactivate"
             android:text="@string/info_managers_deactivate"
             android:id="@+id/textView_botttomsheet_managers_deactivate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"/>
 
     <View
+            android:alpha="0.6"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
@@ -51,10 +51,12 @@
             android:textColor="@color/colorBottomSheetDelete"
             android:text="@string/info_managers_delete"
             android:id="@+id/textView_botttomsheet_managers_delete"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"/>
 
     <View
+            android:alpha="0.6"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
@@ -67,7 +69,8 @@
             android:textColor="@color/colorBottomSheetDeactivate"
             android:text="@string/info_managers_cancel"
             android:id="@+id/textView_botttomsheet_managers_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"/>
 
 </LinearLayout>
