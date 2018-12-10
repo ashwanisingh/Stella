@@ -3,6 +3,14 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.ns.stellarjet">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_stellar_launcher"
@@ -11,19 +19,20 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".booking.PlaceSelectionActivity">
+        <activity
+                android:name=".personalize.AddAddressMapsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity"/>
+        <!-- <activity android:name=".home.HomeActivity"/> -->
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.PasswordActivity"/>
         <activity android:name=".login.OTPActivity"/>
         <activity android:name=".authenticate.AuthenticationActivity"/>
-        <!--<activity android:name=".booking.PlaceSelectionActivity"/>-->
+        <activity android:name=".booking.PlaceSelectionActivity"/>
         <activity android:name=".booking.CalendarActivity"/>
         <activity android:name=".booking.PassengerActivity"/>
         <activity android:name=".booking.BookingConfirmedActivity"/>
@@ -39,9 +48,32 @@
         <activity android:name=".drawer.BookingsDetailsActivity"/>
         <activity android:name=".drawer.BoardingPassActivity"/>
         <activity android:name=".drawer.BoardingPassDetailsActivity"/>
-        <!-- <activity android:name=".drawer.PreferenceLaunchActivity"/> -->
+        <activity android:name=".drawer.PreferenceLaunchActivity"/>
         <activity android:name=".drawer.PreferencesManagersListActivity"/>
         <activity android:name=".drawer.PreferenceManagerInfoActivity"/>
+        <!--
+        <activity
+                android:name=".personalize.AddAddressScrollActivity"
+                android:label="@string/title_activity_add_address_scroll"
+                android:theme="@style/AppTheme">
+        </activity>
+        -->
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key"/>
+
+       <!-- <activity
+                android:name=".personalize.AddAddressMapsActivity"
+                android:label="@string/title_activity_add_address_maps">
+        </activity>-->
     </application>
 
 </manifest>
