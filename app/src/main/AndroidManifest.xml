@@ -21,7 +21,7 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".login.LoginActivity"
+                android:name=".SplashScreenActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,58 +29,82 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity"
-                  android:screenOrientation="portrait"/>
-        <!--<activity android:name=".login.LoginActivity"
-                  android:screenOrientation="portrait"/>-->
-        <activity android:name=".login.PasswordActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".login.OTPActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".authenticate.AuthenticationActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".booking.PlaceSelectionActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".booking.CalendarActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".booking.PassengerActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".booking.BookingConfirmedActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.PersonalizeLaunchActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.CabPreferencesActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.SavedAddressActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.AddAddressActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.FoodPreferencesLaunchActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.FoodPreferenceListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.PersonalizeSuccessActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.DrawerActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.MyBookingsActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.BookingsDetailsActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.BoardingPassActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.BoardingPassDetailsActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".drawer.PreferenceLaunchActivity"
-                  android:screenOrientation="portrait"/>
-        <!--<activity android:name=".drawer.PreferencesManagersListActivity"
-        android:screenOrientation="portrait"/>-->
-        <activity android:name=".drawer.PreferenceManagerInfoActivity"
+        <activity
+                android:name=".home.HomeActivity"
+                android:screenOrientation="portrait"/>
+            <activity android:name=".login.LoginActivity"
                   android:screenOrientation="portrait"/>
         <activity
+                android:name=".login.PasswordActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".login.OTPActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".authenticate.AuthenticationActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".booking.PlaceSelectionActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".booking.CalendarActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".booking.PassengerActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".booking.BookingConfirmedActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.PersonalizeLaunchActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.CabPreferencesActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.SavedAddressActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.AddAddressActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.FoodPreferencesLaunchActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.FoodPreferenceListActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.PersonalizeSuccessActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.DrawerActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.MyBookingsActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.BookingsDetailsActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.BoardingPassActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.BoardingPassDetailsActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".drawer.PreferenceLaunchActivity"
+                android:screenOrientation="portrait"/>
+        <!--
+        <activity android:name=".drawer.PreferencesManagersListActivity"
+        android:screenOrientation="portrait"/>
+        -->
+        <activity
+                android:name=".drawer.PreferenceManagerInfoActivity"
+                android:screenOrientation="portrait"/>
+        <activity
                 android:name=".personalize.AddAddressScrollActivity"
-                android:screenOrientation="portrait"
                 android:label="@string/title_activity_add_address_scroll"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -101,6 +125,8 @@
                 android:label="@string/title_activity_add_address_maps">
         </activity>
         -->
+        <activity android:name=".PassCodeActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

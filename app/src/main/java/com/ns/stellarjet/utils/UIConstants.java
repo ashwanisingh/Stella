@@ -37,15 +37,20 @@ public class UIConstants {
      */
     public static final String PREFERENCES_USER_ID = "UserID";
     /**
-     * String constant for SharedPreferences for User ID
+     * String constant for SharedPreferences for User Name
      */
     public static final String PREFERENCES_USER_NAME = "UserName";
     /**
-     * String constant for SharedPreferences for User ID
+     * String constant for SharedPreferences for User Email
      */
     public static final String PREFERENCES_USER_EMAIL = "UserEmail";
     /**
-     * String constant for SharedPreferences for User ID
+     * String constant for SharedPreferences for User Name
      */
     public static final String PREFERENCES_USER_PHONE = "UserPhone";
+
+    /**
+     * String constant for bundle name for UserData From API
+     */
+    public static final String BUNDLE_USER_DATA = "UserData";
 }

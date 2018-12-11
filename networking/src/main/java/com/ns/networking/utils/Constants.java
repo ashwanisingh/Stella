@@ -9,7 +9,7 @@ public class Constants {
     public static final String LOGIN_API = "auth/login";
     public static final String VALIDATE_USER_API = "user/validate";
 
-    public static final String CUSTOMER_DATA_API = "api/v1/customer/data";
+    public static final String CUSTOMER_DATA_API = "customer/data";
     public static final String FLIGHT_SCHEDULE_API = "api/v1/flight_schedule/list";
     public static final String FLIGHT_SEATS_API = "api/v1/flight_seat/list";
     public static final String FLIGHT_SEATS_CONFIRM_API = "api/v1/seat/confirm";

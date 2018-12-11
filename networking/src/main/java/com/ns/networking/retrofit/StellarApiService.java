@@ -24,6 +24,12 @@ public interface StellarApiService {
     Call<ValidateCustomerResponse> doValidateCustomer(
             @Field("username") String username
     );
+
+    @GET(Constants.CUSTOMER_DATA_API)
+    Call<LoginResponse> getCustomerData(
+            @Query("token") String token ,
+            @Query("user") String userId
+    );
 /*
     @GET(Constants.FLIGHT_SCHEDULE_API)
     Call<FlightSchedluesResponse> getFlightSchedules(
@@ -93,12 +99,6 @@ public interface StellarApiService {
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookNewGuestInfo(
             @Body AddGuestPrefsRequest addGuestPrefsRequest
-    );
-
-    @GET
-    Call<LoginResponse> getCustomerData(
-            @Url String url,
-            @Query("token") String token
     );
 
     @GET

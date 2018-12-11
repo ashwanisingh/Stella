@@ -9,9 +9,13 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
+import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.booking.BookingConfirmedActivity;
 import com.ns.stellarjet.databinding.ActivityPasswordBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.UIConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -44,12 +48,20 @@ public class PasswordActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     Log.d("Password", "onResponse: " + response.body());
                     if (response.body()!=null){
-                        Intent mHomeIntent = new Intent(
+                        SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
+                        SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
+                        SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
+                        SharedPreferencesHelper.saveUserName(PasswordActivity.this , response.body().getData().getUser_data().getName());
+                        SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
+                        SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
+                        SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
+                        Intent mPassCodeIntent = new Intent(
                                 PasswordActivity.this ,
-                                HomeActivity.class
+                                PassCodeActivity.class
                         );
-                        mHomeIntent.putExtra("UserData" , response.body().getData().getUser_data());
-                        startActivity(mHomeIntent);
+                        mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
+                        startActivity(mPassCodeIntent);
                     }else {
                         try {
                             JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
