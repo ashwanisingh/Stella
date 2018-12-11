@@ -48,9 +48,17 @@ public class UIConstants {
      * String constant for SharedPreferences for User Name
      */
     public static final String PREFERENCES_USER_PHONE = "UserPhone";
-
     /**
      * String constant for bundle name for UserData From API
      */
     public static final String BUNDLE_USER_DATA = "UserData";
+    /**
+     * String constant for bundle name for UserData From API
+     */
+    public static final String TOKEN_NOT_AVAILABLE = "Your session has been expired. Need to login.";
+
+    /**
+     * String constant for bundle name for UserData From API
+     */
+    public static final String USER_TOKEN_EXPIRY = "Provided token is expired.";
 }

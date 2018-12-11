@@ -2,6 +2,8 @@ package com.ns.networking.retrofit;
 
 import android.graphics.Bitmap;
 import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.RefreshTokenData;
+import com.ns.networking.model.RefreshTokenResponse;
 import com.ns.networking.model.ValidateCustomerResponse;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
@@ -30,6 +32,13 @@ public interface StellarApiService {
             @Query("token") String token ,
             @Query("user") String userId
     );
+
+    @POST(Constants.REFRESH_TOKEN_API)
+    @FormUrlEncoded
+    Call<RefreshTokenResponse> getUpdatedToken(
+            @Field("refresh_token") String token
+    );
+
 /*
     @GET(Constants.FLIGHT_SCHEDULE_API)
     Call<FlightSchedluesResponse> getFlightSchedules(

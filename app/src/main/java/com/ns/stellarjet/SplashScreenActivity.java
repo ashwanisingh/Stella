@@ -10,6 +10,7 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.RefreshTokenResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.networking.utils.Constants;
 import com.ns.stellarjet.home.HomeActivity;
@@ -18,9 +19,13 @@ import com.ns.stellarjet.login.PasswordActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.IOException;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -73,14 +78,30 @@ public class SplashScreenActivity extends AppCompatActivity {
         mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Log.d("Splash", "onResponse: " + response.body());
-                Intent mHomeIntent = new Intent(
-                        SplashScreenActivity.this ,
-                        PassCodeActivity.class
-                );
-                mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
-                startActivity(mHomeIntent);
-                finish();
+                if(response.body()!=null){
+                    Log.d("Splash", "onResponse: " + response.body());
+                    Intent mHomeIntent = new Intent(
+                            SplashScreenActivity.this ,
+                            PassCodeActivity.class
+                    );
+                    mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
+                    startActivity(mHomeIntent);
+                    finish();
+                }else {
+                    try {
+                        JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        if(errorMessage.equalsIgnoreCase(UIConstants.USER_TOKEN_EXPIRY)){
+//                            getNewToken();
+                            Log.d("Splash", "onResponse: Expiry");
+                        }else {
+                            Toast.makeText(SplashScreenActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
 
             @Override
@@ -103,6 +124,28 @@ public class SplashScreenActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    private void getNewToken(){
+        Call<RefreshTokenResponse> mRefrsehTokenResponseCall = RetrofitAPICaller.getInstance(SplashScreenActivity.this)
+                .getStellarJetAPIs().getUpdatedToken(
+                        SharedPreferencesHelper.getUserRefreshToken(SplashScreenActivity.this)
+                );
+        mRefrsehTokenResponseCall.enqueue(new Callback<RefreshTokenResponse>() {
+            @Override
+            public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
+                Log.d("Login", "onResponse: " + response.body());
+                SharedPreferencesHelper.saveUserToken(SplashScreenActivity.this , response.body().getData().getToken());
+                SharedPreferencesHelper.saveUserRefreshToken(SplashScreenActivity.this, response.body().getData().getRefresh_token());
+                getUserData();
+            }
+
+            @Override
+            public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
+                Log.d("Login", "onFailure: " + t);
+            }
+        });
     }
 
 }
