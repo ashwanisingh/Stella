@@ -2,20 +2,27 @@ package com.ns.stellarjet.booking;
 
 
 import android.os.Bundle;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.ns.networking.model.City;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.booking.adapter.PlaceSelectAdapter;
+import com.ns.stellarjet.databinding.FragmentFromBinding;
+import com.ns.stellarjet.home.HomeActivity;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FromFragment extends Fragment {
-
+public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlaceSelectClickListener {
 
     public FromFragment() {
         // Required empty public constructor
@@ -23,12 +30,35 @@ public class FromFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_from, container, false);
+        FragmentFromBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_from, container, false);
         View mRootView = dataBinding.getRoot();
+
+        List<City> mCitiesList = HomeActivity.sUserData.getCities();
+
+        PlaceSelectAdapter mPlaceSelectAdapter = new PlaceSelectAdapter(
+                this ,
+                mCitiesList
+        );
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                getActivity() ,
+                RecyclerView.VERTICAL,
+                false
+        );
+        dataBinding.recyclerViewFrom.setAdapter(mPlaceSelectAdapter);
+        dataBinding.recyclerViewFrom.setLayoutManager(layoutManager);
+
         return mRootView;
     }
 
+    @Override
+    public void onPlaceSelected(String placeName, int placeId) {
+        HomeActivity.fromCity = placeId;
+        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout_container ,  new ToFragment())
+                .addToBackStack(null)
+                .commit();
+    }
 }

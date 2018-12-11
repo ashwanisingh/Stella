@@ -19,6 +19,12 @@ import com.ns.stellarjet.utils.UIConstants
 
 class HomeActivity : AppCompatActivity() {
 
+    companion object {
+        lateinit var sUserData: UserData
+        @JvmField var fromCity : Int = 0
+        @JvmField var toCity : Int = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,13 +33,12 @@ class HomeActivity : AppCompatActivity() {
             R.layout.activity_home
         )
 
-        val userData = intent.extras?.getParcelable<UserData>(UIConstants.BUNDLE_USER_DATA)
-        Log.d("Home", "onCreate: " + userData!!)
+        sUserData = intent.extras?.getParcelable<UserData>(UIConstants.BUNDLE_USER_DATA)!!
 
         /* set the username only if he is primary*/
         if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
             activityHomeBinding.textViewHomeUserName.visibility = View.VISIBLE
-            activityHomeBinding.textViewHomeUserName.text = userData.name
+            activityHomeBinding.textViewHomeUserName.text = sUserData.name
             activityHomeBinding.textViewHomeSeeAgain.visibility = View.GONE
         }else if(SharedPreferencesHelper.getUserType(this)!!.equals("secondary" , ignoreCase = true)){
             activityHomeBinding.textViewHomeUserName.visibility = View.GONE
@@ -41,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         /* set the seats limit  */
-        val seatsAvailable = userData.customer_prefs.seats_available
+        val seatsAvailable = sUserData.customer_prefs.seats_available
         activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
         activityHomeBinding.textViewSeatLimits.text =
                 resources.getString(R.string.home_remaining_seats_first_half)
@@ -59,12 +64,13 @@ class HomeActivity : AppCompatActivity() {
         }
         activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
 
+        /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
             val mPlaceSelectionIntent : Intent = Intent(
                 this ,
                 PlaceSelectionActivity::class.java
             )
-            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
+//            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
             startActivity(mPlaceSelectionIntent)
         }
     }

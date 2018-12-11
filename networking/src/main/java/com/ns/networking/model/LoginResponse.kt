@@ -26,7 +26,7 @@ data class UserData(
     val customer_care_info: CustomerCareInfo,
     val customer_prefs: CustomerPrefs,
     val email: String,
-    val locked_seats: List<String>,
+    val locked_seats: List<LockedSeats>,
     val name: String,
     val phone: String,
     val subscriptions: List<Subscription>,
@@ -94,7 +94,6 @@ data class City(
     val status: Int
 ):Parcelable
 
-
 @Parcelize
 data class Contact(
     val email: String,
@@ -112,3 +111,32 @@ data class UserInfo(
     val id: Int,
     val name: String
 ) : Parcelable
+
+@Parcelize
+data class LockedSeats(
+    val flight: Flight,
+    val flight_id: Int,
+    val flight_seat: FlightSeat,
+    val flight_seat_id: Int,
+    val from_city: Int,
+    val id: Int,
+    val journey_date: String,
+    val journey_time: String,
+    val seat_reserved_at: String,
+    val status: Int,
+    val to_city: Int,
+    val user: Int
+):Parcelable
+
+@Parcelize
+data class Flight(
+    val flight_no: String,
+    val id: Int,
+    val model: String
+):Parcelable
+
+@Parcelize
+data class FlightSeat(
+    val id: Int,
+    val seat_code: String
+):Parcelable
