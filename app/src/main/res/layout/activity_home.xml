@@ -35,10 +35,24 @@
                 android:text="@string/login_title"/>
 
         <TextView
+                android:text="@string/app_name"
+                android:layout_gravity="center"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="21dp"
+                style="@style/StellarTextView_28sp"
+                android:id="@+id/textView_home_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/textView_home_see_again"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/StellarTextView_20sp"
                 android:alpha="0.5"
+                android:layout_marginBottom="38dp"
                 android:layout_marginTop="14dp"
                 android:layout_gravity="center"
                 android:text="@string/home_see_you_again"/>
@@ -46,7 +60,6 @@
         <ImageView
                 android:layout_width="75dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="38dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_group"/>
 
@@ -58,7 +71,7 @@
 
 
         <TextView
-                style="@style/StellarTextView_20sp"
+                style="@style/StellarTextView_18sp"
                 android:id="@+id/textView_seat_limits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,6 +83,7 @@
                 android:id="@+id/button_book_flight"
                 style="@style/StellarButton"
                 android:text="@string/home_button_book_flight"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_marginStart="23dp"
                 android:layout_gravity="bottom"

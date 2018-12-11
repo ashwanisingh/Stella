@@ -10,6 +10,7 @@ import com.ns.networking.model.ValidateCustomerResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityLoginBinding;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                                     PasswordActivity.class
                             );
                             mPasswordIntent.putExtra("userEmail" , response.body().getData().getUsername());
+                            SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
                             startActivity(mPasswordIntent);
                         }else if(userType.equalsIgnoreCase("secondary")){
                             Intent mOTPIntent = new Intent(

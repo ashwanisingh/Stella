@@ -120,6 +120,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveUserType(Context mContext , String type){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_USER_TYPE, type);
+        mEditor.apply();
+    }
+
+    public static String getUserType(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_USER_TYPE , ""
+        );
+    }
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext

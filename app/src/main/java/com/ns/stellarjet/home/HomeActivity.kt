@@ -1,5 +1,6 @@
 package com.ns.stellarjet.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,7 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.UserData
 import com.ns.stellarjet.R
+import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
+import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
 
 class HomeActivity : AppCompatActivity() {
@@ -27,6 +30,17 @@ class HomeActivity : AppCompatActivity() {
         val userData = intent.extras?.getParcelable<UserData>(UIConstants.BUNDLE_USER_DATA)
         Log.d("Home", "onCreate: " + userData!!)
 
+        /* set the username only if he is primary*/
+        if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
+            activityHomeBinding.textViewHomeUserName.visibility = View.VISIBLE
+            activityHomeBinding.textViewHomeUserName.text = userData.name
+            activityHomeBinding.textViewHomeSeeAgain.visibility = View.GONE
+        }else if(SharedPreferencesHelper.getUserType(this)!!.equals("secondary" , ignoreCase = true)){
+            activityHomeBinding.textViewHomeUserName.visibility = View.GONE
+            activityHomeBinding.textViewHomeSeeAgain.visibility = View.VISIBLE
+        }
+
+        /* set the seats limit  */
         val seatsAvailable = userData.customer_prefs.seats_available
         activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
         activityHomeBinding.textViewSeatLimits.text =
@@ -45,5 +59,13 @@ class HomeActivity : AppCompatActivity() {
         }
         activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
 
+        activityHomeBinding.buttonBookFlight.setOnClickListener {
+            val mPlaceSelectionIntent : Intent = Intent(
+                this ,
+                PlaceSelectionActivity::class.java
+            )
+            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
+            startActivity(mPlaceSelectionIntent)
+        }
     }
 }

@@ -52,6 +52,11 @@ public class UIConstants {
      * String constant for bundle name for UserData From API
      */
     public static final String BUNDLE_USER_DATA = "UserData";
+
+    /**
+     * String constant for bundle name for UserType(ie Primary/Secondary) From API
+     */
+    public static final String PREFERENCES_USER_TYPE = "UserType";
     /**
      * String constant for bundle name for UserData From API
      */
