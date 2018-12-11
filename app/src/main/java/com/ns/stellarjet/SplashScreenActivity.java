@@ -1,8 +1,12 @@
 package com.ns.stellarjet;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.ns.networking.model.LoginResponse;
@@ -25,7 +29,29 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
+        try {
+            VideoView videoHolder = new VideoView(this);
+            ViewGroup.LayoutParams mLayoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT ,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            );
+            videoHolder.setLayoutParams(mLayoutParams);
+            videoHolder.setFitsSystemWindows(true);
+            setContentView(videoHolder);
+            Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.stellar_jet_splash);
+            videoHolder.setVideoURI(video);
+
+            videoHolder.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    jump();
+                }
+            });
+            videoHolder.start();
+        } catch (Exception ex) {
+            jump();
+        }
+
+        /*if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
                 getUserData();
             }else {
@@ -34,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }else{
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private void getUserData(){
@@ -52,9 +78,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                         SplashScreenActivity.this ,
                         PassCodeActivity.class
                 );
-                mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
                 startActivity(mHomeIntent);
+                finish();
             }
 
             @Override
@@ -64,5 +90,19 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
     }
 
+    private void jump() {
+        if (isFinishing())
+            return;
+        if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
+            if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
+                getUserData();
+            }else {
+                startActivity(new Intent(SplashScreenActivity.this , LoginActivity.class));
+                finish();
+            }
+        }else{
+            Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
