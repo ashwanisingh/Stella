@@ -90,7 +90,7 @@ public class StellarJetUtils {
      * retuns the Desired date/time format
      */
     public static String getFormattedBookDate(long millis){
-        String pattern = "EEE, dd MMM - hh:mm aa";
+        String pattern = "dd MMM, EEE - hh:mm aa";
 //        String pattern = "dd MMM , hh:mm aa";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);

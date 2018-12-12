@@ -1,10 +1,7 @@
 package com.ns.networking.retrofit;
 
 import android.graphics.Bitmap;
-import com.ns.networking.model.LoginResponse;
-import com.ns.networking.model.RefreshTokenData;
-import com.ns.networking.model.RefreshTokenResponse;
-import com.ns.networking.model.ValidateCustomerResponse;
+import com.ns.networking.model.*;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -39,14 +36,15 @@ public interface StellarApiService {
             @Field("refresh_token") String token
     );
 
-/*
+
     @GET(Constants.FLIGHT_SCHEDULE_API)
-    Call<FlightSchedluesResponse> getFlightSchedules(
+    Call<FlightScheduleResponse> getFlightSchedules(
             @Query("token") String token,
             @Query("from_city") String fromCity,
-            @Query("to_city") String toCity
+            @Query("to_city") String toCity,
+            @Query("days") String days
     );
-
+/*
     @FormUrlEncoded
     @POST(Constants.FLIGHT_SEATS_API)
     Call<FlightSeatsResponse> getFlightSeats(

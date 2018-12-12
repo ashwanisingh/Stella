@@ -55,7 +55,8 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
 
     @Override
     public void onPlaceSelected(String placeName, int placeId) {
-        HomeActivity.fromCity = placeId;
+        HomeActivity.fromCityId = placeId;
+        HomeActivity.fromCity = placeName;
         Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout_container ,  new ToFragment())
                 .addToBackStack(null)

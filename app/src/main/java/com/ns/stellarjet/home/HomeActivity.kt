@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -21,8 +20,14 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         lateinit var sUserData: UserData
-        @JvmField var fromCity : Int = 0
-        @JvmField var toCity : Int = 0
+        @JvmField var fromCityId : Int = 0
+        @JvmField var toCityId : Int = 0
+        @JvmField var fromCity : String = ""
+        @JvmField var toCity : String = ""
+        @JvmField var journeyTime : String = ""
+        @JvmField var journeyDate : String = ""
+        @JvmField var journeyTimeinMillis : Long = 0
+        @JvmField var flightId : Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
-            val mPlaceSelectionIntent : Intent = Intent(
+            val mPlaceSelectionIntent = Intent(
                 this ,
                 PlaceSelectionActivity::class.java
             )

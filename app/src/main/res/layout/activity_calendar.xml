@@ -84,7 +84,7 @@
                 app:selectionColor="@android:color/white"
                 app:selectionLabelColor="@color/colorCalendarBackground"
                 app:disabledDaysLabelsColor="@color/colorEditTextBackground"
-                app:todayLabelColor="@color/colorLoginButton"
+                app:todayLabelColor="@android:color/white"
                 app:type="one_day_picker"/>
 
         <LinearLayout

@@ -54,6 +54,7 @@
     <string name="booking_date_header">What day are we taking you?</string>
     <string name="booking_date_dummy">This Friday, 20 Sep - 7:45 am</string>
     <string name="booking_date_seats_available">4 seats available</string>
+    <string name="booking_date_seats_no_flights">No Flights are available</string>
     <string name="booking_date_pick">Pick Your Date</string>
     <string name="booking_avail_cities">View available cities</string>
     <string name="booking_avail_cities_header">As of now our flight services are available \n or following cities
@@ -68,7 +69,7 @@
     <string name="booking_guest_confirm_button">Confirm GUEST</string>
     <string name="booking_guest_name">Guest Name</string>
     <string name="booking_guest_mobile_number">Mobile Number</string>
-    <string name="booking_guest_food_preferences">Food preference</string>
+    <string name="booking_guest_food_preferences">Foodno preference</string>
     <string name="booking_guest_food_standard_menu">Standard Menu</string>
     <string name="booking_guest_food_call_them">Call them</string>
     <string name="booking_guest_dummy_one">1.Guest Name One</string>

@@ -1,11 +1,11 @@
 package com.ns.stellarjet.booking;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +43,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         List<City> mDisplayCitiesList = new ArrayList<>();
 
         for (int i = 0; i < mCitiesList.size(); i++) {
-            if(mCitiesList.get(i).getId() != HomeActivity.fromCity){
+            if(mCitiesList.get(i).getId() != HomeActivity.fromCityId){
                 mDisplayCitiesList.add(mCitiesList.get(i));
             }
         }
@@ -66,7 +67,12 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
 
     @Override
     public void onPlaceSelected(String placeName, int placeId) {
-        Toast.makeText(getActivity(), placeId + "=="+ placeName, Toast.LENGTH_SHORT).show();
-        HomeActivity.toCity = placeId;
+//        Toast.makeText(getActivity(), placeId + "=="+ placeName, Toast.LENGTH_SHORT).show();
+        HomeActivity.toCityId = placeId;
+        HomeActivity.toCity = placeName;
+        Objects.requireNonNull(getActivity()).startActivity(new Intent(
+                getActivity() ,
+                CalendarActivity.class
+        ));
     }
 }
