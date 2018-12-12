@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="250dp"
+            android:layout_marginTop="115dp"
+            android:layout_marginBottom="70dp"
+            android:fitsSystemWindows="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+        <Button
+                android:id="@+id/button_seats_indigo"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_seat_available"
+                android:tag="@string/seat_indigo"
+                android:textSize="16sp"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/textView_seat_indigo"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_indigo"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_indigo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_indigo"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_indigo"/>
+
+        <Button
+                android:id="@+id/button_seats_juliet"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_juliet"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_indigo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_indigo"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_indigo"/>
+
+        <TextView
+                android:id="@+id/textView_seat_juliet"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_juliet"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_juliet"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_juliet"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_juliet"/>
+
+        <Button
+                android:id="@+id/button_seats_kilo"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_seat_available"
+                android:tag="@string/seat_kilo"
+                android:textSize="16sp"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/textView_seat_indigo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_indigo"/>
+
+        <TextView
+                android:id="@+id/textView_seat_kilo"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_kilo"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_kilo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_kilo"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_kilo"/>
+
+        <Button
+                android:id="@+id/button_seats_lima"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_lima"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView_seat_juliet"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_kilo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_kilo"/>
+
+        <TextView
+                android:id="@+id/textView_seat_lima"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_lima"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_lima"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_lima"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_lima"/>
+
+
+        <Button
+                android:id="@+id/button_seats_golf"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_seat_available"
+                android:tag="@string/seat_golf"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_juliet"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_juliet"
+                app:layout_constraintTop_toTopOf="@+id/textView_seat_juliet"/>
+
+        <TextView
+                android:id="@+id/textView_seat_golf"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_golf"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_golf"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_golf"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_golf"/>
+
+        <Button
+                android:id="@+id/button_seats_hotel"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_hotel"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_golf"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_golf"
+                app:layout_constraintTop_toTopOf="@+id/textView_seat_golf"/>
+
+        <TextView
+                android:id="@+id/textView_seat_hotel"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_hotel"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_hotel"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_hotel"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_hotel"/>
+
+        <ImageView
+                android:id="@+id/imageView_sofa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_sofa_new"
+                app:layout_constraintBottom_toTopOf="@+id/textView_seat_hotel"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_lima"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_lima"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_golf"/>
+
+
+        <Button
+                android:id="@+id/button_seats_alpha"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_seat_available"
+                android:gravity="center"
+                android:tag="@string/seat_alpha"
+                android:textSize="16sp"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_hotel"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_hotel"/>
+
+        <TextView
+                android:id="@+id/textView_seat_alpha"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_alpha"
+                app:layout_constraintEnd_toStartOf="@+id/button_seats_beta"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_alpha"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_alpha"/>
+
+        <Button
+                android:id="@+id/button_seats_beta"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:background="@drawable/ic_seat_available"
+                android:tag="@string/seat_beta"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/button_seats_alpha"
+                app:layout_constraintStart_toEndOf="@+id/button_seats_alpha"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_alpha"/>
+
+        <TextView
+                android:id="@+id/textView_seat_beta"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_beta"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_beta"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_beta"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_beta"/>
+
+
+        <Button
+                android:id="@+id/button_seats_echo"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/ic_seat_available"
+                android:tag="@string/seat_echo"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/button_seats_beta"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_sofa"
+                app:layout_constraintStart_toStartOf="@+id/imageView_sofa"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_beta"/>
+
+        <TextView
+                android:id="@+id/textView_seat_echo"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_echo"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_echo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_echo"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_echo"/>
+
+        <Button
+                android:id="@+id/button_seats_charlie"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_charlie"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_alpha"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_alpha"/>
+
+        <TextView
+                android:id="@+id/textView_seat_charlie"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_charlie"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_charlie"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_charlie"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_charlie"/>
+
+        <Button
+                android:id="@+id/button_seats_delta"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_delta"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/button_seats_charlie"
+                app:layout_constraintStart_toEndOf="@+id/button_seats_charlie"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_charlie"/>
+
+        <TextView
+                android:id="@+id/textView_seat_delta"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_delta"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_delta"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_delta"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_delta"/>
+
+        <Button
+                android:id="@+id/button_seats_foxtrot"
+                android:layout_width="64dp"
+                android:layout_height="68dp"
+                android:background="@drawable/ic_seat_reverse_available"
+                android:tag="@string/seat_foxtrot"
+                android:textSize="16sp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/button_seats_delta"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_echo"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_echo"
+                app:layout_constraintTop_toTopOf="@+id/button_seats_delta"/>
+
+        <TextView
+                android:id="@+id/textView_seat_foxtrot"
+                style="@style/StellarTextView_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/seat_foxtrot"
+                app:layout_constraintEnd_toEndOf="@+id/button_seats_foxtrot"
+                app:layout_constraintStart_toStartOf="@+id/button_seats_foxtrot"
+                app:layout_constraintTop_toBottomOf="@+id/button_seats_foxtrot"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

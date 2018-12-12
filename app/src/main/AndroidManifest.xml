@@ -127,6 +127,10 @@
         -->
         <activity android:name=".PassCodeActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".booking.SeatLayoutOneSelectionActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.SeatSelectionActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            tools:context=".booking.SeatSelectionActivity">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginStart="16dp">
+
+            <Button
+                    android:id="@+id/button_seat_selection_back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_back"/>
+
+            <TextView
+                    android:id="@+id/textView_choose_seats_title"
+                    style="@style/StellarTextView_20sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="-40dp"
+                    android:gravity="center"
+                    android:text="@string/booking_seat_choose"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                    android:id="@+id/layout_two_left_sun_status"
+                    android:layout_width="20dp"
+                    android:layout_height="175dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/ic_sun"/>
+
+                <TextView
+                        android:id="@+id/textView_two_left_sun_status"
+                        style="@style/StellarTextView_14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:text="@string/info_flight_sunrise"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@android:color/white"/>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <ScrollView
+                        android:id="@+id/scrollView_seat_layout_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+
+                    <include layout="@layout/layout_seat_two"/>
+
+                </ScrollView>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/white"/>
+
+            <LinearLayout
+                    android:id="@+id/layout_two_right_sun_status"
+                    android:layout_width="20dp"
+                    android:layout_height="175dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/ic_sun"/>
+
+                <TextView
+                        android:id="@+id/textView_two_right_sun_status"
+                        style="@style/StellarTextView_14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:text="@string/info_flight_sunrise"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/button_two_seat_confirmed"
+                style="@style/StellarButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="23dp"
+                android:layout_weight="0.1"
+                android:text="@string/booking_confirm_seats"
+                android:textSize="18sp"/>
+    </LinearLayout>
+</layout>

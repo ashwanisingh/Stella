@@ -1,6 +1,5 @@
 package com.ns.networking.retrofit;
 
-import android.graphics.Bitmap;
 import com.ns.networking.model.*;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
@@ -44,10 +43,10 @@ public interface StellarApiService {
             @Query("to_city") String toCity,
             @Query("days") String days
     );
-/*
+
     @FormUrlEncoded
     @POST(Constants.FLIGHT_SEATS_API)
-    Call<FlightSeatsResponse> getFlightSeats(
+    Call<FlightSeatResponse> getFlightSeats(
             @Field("token") String token,
             @Field("flight_id") int flightId,
             @Field("from_city") int fromCity,
@@ -58,7 +57,7 @@ public interface StellarApiService {
 
     @FormUrlEncoded
     @POST(Constants.FLIGHT_SEATS_CONFIRM_API)
-    Call<FlightSeatsConfirmDataResponse> confirmFlightSeats(
+    Call<FlightSeatsConfirmResponse> confirmFlightSeats(
             @Field("token") String token,
             @Field("flight_id") int flightId,
             @Field("user") String userId,
@@ -67,10 +66,11 @@ public interface StellarApiService {
             @Field("journey_date") String journeyDate,
             @Field("journey_time") String journeyTime,
             @Field("seats_for_unlock[]") List<Integer> mSeatsUnlock,
-            @Field("seats_for_lock[]") List<Integer> mSeatslock
+            @Field("seats_for_lock[]") List<Integer> mSeatsLock
 
     );
 
+    /*
     @FormUrlEncoded
     @POST(Constants.BOOK_SEATS_API)
     Call<BookingConfirmResponse> confirmFlightBooking(

@@ -1,6 +1,7 @@
 package com.ns.stellarjet.booking;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,18 +57,21 @@ public class CalendarActivity extends AppCompatActivity {
                 HomeActivity.flightId = mFlightScheduleDataList.get(selectedIndex).getFlight_id();
                 String direction = mFlightScheduleDataList.get(selectedIndex).getDirection();
                 String sunRiseSet = mFlightScheduleDataList.get(selectedIndex).getSun_rise_set();
-                int numSeats = mFlightScheduleDataList.get(selectedIndex).getFlight_seat_availability().getAvailable_seats();
-                Toast.makeText(CalendarActivity.this, numSeats+"", Toast.LENGTH_SHORT).show();
+                int numSeats = mFlightScheduleDataList.get(selectedIndex).getFlight_seat_availability().getTotal_seats();
+//                Toast.makeText(CalendarActivity.this, numSeats+"", Toast.LENGTH_SHORT).show();
                 if(numSeats == 8){
-
+                    Intent mSeatsIntent = new Intent(CalendarActivity.this , SeatLayoutOneSelectionActivity.class);
+                    mSeatsIntent.putExtra("direction" , direction);
+                    mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
+                    startActivity(mSeatsIntent);
                 }else if(numSeats == 12){
-
+                    Intent mSeatsIntent = new Intent(CalendarActivity.this , SeatSelectionActivity.class);
+                    mSeatsIntent.putExtra("direction" , direction);
+                    mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
+                    startActivity(mSeatsIntent);
                 }
-
             }
         });
-
-
     }
 
     private void getFlightSchedules(){
