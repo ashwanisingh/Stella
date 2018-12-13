@@ -236,6 +236,8 @@
     <string name="info_passenger_self_question">Are you travelling in this trip?</string>
     <string name="info_passenger_self">Self</string>
     <string name="info_passenger_guest">Guest</string>
+    <string name="info_passenger_self_guests">Self &amp; Guests</string>
+    <string name="info_passenger_guests">Guests</string>
 
     <string name="info_passenger_text">Passenger</string>
     <string name="info_passenger_dummy">Mr.Ragav shekar, Ms. Uma Shankaran N.S,Mr. Manish Pandey, Mr. Arya, Mr. Ramesh,

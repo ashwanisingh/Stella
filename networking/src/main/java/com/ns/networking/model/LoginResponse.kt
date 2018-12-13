@@ -1,6 +1,7 @@
 package com.ns.networking.model
 
 import android.os.Parcelable
+import androidx.annotation.Nullable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -26,7 +27,7 @@ data class UserData(
     val customer_care_info: CustomerCareInfo,
     val customer_prefs: CustomerPrefs,
     val email: String,
-    val locked_seats: List<LockedSeats>,
+    val locked_seats: List<LockedSeats>?,
     val name: String,
     val phone: String,
     val subscriptions: List<Subscription>,
@@ -44,11 +45,21 @@ data class Subscription(
 data class CustomerPrefs(
     val foods: List<Food>,
     val payment_prefs: String,
-    val seat_prefs: List<String>,
+    val seat_prefs: List<SeatPreferences>,
     val seats_available: Int,
     val subscription_expiry: Int,
     val subscription_expiry_datetime: Int
 ):Parcelable
+
+@Parcelize
+data class SeatPreferences(
+    val flight: Flight,
+    val flight_id: Int,
+    val id: Int,
+    val seat_code: String,
+    val sort_order: Int
+):Parcelable
+
 
 @Parcelize
 data class Food(
@@ -114,25 +125,25 @@ data class UserInfo(
 
 @Parcelize
 data class LockedSeats(
-    val flight: Flight,
-    val flight_id: Int,
-    val flight_seat: FlightSeat,
-    val flight_seat_id: Int,
-    val from_city: Int,
-    val id: Int,
-    val journey_date: String,
-    val journey_time: String,
-    val seat_reserved_at: String,
-    val status: Int,
-    val to_city: Int,
-    val user: Int
+    val flight: Flight?,
+    val flight_id: Int?,
+    val flight_seat: FlightSeat?,
+    val flight_seat_id: Int?,
+    val from_city: Int?,
+    val id: Int?,
+    val journey_date: String?,
+    val journey_time: String?,
+    val seat_reserved_at: String?,
+    val status: Int?,
+    val to_city: Int?,
+    val user: Int?
 ):Parcelable
 
 @Parcelize
 data class Flight(
-    val flight_no: String,
-    val id: Int,
-    val model: String
+    val flight_no: String?,
+    val id: Int?,
+    val model: String?
 ):Parcelable
 
 @Parcelize

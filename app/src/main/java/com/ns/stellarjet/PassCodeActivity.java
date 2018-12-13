@@ -42,7 +42,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         activityPassCodeBinding = DataBindingUtil.setContentView(this , R.layout.activity_pass_code);
 
-        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        mUserData = getIntent().getExtras().getParcelable(UIConstants.BUNDLE_USER_DATA);
 
         Log.d("PassCode", "onCreate: " + mUserData);
 

@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class CalendarActivity extends AppCompatActivity {
 
     private List<FlightScheduleData> mFlightScheduleDataList;
-    private List<Integer> mDates = new ArrayList<>();
+    private List<String> mDates = new ArrayList<>();
     private ActivityCalendarBinding activityCalendarBinding;
     private int selectedIndex ;
 
@@ -105,8 +105,9 @@ public class CalendarActivity extends AppCompatActivity {
         for (int i = 0; i < mFlightScheduleDataList.size(); i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(mFlightScheduleDataList.get(i).getJourney_datetime_ms());
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            mDates.add(day);
+            String date = StellarJetUtils.getFormattedCalendarDate(
+                    calendar.getTimeInMillis());
+            mDates.add(date);
         }
 
         // setting the minimum data as current date
@@ -157,12 +158,13 @@ public class CalendarActivity extends AppCompatActivity {
         activityCalendarBinding.calendarView.setDisabledDays(mTotalDays);
 
         activityCalendarBinding.calendarView.setOnDayClickListener(eventDay -> {
-            String pattern = "dd MMM , EEE - hh:mm aa";
+            String pattern = "dd MMM, EEE";
             if(eventDay.isEnabled()){
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
                 dateFormat.setTimeZone(eventDay.getCalendar().getTimeZone());
-                if(mDates.contains(eventDay.getCalendar().getTime().getDate())){
-                    int index = mDates.indexOf(eventDay.getCalendar().getTime().getDate());
+                String selectedDay = StellarJetUtils.getFormattedCalendarDate(eventDay.getCalendar().getTimeInMillis());
+                if(mDates.contains(selectedDay)){
+                    int index = mDates.indexOf(selectedDay);
                     selectedIndex = index;
                     activityCalendarBinding.textViewScheduleDate.setText(
                             StellarJetUtils.getFormattedBookDate(

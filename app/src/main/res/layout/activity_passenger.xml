@@ -66,7 +66,6 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_passenger_list"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp"

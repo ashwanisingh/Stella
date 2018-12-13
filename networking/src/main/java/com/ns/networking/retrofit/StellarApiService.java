@@ -91,7 +91,7 @@ public interface StellarApiService {
             @Field("travelling_self") int selfTravelling,
             @Field("need_cab") int cabRequired
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
-    );
+    );*/
 
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookGuestInfo(
@@ -107,7 +107,7 @@ public interface StellarApiService {
     Call<GuestConfirmResponse> bookNewGuestInfo(
             @Body AddGuestPrefsRequest addGuestPrefsRequest
     );
-
+/*
     @GET
     Call<BookingHistoryResponse> getBookingHistoryResponse(
             @Url String url,

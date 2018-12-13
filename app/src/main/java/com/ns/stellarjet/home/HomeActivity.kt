@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
             R.layout.activity_home
         )
 
-        sUserData = intent.extras?.getParcelable<UserData>(UIConstants.BUNDLE_USER_DATA)!!
+        sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
 
         /* set the username only if he is primary*/
         if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){

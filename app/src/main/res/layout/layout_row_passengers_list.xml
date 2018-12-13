@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animateLayoutChanges="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView_passenger_self"
+        style="@style/StellarTextView_12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="35dp"
+        android:alpha="0.56"
+        android:textAllCaps="true"
+        android:text="@string/info_passenger_text" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete_passenger_self_name"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="22dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/drawable_edittext_background"
+        android:inputType="textPersonName"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textView_passenger_self_mobile_number"
+        style="@style/StellarTextView_12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0.56"
+        android:textAllCaps="true"
+        android:text="@string/booking_guest_mobile_number" />
+
+    <EditText
+        android:id="@+id/editText_passenger_self_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="22dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/drawable_edittext_background"
+        android:inputType="phone"
+        android:digits="0123456789+"
+        android:maxLength="10"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <View
+        android:id="@+id/view_passenger_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="26dp"
+        android:alpha="0.1"
+        android:background="@android:color/white" />
+
+</LinearLayout>

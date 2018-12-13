@@ -105,6 +105,22 @@ public class StellarJetUtils {
     /**
      * retuns the Desired date/time format
      */
+    public static String getFormattedCalendarDate(long millis){
+        String pattern = "dd MMM, EEE";
+//        String pattern = "dd MMM , hh:mm aa";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis);
+        return simple.format(result);
+    }
+
+
+    /**
+     * retuns the Desired date/time format
+     */
     public static String getFormattedCompeltedDate(long millis){
         String pattern = "dd MMM YYYY, EEE - hh:mm aa";
         // Creating date format
