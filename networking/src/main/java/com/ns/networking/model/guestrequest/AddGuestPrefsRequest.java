@@ -1,4 +1,4 @@
-package com.ns.networking.model;
+package com.ns.networking.model.guestrequest;
 
 import com.google.gson.annotations.SerializedName;
 

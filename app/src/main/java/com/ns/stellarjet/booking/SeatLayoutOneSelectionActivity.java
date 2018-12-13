@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ns.networking.model.*;
+import com.ns.networking.model.guestrequest.BookedSeatsRequest;
+import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;

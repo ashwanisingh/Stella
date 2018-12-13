@@ -1,4 +1,4 @@
-package com.ns.networking.model;
+package com.ns.networking.model.guestrequest;
 
 public class AddGuestRequestData {
 

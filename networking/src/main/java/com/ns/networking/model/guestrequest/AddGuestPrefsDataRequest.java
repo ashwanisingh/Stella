@@ -1,25 +1,25 @@
-package com.ns.networking.model;
+package com.ns.networking.model.guestrequest;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GuestPrefsDataRequest {
+public class AddGuestPrefsDataRequest {
 
 
-    @SerializedName("guest_id")
-    private Integer guestId;
+    @SerializedName("name")
+    private String name;
     @SerializedName("phone")
     private String phone = null;
     @SerializedName("food_prefs")
     private List<Integer> mFoodPrefsList ;
 
-    public Integer getGuestId() {
-        return guestId;
+    public String getName() {
+        return name;
     }
 
-    public void setGuestId(Integer guestId) {
-        this.guestId = guestId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {

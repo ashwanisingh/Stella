@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ns.networking.model.AddGuestRequestData;
+import com.ns.networking.model.guestrequest.AddGuestRequestData;
 import com.ns.networking.model.Contact;
 import com.ns.stellarjet.R;
 

@@ -1,10 +1,10 @@
-package com.ns.networking.model;
+package com.ns.networking.model.guestrequest;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class EditGuestPrefsRequest {
+public class GuestPrefsRequest {
 
     @SerializedName("token")
     private String token;
@@ -12,6 +12,8 @@ public class EditGuestPrefsRequest {
     private List<GuestPrefsDataRequest> editGuestPrefsRequestList ;
     @SerializedName("user")
     private String userId;
+    @SerializedName("add")
+    private List<AddGuestPrefsDataRequest> addGuestPrefsRequestList ;
 
     public List<GuestPrefsDataRequest> getEditGuestPrefsRequestList() {
         return editGuestPrefsRequestList;
@@ -27,6 +29,14 @@ public class EditGuestPrefsRequest {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<AddGuestPrefsDataRequest> getAddGuestPrefsRequestList() {
+        return addGuestPrefsRequestList;
+    }
+
+    public void setAddGuestPrefsRequestList(List<AddGuestPrefsDataRequest> addGuestPrefsRequestList) {
+        this.addGuestPrefsRequestList = addGuestPrefsRequestList;
     }
 
     public String getToken() {
