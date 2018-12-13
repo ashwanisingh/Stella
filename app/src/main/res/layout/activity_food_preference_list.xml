@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true"
-        android:layout_marginBottom="14dp"
-        tools:context=".personalize.FoodPreferenceListActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
+    </data>
     <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="75dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            android:layout_marginBottom="14dp"
+            tools:context=".personalize.FoodPreferenceListActivity">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="75dp">
+
+            <Button
+                    android:id="@+id/button_food_list_back"
+                    style="@style/StellarBackButton"/>
+
+            <TextView
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:layout_marginStart="-56dp"
+                    style="@style/StellarTextView_18sp"
+                    android:text="@string/food_type_veg"
+                    android:id="@+id/textView_food_list_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_weight="1"
+                android:id="@+id/recyclerView_food_list"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/layout_row_food_list"
+                tools:orientation="horizontal"
+                android:layout_marginTop="37dp"
+                android:layout_marginBottom="17dp"
+                android:layout_height="0dp"/>
 
         <Button
-                android:id="@+id/button_food_list_back"
-                style="@style/StellarBackButton"/>
-
-        <TextView
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:layout_marginStart="-26dp"
-                style="@style/StellarTextView_18sp"
-                android:text="@string/food_type_veg"
-                android:id="@+id/textView_food_list_name"
+                style="@style/StellarButton"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:id="@+id/button_food_list_confirm"
+                android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
+                android:text="@string/food_list_confirm_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="1"
-            android:id="@+id/recyclerView_food_list"
-            android:layout_width="match_parent"
-            tools:listitem="@layout/layout_row_food_list"
-            tools:orientation="horizontal"
-            android:layout_marginBottom="17dp"
-            android:layout_height="0dp"/>
-
-    <Button
-            style="@style/StellarButton"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:id="@+id/button_food_list_confirm"
-            android:layout_marginStart="21dp"
-            android:layout_marginEnd="21dp"
-            android:text="@string/food_list_confirm_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</layout>

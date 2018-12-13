@@ -87,19 +87,30 @@ public interface StellarApiService {
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
     );
 
+    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookGuestInfo(
             @Body GuestPrefsRequest guestPrefsRequest
     );
 
+    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
     Call<EditGuestConfirmResponse> bookExistingGuestInfo(
             @Body EditGuestPrefsRequest editGuestPrefsRequest
     );
 
+    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookNewGuestInfo(
             @Body AddGuestPrefsRequest addGuestPrefsRequest
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.FOOD_PERSONLAIZE_API)
+    Call<FoodPersonalizeResponse> personalizeFood(
+            @Field("token") String token ,
+            @Field("booking_id") String booking_id ,
+            @Field("foods_taken") List<Integer> foods_taken
     );
 /*
     @GET

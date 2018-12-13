@@ -67,7 +67,11 @@ public class UIConstants {
      */
     public static final String USER_TOKEN_EXPIRY = "Provided token is expired.";
     /**
-     * String constant for bundle name for UserType(ie Primary/Secondary) From API
+     * String constant for bundle name for booking Id
      */
     public static final String PREFERENCES_BOOKING_ID = "BookingId";
+    /**
+     * String constant for bundle name for foodType
+     */
+    public static final String BUNDLE_FOOD_TYPE = "FoodType";
 }

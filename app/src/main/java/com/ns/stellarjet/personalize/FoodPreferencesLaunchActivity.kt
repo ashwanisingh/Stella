@@ -1,8 +1,8 @@
 package com.ns.stellarjet.personalize
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferencesLaunchBinding
 import com.ns.stellarjet.home.HomeActivity
+import com.ns.stellarjet.personalize.adapter.FoodCategoryListAdapter
+import com.ns.stellarjet.utils.UIConstants
 import java.util.*
 
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
@@ -28,7 +30,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
             onBackPressed()
         }
 
-        val foodListAdapter = FoodListAdapter(
+        val foodListAdapter = FoodCategoryListAdapter(
             makeFoodTypeList(),
             this
         )
@@ -64,8 +66,13 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
     }
 
 
-    override fun invoke(p1: String) {
-        Toast.makeText(this , p1 , Toast.LENGTH_SHORT).show()
+    override fun invoke(foodTypeSelected: String) {
+        val mFoodListIntent =  Intent(
+            this ,
+            FoodPreferenceListActivity::class.java
+        )
+        mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
+        startActivity(mFoodListIntent)
     }
 
 }

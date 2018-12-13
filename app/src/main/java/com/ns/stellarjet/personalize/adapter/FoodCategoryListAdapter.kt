@@ -1,4 +1,4 @@
-package com.ns.stellarjet.personalize
+package com.ns.stellarjet.personalize.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.stellarjet.R
 
-class FoodListAdapter(private val mFoodsList: List<String> ,
-                      val onSelectDishListenerParams : (String) -> Unit) :
-    RecyclerView.Adapter<FoodListAdapter.FoodViewHolder>() {
+class FoodCategoryListAdapter(private val mFoodsList: List<String>,
+                              private val onSelectDishListenerParams : (String) -> Unit) :
+    RecyclerView.Adapter<FoodCategoryListAdapter.FoodViewHolder>() {
 
 
 
@@ -30,7 +30,6 @@ class FoodListAdapter(private val mFoodsList: List<String> ,
     class FoodViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         private val mFoodCategoryName : TextView = itemView.findViewById(R.id.textView_row_foodsList_name)
-
 
         fun bind(foodType: String, onSelectDishListenerParams: (String) -> Unit){
             mFoodCategoryName.text = foodType
