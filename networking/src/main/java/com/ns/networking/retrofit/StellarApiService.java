@@ -1,6 +1,10 @@
 package com.ns.networking.retrofit;
 
 import com.ns.networking.model.*;
+import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
+import com.ns.networking.model.guestrequest.EditGuestConfirmResponse;
+import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
+import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -111,6 +115,15 @@ public interface StellarApiService {
             @Field("token") String token ,
             @Field("booking_id") String booking_id ,
             @Field("foods_taken") List<Integer> foods_taken
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.CAB_PERSONLAIZE_API)
+    Call<CabPersonalizeResponse> personalizeCab(
+            @Field("token") String token ,
+            @Field("booking_id") String booking_id ,
+            @Field("pick_address") int pickAddress ,
+            @Field("drop_address") int dropAddress
     );
 /*
     @GET
