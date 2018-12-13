@@ -70,6 +70,10 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                     call: Call<FoodPersonalizeResponse>,
                     response: Response<FoodPersonalizeResponse>){
                     Log.d("Booking", "onResponse: " + response)
+                    SharedPreferencesHelper.saveFoodPersoalize(
+                        this@FoodPreferenceListActivity ,
+                        true
+                    )
                     finish()/*
                     if (response.body() != null && response.body()!!.resultcode == 1) {
 

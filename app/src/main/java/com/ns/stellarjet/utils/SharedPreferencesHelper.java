@@ -144,6 +144,30 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveFoodPersoalize(Context mContext , boolean isPersonalized){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putBoolean(UIConstants.PREFERENCES_FOOD_PERSONALIZE, isPersonalized);
+        mEditor.apply();
+    }
+
+    public static boolean getFoodPersonlalize(Context mContext){
+        return getSharedPreferences(mContext).getBoolean(
+                UIConstants.PREFERENCES_FOOD_PERSONALIZE , false
+        );
+    }
+
+    public static void saveCabPersoalize(Context mContext , boolean isPersonalized){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putBoolean(UIConstants.PREFERENCES_CAB_PERSONALIZE, isPersonalized);
+        mEditor.apply();
+    }
+
+    public static boolean getCabPersonlalize(Context mContext){
+        return getSharedPreferences(mContext).getBoolean(
+                UIConstants.PREFERENCES_CAB_PERSONALIZE , false
+        );
+    }
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext

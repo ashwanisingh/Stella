@@ -12,10 +12,13 @@ import com.ns.stellarjet.utils.UIConstants
 
 class PersonalizeLaunchActivity : AppCompatActivity() {
 
+    private lateinit var binding : ActivityPersonalizeLaunchBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // obtain binding
-        val binding : ActivityPersonalizeLaunchBinding = DataBindingUtil.setContentView(
+        binding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_personalize_launch)
         //TODO remove dummy Booking ID
@@ -40,8 +43,31 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         binding.buttonPersonalizeLater.setOnClickListener {
             launchHome()
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if(SharedPreferencesHelper.getCabPersonlalize(this)){
+            binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_tick_ok ,
+                0,0,0
+            )
+        }else{
+            binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
+                0 ,0,0,0
+            )
+        }
 
+        if(SharedPreferencesHelper.getFoodPersonlalize(this)){
+            binding.textViewPersonalizeFoodPreferences.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_tick_ok ,
+                0,0,0
+            )
+        }else{
+            binding.textViewPersonalizeFoodPreferences.setCompoundDrawablesWithIntrinsicBounds(
+                0 ,0,0,0
+            )
+        }
     }
 
     fun launchHome(){

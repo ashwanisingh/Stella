@@ -74,4 +74,12 @@ public class UIConstants {
      * String constant for bundle name for foodType
      */
     public static final String BUNDLE_FOOD_TYPE = "FoodType";
+    /**
+     * String constant for bundle name for booking Id
+     */
+    public static final String PREFERENCES_CAB_PERSONALIZE = "CabPreferences";
+    /**
+     * String constant for bundle name for booking Id
+     */
+    public static final String PREFERENCES_FOOD_PERSONALIZE = "FoodPreferences";
 }

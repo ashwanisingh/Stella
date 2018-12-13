@@ -42,6 +42,9 @@ class CabPreferencesActivity : AppCompatActivity() {
                     response: Response<CabPersonalizeResponse>){
                     if (response.body() != null && response.body()!!.resultcode == 1) {
                         Log.d("Booking", "onResponse: " + response.body())
+                        SharedPreferencesHelper.saveCabPersoalize(
+                            this@CabPreferencesActivity ,
+                            true)
                         finish()
                     }
                 }
