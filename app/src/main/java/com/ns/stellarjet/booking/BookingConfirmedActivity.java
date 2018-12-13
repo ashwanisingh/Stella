@@ -33,9 +33,9 @@ public class BookingConfirmedActivity extends AppCompatActivity {
                     BookingConfirmedActivity.this ,
                     HomeActivity.class
             );
-            mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             mIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData);
             startActivity(mIntent);
+            finish();
         });
 
         activityBookingConfirmedBinding.buttonConfirmedPersonalize.setOnClickListener(v -> {
@@ -44,6 +44,7 @@ public class BookingConfirmedActivity extends AppCompatActivity {
                     PersonalizeLaunchActivity.class
             );
             startActivity(mIntent);
+            finish();
         });
 
 

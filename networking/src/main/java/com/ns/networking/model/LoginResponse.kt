@@ -66,6 +66,7 @@ data class Food(
     val description: String,
     val food_image: String,
     val food_type: String,
+    val food_type_text: String,
     val id: Int,
     val image_path: String,
     val img_url: String,

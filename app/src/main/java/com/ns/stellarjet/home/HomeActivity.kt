@@ -13,6 +13,7 @@ import com.ns.networking.model.UserData
 import com.ns.stellarjet.R
 import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
+import com.ns.stellarjet.personalize.PersonalizeLaunchActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
 
@@ -89,7 +90,7 @@ class HomeActivity : AppCompatActivity() {
         activityHomeBinding.buttonBookFlight.setOnClickListener {
             val mPlaceSelectionIntent = Intent(
                 this ,
-                PlaceSelectionActivity::class.java
+                PersonalizeLaunchActivity::class.java
             )
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
             startActivity(mPlaceSelectionIntent)
