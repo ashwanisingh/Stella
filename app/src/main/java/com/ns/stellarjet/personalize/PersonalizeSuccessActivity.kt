@@ -1,10 +1,11 @@
 package com.ns.stellarjet.personalize
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ns.stellarjet.R
 import com.ns.stellarjet.home.HomeActivity
+import com.ns.stellarjet.utils.UIConstants
 import kotlinx.android.synthetic.main.activity_food_preerences_success.*
 
 class PersonalizeSuccessActivity : AppCompatActivity() {
@@ -14,9 +15,12 @@ class PersonalizeSuccessActivity : AppCompatActivity() {
         setContentView(R.layout.activity_food_preerences_success)
 
         button_personalize_success_back.setOnClickListener {
-            startActivity(Intent(
-                this , HomeActivity::class.java
-            ))
+            val mIntent = Intent(
+                this,
+                HomeActivity::class.java
+            )
+            mIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
+            startActivity(mIntent)
             finish()
         }
     }

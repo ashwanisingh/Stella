@@ -47,6 +47,17 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        if(SharedPreferencesHelper.getCabPersonlalize(this) &&
+            SharedPreferencesHelper.getFoodPersonlalize(this)){
+            val mPersonalizeSuccessIntent  =  Intent(
+                this ,
+                PersonalizeSuccessActivity::class.java
+            )
+            mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(mPersonalizeSuccessIntent)
+            finish()
+        }
         if(SharedPreferencesHelper.getCabPersonlalize(this)){
             binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok ,
