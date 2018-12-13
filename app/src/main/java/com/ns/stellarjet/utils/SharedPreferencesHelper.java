@@ -132,6 +132,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveBookingId(Context mContext , String bookingId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_ID, bookingId);
+        mEditor.apply();
+    }
+
+    public static String getBookingId(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_ID , ""
+        );
+    }
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext

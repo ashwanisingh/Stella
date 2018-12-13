@@ -53,7 +53,7 @@ public class CalendarActivity extends AppCompatActivity {
             }else {
                 HomeActivity.journeyDate = mFlightScheduleDataList.get(selectedIndex).getJourney_date();
                 HomeActivity.journeyTime = mFlightScheduleDataList.get(selectedIndex).getJourney_time();
-                HomeActivity.journeyTimeinMillis = mFlightScheduleDataList.get(selectedIndex).getJourney_datetime_ms();
+                HomeActivity.arrivalTime = mFlightScheduleDataList.get(selectedIndex).getArrival_time();
                 HomeActivity.flightId = mFlightScheduleDataList.get(selectedIndex).getFlight_id();
                 String direction = mFlightScheduleDataList.get(selectedIndex).getDirection();
                 String sunRiseSet = mFlightScheduleDataList.get(selectedIndex).getSun_rise_set();

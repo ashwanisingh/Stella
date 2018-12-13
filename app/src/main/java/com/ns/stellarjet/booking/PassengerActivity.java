@@ -1,5 +1,6 @@
 package com.ns.stellarjet.booking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +9,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ns.networking.model.*;
+import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.adapter.PassengerListAdapter;
 import com.ns.stellarjet.databinding.ActivityPassengerBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +79,50 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
         activityPassengerBinding.buttonPassengerBack.setOnClickListener(v -> onBackPressed());
 
+        activityPassengerBinding.buttonConfirmBooking.setOnClickListener(v ->{
+            Call<BookingConfirmResponse> mBookingConfirmResponseCall =  RetrofitAPICaller.getInstance(PassengerActivity.this).getStellarJetAPIs()
+                    .confirmFlightBooking(
+                            SharedPreferencesHelper.getUserToken(PassengerActivity.this) ,
+                            SharedPreferencesHelper.getUserId(PassengerActivity.this) ,
+                            HomeActivity.fromCityId ,
+                            HomeActivity.toCityId ,
+                            HomeActivity.journeyDate,
+                            HomeActivity.journeyTime ,
+                            HomeActivity.arrivalTime ,
+                            HomeActivity.flightId ,
+                            HomeActivity.mSeatNamesId ,
+                            null ,
+                            1
+                    );
+
+            mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {
+                @Override
+                public void onResponse(@NotNull  Call<BookingConfirmResponse> call,@NotNull Response<BookingConfirmResponse> response) {
+                    Log.d("Booking", "onResponse: " + response.body());
+                    if (response.body() != null && response.body().getResultcode() == 1) {
+                        SharedPreferencesHelper.saveBookingId(
+                                PassengerActivity.this ,
+                                String.valueOf(response.body().getData().getBooking_id()));
+                        Intent mIntent = new Intent(
+                                PassengerActivity.this ,
+                                BookingConfirmedActivity.class
+                        );
+                        mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(mIntent);
+                        HomeActivity.Companion.clearAllBookingData();
+                        Log.d("Booking", "onResponse: " + HomeActivity.journeyDate);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<BookingConfirmResponse> call,@NotNull Throwable t) {
+                    Log.d("Booking", "onResponse: " + t);
+                }
+            });
+        });
+
+
+
         PassengerListAdapter mPassengerListAdapter = new PassengerListAdapter(
                 this ,
                 this,
@@ -88,8 +139,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
 
-        activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
-        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+       /* activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);*/
     }
 
     @Override

@@ -26,11 +26,25 @@ class HomeActivity : AppCompatActivity() {
         @JvmField var toCity : String = ""
         @JvmField var journeyTime : String = ""
         @JvmField var journeyDate : String = ""
-        @JvmField var journeyTimeinMillis : Long = 0
+        @JvmField var arrivalTime : String = ""
         @JvmField var flightId : Int = 0
         @JvmField var mSeatNamesId : List<Int> = ArrayList()
         @JvmField var mSeatNames : List<String> = ArrayList()
+
+        fun clearAllBookingData(){
+            fromCity = ""
+            fromCityId = 0
+            toCity = ""
+            toCityId = 0
+            journeyDate = ""
+            journeyTime = ""
+            arrivalTime = ""
+            flightId = 0
+            mSeatNames = ArrayList()
+            mSeatNamesId = ArrayList()
+        }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

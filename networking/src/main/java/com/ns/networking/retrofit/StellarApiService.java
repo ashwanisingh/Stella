@@ -70,7 +70,6 @@ public interface StellarApiService {
 
     );
 
-    /*
     @FormUrlEncoded
     @POST(Constants.BOOK_SEATS_API)
     Call<BookingConfirmResponse> confirmFlightBooking(
@@ -80,18 +79,13 @@ public interface StellarApiService {
             @Field("to_city") int toCity,
             @Field("journey_date") String journeyDate,
             @Field("journey_time") String journeyTime,
-            @Field("pick_address") int pickAddress,
-            @Field("drop_address") int dropAddress,
+            @Field("arrival_time") String arrivalTime,
             @Field("flight_id") int flightId,
             @Field("seat_ids[]") List<Integer> mSeatsCodeList,
-            @Field("date_of_journey") long mDateOfJourney,
             @Field("guests[]") List<Integer> mGuestId,
-            @Field("foods_taken[]") List<String> foodPrefs,
-            @Field("kits_taken[]") List<String> kitPrefs,
-            @Field("travelling_self") int selfTravelling,
-            @Field("need_cab") int cabRequired
+            @Field("travelling_self") int selfTravelling
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
-    );*/
+    );
 
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookGuestInfo(

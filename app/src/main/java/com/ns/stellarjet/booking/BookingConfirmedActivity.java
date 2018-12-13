@@ -12,7 +12,9 @@ public class BookingConfirmedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // obtain Binding
-        ActivityBookingConfirmedBinding activityBookingConfirmedBinding =  DataBindingUtil.setContentView(this , R.layout.activity_booking_confirmed);
+        ActivityBookingConfirmedBinding activityBookingConfirmedBinding =  DataBindingUtil.setContentView(
+                this ,
+                R.layout.activity_booking_confirmed);
 
         activityBookingConfirmedBinding.buttonHome.setOnClickListener(v -> {
 
