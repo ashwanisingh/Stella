@@ -64,6 +64,7 @@
     <string name="booking_confirm_seats">Confirm Seats</string>
     <string name="booking_confirm_date">Confirm Date</string>
 
+    <string name="booking_row_airport">airport</string>
     <string name="booking_guest_title">Guest Info</string>
     <string name="booking_guest_header">Please provide guest details for the trip</string>
     <string name="booking_guest_confirm_button">Confirm GUEST</string>

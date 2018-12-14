@@ -1,17 +1,11 @@
 package com.ns.stellarjet.booking;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import com.ns.networking.model.UserData;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityFromBinding;
-import com.ns.stellarjet.utils.UIConstants;
-
-import java.util.Objects;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 
 public class PlaceSelectionActivity extends AppCompatActivity {
 
@@ -22,12 +16,9 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         // obtain DataBinding
         ActivityFromBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_from);
 
-        viewDataBinding.buttonFromBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        SharedPreferencesHelper.saveFoodPersoalize(this , false);
+        SharedPreferencesHelper.saveCabPersoalize(this , false);
+        viewDataBinding.buttonFromBack.setOnClickListener(v -> onBackPressed());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout_container ,  new FromFragment())

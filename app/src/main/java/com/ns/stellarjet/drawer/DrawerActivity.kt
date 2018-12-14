@@ -21,7 +21,11 @@ class DrawerActivity : AppCompatActivity() {
         }
 
         textView_drawer_boarding_pass.setOnClickListener {
-            //TODO launch Boarding Pass
+            val mBoardingPassIntent = Intent(
+                this ,
+                BoardingPassActivity::class.java
+            )
+            startActivity(mBoardingPassIntent)
         }
 
         textView_drawer_bookings.setOnClickListener {
@@ -30,7 +34,9 @@ class DrawerActivity : AppCompatActivity() {
         }
 
         textView_drawer_preferences.setOnClickListener {
-            // TODO launch Preferences
+            startActivity(
+                Intent(this , PreferenceLaunchActivity::class.java)
+            )
         }
     }
 }

@@ -125,13 +125,16 @@ public interface StellarApiService {
             @Field("pick_address") int pickAddress ,
             @Field("drop_address") int dropAddress
     );
-/*
-    @GET
-    Call<BookingHistoryResponse> getBookingHistoryResponse(
-            @Url String url,
-            @Query("token") String token
-    );
 
+    @GET(Constants.BOOKING_HISTORY_API)
+    Call<BookingHistoryResponse> getBookingHistoryResponse(
+            @Query("token") String token ,
+            @Query("user") String userId ,
+            @Query("offset") int offset ,
+            @Query("limit") int limit ,
+            @Query("show_list") String show_list
+    );
+/*
     @GET(Constants.BOARDING_PASS_API)
     Call<BoardingPassResponse> getBoardingPassResponse(
             @Query("token") String token,

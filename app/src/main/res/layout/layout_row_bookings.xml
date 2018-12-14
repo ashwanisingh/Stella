@@ -145,7 +145,7 @@
     <TextView
             android:text="@string/booking_summary_need_personalize"
             style="@style/StellarTextView_14sp"
-            android:id="@+id/textView_booking_personlaize_status"
+            android:id="@+id/textView_booking_personalize_status"
             android:textColor="@color/colorLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
