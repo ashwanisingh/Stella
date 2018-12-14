@@ -7,7 +7,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="colorAccent">@color/colorLoginButton</item>
-        <!--<item name="android:fontFamily">@font/arsenal</item>-->
+        <item name="android:fontFamily">@font/columbia_serial_light</item>
     </style>
 
     <style name="StellarButton" parent="android:Widget.Material.Button">
