@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Booking
 import com.ns.stellarjet.R
+import com.ns.stellarjet.utils.StellarJetUtils
 
 class BookingListAdapter(
     private val mBookingList : List<Booking> ,
@@ -40,8 +41,9 @@ class BookingListAdapter(
             mToCity.text = bookings.to_city_info?.name
             mFromAirport.text = bookings.from_city_info?.airport
             mToAirport.text = bookings.to_city_info?.airport
-            mBookingsDate.text = bookings.journey_date
-            mBookingsTime.text = bookings.journey_time
+            mBookingsDate.text = StellarJetUtils.getFormattedBookingsDate(bookings.journey_datetime)
+            val journeyTime = StellarJetUtils.getFormattedhours(bookings.journey_datetime) + " hrs"
+            mBookingsTime.text = journeyTime
             itemView.setOnClickListener {
                 onSelectDishListenerParams(bookings)
             }

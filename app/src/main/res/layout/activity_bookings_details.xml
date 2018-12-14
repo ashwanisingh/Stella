@@ -116,7 +116,6 @@
                 app:layout_constraintStart_toStartOf="@+id/textView_bookings_details_from_airport"/>
 
         <TextView
-                android:text="@{bookings.journey_date}"
                 tools:text="@string/booking_summary_date_dummy"
                 style="@style/StellarTextView_16sp"
                 android:alpha="0.8"
@@ -142,7 +141,6 @@
         <TextView
                 style="@style/StellarTextView_16sp"
                 android:alpha="0.8"
-                android:text="@{bookings.journey_time}"
                 tools:text="@string/booking_summary_departure_time_dummy"
                 android:id="@+id/textView_bookings_details_departure_time"
                 android:layout_width="wrap_content"

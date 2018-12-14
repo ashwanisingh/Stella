@@ -9,8 +9,8 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBookingsDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.CabPreferencesActivity
-import com.ns.stellarjet.personalize.FoodPreferenceListActivity
 import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
+import com.ns.stellarjet.utils.StellarJetUtils
 
 class BookingsDetailsActivity : AppCompatActivity() {
 
@@ -52,6 +52,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
+        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)
+        val journeyTime = StellarJetUtils.getFormattedhours(bookingData.journey_datetime) + " hrs"
+        binding.textViewBookingsDetailsDepartureTime.text = journeyTime
 
         binding.textViewBookingsDetailsCabsTitle.setOnClickListener {
             startActivity(Intent(this , CabPreferencesActivity::class.java))
@@ -60,7 +63,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
         binding.textViewBookingsDetailsFoodTitle.setOnClickListener {
             startActivity(Intent(this , FoodPreferencesLaunchActivity::class.java))
         }
-
 
     }
 }
