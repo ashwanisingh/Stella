@@ -1,6 +1,5 @@
 package com.ns.stellarjet.drawer.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Booking
 import com.ns.stellarjet.R
-import com.ns.stellarjet.drawer.BoardingPassDetailsActivity
+import com.ns.stellarjet.utils.StellarJetUtils
 
 class BoardingListAdapter(
     private val mBoardingPassList : List<Booking>,
@@ -44,17 +43,19 @@ class BoardingListAdapter(
             mToCity.text = boardingPass.to_city_info?.name
             mFromAirport.text = boardingPass.from_city_info?.airport
             mToAirport.text = boardingPass.to_city_info?.airport
-            mBookingsDate.text = boardingPass.journey_date
-            mBookingsTime.text = boardingPass.journey_time
-//            mNoSeats.text = boardingPass.
+            mBookingsDate.text = StellarJetUtils.getFormattedBookingsDate(boardingPass.journey_datetime)
+            val journeyTime = StellarJetUtils.getFormattedhours(boardingPass.journey_datetime) + " hrs"
+            mBookingsTime.text = journeyTime
+            var numOfSeats = 0
+            if(boardingPass.travelling_self == 1){
+                numOfSeats += 1
+            }
+            if(boardingPass.guest_seats!=null){
+                numOfSeats += boardingPass.guest_seats?.size!!
+            }
+            mNoSeats.text = numOfSeats.toString()
             mFlightName.text = boardingPass.flight_no
             itemView.setOnClickListener {
-                val mIntent = Intent(
-                    itemView.context ,
-                    BoardingPassDetailsActivity::class.java
-                )
-                mIntent.putExtra("BoardingPass" , boardingPass)
-                itemView.context.startActivity(mIntent)
                 onSelectDishListenerParams(boardingPass)
             }
         }

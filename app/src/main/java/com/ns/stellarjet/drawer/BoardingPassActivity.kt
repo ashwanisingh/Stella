@@ -1,5 +1,6 @@
 package com.ns.stellarjet.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -71,7 +72,12 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
         })
     }
 
-    override fun invoke(p1: Booking) {
-
+    override fun invoke(boardingPass: Booking) {
+        val mIntent = Intent(
+            this ,
+            BoardingPassDetailsActivity::class.java
+        )
+        mIntent.putExtra("BoardingPass" , boardingPass)
+        startActivity(mIntent)
     }
 }

@@ -133,6 +133,50 @@ public class StellarJetUtils {
     }
 
     /**
+     * retuns the bookings/boardingpass  date/time format
+     */
+    public static String getFormattedBookingsDate(long millis){
+        String pattern = "EEE ,dd MMM YYYY";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis);
+        return simple.format(result);
+    }
+
+
+    /**
+     * returns the hour format
+     */
+    public static String getFormattedhours(long millis){
+        String pattern = "hh:mm";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis);
+        return simple.format(result);
+    }
+
+    /**
+     * returns the reach by plane hour format
+     */
+    public static String getReachByPlanehours(long millis){
+        String pattern = "hh:mm";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis - 15*60*1000);
+
+        return simple.format(result);
+    }
+
+    /**
      * retuns the Desired date/time format
      */
     public static String getDayOfTheWeek(long millis){
