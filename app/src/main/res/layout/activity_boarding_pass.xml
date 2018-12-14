@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        tools:context=".drawer.BoardingPassActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
+    </data>
     <LinearLayout
-            android:id="@+id/layout_boarding_pass_base"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <Button
-                android:id="@+id/button_boarding_pass_back"
-                style="@style/StellarBackButton"/>
-
-        <TextView
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:layout_marginStart="-26dp"
-                style="@style/StellarTextView_20sp"
-                android:text="@string/boardingPass_title"
-                android:id="@+id/textView_boardingPass_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_boarding_pass"
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/layout_row_boarding_pass"
-            tools:orientation="horizontal"/>
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            tools:context=".drawer.BoardingPassActivity">
 
-</LinearLayout>
+        <LinearLayout
+                android:id="@+id/layout_boarding_pass_base"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:id="@+id/button_boarding_pass_back"
+                    style="@style/StellarBackButton"/>
+
+            <TextView
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:layout_marginStart="-26dp"
+                    style="@style/StellarTextView_20sp"
+                    android:text="@string/boardingPass_title"
+                    android:id="@+id/textView_boardingPass_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_boarding_pass"
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/layout_row_boarding_pass"
+                tools:orientation="horizontal"/>
+
+    </LinearLayout>
+</layout>

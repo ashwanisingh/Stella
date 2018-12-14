@@ -26,7 +26,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class UpcomingBookingFragment : Fragment(), (Int) -> Unit {
+class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
 
     private lateinit var binding : FragmentUpcomingBookingBinding
     private var mUpcomingBookingHistoryList: List<Booking> = ArrayList()
@@ -75,11 +75,11 @@ class UpcomingBookingFragment : Fragment(), (Int) -> Unit {
         })
     }
 
-    override fun invoke(position: Int) {
+    override fun invoke(booking: Booking) {
 //        Toast.makeText(activity , selectedBooking.flight , Toast.LENGTH_LONG).show()
-        /*val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
-        mDetailsIntent.putExtra("Bookings" , mUpcomingBookingHistoryList[position])
-        this.startActivity(mDetailsIntent)*/
+        val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
+        mDetailsIntent.putExtra("bookiingDetails" , booking)
+        requireActivity().startActivity(mDetailsIntent)
     }
 }// Required empty public constructor
 

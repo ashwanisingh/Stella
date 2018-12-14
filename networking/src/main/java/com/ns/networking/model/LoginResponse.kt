@@ -1,7 +1,6 @@
 package com.ns.networking.model
 
 import android.os.Parcelable
-import androidx.annotation.Nullable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

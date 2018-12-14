@@ -10,7 +10,7 @@ import com.ns.stellarjet.R
 
 class BookingListAdapter(
     private val mBookingList : List<Booking> ,
-    private val onSelectDishListenerParams : (Int) -> Unit) : RecyclerView.Adapter<BookingListAdapter.BookingListViewHolder>() {
+    private val onSelectDishListenerParams : (Booking) -> Unit) : RecyclerView.Adapter<BookingListAdapter.BookingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_row_bookings, parent, false)
@@ -22,7 +22,7 @@ class BookingListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookingListViewHolder, position: Int) {
-        holder.bind(mBookingList[position],position , onSelectDishListenerParams)
+        holder.bind(mBookingList[position], onSelectDishListenerParams)
     }
 
     class BookingListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -35,15 +35,15 @@ class BookingListAdapter(
         private val mBookingsTime: TextView = itemView.findViewById(R.id.textView_bookings_departure_time)
 //        private val mPersonalizeStatus: TextView = itemView.findViewById(R.id.textView_booking_personalize_status)
 
-        fun bind(bookings: Booking, position: Int, onSelectDishListenerParams: (Int) -> Unit){
-            mFromCity.text = bookings.from_city_info.name
-            mToCity.text = bookings.to_city_info.name
-            mFromAirport.text = bookings.from_city_info.airport
-            mToAirport.text = bookings.to_city_info.airport
+        fun bind(bookings: Booking, onSelectDishListenerParams: (Booking) -> Unit){
+            mFromCity.text = bookings.from_city_info?.name
+            mToCity.text = bookings.to_city_info?.name
+            mFromAirport.text = bookings.from_city_info?.airport
+            mToAirport.text = bookings.to_city_info?.airport
             mBookingsDate.text = bookings.journey_date
             mBookingsTime.text = bookings.journey_time
             itemView.setOnClickListener {
-                onSelectDishListenerParams(position)
+                onSelectDishListenerParams(bookings)
             }
         }
     }

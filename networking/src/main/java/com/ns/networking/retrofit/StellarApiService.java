@@ -134,13 +134,14 @@ public interface StellarApiService {
             @Query("limit") int limit ,
             @Query("show_list") String show_list
     );
-/*
+
     @GET(Constants.BOARDING_PASS_API)
     Call<BoardingPassResponse> getBoardingPassResponse(
-            @Query("token") String token,
-            @Query("list_for") String boardingPass
+            @Query("token") String token ,
+            @Query("offset") int offset ,
+            @Query("limit") int limit
     );
-
+/*
     @GET(Constants.CITY_LIST_API)
     Call<CityListResponse> getCityList(
             @Query("token") String token

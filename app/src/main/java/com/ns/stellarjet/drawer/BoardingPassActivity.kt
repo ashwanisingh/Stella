@@ -1,18 +1,77 @@
 package com.ns.stellarjet.drawer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ns.networking.model.BoardingPassResponse
+import com.ns.networking.model.Booking
+import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
+import com.ns.stellarjet.databinding.ActivityBoardingPassBinding
+import com.ns.stellarjet.drawer.adapter.BoardingListAdapter
+import com.ns.stellarjet.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_boarding_pass.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class BoardingPassActivity : AppCompatActivity() {
+class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
+
+
+    private lateinit var binding:ActivityBoardingPassBinding
+    private var mBoardingPassList : List<Booking> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_boarding_pass)
+
+        binding = DataBindingUtil.setContentView(
+            this ,
+            R.layout.activity_boarding_pass
+        )
+
+        getBoardingPass()
 
         button_boarding_pass_back.setOnClickListener {
             onBackPressed()
         }
+    }
+
+
+    private fun getBoardingPass(){
+        val boardingPassCall: Call<BoardingPassResponse> = RetrofitAPICaller.getInstance(this)
+            .stellarJetAPIs.getBoardingPassResponse(
+            SharedPreferencesHelper.getUserToken(this) ,
+            0 ,
+            20
+        )
+
+        boardingPassCall.enqueue(object : Callback<BoardingPassResponse> {
+            override fun onResponse(
+                call: Call<BoardingPassResponse>,
+                response:
+                Response<BoardingPassResponse>) {
+                mBoardingPassList = response.body()!!.data.boarding_pass
+                val adapter = BoardingListAdapter(mBoardingPassList , this@BoardingPassActivity)
+                val layoutManager = LinearLayoutManager(
+                    this@BoardingPassActivity ,
+                    RecyclerView.VERTICAL ,
+                    false
+                )
+                binding.recyclerViewBoardingPass.adapter = adapter
+                binding.recyclerViewBoardingPass.layoutManager = layoutManager
+
+            }
+
+            override fun onFailure(call: Call<BoardingPassResponse>, t: Throwable) {
+                Log.d("Booking", "onResponse: $t")
+            }
+        })
+    }
+
+    override fun invoke(p1: Booking) {
+
     }
 }

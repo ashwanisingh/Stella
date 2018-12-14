@@ -1,6 +1,7 @@
 package com.ns.stellarjet.drawer
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,7 +26,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class CompletedBookingsFragment : Fragment(), (Int) -> Unit {
+class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
 
     private lateinit var binding : FragmentCompletedBookingsBinding
     private var mCompletedBookingHistoryList: List<Booking> = ArrayList()
@@ -71,7 +72,10 @@ class CompletedBookingsFragment : Fragment(), (Int) -> Unit {
         })
     }
 
-    override fun invoke(p1: Int) {
+    override fun invoke(booking: Booking) {
+        val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
+        mDetailsIntent.putExtra("bookiingDetails" , booking)
+        requireActivity().startActivity(mDetailsIntent)
     }
 
 }// Required empty public constructor
