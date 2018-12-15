@@ -3,19 +3,29 @@ package com.ns.stellarjet.booking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ns.networking.model.City;
+import com.ns.networking.model.FlightScheduleData;
+import com.ns.networking.model.FlightScheduleResponse;
+import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.adapter.PlaceSelectAdapter;
 import com.ns.stellarjet.databinding.FragmentToBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +80,38 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
 //        Toast.makeText(getActivity(), placeId + "=="+ placeName, Toast.LENGTH_SHORT).show();
         HomeActivity.toCityId = placeId;
         HomeActivity.toCity = placeName;
-        Objects.requireNonNull(getActivity()).startActivity(new Intent(
-                getActivity() ,
-                CalendarActivity.class
-        ));
+        getFlightSchedules();
+    }
+
+
+    private void getFlightSchedules(){
+        Call<FlightScheduleResponse> mFlightScheduleResponseCall = RetrofitAPICaller.getInstance(getActivity())
+                .getStellarJetAPIs().getFlightSchedules(
+                        SharedPreferencesHelper.getUserToken(getActivity()) ,
+                        String.valueOf(HomeActivity.fromCityId) ,
+                        String.valueOf(HomeActivity.toCityId) ,
+                        "90"
+                );
+
+        mFlightScheduleResponseCall.enqueue(new Callback<FlightScheduleResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<FlightScheduleResponse> call, @NonNull Response<FlightScheduleResponse> response) {
+                Log.d("Calendar", "onResponse: " + response.body());
+                if (response.body() != null) {
+                    List<FlightScheduleData> mFlightScheduleDataList = response.body().getData();
+                    Intent mCalendarIntent = new Intent(
+                            getActivity() ,
+                            CalendarActivity.class
+                    );
+                    mCalendarIntent.putExtra("dates" , (ArrayList<? extends Parcelable>)  mFlightScheduleDataList);
+                    Objects.requireNonNull(getActivity()).startActivity(mCalendarIntent);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<FlightScheduleResponse> call, @NonNull Throwable t) {
+                Log.d("Calendar", "onFailure: " + t);
+            }
+        });
     }
 }

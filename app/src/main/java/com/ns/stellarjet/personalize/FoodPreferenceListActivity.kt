@@ -23,7 +23,7 @@ import retrofit2.Response
 class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
     //    private var mSelectedFoodIds = ""
-    private val mSelectedFoodIds : MutableList<Int> = ArrayList()
+    private val mSelectedFoodIds : MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +102,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     }
 
     override fun invoke(selectedID: String) {
-        mSelectedFoodIds.add(selectedID.toInt())
+        mSelectedFoodIds.add(selectedID.toInt().toString())
     }
 }
 

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
 import com.ns.stellarjet.R
@@ -41,22 +42,19 @@ class FoodListAdapter (
                 .load(foodType.img_url)
                 .into(mFoodImage)
             if(foodType.pref){
-                mFoodSelect.setImageDrawable(itemView.context
-                    .resources.getDrawable(R.drawable.ic_food_selected))
+                mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected))
             }
 
             mFoodSelect.setOnClickListener {
-                var isSelected = false
-                if(mFoodSelect.drawable.constantState == itemView.context
-                        .resources.getDrawable(R.drawable.ic_food_selected).constantState){
-                    isSelected = false
-                    mFoodSelect.setImageDrawable(itemView.context
-                        .resources.getDrawable(R.drawable.ic_food_unselected))
+//                var isSelected = false
+//                if(mFoodSelect.drawable.constantState == itemView.context.resources.getDrawable(R.drawable.ic_food_selected).constantState){
+                if(mFoodSelect.drawable.constantState == ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected)?.constantState){
+//                    isSelected = false
+                    mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_unselected))
                 }else{
                     onSelectDishListenerParams(foodType.id.toString())
-                    isSelected = true
-                    mFoodSelect.setImageDrawable(itemView.context
-                        .resources.getDrawable(R.drawable.ic_food_selected))
+//                    isSelected = true
+                    mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected))
                 }
 
             }

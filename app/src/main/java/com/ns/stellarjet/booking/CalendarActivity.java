@@ -3,51 +3,63 @@ package com.ns.stellarjet.booking;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import butterknife.ButterKnife;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.ns.networking.model.FlightScheduleData;
-import com.ns.networking.model.FlightScheduleResponse;
-import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityCalendarBinding;
 import com.ns.stellarjet.home.HomeActivity;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class CalendarActivity extends AppCompatActivity {
 
     private List<FlightScheduleData> mFlightScheduleDataList;
     private List<String> mDates = new ArrayList<>();
-    private ActivityCalendarBinding activityCalendarBinding;
+    private ActivityCalendarBinding mActivityCalendarBinding;
     private int selectedIndex ;
+    private Calendar min;
+    private Calendar max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar);
+        ButterKnife.bind(CalendarActivity.this);
+
         // obtain Binding
-        activityCalendarBinding = DataBindingUtil.setContentView(this, R.layout.activity_calendar);
+        mActivityCalendarBinding = DataBindingUtil.setContentView(this, R.layout.activity_calendar);
 
-        getFlightSchedules();
+        // setting the minimum data as current date
+        min = Calendar.getInstance();
+        min.add(Calendar.DAY_OF_MONTH, -1);
+        mActivityCalendarBinding.calendarView.setMinimumDate(min);
 
-        activityCalendarBinding.buttonScheduleBack.setOnClickListener(v -> onBackPressed());
+        // setting the maximum date to 90
+        max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 88);
+        mActivityCalendarBinding.calendarView.setMaximumDate(max);
 
-        activityCalendarBinding.textViewCalendarFrom.setText(HomeActivity.fromCity);
-        activityCalendarBinding.textViewCalendarTo.setText(HomeActivity.toCity);
+        mFlightScheduleDataList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("dates");
 
-        activityCalendarBinding.buttonScheduleConfirmDate.setOnClickListener(v -> {
+        setCalendar();
+
+        mActivityCalendarBinding.buttonScheduleBack.setOnClickListener(v -> onBackPressed());
+
+        mActivityCalendarBinding.textViewCalendarFrom.setText(HomeActivity.fromCity);
+        mActivityCalendarBinding.textViewCalendarTo.setText(HomeActivity.toCity);
+
+        mActivityCalendarBinding.buttonScheduleConfirmDate.setOnClickListener(v -> {
             if(selectedIndex == -1){
                 Toast.makeText(CalendarActivity.this, "No Flights are available", Toast.LENGTH_SHORT).show();
             }else {
@@ -74,31 +86,7 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    private void getFlightSchedules(){
-        Call<FlightScheduleResponse> mFlightScheduleResponseCall = RetrofitAPICaller.getInstance(CalendarActivity.this)
-                .getStellarJetAPIs().getFlightSchedules(
-                        SharedPreferencesHelper.getUserToken(CalendarActivity.this) ,
-                        String.valueOf(HomeActivity.fromCityId) ,
-                        String.valueOf(HomeActivity.toCityId) ,
-                        "90"
-                );
 
-        mFlightScheduleResponseCall.enqueue(new Callback<FlightScheduleResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<FlightScheduleResponse> call, @NonNull Response<FlightScheduleResponse> response) {
-                Log.d("Calendar", "onResponse: " + response.body());
-                if (response.body() != null) {
-                    mFlightScheduleDataList = response.body().getData();
-                    setCalendar();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<FlightScheduleResponse> call, @NonNull Throwable t) {
-                Log.d("Calendar", "onFailure: " + t);
-            }
-        });
-    }
 
     private void setCalendar(){
 
@@ -109,16 +97,6 @@ public class CalendarActivity extends AppCompatActivity {
                     calendar.getTimeInMillis());
             mDates.add(date);
         }
-
-        // setting the minimum data as current date
-        Calendar min = Calendar.getInstance();
-        min.add(Calendar.DAY_OF_MONTH, -1);
-        activityCalendarBinding.calendarView.setMinimumDate(min);
-
-        // setting the maximum date to 90
-        Calendar max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 88);
-        activityCalendarBinding.calendarView.setMaximumDate(max);
 
         // make the schedule days list from API
         List<Calendar> mScheduleDaysList = new ArrayList<>();
@@ -155,9 +133,29 @@ public class CalendarActivity extends AppCompatActivity {
         // remove the schdeuled days from total days
         mTotalDays.removeAll(mScheduleDaysList);
         // set the total days list as disabled days
-        activityCalendarBinding.calendarView.setDisabledDays(mTotalDays);
+        mActivityCalendarBinding.calendarView.setDisabledDays(mTotalDays);
 
-        activityCalendarBinding.calendarView.setOnDayClickListener(eventDay -> {
+        if(mFlightScheduleDataList.size()>0){
+            Calendar mFirstDayCalendar = Calendar.getInstance();
+            mFirstDayCalendar.setTimeInMillis(mFlightScheduleDataList.get(0).getJourney_datetime_ms());
+            try {
+                mActivityCalendarBinding.calendarView.setDate(mFirstDayCalendar);
+            } catch (OutOfDateRangeException e) {
+                e.printStackTrace();
+            }
+            mActivityCalendarBinding.calendarView.setPreviousButtonImage(null);
+            mActivityCalendarBinding.textViewScheduleDate.setText(
+                    StellarJetUtils.getFormattedBookDate(
+                            mFlightScheduleDataList.get(0).getJourney_datetime_ms()));
+            mActivityCalendarBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
+            String seatsAvailable = mFlightScheduleDataList.get(0).getFlight_seat_availability()
+                    .getAvailable_seats() +" seats available";
+            mActivityCalendarBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
+            mActivityCalendarBinding.buttonScheduleConfirmDate.setEnabled(true);
+            mActivityCalendarBinding.buttonScheduleConfirmDate.setAlpha(1.0f);
+        }
+
+        mActivityCalendarBinding.calendarView.setOnDayClickListener(eventDay -> {
             String pattern = "dd MMM, EEE";
             if(eventDay.isEnabled()){
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -166,23 +164,23 @@ public class CalendarActivity extends AppCompatActivity {
                 if(mDates.contains(selectedDay)){
                     int index = mDates.indexOf(selectedDay);
                     selectedIndex = index;
-                    activityCalendarBinding.textViewScheduleDate.setText(
+                    mActivityCalendarBinding.textViewScheduleDate.setText(
                             StellarJetUtils.getFormattedBookDate(
                                     mFlightScheduleDataList.get(selectedIndex).getJourney_datetime_ms()));
-                    activityCalendarBinding.textViewScheduleSeatsAvailable.setVisibility(View.VISIBLE);
+                    mActivityCalendarBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
                     String seatsAvailable = mFlightScheduleDataList.get(index).getFlight_seat_availability()
                             .getAvailable_seats() +" seats available";
-                    activityCalendarBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
-                    activityCalendarBinding.buttonScheduleConfirmDate.setEnabled(true);
-                    activityCalendarBinding.buttonScheduleConfirmDate.setAlpha(1.0f);
+                    mActivityCalendarBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
+                    mActivityCalendarBinding.buttonScheduleConfirmDate.setEnabled(true);
+                    mActivityCalendarBinding.buttonScheduleConfirmDate.setAlpha(1.0f);
                 }else{
-                    activityCalendarBinding.textViewScheduleSeatsAvailable.setVisibility(View.INVISIBLE);
-                    activityCalendarBinding.textViewScheduleDate.setText(
+                    mActivityCalendarBinding.textViewScheduleSeatsAvailable.setVisibility(View.INVISIBLE);
+                    mActivityCalendarBinding.textViewScheduleDate.setText(
                             getResources().getString(R.string.booking_date_seats_no_flights)
                     );
                     selectedIndex = -1;
-                    activityCalendarBinding.buttonScheduleConfirmDate.setEnabled(false);
-                    activityCalendarBinding.buttonScheduleConfirmDate.setAlpha(0.5f);
+                    mActivityCalendarBinding.buttonScheduleConfirmDate.setEnabled(false);
+                    mActivityCalendarBinding.buttonScheduleConfirmDate.setAlpha(0.5f);
                 }
             }
 

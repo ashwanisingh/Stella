@@ -114,7 +114,7 @@ public interface StellarApiService {
     Call<FoodPersonalizeResponse> personalizeFood(
             @Field("token") String token ,
             @Field("booking_id") String booking_id ,
-            @Field("foods_taken") List<Integer> foods_taken
+            @Field("foods_taken") List<String> foods_taken
     );
 
     @FormUrlEncoded
