@@ -91,19 +91,16 @@ public interface StellarApiService {
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
     );
 
-    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookGuestInfo(
             @Body GuestPrefsRequest guestPrefsRequest
     );
 
-    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
-    Call<EditGuestConfirmResponse> bookExistingGuestInfo(
+    Call<GuestConfirmResponse> bookExistingGuestInfo(
             @Body EditGuestPrefsRequest editGuestPrefsRequest
     );
 
-    @FormUrlEncoded
     @POST(Constants.GUEST_CONFIRM_API)
     Call<GuestConfirmResponse> bookNewGuestInfo(
             @Body AddGuestPrefsRequest addGuestPrefsRequest

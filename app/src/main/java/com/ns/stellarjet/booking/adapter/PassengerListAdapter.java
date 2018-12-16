@@ -12,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ns.networking.model.guestrequest.AddGuestRequestData;
 import com.ns.networking.model.Contact;
+import com.ns.networking.model.guestrequest.AddGuestRequestData;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +27,26 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
     private onConfirmButtonEnableStateListener mOnConfirmButtonEnableStateListener;
     private onConfirmButtonDisableStateListener mOnConfirmButtonDisableStateListener;
     private List<String> mGuestNamesList = new ArrayList<>();
-    private List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
+    private static List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
     private List<Integer> mCompeletionList = new ArrayList<>();
     private List<String> mSelectedNameList= new ArrayList<>();
-    private List<String> mSelectedPhoneNumberList= new ArrayList<>();
+    private static List<String> mSelectedPhoneNumberList= new ArrayList<>();
+    private static PassengerInfoViewHolder mPassengerInfoViewHolder;
+    private boolean isSelfTravelling;
 
     public PassengerListAdapter(
             onConfirmButtonEnableStateListener onConfirmButtonEnableStateListenerParams,
             onConfirmButtonDisableStateListener onConfirmButtonDiaableStateListenerParams,
             List<Contact> itemsParams ,
-            int numOfGuestsParam) {
+            int numOfGuestsParam ,
+            boolean isSelfTravellingParams) {
         mOnConfirmButtonEnableStateListener = onConfirmButtonEnableStateListenerParams;
         mOnConfirmButtonDisableStateListener = onConfirmButtonDiaableStateListenerParams;
         this.items = itemsParams;
         numOfGuests = numOfGuestsParam;
         makeGuestRequestDataList(numOfGuestsParam);
         makeGuestNamesList();
+        isSelfTravelling = isSelfTravellingParams;
     }
 
     /**
@@ -70,6 +75,43 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
     @Override
     public void onBindViewHolder(@NonNull PassengerInfoViewHolder placeViewHolder, int i) {
         placeViewHolder.bind(i);
+        if(i == 0){
+            mPassengerInfoViewHolder = placeViewHolder;
+        }
+    }
+
+    public static void changeSelfInfo(Context mContext , boolean isSelfTravelling){
+        if(isSelfTravelling){
+            mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_self));
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setEnabled(false);
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setAlpha(0.4f);
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setEnabled(false);
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
+            setSelfInfo();
+        }else {
+            mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_text) + "1");
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText("");
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText("");
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setEnabled(true);
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setAlpha(1.0f);
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setEnabled(true);
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(1.0f);
+            mGuestRequestDataList.get(0).setGuestName("");
+            mGuestRequestDataList.get(0).setGuestMobileNUmber("");
+            mGuestRequestDataList.get(0).setGuestId("");
+            mGuestRequestDataList.get(0).setGuestStatus("");
+            mSelectedPhoneNumberList.remove(HomeActivity.sUserData.getPhone());
+        }
+    }
+
+    private static void setSelfInfo(){
+        mGuestRequestDataList.get(0).setGuestName(HomeActivity.sUserData.getName());
+        mGuestRequestDataList.get(0).setGuestMobileNUmber(HomeActivity.sUserData.getPhone());
+        mGuestRequestDataList.get(0).setGuestId("");
+        mGuestRequestDataList.get(0).setGuestStatus("");
+        mSelectedPhoneNumberList.add(HomeActivity.sUserData.getPhone());
     }
 
     @Override
@@ -96,6 +138,30 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
         }
 
         public void bind(final int position){
+            if(isSelfTravelling && position ==0 ){
+                mPassengerTitleTextView.setText("Self");
+                mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
+                mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+                mPassengerNameAutoCompleteTextView.setEnabled(false);
+                mPassengerNameAutoCompleteTextView.setAlpha(0.4f);
+                mPassengerSelfMobileNumberEditText.setEnabled(false);
+                mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
+                setSelfInfo();
+            }else {
+                mPassengerTitleTextView.setText("Passenger 1");
+                mPassengerNameAutoCompleteTextView.setText("");
+                mPassengerSelfMobileNumberEditText.setText("");
+                mPassengerNameAutoCompleteTextView.setEnabled(true);
+                mPassengerNameAutoCompleteTextView.setAlpha(1.0f);
+                mPassengerSelfMobileNumberEditText.setEnabled(true);
+                mPassengerSelfMobileNumberEditText.setAlpha(1.0f);
+                mGuestRequestDataList.get(0).setGuestName("");
+                mGuestRequestDataList.get(0).setGuestMobileNUmber("");
+                mGuestRequestDataList.get(0).setGuestId("");
+                mGuestRequestDataList.get(0).setGuestStatus("");
+                mSelectedPhoneNumberList.remove(HomeActivity.sUserData.getPhone());
+            }
+
             mPassengerSelfMobileNumberEditText.setEnabled(false);
             mPassengerSelfMobileNumberEditText.setAlpha(0.5f);
             ArrayAdapter<String> mPassengerAdapter = new ArrayAdapter<String>(
