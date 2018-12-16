@@ -550,4 +550,32 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
         return seatPosition;
     }
+
+
+    private void getCityList(int fromId , int toId){
+        String fromCity = "";
+        String toCity = "";
+       List<City> mCitiesList  = HomeActivity.sUserData.getCities();
+        for (int i = 0; i < mCitiesList.size(); i++) {
+            if(mCitiesList.get(i).getId() == fromId){
+                fromCity = mCitiesList.get(i).getName();
+            }
+            if(mCitiesList.get(i).getId() == toId){
+                toCity = mCitiesList.get(i).getName();
+            }
+        }
+    }
+
+    private void getLockedSeatInfo(){
+        try{
+            HomeActivity.fromCityId = HomeActivity.sUserData.getLocked_seats().get(0).getFrom_city();
+            HomeActivity.toCityId = HomeActivity.sUserData.getLocked_seats().get(0).getTo_city();
+            HomeActivity.flightId = HomeActivity.sUserData.getLocked_seats().get(0).getFlight_id();
+            HomeActivity.journeyDate = HomeActivity.sUserData.getLocked_seats().get(0).getJourney_date();
+            HomeActivity.journeyTime = HomeActivity.sUserData.getLocked_seats().get(0).getJourney_time();
+//            HomeActivity.mSeatNamesId = HomeActivity.sUserData.getLocked_seats().get(0).getFlight_seat_id();
+        }catch (Exception e){
+            Log.d("Seat", "getLockedSeatInfo: " +e);
+        }
+    }
 }
