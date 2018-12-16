@@ -3,6 +3,8 @@ package com.ns.stellarjet.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -21,12 +23,14 @@ import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ActivityLoginBinding mActivityLoginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // obtain binding
-        ActivityLoginBinding mActivityLoginBinding =  DataBindingUtil.
+        mActivityLoginBinding = DataBindingUtil.
                 setContentView(this , R.layout.activity_login);
 
         /* remove the dummy login */
@@ -34,47 +38,60 @@ public class LoginActivity extends AppCompatActivity {
 
         mActivityLoginBinding.btnLoginConfirm.setOnClickListener(v -> {
             String userName = mActivityLoginBinding.editTextAccountId.getText().toString();
-            Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
-                    .getStellarJetAPIs().doValidateCustomer(userName );
+            if(userName.isEmpty()){
+                showAccountIdErrorField();
+            }else {
+                Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
+                        .getStellarJetAPIs().doValidateCustomer(userName );
 
-            mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
-                @Override
-                public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
-                    Log.d("Login", "onResponse: " + response.body());
-                    if(response.body()!=null){
-                        String userType = response.body().getData().getUsertype();
-                        if(userType.equalsIgnoreCase("primary")){
-                            Intent mPasswordIntent = new Intent(
-                                    LoginActivity.this ,
-                                    PasswordActivity.class
-                            );
-                            mPasswordIntent.putExtra("userEmail" , response.body().getData().getUsername());
-                            SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
-                            startActivity(mPasswordIntent);
-                        }else if(userType.equalsIgnoreCase("secondary")){
-                            Intent mOTPIntent = new Intent(
-                                    LoginActivity.this ,
-                                    OTPActivity.class
-                            );
-                            mOTPIntent.putExtra("userEmail" , response.body().getData().getUsername());
-                            startActivity(mOTPIntent);
-                        }
-                    }else {
-                        try {
-                            JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
-                            String errorMessage = mJsonObject.getString("message");
-                            Toast.makeText(LoginActivity.this , errorMessage , Toast.LENGTH_LONG).show();
-                        } catch (JSONException | IOException e) {
-                            e.printStackTrace();
+                mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
+                    @Override
+                    public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
+                        Log.d("Login", "onResponse: " + response.body());
+                        if(response.body()!=null){
+                            String userType = response.body().getData().getUsertype();
+                            if(userType.equalsIgnoreCase("primary")){
+                                Intent mPasswordIntent = new Intent(
+                                        LoginActivity.this ,
+                                        PasswordActivity.class
+                                );
+                                mPasswordIntent.putExtra("userEmail" , response.body().getData().getUsername());
+                                SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
+                                startActivity(mPasswordIntent);
+                            }else if(userType.equalsIgnoreCase("secondary")){
+                                Intent mOTPIntent = new Intent(
+                                        LoginActivity.this ,
+                                        OTPActivity.class
+                                );
+                                mOTPIntent.putExtra("userEmail" , response.body().getData().getUsername());
+                                startActivity(mOTPIntent);
+                            }
+                        }else {
+                            try {
+                                JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+                                String errorMessage = mJsonObject.getString("message");
+                                Toast.makeText(LoginActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
-                    Log.d("Login", "onResponse: " + t);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
+                        Log.d("Login", "onResponse: " + t);
+                    }
+                });
+            }
+
         });
+    }
+
+    private void showAccountIdErrorField(){
+        mActivityLoginBinding.editTextAccountId.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+        mActivityLoginBinding.editTextAccountId.setBackground(getDrawable(R.drawable.drawable_edittext_error_background));
+        final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
+        animShake.setDuration(50);
+        mActivityLoginBinding.editTextAccountId.startAnimation(animShake);
     }
 }
