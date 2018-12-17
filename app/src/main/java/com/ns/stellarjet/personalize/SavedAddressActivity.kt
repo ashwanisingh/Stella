@@ -1,5 +1,6 @@
 package com.ns.stellarjet.personalize
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -16,6 +17,13 @@ class SavedAddressActivity : AppCompatActivity() {
             this ,
             R.layout.activity_saved_address
         )
+
+        binding.textViewSavedAddressCurrentLocation.setOnClickListener {
+            startActivity(Intent(
+                this ,
+                AddAddressScrollActivity::class.java
+            ))
+        }
 
         binding.buttonSavedAddressBack.setOnClickListener {
             onBackPressed()

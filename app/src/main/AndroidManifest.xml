@@ -61,9 +61,9 @@
         <activity
                 android:name=".personalize.CabPreferencesActivity"
                 android:screenOrientation="portrait"/>
-        <activity
+        <!--<activity
                 android:name=".personalize.SavedAddressActivity"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait"/>-->
         <activity
                 android:name=".personalize.AddAddressActivity"
                 android:screenOrientation="portrait"/>
@@ -116,15 +116,13 @@
         -->
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
+                android:value="@string/google_maps_key" />
 
-        <!--
         <activity
                 android:name=".personalize.AddAddressMapsActivity"
                 android:screenOrientation="portrait"
                 android:label="@string/title_activity_add_address_maps">
         </activity>
-        -->
         <activity android:name=".PassCodeActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".booking.SeatLayoutOneSelectionActivity"
