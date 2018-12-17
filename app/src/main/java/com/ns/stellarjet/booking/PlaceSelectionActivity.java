@@ -9,6 +9,9 @@ import com.ns.stellarjet.utils.SharedPreferencesHelper;
 
 public class PlaceSelectionActivity extends AppCompatActivity {
 
+    public static boolean isFromFragmentVisible = false;
+    public static boolean isToFragmentVisible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
