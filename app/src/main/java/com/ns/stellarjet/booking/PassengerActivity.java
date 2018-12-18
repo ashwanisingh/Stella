@@ -37,7 +37,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
     private List<Integer> mGuestList = new ArrayList<>();
     private EditGuestPrefsRequest editGuestPrefsRequest = new EditGuestPrefsRequest();
     private AddGuestPrefsRequest addGuestPrefsRequest = new AddGuestPrefsRequest();
-    private boolean isOnlySelfTravelling = false;
+    private boolean isOnlySelfTravelling = true;
     private boolean isOnlyGuestsSelected = false;
     private boolean isOnlyNewGuestsAdded = false;
     private List<Integer> mGuestIdsList = new ArrayList<>();
@@ -77,8 +77,13 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
 
-//        activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
-//        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+        activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+
+        if(isOnlySelfTravelling && numOfGuests ==1){
+            activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
+            activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 1.0);
+        }
 
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
@@ -91,6 +96,10 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
             activityPassengerBinding.textViewPassengerGuests.setTextColor(
                     ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
             );
+            if(isOnlySelfTravelling && numOfGuests ==1){
+                activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
+                activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 1.0);
+            }
         });
 
         activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
@@ -103,6 +112,10 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
             activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_button_background));
             activityPassengerBinding.textViewPassengerGuests.setTextColor(ContextCompat.getColor(PassengerActivity.this ,
                     android.R.color.white));
+            if(numOfGuests == 1){
+                activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+                activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+            }
         });
 
         activityPassengerBinding.buttonPassengerBack.setOnClickListener(v -> onBackPressed());
@@ -110,14 +123,13 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.buttonConfirmBooking.setOnClickListener(v ->{
 
             if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-               /* if(isGuestEdited){
+                if(isGuestEdited){
                     confirmOnlyExistingGuests();
                 }else if(isOnlyNewGuestsAdded){
                     confirmGuests();
                 }else if(isOnlyGuestsSelected){
                     bookFlight();
-                }*/
-               bookFlight();
+                }
             }else{
                 Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             }
@@ -144,9 +156,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                         HomeActivity.arrivalTime ,
                         HomeActivity.flightId ,
                         HomeActivity.mSeatNamesId ,
-//                        mGuestList ,
-                        null,
-                        1
+                        mGuestList ,
+                        selfTravelling
                 );
 
         mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {
@@ -180,15 +191,17 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                                 List<AddGuestRequestData> mGuestRequestDataList) {
         activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
         activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 1.0);
+        List<AddGuestRequestData> mGuestRequestDataListTemp = new ArrayList<>();
         if(isOnlySelfTravelling && mGuestRequestDataList.size() == 1){
-            mGuestRequestDataList.remove(0);
+//            mGuestRequestDataList.remove(0);
             isOnlySelfTravelling = true;
         }else if(isOnlySelfTravelling && mGuestRequestDataList.size() > 0){
-            mGuestRequestDataList.remove(0);
+            mGuestRequestDataListTemp = mGuestRequestDataList;
+            mGuestRequestDataListTemp.remove(0);
         }else {
             isOnlySelfTravelling = false;
         }
-        makeGuestAddList(mGuestRequestDataList);
+        makeGuestAddList(mGuestRequestDataListTemp);
 
     }
 
@@ -314,5 +327,14 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         guestPrefsRequest.setAddGuestPrefsRequestList(addGuestPrefList);
 
         Log.d("guest", "makeGuestAddList: " + guestPrefsRequest);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PassengerListAdapter.mSelectedPhoneNumberList.clear();
+        PassengerListAdapter.mGuestRequestDataList.clear();
+        PassengerListAdapter.mPassengerInfoViewHolder = null;
+
     }
 }

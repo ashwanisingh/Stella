@@ -27,11 +27,11 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
     private onConfirmButtonEnableStateListener mOnConfirmButtonEnableStateListener;
     private onConfirmButtonDisableStateListener mOnConfirmButtonDisableStateListener;
     private List<String> mGuestNamesList = new ArrayList<>();
-    private static List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
+    public static List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
     private List<Integer> mCompeletionList = new ArrayList<>();
     private List<String> mSelectedNameList= new ArrayList<>();
-    private static List<String> mSelectedPhoneNumberList= new ArrayList<>();
-    private static PassengerInfoViewHolder mPassengerInfoViewHolder;
+    public  static List<String> mSelectedPhoneNumberList= new ArrayList<>();
+    public static PassengerInfoViewHolder mPassengerInfoViewHolder;
     private boolean isSelfTravelling;
 
     public PassengerListAdapter(
@@ -147,7 +147,7 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
                 mPassengerSelfMobileNumberEditText.setEnabled(false);
                 mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
                 setSelfInfo();
-            }else {
+            }else if(!isSelfTravelling && position ==0){
                 mPassengerTitleTextView.setText("Passenger 1");
                 mPassengerNameAutoCompleteTextView.setText("");
                 mPassengerSelfMobileNumberEditText.setText("");
@@ -261,6 +261,8 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
                             Log.d("", "afterTextChanged: " + mGuestRequestDataList);
                             validateGuests();
                         }
+                    }else {
+                        mOnConfirmButtonDisableStateListener.disableButton(false);
                     }
                 }
             });
@@ -271,7 +273,6 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
         for (int i = 0; i < items.size(); i++) {
             mGuestNamesList.add(items.get(i).getName());
         }
-        mGuestNamesList.add("Add new guest");
     }
 
     private void makeGuestRequestDataList(int size){
