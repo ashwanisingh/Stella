@@ -138,11 +138,7 @@ public interface StellarApiService {
             @Query("offset") int offset ,
             @Query("limit") int limit
     );
-/*
-    @GET(Constants.CITY_LIST_API)
-    Call<CityListResponse> getCityList(
-            @Query("token") String token
-    );
+
 
     @FormUrlEncoded
     @POST(Constants.ADD_ADDRESS_API)
@@ -151,8 +147,12 @@ public interface StellarApiService {
             @Field("user") String userId,
             @Field("city") String cityId,
             @Field("address") String address,
-            @Field("address_for") String addressFor,
             @Field("address_tag") String addressTag
+    );
+/*
+@GET(Constants.CITY_LIST_API)
+    Call<CityListResponse> getCityList(
+            @Query("token") String token
     );
 
     @FormUrlEncoded

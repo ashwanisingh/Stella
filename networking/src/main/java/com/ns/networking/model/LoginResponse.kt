@@ -46,8 +46,8 @@ data class CustomerPrefs(
     val payment_prefs: String,
     val seat_prefs: List<SeatPreferences>,
     val seats_available: Int,
-    val subscription_expiry: Int,
-    val subscription_expiry_datetime: Int
+    val subscription_expiry: Long,
+    val subscription_expiry_datetime: String
 ):Parcelable
 
 @Parcelize

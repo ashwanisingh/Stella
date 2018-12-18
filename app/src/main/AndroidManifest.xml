@@ -4,11 +4,12 @@
           package="com.ns.stellarjet">
 
     <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+      Google Maps Android API v2, but you must specify either coarse or fine
+      location permissions for the 'MyLocation' functionality.
+ -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -21,7 +22,7 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".SplashScreenActivity"
+                android:name=".personalize.SavedAddressActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,7 +33,7 @@
         <activity
                 android:name=".home.HomeActivity"
                 android:screenOrientation="portrait"/>
-            <activity android:name=".login.LoginActivity"
+        <activity android:name=".login.LoginActivity"
                   android:screenOrientation="portrait"/>
         <activity
                 android:name=".login.PasswordActivity"
@@ -94,6 +95,9 @@
         <activity
                 android:name=".drawer.PreferenceLaunchActivity"
                 android:screenOrientation="portrait"/>
+        <!--<activity
+                android:name=".personalize.MapsActivity"
+                android:screenOrientation="portrait"/>-->
         <!--
         <activity android:name=".drawer.PreferencesManagersListActivity"
         android:screenOrientation="portrait"/>
@@ -101,11 +105,11 @@
         <activity
                 android:name=".drawer.PreferenceManagerInfoActivity"
                 android:screenOrientation="portrait"/>
-        <activity
-                android:name=".personalize.AddAddressScrollActivity"
-                android:label="@string/title_activity_add_address_scroll"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme"/>
+          <activity
+                 android:name=".personalize.AddAddressScrollActivity"
+                 android:label="@string/title_activity_add_address_scroll"
+                 android:screenOrientation="portrait"
+                 android:theme="@style/AppTheme"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -118,11 +122,14 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key" />
 
-        <activity
+        <uses-library
+                android:name="org.apache.http.legacy"
+                android:required="false" />
+        <!--<activity
                 android:name=".personalize.AddAddressMapsActivity"
                 android:screenOrientation="portrait"
                 android:label="@string/title_activity_add_address_maps">
-        </activity>
+        </activity>-->
         <activity android:name=".PassCodeActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".booking.SeatLayoutOneSelectionActivity"

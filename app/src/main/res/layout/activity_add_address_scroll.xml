@@ -20,20 +20,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:minHeight="150dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
 
-            <FrameLayout
-                    android:background="@color/colorCabPreferBackground"
+            <RelativeLayout
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:id="@+id/confirm_address_map_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_collapseMode="pin">
+                    tools:context=".MapsActivity"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools">
 
-                <Button
-                        android:id="@+id/button_add_address_back"
-                        style="@style/StellarBackButton"/>
-            </FrameLayout>
+                <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+                <!-- Image View that acts as map marker notice centerInParent-->
 
+                <View
+                        android:id="@+id/view"
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:layout_centerInParent="true"/>
+
+
+                <ImageView
+                        android:id="@+id/confirm_address_map_custom_marker"
+                        android:layout_width="20dp"
+                        android:layout_height="32dp"
+                        android:layout_above="@+id/view"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_pin_copy"/>
+            </RelativeLayout>
 
             <!--<androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"

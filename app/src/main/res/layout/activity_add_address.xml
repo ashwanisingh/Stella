@@ -27,8 +27,15 @@
                     style="@style/StellarBackButton"/>
         </FrameLayout>-->
 
+        <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="19dp"
+                android:src="@drawable/ic_slider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         <TextView
-                android:layout_marginTop="11dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/address_set_pickup_location"
                 style="@style/StellarTextView_16sp"
@@ -54,6 +61,10 @@
                 android:layout_marginStart="29dp"
                 android:textColor="@android:color/white"
                 android:alpha="0.8"
+                android:maxLines="1"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:scrollHorizontally="true"
                 android:layout_height="wrap_content"/>
 
         <TextView
