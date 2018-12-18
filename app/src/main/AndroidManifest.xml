@@ -22,7 +22,7 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".personalize.SavedAddressActivity"
+                android:name=".personalize.CabPreferencesActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -59,12 +59,12 @@
         <activity
                 android:name=".personalize.PersonalizeLaunchActivity"
                 android:screenOrientation="portrait"/>
-        <activity
-                android:name=".personalize.CabPreferencesActivity"
-                android:screenOrientation="portrait"/>
         <!--<activity
-                android:name=".personalize.SavedAddressActivity"
+                android:name=".personalize.CabPreferencesActivity"
                 android:screenOrientation="portrait"/>-->
+        <activity
+                android:name=".personalize.SavedAddressActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".personalize.AddAddressActivity"
                 android:screenOrientation="portrait"/>

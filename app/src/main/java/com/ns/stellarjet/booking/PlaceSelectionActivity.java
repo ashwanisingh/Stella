@@ -20,7 +20,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         ActivityFromBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_from);
 
         SharedPreferencesHelper.saveFoodPersoalize(this , false);
-        SharedPreferencesHelper.saveCabPersoalize(this , false);
+        SharedPreferencesHelper.saveCabPersonalize(this , false);
         viewDataBinding.buttonFromBack.setOnClickListener(v -> onBackPressed());
 
         getSupportFragmentManager().beginTransaction()

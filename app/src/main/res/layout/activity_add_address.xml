@@ -83,6 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="29dp"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textColor="@android:color/white"
                 android:alpha="0.8"
                 android:layout_height="wrap_content"/>
@@ -104,6 +106,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="29dp"
                 android:layout_marginBottom="20dp"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textColor="@android:color/white"
                 android:alpha="0.8"
                 android:layout_height="wrap_content"/>

@@ -19,6 +19,7 @@ public class Constants {
     public static final String BOARDING_PASS_API = "booking/pass";
     public static final String CITY_LIST_API = "city/list";
     public static final String ADD_ADDRESS_API = "address/add";
+    public static final String ADDRESS_LIST_API = "address/list";
     public static final String ADD_GUEST_API = "contact/add";
     public static final String UPDATE_PREFERENCES_API = "customer/prefs_update";
 

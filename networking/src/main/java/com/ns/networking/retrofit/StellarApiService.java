@@ -2,7 +2,6 @@ package com.ns.networking.retrofit;
 
 import com.ns.networking.model.*;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
-import com.ns.networking.model.guestrequest.EditGuestConfirmResponse;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.utils.Constants;
@@ -119,8 +118,8 @@ public interface StellarApiService {
     Call<CabPersonalizeResponse> personalizeCab(
             @Field("token") String token ,
             @Field("booking_id") String booking_id ,
-            @Field("pick_address") int pickAddress ,
-            @Field("drop_address") int dropAddress
+            @Field("pick_address") String pickAddress ,
+            @Field("drop_address") String dropAddress
     );
 
     @GET(Constants.BOOKING_HISTORY_API)
@@ -149,6 +148,14 @@ public interface StellarApiService {
             @Field("address") String address,
             @Field("address_tag") String addressTag
     );
+
+    @GET(Constants.ADDRESS_LIST_API)
+    Call<SavedAddressResponse> getSavedAddress(
+            @Query("token") String token,
+            @Query("user") String userId
+    );
+
+
 /*
 @GET(Constants.CITY_LIST_API)
     Call<CityListResponse> getCityList(

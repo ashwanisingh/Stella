@@ -75,11 +75,40 @@ public class UIConstants {
      */
     public static final String BUNDLE_FOOD_TYPE = "FoodType";
     /**
-     * String constant for bundle name for booking Id
+     * String constant for bundle name for cabType
+     */
+    public static final String BUNDLE_CAB_TYPE = "CabType";
+    /**
+     * String constant for bundle value for cabType pickup
+     */
+    public static final String BUNDLE_CAB_TYPE_PICK = "PickUp";
+    /**
+     * String constant for bundle value for cabType drop
+     */
+    public static final String BUNDLE_CAB_TYPE_DROP = "Drop";
+
+    /**
+     * String constant for SharedPreferences for personalize Cab
      */
     public static final String PREFERENCES_CAB_PERSONALIZE = "CabPreferences";
     /**
-     * String constant for bundle name for booking Id
+     * String constant for SharedPreferences for personalize pickup Cab
+     */
+    public static final String PREFERENCES_CAB_PICKUP_PERSONALIZE = "CabPreferencesPickup";
+    /**
+     * String constant for SharedPreferences for personalize drop Cab
+     */
+    public static final String PREFERENCES_CAB_DROP_PERSONALIZE = "CabPreferencesDrop";
+    /**
+     * String constant for SharedPreferences for personalize pickup Cab
+     */
+    public static final String PREFERENCES_CAB_PICKUP_PERSONALIZE_ID = "CabPreferencesPickupID";
+    /**
+     * String constant for SharedPreferences for personalize drop Cab
+     */
+    public static final String PREFERENCES_CAB_DROP_PERSONALIZE_ID = "CabPreferencesDropID";
+    /**
+     * String constant for SharedPreferences for personalize food
      */
     public static final String PREFERENCES_FOOD_PERSONALIZE = "FoodPreferences";
 }

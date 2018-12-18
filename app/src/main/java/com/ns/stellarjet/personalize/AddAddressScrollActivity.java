@@ -26,6 +26,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.utils.PermissionUtils;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.UIConstants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +46,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
     private EditText mFlatNoEditText;
     private EditText mNickNameEditText;
     private TextView mLocationTypeTextView;
+    private String mCabType = "";
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
@@ -63,7 +65,19 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
       /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
         AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
+        mAddressEditText = findViewById(R.id.editText_add_address);
+        mFlatNoEditText = findViewById(R.id.editText_add_address_flat_no);
+        mNickNameEditText = findViewById(R.id.editText_add_address_nickname);
+        mAddressEditText.setKeyListener(null);
+        Button mAddAddressButton = findViewById(R.id.button_add_address_confirm);
+        mLocationTypeTextView = findViewById(R.id.textView_set_location);
 
+        mCabType = getIntent().getExtras().getString(UIConstants.BUNDLE_CAB_TYPE);
+        if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
+            mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
+        }else if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_DROP)){
+            mLocationTypeTextView.setText(getResources().getString(R.string.address_set_drop_location));
+        }
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
         AppBarLayout.Behavior behavior = new AppBarLayout.Behavior();
@@ -80,12 +94,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-        mAddressEditText = findViewById(R.id.editText_add_address);
-        mFlatNoEditText = findViewById(R.id.editText_add_address_flat_no);
-        mNickNameEditText = findViewById(R.id.editText_add_address_nickname);
-        mAddressEditText.setKeyListener(null);
-        Button mAddAddressButton = findViewById(R.id.button_add_address_confirm);
-        mLocationTypeTextView = findViewById(R.id.textView_set_location);
+
 
         mAddAddressButton.setOnClickListener(v -> {
             String cityId = "3";
@@ -98,15 +107,10 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             }
         });
 
-
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-
         }
-
     }
-
 
     private void addAddress(String cityId , String address , String nickName){
         Call<AddAddressResponse> mAddressResponseCall = RetrofitAPICaller.getInstance(AddAddressScrollActivity.this)
@@ -127,6 +131,23 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
                             AddAddressScrollActivity.this,
                             response.body().getMessage(),
                             Toast.LENGTH_SHORT).show();
+                    if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
+                        SharedPreferencesHelper.saveCabPickupPersoalizeID(
+                                AddAddressScrollActivity.this ,
+                                String.valueOf(response.body().getData().getAddress_id()));
+                        SharedPreferencesHelper.saveCabPickupPersoalize(
+                                AddAddressScrollActivity.this ,
+                                nickName
+                        );
+                    }else if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_DROP)){
+                        SharedPreferencesHelper.saveCabDropPersonalizeID(
+                                AddAddressScrollActivity.this ,
+                                String.valueOf(response.body().getData().getAddress_id()));
+                        SharedPreferencesHelper.saveCabDropPersonalize(
+                                AddAddressScrollActivity.this ,
+                                nickName
+                        );
+                    }
                     finish();
                 }
             }

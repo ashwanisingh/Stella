@@ -156,15 +156,63 @@ public class SharedPreferencesHelper {
         );
     }
 
-    public static void saveCabPersoalize(Context mContext , boolean isPersonalized){
+    public static void saveCabPersonalize(Context mContext , boolean isPersonalized){
         SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
         mEditor.putBoolean(UIConstants.PREFERENCES_CAB_PERSONALIZE, isPersonalized);
         mEditor.apply();
     }
 
-    public static boolean getCabPersonlalize(Context mContext){
+    public static boolean getCabPersonalize(Context mContext){
         return getSharedPreferences(mContext).getBoolean(
                 UIConstants.PREFERENCES_CAB_PERSONALIZE , false
+        );
+    }
+
+    public static void saveCabPickupPersoalize(Context mContext , String pickUoAddress){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_CAB_PICKUP_PERSONALIZE, pickUoAddress);
+        mEditor.apply();
+    }
+
+    public static String getCabPickupPersonlalize(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_CAB_PICKUP_PERSONALIZE , ""
+        );
+    }
+
+    public static void saveCabPickupPersoalizeID(Context mContext , String pickUoAddressID){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_CAB_PICKUP_PERSONALIZE_ID, pickUoAddressID);
+        mEditor.apply();
+    }
+
+    public static String getCabPickupPersonlalizeID(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_CAB_PICKUP_PERSONALIZE_ID , ""
+        );
+    }
+
+    public static void saveCabDropPersonalize(Context mContext , String pickUoAddress){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_CAB_DROP_PERSONALIZE, pickUoAddress);
+        mEditor.apply();
+    }
+
+    public static String getCabDropPersonalize(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_CAB_DROP_PERSONALIZE , ""
+        );
+    }
+
+    public static void saveCabDropPersonalizeID(Context mContext , String drooAddressId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_CAB_DROP_PERSONALIZE_ID, drooAddressId);
+        mEditor.apply();
+    }
+
+    public static String getCabDropPersonalizeID(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_CAB_DROP_PERSONALIZE_ID , ""
         );
     }
 
