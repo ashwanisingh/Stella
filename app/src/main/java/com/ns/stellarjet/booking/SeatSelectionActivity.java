@@ -261,6 +261,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 Log.d("Booking", "onResponse: " +response.body());
                 if (response.body() != null) {
                     if(response.body().getResultcode()==1){
+                        HomeActivity.mSeatNamesId.clear();
                         for (int i = 0; i < mConfirmedSeatsList.size(); i++) {
                             HomeActivity.mSeatNamesId.add(mConfirmedSeatsList.get(i));
                         }
