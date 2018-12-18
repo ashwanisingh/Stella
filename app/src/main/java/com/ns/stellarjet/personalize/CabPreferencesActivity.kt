@@ -58,7 +58,7 @@ class CabPreferencesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        setPersonalizesAddress()
+        setPersonalizedAddress()
     }
 
     private fun updateCabPreferences(){
@@ -93,8 +93,14 @@ class CabPreferencesActivity : AppCompatActivity() {
         })
     }
 
-    private fun setPersonalizesAddress(){
-        binding.editTextPickLocation.text = SharedPreferencesHelper.getCabPickupPersonlalize(this)
-        binding.editTextDropLocation.text = SharedPreferencesHelper.getCabDropPersonalize(this)
+    private fun setPersonalizedAddress(){
+        val pickupCabPersonalize = SharedPreferencesHelper.getCabPickupPersonlalize(this)
+        val dropCabPersonalize = SharedPreferencesHelper.getCabDropPersonalize(this)
+        if(!pickupCabPersonalize.isEmpty()){
+            binding.editTextPickLocation.text = pickupCabPersonalize
+        }
+        if(!dropCabPersonalize.isEmpty()){
+            binding.editTextDropLocation.text = dropCabPersonalize
+        }
     }
 }

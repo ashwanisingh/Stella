@@ -20,5 +20,6 @@
     <color name="colorBottomSheetDivider">#4d4d4d</color>
     <color name="colorBottomSheetDeactivate">#0076ff</color>
     <color name="colorBottomSheetDelete">#fe3824</color>
+    <color name="colorBookingsPersonalize">#8a8a99</color>
 
 </resources>

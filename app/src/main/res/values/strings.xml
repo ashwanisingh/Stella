@@ -81,9 +81,10 @@
     <string name="booking_summary_departure_time">Departure Time</string>
     <string name="booking_summary_date_dummy">Wed, 27 11 2018</string>
     <string name="booking_summary_departure_time_dummy">07:30 hrs</string>
-    <string name="booking_summary_need_personalize">You have personalized your preferences</string>
-    <string name="booking_summary_done_personalize">Please personalize your preferences</string>
+    <string name="booking_summary_done_personalize">You have personalized your preferences</string>
+    <string name="booking_summary_need_personalize">Please personalize your preferences</string>
     <string name="booking_summary_personalize_time">Please update before 10-Dec-2018, 3:00 pm</string>
+    <string name="booking_summary_personalize_time_expiry">Please update before </string>
 
     <string name="booking_summary_pickup">PICK UP FROM</string>
     <string name="booking_summary_pickup_name">Delhi Office</string>

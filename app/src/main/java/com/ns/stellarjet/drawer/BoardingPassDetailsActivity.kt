@@ -45,7 +45,7 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
         binding.textViewBoardingPassDetailsPassengersName.text = passengersName
         binding.textViewBoardingPassDetailsSeatsName.text = seatsName
 
-        val reachPlaneByHrs = StellarJetUtils.getReachByPlanehours(boardingPass?.journey_datetime!!) + " hrs"
+        val reachPlaneByHrs = StellarJetUtils.getReachByPlaneHours(boardingPass?.journey_datetime!!) + " hrs"
         binding.textViewBoardingPassDetailsReachPlaneBy.text = reachPlaneByHrs
         val journeyTime = StellarJetUtils.getFormattedhours(boardingPass.journey_datetime) + " hrs"
         binding.textViewBoardingPassDetailsDepartureTime.text = journeyTime

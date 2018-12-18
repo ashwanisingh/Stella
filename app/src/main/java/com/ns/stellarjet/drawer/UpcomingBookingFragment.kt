@@ -58,7 +58,9 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 response:
                 Response<BookingHistoryResponse>) {
                 mUpcomingBookingHistoryList = response.body()!!.data.booking_list
-                val adapter = BookingListAdapter(mUpcomingBookingHistoryList , this@UpcomingBookingFragment)
+                val adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
+                    "Upcoming" ,
+                    this@UpcomingBookingFragment)
                 val layoutManager = LinearLayoutManager(
                     activity ,
                     RecyclerView.VERTICAL ,
@@ -66,7 +68,6 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 )
                 binding.recyclerViewBookingsUpcoming.adapter = adapter
                 binding.recyclerViewBookingsUpcoming.layoutManager = layoutManager
-
             }
 
             override fun onFailure(call: Call<BookingHistoryResponse>, t: Throwable) {
@@ -78,7 +79,8 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
     override fun invoke(booking: Booking) {
 //        Toast.makeText(activity , selectedBooking.flight , Toast.LENGTH_LONG).show()
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
-        mDetailsIntent.putExtra("bookiingDetails" , booking)
+        mDetailsIntent.putExtra("bookingDetails" , booking)
+        mDetailsIntent.putExtra("bookingType" , "upcoming")
         requireActivity().startActivity(mDetailsIntent)
     }
 }// Required empty public constructor

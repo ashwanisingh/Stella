@@ -56,7 +56,9 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
                 call: Call<BookingHistoryResponse>,
                 response: Response<BookingHistoryResponse>){
                 mCompletedBookingHistoryList = response.body()!!.data.booking_list
-                val adapter = BookingListAdapter(mCompletedBookingHistoryList , this@CompletedBookingsFragment)
+                val adapter = BookingListAdapter(mCompletedBookingHistoryList ,
+                    "Completed",
+                    this@CompletedBookingsFragment)
                 val layoutManager = LinearLayoutManager(
                     activity ,
                     RecyclerView.VERTICAL ,
@@ -74,7 +76,8 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
 
     override fun invoke(booking: Booking) {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
-        mDetailsIntent.putExtra("bookiingDetails" , booking)
+        mDetailsIntent.putExtra("bookingDetails" , booking)
+        mDetailsIntent.putExtra("bookingType" , "Completed")
         requireActivity().startActivity(mDetailsIntent)
     }
 

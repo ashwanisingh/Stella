@@ -149,6 +149,8 @@
             android:textColor="@color/colorLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_info_personalize"
+            android:drawablePadding="10dp"
             app:layout_constraintStart_toStartOf="@+id/textView_bookings_date"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="18dp"

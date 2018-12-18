@@ -144,13 +144,13 @@ public class SharedPreferencesHelper {
         );
     }
 
-    public static void saveFoodPersoalize(Context mContext , boolean isPersonalized){
+    public static void saveFoodPersonalize(Context mContext , boolean isPersonalized){
         SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
         mEditor.putBoolean(UIConstants.PREFERENCES_FOOD_PERSONALIZE, isPersonalized);
         mEditor.apply();
     }
 
-    public static boolean getFoodPersonlalize(Context mContext){
+    public static boolean getFoodPersonalize(Context mContext){
         return getSharedPreferences(mContext).getBoolean(
                 UIConstants.PREFERENCES_FOOD_PERSONALIZE , false
         );

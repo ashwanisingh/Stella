@@ -47,13 +47,12 @@
         <TextView
                 android:id="@+id/textVIew_confirmed_booking"
                 style="@style/StellarTextView_22sp"
-                android:layout_width="193dp"
+                android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:layout_marginTop="26dp"
                 android:text="@string/booking_success_confirmed"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_tick"/>
 

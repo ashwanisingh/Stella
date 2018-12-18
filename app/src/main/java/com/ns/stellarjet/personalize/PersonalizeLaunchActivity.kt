@@ -21,8 +21,6 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_personalize_launch)
-        //TODO remove dummy Booking ID
-        SharedPreferencesHelper.saveBookingId(this , "9")
 
         binding.textViewPersonalizeCabPreferences.setOnClickListener {
             val mCabPreferencesIntent = Intent(
@@ -49,7 +47,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         super.onResume()
 
         if(SharedPreferencesHelper.getCabPersonalize(this) &&
-            SharedPreferencesHelper.getFoodPersonlalize(this)){
+            SharedPreferencesHelper.getFoodPersonalize(this)){
             val mPersonalizeSuccessIntent  =  Intent(
                 this ,
                 PersonalizeSuccessActivity::class.java
@@ -57,6 +55,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(mPersonalizeSuccessIntent)
             finish()
+            clearPersonalizedPreferences()
         }
         if(SharedPreferencesHelper.getCabPersonalize(this)){
             binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
@@ -69,7 +68,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             )
         }
 
-        if(SharedPreferencesHelper.getFoodPersonlalize(this)){
+        if(SharedPreferencesHelper.getFoodPersonalize(this)){
             binding.textViewPersonalizeFoodPreferences.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok ,
                 0,0,0
@@ -81,7 +80,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         }
     }
 
-    fun launchHome(){
+    private fun launchHome(){
         val mHomeIntent = Intent(
             this ,
             HomeActivity::class.java
@@ -89,5 +88,15 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
         startActivity(mHomeIntent)
         finish()
+        clearPersonalizedPreferences()
+    }
+
+    private fun clearPersonalizedPreferences(){
+        SharedPreferencesHelper.saveCabDropPersonalize(this , "")
+        SharedPreferencesHelper.saveCabDropPersonalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+        SharedPreferencesHelper.saveBookingId(this , "")
+        SharedPreferencesHelper.saveFoodPersonalize(this ,true)
     }
 }

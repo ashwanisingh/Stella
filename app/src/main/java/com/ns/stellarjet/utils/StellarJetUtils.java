@@ -164,7 +164,7 @@ public class StellarJetUtils {
     /**
      * returns the reach by plane hour format
      */
-    public static String getReachByPlanehours(long millis){
+    public static String getReachByPlaneHours(long millis){
         String pattern = "hh:mm";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
@@ -172,6 +172,21 @@ public class StellarJetUtils {
         // Creating date from milliseconds
         // using Date() constructor
         Date result = new Date(millis - 15*60*1000);
+
+        return simple.format(result);
+    }
+
+    /**
+     * returns the reach by plane hour format
+     */
+    public static String getPersonalizationHours(long millis){
+        String pattern = "dd-MMM-YYYY, hh:mm aa";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis - 4*60*60*1000);
 
         return simple.format(result);
     }

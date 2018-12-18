@@ -10,7 +10,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.utils.StellarJetUtils
 
 class BookingListAdapter(
-    private val mBookingList : List<Booking> ,
+    private val mBookingList : List<Booking> , val bookingType :String ,
     private val onSelectDishListenerParams : (Booking) -> Unit) : RecyclerView.Adapter<BookingListAdapter.BookingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingListViewHolder {
@@ -23,7 +23,7 @@ class BookingListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookingListViewHolder, position: Int) {
-        holder.bind(mBookingList[position], onSelectDishListenerParams)
+        holder.bind(mBookingList[position], bookingType , onSelectDishListenerParams)
     }
 
     class BookingListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -34,9 +34,11 @@ class BookingListAdapter(
         private val mToAirport : TextView = itemView.findViewById(R.id.textView_bookings_airport_to)
         private val mBookingsDate : TextView = itemView.findViewById(R.id.textView_bookings_date)
         private val mBookingsTime: TextView = itemView.findViewById(R.id.textView_bookings_departure_time)
-//        private val mPersonalizeStatus: TextView = itemView.findViewById(R.id.textView_booking_personalize_status)
+        private val mPersonalizeStatus: TextView = itemView.findViewById(R.id.textView_booking_personalize_status)
+        private val mDivider: View = itemView.findViewById(R.id.view_bookings_two)
 
-        fun bind(bookings: Booking, onSelectDishListenerParams: (Booking) -> Unit){
+
+        fun bind(bookings: Booking, bookingType: String , onSelectDishListenerParams: (Booking) -> Unit){
             mFromCity.text = bookings.from_city_info?.name
             mToCity.text = bookings.to_city_info?.name
             mFromAirport.text = bookings.from_city_info?.airport
@@ -46,6 +48,41 @@ class BookingListAdapter(
             mBookingsTime.text = journeyTime
             itemView.setOnClickListener {
                 onSelectDishListenerParams(bookings)
+            }
+
+            if(bookingType.equals("Completed" , true)){
+                mDivider.visibility = View.GONE
+                mPersonalizeStatus.visibility = View.GONE
+            }
+
+            val pickUpAddress = bookings.pick_address_main
+            val dropAddress = bookings.drop_address_main
+            val foodPersonalizedService = bookings.service
+            var isCabPersonlaized = false
+            var isFoodPersonlaized = false
+            if(pickUpAddress?.isEmpty()!! && dropAddress?.isEmpty()!!){
+                isCabPersonlaized = false
+            }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){
+                isCabPersonlaized = true
+            }
+            if(foodPersonalizedService.equals("usual" , false)){
+                isFoodPersonlaized = false
+            }else if(foodPersonalizedService.equals("preferred" , false)){
+                isFoodPersonlaized = true
+            }
+
+            if(isCabPersonlaized || isFoodPersonlaized){
+                mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
+                mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_tik_personalize , 0 , 0 , 0
+                )
+                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorLoginButton))
+            }else{
+                mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_need_personalize)
+                mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_info_personalize , 0 , 0 , 0
+                )
+                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
             }
         }
     }

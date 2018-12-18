@@ -77,8 +77,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
 
-        activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
-        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+//        activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+//        activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
 
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
@@ -110,13 +110,14 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.buttonConfirmBooking.setOnClickListener(v ->{
 
             if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-                if(isGuestEdited){
+               /* if(isGuestEdited){
                     confirmOnlyExistingGuests();
                 }else if(isOnlyNewGuestsAdded){
                     confirmGuests();
                 }else if(isOnlyGuestsSelected){
                     bookFlight();
-                }
+                }*/
+               bookFlight();
             }else{
                 Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
             }
@@ -143,8 +144,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                         HomeActivity.arrivalTime ,
                         HomeActivity.flightId ,
                         HomeActivity.mSeatNamesId ,
-                        mGuestList ,
-                        selfTravelling
+//                        mGuestList ,
+                        null,
+                        1
                 );
 
         mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {
