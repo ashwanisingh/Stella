@@ -82,7 +82,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Log.d("Splash", "onResponse: " + response.body());
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,
-                            HomeActivity.class
+                            PassCodeActivity.class
                     );
                     mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
                     startActivity(mHomeIntent);

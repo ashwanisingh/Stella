@@ -235,6 +235,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
                 Log.d("Booking", "onResponse: " +response.body());
                 if (response.body() != null) {
+                    HomeActivity.mSeatNamesId.clear();
                     if(response.body().getResultcode()==1){
                         HomeActivity.mSeatNamesId.addAll(mConfirmedSeatsList);
                     }
