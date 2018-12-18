@@ -14,6 +14,7 @@ import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPasswordBinding;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,48 +44,54 @@ public class PasswordActivity extends AppCompatActivity {
             if(password.isEmpty()){
                 showPasswordErrorField();
             }else {
-                Call<LoginResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
-                        .getStellarJetAPIs().doLogin(username , password);
+                if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+                    doLogin(username , password);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-                mLoginResponseCall.enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        Log.d("Password", "onResponse: " + response.body());
-                        if (response.body()!=null){
-                            SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
-                            SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
-                            SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
-                            SharedPreferencesHelper.saveUserName(PasswordActivity.this , response.body().getData().getUser_data().getName());
-                            SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
-                            SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
-                            SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
-                            Intent mPassCodeIntent = new Intent(
-                                    PasswordActivity.this ,
-                                    PassCodeActivity.class
-                            );
-                            mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
-                            startActivity(mPassCodeIntent);
-                        }else {
-                            try {
-                                JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
-                                String errorMessage = mJsonObject.getString("message");
-                                Toast.makeText(PasswordActivity.this , errorMessage , Toast.LENGTH_LONG).show();
-                            } catch (JSONException | IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+    private void doLogin(String username , String password){
+        Call<LoginResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
+                .getStellarJetAPIs().doLogin(username , password);
 
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Log.d("Password", "onFailure: " + t);
+        mLoginResponseCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                Log.d("Password", "onResponse: " + response.body());
+                if (response.body()!=null){
+                    SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
+                    SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
+                    SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
+                    SharedPreferencesHelper.saveUserName(PasswordActivity.this , response.body().getData().getUser_data().getName());
+                    SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
+                    SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
+                    SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
+                    Intent mPassCodeIntent = new Intent(
+                            PasswordActivity.this ,
+                            PassCodeActivity.class
+                    );
+                    mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
+                    startActivity(mPassCodeIntent);
+                }else {
+                    try {
+                        JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        Toast.makeText(PasswordActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
                     }
-                });
+                }
             }
 
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("Password", "onFailure: " + t);
+            }
         });
-
     }
 
     private void showPasswordErrorField(){

@@ -13,6 +13,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityLoginBinding;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -41,49 +42,57 @@ public class LoginActivity extends AppCompatActivity {
             if(userName.isEmpty()){
                 showAccountIdErrorField();
             }else {
-                Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
-                        .getStellarJetAPIs().doValidateCustomer(userName );
-
-                mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
-                    @Override
-                    public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
-                        Log.d("Login", "onResponse: " + response.body());
-                        if(response.body()!=null){
-                            String userType = response.body().getData().getUsertype();
-                            if(userType.equalsIgnoreCase("primary")){
-                                Intent mPasswordIntent = new Intent(
-                                        LoginActivity.this ,
-                                        PasswordActivity.class
-                                );
-                                mPasswordIntent.putExtra("userEmail" , response.body().getData().getUsername());
-                                SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
-                                startActivity(mPasswordIntent);
-                            }else if(userType.equalsIgnoreCase("secondary")){
-                                Intent mOTPIntent = new Intent(
-                                        LoginActivity.this ,
-                                        OTPActivity.class
-                                );
-                                mOTPIntent.putExtra("userEmail" , response.body().getData().getUsername());
-                                startActivity(mOTPIntent);
-                            }
-                        }else {
-                            try {
-                                JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
-                                String errorMessage = mJsonObject.getString("message");
-                                Toast.makeText(LoginActivity.this , errorMessage , Toast.LENGTH_LONG).show();
-                            } catch (JSONException | IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
-                        Log.d("Login", "onResponse: " + t);
-                    }
-                });
+                if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+                    validateUser(userName);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                }
             }
 
+        });
+    }
+
+    private void validateUser(String userName){
+        Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
+                .getStellarJetAPIs().doValidateCustomer(userName );
+
+        mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
+            @Override
+            public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
+                Log.d("Login", "onResponse: " + response.body());
+                if(response.body()!=null){
+                    String userType = response.body().getData().getUsertype();
+                    if(userType.equalsIgnoreCase("primary")){
+                        Intent mPasswordIntent = new Intent(
+                                LoginActivity.this ,
+                                PasswordActivity.class
+                        );
+                        mPasswordIntent.putExtra("userEmail" , response.body().getData().getUsername());
+                        SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
+                        startActivity(mPasswordIntent);
+                    }else if(userType.equalsIgnoreCase("secondary")){
+                        Intent mOTPIntent = new Intent(
+                                LoginActivity.this ,
+                                OTPActivity.class
+                        );
+                        mOTPIntent.putExtra("userEmail" , response.body().getData().getUsername());
+                        startActivity(mOTPIntent);
+                    }
+                }else {
+                    try {
+                        JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        Toast.makeText(LoginActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
+                Log.d("Login", "onResponse: " + t);
+            }
         });
     }
 

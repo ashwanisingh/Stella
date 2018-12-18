@@ -11,6 +11,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityCabPreferncesBinding
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +53,11 @@ class CabPreferencesActivity : AppCompatActivity() {
         }
 
         binding.buttonCabPreferencesUpdate.setOnClickListener {
-            updateCabPreferences()
+            if(StellarJetUtils.isConnectingToInternet(applicationContext)){
+                updateCabPreferences()
+            }else{
+                Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

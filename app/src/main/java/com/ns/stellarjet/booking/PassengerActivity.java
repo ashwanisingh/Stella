@@ -129,6 +129,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                     confirmGuests();
                 }else if(isOnlyGuestsSelected){
                     bookFlight();
+                }else if(isOnlySelfTravelling){
+                    bookFlight();
                 }
             }else{
                 Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -120,9 +121,12 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
 //        Toast.makeText(getActivity(), placeId + "=="+ placeName, Toast.LENGTH_SHORT).show();
         HomeActivity.toCityId = placeId;
         HomeActivity.toCity = placeName;
-        getFlightSchedules();
+        if(StellarJetUtils.isConnectingToInternet(getActivity())){
+            getFlightSchedules();
+        }else{
+            Toast.makeText(getActivity(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
     private void getFlightSchedules(){
         Call<FlightScheduleResponse> mFlightScheduleResponseCall = RetrofitAPICaller.getInstance(getActivity())

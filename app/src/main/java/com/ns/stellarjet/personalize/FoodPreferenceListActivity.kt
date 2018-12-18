@@ -2,6 +2,7 @@ package com.ns.stellarjet.personalize
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 import kotlinx.android.synthetic.main.activity_food_preference_list.*
 import retrofit2.Call
@@ -57,34 +59,42 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         button_food_list_confirm.setOnClickListener {
 
             Log.d("Booking", "onResponse:")
+            if(StellarJetUtils.isConnectingToInternet(applicationContext)){
+                personalizeFood()
+            }else{
+                Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+            }
 
-            val personalizeFood : Call<FoodPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
-                .stellarJetAPIs.personalizeFood(
-                SharedPreferencesHelper.getUserToken(this) ,
-                SharedPreferencesHelper.getBookingId(this) ,
-                mSelectedFoodIds
-            )
+        }
+    }
 
-            personalizeFood.enqueue(object : Callback<FoodPersonalizeResponse> {
-                override fun onResponse(
-                    call: Call<FoodPersonalizeResponse>,
-                    response: Response<FoodPersonalizeResponse>){
-                    Log.d("Booking", "onResponse: $response")
-                    SharedPreferencesHelper.saveFoodPersonalize(
-                        this@FoodPreferenceListActivity ,
-                        true
-                    )
-                    finish()/*
+    private fun personalizeFood(){
+        val personalizeFood : Call<FoodPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
+            .stellarJetAPIs.personalizeFood(
+            SharedPreferencesHelper.getUserToken(this) ,
+            SharedPreferencesHelper.getBookingId(this) ,
+            mSelectedFoodIds
+        )
+
+        personalizeFood.enqueue(object : Callback<FoodPersonalizeResponse> {
+            override fun onResponse(
+                call: Call<FoodPersonalizeResponse>,
+                response: Response<FoodPersonalizeResponse>){
+                Log.d("Booking", "onResponse: $response")
+                SharedPreferencesHelper.saveFoodPersonalize(
+                    this@FoodPreferenceListActivity ,
+                    true
+                )
+                finish()/*
                     if (response.body() != null && response.body()!!.resultcode == 1) {
 
                     }*/
-                }
+            }
 
-                override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
-                    Log.d("Booking", "onResponse: $t")
-                }
-            })
-        }
+            override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
+                Log.d("Booking", "onResponse: $t")
+            }
+        })
     }
 
     private fun makeFoodListByCategory(foodType : String) :  MutableList<Food>{

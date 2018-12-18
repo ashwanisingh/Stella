@@ -26,6 +26,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.utils.PermissionUtils;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,13 +96,16 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             mapFragment.getMapAsync(this);
         }
 
-
         mAddAddressButton.setOnClickListener(v -> {
             String cityId = "3";
             String address = mFlatNoEditText.getText().toString() +" "+ mAddressEditText.getText().toString();
             String nickName = mNickNameEditText.getText().toString();
             if(!cityId.isEmpty() && !address.isEmpty()&& !nickName.isEmpty()){
-                addAddress(cityId , address , nickName);
+                if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+                    addAddress(cityId , address , nickName);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                }
             }else {
                 Toast.makeText(AddAddressScrollActivity.this, "All Fields are Mandatory", Toast.LENGTH_SHORT).show();
             }

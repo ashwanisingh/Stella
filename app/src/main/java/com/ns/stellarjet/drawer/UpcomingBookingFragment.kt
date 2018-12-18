@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.FragmentUpcomingBookingBinding
 import com.ns.stellarjet.drawer.adapter.BookingListAdapter
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.StellarJetUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +39,11 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_upcoming_booking, container, false)
-        getUpcomingBookings()
+        if(StellarJetUtils.isConnectingToInternet(activity)){
+            getUpcomingBookings()
+        }else{
+            Toast.makeText(activity, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+        }
         return binding.root
     }
 

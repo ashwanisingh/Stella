@@ -3,6 +3,7 @@ package com.ns.stellarjet.personalize
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding
 import com.ns.stellarjet.personalize.adapter.SavedAddressListAdapter
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,9 +36,13 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit {
             R.layout.activity_saved_address
         )
 
-         cabType = intent?.extras?.getString(UIConstants.BUNDLE_CAB_TYPE)!!
+        cabType = intent?.extras?.getString(UIConstants.BUNDLE_CAB_TYPE)!!
 
-        getSavedAddress()
+        if(StellarJetUtils.isConnectingToInternet(applicationContext)){
+            getSavedAddress()
+        }else{
+            Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+        }
 
         binding.textViewSavedAddressCurrentLocation.setOnClickListener {
             val mAddAddressIntent = Intent(
