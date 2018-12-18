@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ns.stellarjet.R
+import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
 import kotlinx.android.synthetic.main.activity_preference_launch.*
 
 class PreferenceLaunchActivity : AppCompatActivity() {
@@ -24,7 +25,11 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         }
 
         textView_preferences_food.setOnClickListener {
-
+            startActivity(
+                Intent(
+                    this ,
+                    FoodPreferencesLaunchActivity::class.java
+                ))
         }
     }
 }

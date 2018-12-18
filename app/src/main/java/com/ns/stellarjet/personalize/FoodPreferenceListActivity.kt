@@ -58,14 +58,14 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
             Log.d("Booking", "onResponse:")
 
-            val personlaizeFood : Call<FoodPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
+            val personalizeFood : Call<FoodPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
                 .stellarJetAPIs.personalizeFood(
                 SharedPreferencesHelper.getUserToken(this) ,
                 SharedPreferencesHelper.getBookingId(this) ,
                 mSelectedFoodIds
             )
 
-            personlaizeFood.enqueue(object : Callback<FoodPersonalizeResponse> {
+            personalizeFood.enqueue(object : Callback<FoodPersonalizeResponse> {
                 override fun onResponse(
                     call: Call<FoodPersonalizeResponse>,
                     response: Response<FoodPersonalizeResponse>){

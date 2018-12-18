@@ -4,12 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
 import com.ns.stellarjet.R
+import com.ns.stellarjet.utils.StellarJetUtils
 import com.squareup.picasso.Picasso
+import kotlin.system.exitProcess
 
 class FoodListAdapter (
     private val mFoodList : List<Food>,
@@ -44,9 +48,30 @@ class FoodListAdapter (
             if(foodType.pref){
                 mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected))
             }
+            var isExpanded = false
+            mFoodDescription.setOnClickListener {
+                if(!isExpanded){
+                    val params = LinearLayout.LayoutParams(
+                        StellarJetUtils.pxFromDp(itemView.context , 250.0f),
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    mFoodDescription.layoutParams = params
+                    mFoodDescription.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.ic_up_arrow ,0)
+                    isExpanded = true
+                }else if(isExpanded){
+                    val params = LinearLayout.LayoutParams(
+                        StellarJetUtils.pxFromDp(itemView.context , 250.0f),
+                        StellarJetUtils.pxFromDp(itemView.context , 50.0f)
+                    )
+                    mFoodDescription.layoutParams = params
+                    mFoodDescription.setCompoundDrawablesWithIntrinsicBounds(0 , 0,R.drawable.ic_down_arrow,0)
+                    isExpanded = false
+                }
+
+            }
 
             mFoodSelect.setOnClickListener {
-//                var isSelected = false
+                //                var isSelected = false
 //                if(mFoodSelect.drawable.constantState == itemView.context.resources.getDrawable(R.drawable.ic_food_selected).constantState){
                 if(mFoodSelect.drawable.constantState == ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected)?.constantState){
 //                    isSelected = false
