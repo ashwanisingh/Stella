@@ -13,6 +13,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPasswordBinding;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
@@ -54,14 +55,17 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     private void doLogin(String username , String password){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PasswordActivity.this);
         Call<LoginResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
                 .getStellarJetAPIs().doLogin(username , password);
 
         mLoginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Log.d("Password", "onResponse: " + response.body());
+                progress.hideProgress();
                 if (response.body()!=null){
+                    Log.d("Password", "onResponse: " + response.body());
                     SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
                     SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
                     SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
@@ -89,6 +93,8 @@ public class PasswordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                progress.hideProgress();
+                Toast.makeText(PasswordActivity.this, "Serer Error", Toast.LENGTH_SHORT).show();
                 Log.d("Password", "onFailure: " + t);
             }
         });

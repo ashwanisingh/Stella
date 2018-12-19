@@ -10,6 +10,7 @@ import com.ns.networking.model.CabPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityCabPreferncesBinding
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -67,6 +68,8 @@ class CabPreferencesActivity : AppCompatActivity() {
     }
 
     private fun updateCabPreferences(){
+        val progress = Progress.getInstance()
+        progress.showProgress(this)
         val personalizeCab : Call<CabPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.personalizeCab(
             SharedPreferencesHelper.getUserToken(this) ,
@@ -79,6 +82,7 @@ class CabPreferencesActivity : AppCompatActivity() {
             override fun onResponse(
                 call: Call<CabPersonalizeResponse>,
                 response: Response<CabPersonalizeResponse>){
+                progress.hideProgress()
                 if (response.body() != null && response.body()!!.resultcode == 1) {
                     Log.d("Booking", "onResponse: " + response.body())
                     SharedPreferencesHelper.saveCabPersonalize(
@@ -94,6 +98,8 @@ class CabPreferencesActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<CabPersonalizeResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
+                progress.hideProgress()
+                Toast.makeText(this@CabPreferencesActivity , "Server Error" , Toast.LENGTH_SHORT).show()
             }
         })
     }

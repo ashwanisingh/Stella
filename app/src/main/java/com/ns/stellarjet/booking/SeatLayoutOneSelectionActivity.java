@@ -18,6 +18,7 @@ import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
@@ -215,7 +216,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
 
 
     private void confirmSeats(List<Integer> mConfirmedSeatsList){
-
         Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
                 RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
@@ -292,8 +292,8 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
             @Override
             public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
-                Log.d("Booking", "onResponse: " +response.body());
                 if (response.body() != null) {
+                    Log.d("Booking", "onResponse: " +response.body());
                     HomeActivity.mSeatNamesId = response.body().getData().getFlight_seat_availability().getLocked();
                     HomeActivity.mSeatNames.clear();
                 }

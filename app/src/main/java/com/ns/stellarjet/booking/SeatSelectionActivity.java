@@ -18,6 +18,7 @@ import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
@@ -189,6 +190,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     }
 
     private void getFlightSeats(){
+
         Call<FlightSeatResponse> mFlightSeatsDataResponseCall =
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().getFlightSeats(
@@ -238,9 +240,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
     private void confirmSeats(List<Integer> mConfirmedSeatsList){
 
-       /* Log.d("seat", "confirmSeats: " + mSeatsList);
-        HomeActivity.mSeatIds = mSeatsList;*/
-
         Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
@@ -258,8 +257,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
             @Override
             public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
-                Log.d("Booking", "onResponse: " +response.body());
                 if (response.body() != null) {
+                    Log.d("Booking", "onResponse: " +response.body());
                     if(response.body().getResultcode()==1){
                         HomeActivity.mSeatNamesId.clear();
                         for (int i = 0; i < mConfirmedSeatsList.size(); i++) {
@@ -320,8 +319,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
             @Override
             public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call, @NonNull Response<FlightSeatsConfirmResponse> response) {
-                Log.d("Booking", "onResponse: " +response.body());
                 if (response.body() != null) {
+                    Log.d("Booking", "onResponse: " +response.body());
                     HomeActivity.mSeatNamesId = response.body().getData().getFlight_seat_availability().getLocked();
                     HomeActivity.mSeatNames.clear();
                     mConfirmedSeatsList.clear();
@@ -556,7 +555,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private void getCityList(int fromId , int toId){
         String fromCity = "";
         String toCity = "";
-       List<City> mCitiesList  = HomeActivity.sUserData.getCities();
+        List<City> mCitiesList  = HomeActivity.sUserData.getCities();
         for (int i = 0; i < mCitiesList.size(); i++) {
             if(mCitiesList.get(i).getId() == fromId){
                 fromCity = mCitiesList.get(i).getName();

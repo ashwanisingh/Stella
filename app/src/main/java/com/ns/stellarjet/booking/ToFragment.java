@@ -24,6 +24,7 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.adapter.PlaceSelectAdapter;
 import com.ns.stellarjet.databinding.FragmentToBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.jetbrains.annotations.NotNull;
@@ -129,6 +130,8 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
     }
 
     private void getFlightSchedules(){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(getActivity());
         Call<FlightScheduleResponse> mFlightScheduleResponseCall = RetrofitAPICaller.getInstance(getActivity())
                 .getStellarJetAPIs().getFlightSchedules(
                         SharedPreferencesHelper.getUserToken(getActivity()) ,
@@ -140,8 +143,9 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         mFlightScheduleResponseCall.enqueue(new Callback<FlightScheduleResponse>() {
             @Override
             public void onResponse(@NonNull Call<FlightScheduleResponse> call, @NonNull Response<FlightScheduleResponse> response) {
-                Log.d("Calendar", "onResponse: " + response.body());
+                progress.hideProgress();
                 if (response.body() != null) {
+                    Log.d("Calendar", "onResponse: " + response.body());
                     List<FlightScheduleData> mFlightScheduleDataList = response.body().getData();
                     Intent mCalendarIntent = new Intent(
                             getActivity() ,
@@ -154,6 +158,8 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
 
             @Override
             public void onFailure(@NonNull Call<FlightScheduleResponse> call, @NonNull Throwable t) {
+                progress.hideProgress();
+                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_SHORT).show();
                 Log.d("Calendar", "onFailure: " + t);
             }
         });

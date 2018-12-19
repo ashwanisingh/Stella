@@ -14,6 +14,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBoardingPassBinding
 import com.ns.stellarjet.drawer.adapter.BoardingListAdapter
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import kotlinx.android.synthetic.main.activity_boarding_pass.*
@@ -48,6 +49,8 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
 
 
     private fun getBoardingPass(){
+        val progress = Progress.getInstance()
+        progress.showProgress(this)
         val boardingPassCall: Call<BoardingPassResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.getBoardingPassResponse(
             SharedPreferencesHelper.getUserToken(this) ,
@@ -60,6 +63,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
                 call: Call<BoardingPassResponse>,
                 response:
                 Response<BoardingPassResponse>) {
+                progress.hideProgress()
                 mBoardingPassList = response.body()!!.data.boarding_pass
                 val adapter = BoardingListAdapter(mBoardingPassList , this@BoardingPassActivity)
                 val layoutManager = LinearLayoutManager(
@@ -74,6 +78,8 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
 
             override fun onFailure(call: Call<BoardingPassResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
+                progress.hideProgress()
+                Toast.makeText(this@BoardingPassActivity , "Server Error" , Toast.LENGTH_SHORT).show()
             }
         })
     }

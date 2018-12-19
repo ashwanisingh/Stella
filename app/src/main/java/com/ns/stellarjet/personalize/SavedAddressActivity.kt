@@ -14,6 +14,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding
 import com.ns.stellarjet.personalize.adapter.SavedAddressListAdapter
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -61,6 +62,8 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit {
     }
 
     private fun getSavedAddress(){
+        val progress = Progress.getInstance()
+        progress.showProgress(this)
         val boardingPassCall: Call<SavedAddressResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.getSavedAddress(
             SharedPreferencesHelper.getUserToken(this) ,
@@ -72,12 +75,15 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit {
                 call: Call<SavedAddressResponse>,
                 response:
                 Response<SavedAddressResponse> ) {
+                progress.hideProgress()
                 val addresses = response.body()?.data?.addresses
                 setSavedAddress(addresses)
             }
 
             override fun onFailure(call: Call<SavedAddressResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
+                progress.hideProgress()
+                Toast.makeText(this@SavedAddressActivity , "Server Error" ,Toast.LENGTH_SHORT).show()
             }
         })
     }

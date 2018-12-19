@@ -17,6 +17,7 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.adapter.PassengerListAdapter;
 import com.ns.stellarjet.databinding.ActivityPassengerBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +32,7 @@ import java.util.Objects;
 public class PassengerActivity extends AppCompatActivity implements PassengerListAdapter.onConfirmButtonEnableStateListener, PassengerListAdapter.onConfirmButtonDisableStateListener {
 
     private ActivityPassengerBinding activityPassengerBinding;
-//    private boolean isSelfTravelling = false;
+    //    private boolean isSelfTravelling = false;
     private GuestPrefsRequest guestPrefsRequest = new GuestPrefsRequest();
     private boolean isGuestEdited = false;
     private List<Integer> mGuestList = new ArrayList<>();
@@ -146,7 +147,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         }else {
             selfTravelling = 0;
         }
-
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassengerActivity.this);
         Call<BookingConfirmResponse> mBookingConfirmResponseCall =  RetrofitAPICaller.getInstance(PassengerActivity.this).getStellarJetAPIs()
                 .confirmFlightBooking(
                         SharedPreferencesHelper.getUserToken(PassengerActivity.this) ,
@@ -165,8 +167,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {
             @Override
             public void onResponse(@NotNull  Call<BookingConfirmResponse> call,@NotNull Response<BookingConfirmResponse> response) {
-                Log.d("Booking", "onResponse: " + response.body());
+                progress.hideProgress();
                 if (response.body() != null && response.body().getResultcode() == 1) {
+                    Log.d("Booking", "onResponse: " + response.body());
                     SharedPreferencesHelper.saveBookingId(
                             PassengerActivity.this ,
                             String.valueOf(response.body().getData().getBooking_id()));
@@ -183,7 +186,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
             @Override
             public void onFailure(@NotNull Call<BookingConfirmResponse> call,@NotNull Throwable t) {
+                progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
+                Toast.makeText(PassengerActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -218,6 +223,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         addGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerActivity.this));
         addGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerActivity.this));
 
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassengerActivity.this);
 
         Call<GuestConfirmResponse> guestConfirmResponseCall =
                 RetrofitAPICaller.getInstance(PassengerActivity.this)
@@ -228,6 +235,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         guestConfirmResponseCall.enqueue(new Callback<GuestConfirmResponse>() {
             @Override
             public void onResponse(Call<GuestConfirmResponse> call, Response<GuestConfirmResponse> response) {
+                progress.hideProgress();
                 Log.d("Booking", "onResponse: " + response);
                 if(response.body().getResultcode() ==1){
                     List<Integer> mGuestResponseIds = new ArrayList<>();
@@ -242,6 +250,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
             @Override
             public void onFailure(Call<GuestConfirmResponse> call, Throwable t) {
+                progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
                 Toast.makeText(PassengerActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
             }
@@ -252,7 +261,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
         editGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerActivity.this));
         editGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerActivity.this));
-
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassengerActivity.this);
         Call<GuestConfirmResponse> guestConfirmResponseCall =
                 RetrofitAPICaller.getInstance(PassengerActivity.this)
                         .getStellarJetAPIs().bookExistingGuestInfo(
@@ -262,6 +272,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         guestConfirmResponseCall.enqueue(new Callback<GuestConfirmResponse>() {
             @Override
             public void onResponse(Call<GuestConfirmResponse> call, Response<GuestConfirmResponse> response) {
+                progress.hideProgress();
                 Log.d("Booking", "onResponse: " + response);
                 if (response.body() != null && response.body().getResultcode() == 1) {
                     List<Integer> mGuestResponseIds = new ArrayList<>();
@@ -275,6 +286,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
             @Override
             public void onFailure(Call<GuestConfirmResponse> call, Throwable t) {
+                progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
                 Toast.makeText(PassengerActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
             }

@@ -24,16 +24,14 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.ns.networking.model.AddAddressResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
-import com.ns.stellarjet.utils.PermissionUtils;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddAddressScrollActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -46,7 +44,6 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
     private EditText mAddressEditText;
     private EditText mFlatNoEditText;
     private EditText mNickNameEditText;
-    private TextView mLocationTypeTextView;
     private String mCabType = "";
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -71,13 +68,15 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         mNickNameEditText = findViewById(R.id.editText_add_address_nickname);
         mAddressEditText.setKeyListener(null);
         Button mAddAddressButton = findViewById(R.id.button_add_address_confirm);
-        mLocationTypeTextView = findViewById(R.id.textView_set_location);
+        TextView mLocationTypeTextView = findViewById(R.id.textView_set_location);
 
-        mCabType = getIntent().getExtras().getString(UIConstants.BUNDLE_CAB_TYPE);
-        if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
-            mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
-        }else if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_DROP)){
-            mLocationTypeTextView.setText(getResources().getString(R.string.address_set_drop_location));
+        mCabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
+        if (mCabType != null) {
+            if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
+                mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
+            }else if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_DROP)){
+                mLocationTypeTextView.setText(getResources().getString(R.string.address_set_drop_location));
+            }
         }
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
@@ -117,6 +116,8 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
     }
 
     private void addAddress(String cityId , String address , String nickName){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(AddAddressScrollActivity.this);
         Call<AddAddressResponse> mAddressResponseCall = RetrofitAPICaller.getInstance(AddAddressScrollActivity.this)
                 .getStellarJetAPIs().addNewAddress(
                         SharedPreferencesHelper.getUserToken(AddAddressScrollActivity.this) ,
@@ -129,8 +130,9 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         mAddressResponseCall.enqueue(new Callback<AddAddressResponse>() {
             @Override
             public void onResponse(@NonNull Call<AddAddressResponse> call,@NonNull Response<AddAddressResponse> response) {
-                Log.d("Address", "onResponse: " + response.body());
+                progress.hideProgress();
                 if (response.body() != null && response.body().getResultcode() == 1) {
+                    Log.d("Address", "onResponse: " + response.body());
                     Toast.makeText(
                             AddAddressScrollActivity.this,
                             response.body().getMessage(),
@@ -159,6 +161,8 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             @Override
             public void onFailure(@NonNull Call<AddAddressResponse> call,@NonNull Throwable t) {
                 Log.d("Address", "onResponse: " + t);
+                progress.hideProgress();
+                Toast.makeText(AddAddressScrollActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

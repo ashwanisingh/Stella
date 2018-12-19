@@ -14,6 +14,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -69,6 +70,8 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     }
 
     private fun personalizeFood(){
+        val progress = Progress.getInstance()
+        progress.showProgress(this)
         val personalizeFood : Call<FoodPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.personalizeFood(
             SharedPreferencesHelper.getUserToken(this) ,
@@ -80,6 +83,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
             override fun onResponse(
                 call: Call<FoodPersonalizeResponse>,
                 response: Response<FoodPersonalizeResponse>){
+                progress.hideProgress()
                 Log.d("Booking", "onResponse: $response")
                 SharedPreferencesHelper.saveFoodPersonalize(
                     this@FoodPreferenceListActivity ,
@@ -92,7 +96,9 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
             }
 
             override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
+                progress.hideProgress()
                 Log.d("Booking", "onResponse: $t")
+                Toast.makeText(this@FoodPreferenceListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
             }
         })
     }

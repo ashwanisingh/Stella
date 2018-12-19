@@ -12,6 +12,7 @@ import com.ns.networking.model.ValidateCustomerResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityLoginBinding;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
@@ -53,14 +54,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateUser(String userName){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(LoginActivity.this);
         Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
                 .getStellarJetAPIs().doValidateCustomer(userName );
 
         mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
             @Override
             public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
-                Log.d("Login", "onResponse: " + response.body());
+                progress.hideProgress();
                 if(response.body()!=null){
+                    Log.d("Login", "onResponse: " + response.body());
                     String userType = response.body().getData().getUsertype();
                     if(userType.equalsIgnoreCase("primary")){
                         Intent mPasswordIntent = new Intent(
@@ -91,6 +95,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
+                progress.hideProgress();
+                Toast.makeText(LoginActivity.this , "Server Error" , Toast.LENGTH_LONG).show();
                 Log.d("Login", "onResponse: " + t);
             }
         });

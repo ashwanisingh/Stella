@@ -18,6 +18,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.FragmentUpcomingBookingBinding
 import com.ns.stellarjet.drawer.adapter.BookingListAdapter
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import retrofit2.Call
@@ -49,6 +50,8 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
 
 
     private fun getUpcomingBookings() {
+        val progress = Progress.getInstance()
+        progress.showProgress(activity)
         val upcomingBook: Call<BookingHistoryResponse> = RetrofitAPICaller.getInstance(activity)
             .stellarJetAPIs.getBookingHistoryResponse(
             SharedPreferencesHelper.getUserToken(activity),
@@ -63,6 +66,7 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 call: Call<BookingHistoryResponse>,
                 response:
                 Response<BookingHistoryResponse>) {
+                progress.hideProgress()
                 mUpcomingBookingHistoryList = response.body()!!.data.booking_list
                 val adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
                     "Upcoming" ,
@@ -78,6 +82,8 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
 
             override fun onFailure(call: Call<BookingHistoryResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
+                progress.hideProgress()
+                Toast.makeText(activity , "Server Error" , Toast.LENGTH_SHORT).show()
             }
         })
     }
