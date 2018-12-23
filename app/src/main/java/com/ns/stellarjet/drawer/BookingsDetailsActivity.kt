@@ -51,17 +51,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
         if(bookingData?.travelling_self ==1){
             passengersName = HomeActivity.sUserData.name
             seatsName = bookingData.customer_seat?.seat_code!!
-
-        }else{
-            val guests = bookingData?.guest_seats
-            guests?.forEach {
-                if(passengersName.isEmpty()){
-                    passengersName = it.name!!
-                    seatsName = it.seat_code!!
-                }else{
-                    passengersName = passengersName + "," + it.name
-                    seatsName = seatsName +"," +it.seat_code
-                }
+        }
+        val guests = bookingData?.guest_seats
+        guests?.forEach {
+            if(passengersName.isEmpty()){
+                passengersName = it.name!!
+                seatsName = it.seat_code!!
+            }else{
+                passengersName = passengersName + ", " + it.name
+                seatsName = seatsName +", " +it.seat_code
             }
         }
 

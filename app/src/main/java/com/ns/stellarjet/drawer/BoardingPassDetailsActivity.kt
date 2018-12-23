@@ -15,10 +15,10 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         val binding : ActivityBoardingPassDetailsBinding = DataBindingUtil.setContentView(
-                    this ,
-                    R.layout.activity_boarding_pass_details
-                )
+        val binding : ActivityBoardingPassDetailsBinding = DataBindingUtil.setContentView(
+            this ,
+            R.layout.activity_boarding_pass_details
+        )
 
         val boardingPass : Booking? = intent.extras?.getParcelable("BoardingPass")
 
@@ -29,17 +29,15 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
         if(boardingPass?.travelling_self ==1){
             passengersName = HomeActivity.sUserData.name
             seatsName = boardingPass.customer_seat?.seat_code!!
-
-        }else{
-            val guests = boardingPass?.guest_seats
-            guests?.forEach {
-                if(passengersName.isEmpty()){
-                    passengersName = it.name!!
-                    seatsName = it.seat_code!!
-                }else{
-                    passengersName = passengersName + "," + it.name
-                    seatsName = seatsName +"," +it.seat_code
-                }
+        }
+        val guests = boardingPass?.guest_seats
+        guests?.forEach {
+            if(passengersName.isEmpty()){
+                passengersName = it.name!!
+                seatsName = it.seat_code!!
+            }else{
+                passengersName = passengersName + ", " + it.name
+                seatsName = seatsName +", " +it.seat_code
             }
         }
         binding.textViewBoardingPassDetailsPassengersName.text = passengersName
