@@ -72,18 +72,14 @@ class HomeActivity : AppCompatActivity() {
         activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
         activityHomeBinding.textViewSeatLimits.text =
                 resources.getString(R.string.home_remaining_seats_first_half)
-        if(seatsAvailable<4){
-            val seatsRemaining = SpannableString(" $seatsAvailable seats ")
-            seatsRemaining.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorCreditAlert)),
-                0,
-                seatsRemaining.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            activityHomeBinding.textViewSeatLimits.append(seatsRemaining)
-        }else{
-            activityHomeBinding.textViewSeatLimits.append(" "+ seatsAvailable.toString()+" seats ")
-        }
+        val seatsRemaining = SpannableString(" $seatsAvailable seats ")
+        seatsRemaining.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorCreditAlert)),
+            0,
+            seatsRemaining.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        activityHomeBinding.textViewSeatLimits.append(seatsRemaining)
         activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
 
         /* launch the Booking flow */
