@@ -52,6 +52,7 @@
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".booking.PassengerActivity"
+                android:windowSoftInputMode="adjustPan"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".booking.BookingConfirmedActivity"
