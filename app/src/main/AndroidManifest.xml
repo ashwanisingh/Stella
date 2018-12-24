@@ -99,18 +99,18 @@
         <!--<activity
                 android:name=".personalize.MapsActivity"
                 android:screenOrientation="portrait"/>-->
-        <!--
+
         <activity android:name=".drawer.PreferencesManagersListActivity"
-        android:screenOrientation="portrait"/>
-        -->
+                  android:screenOrientation="portrait"/>
         <activity
                 android:name=".drawer.PreferenceManagerInfoActivity"
                 android:screenOrientation="portrait"/>
-          <activity
-                 android:name=".personalize.AddAddressScrollActivity"
-                 android:label="@string/title_activity_add_address_scroll"
-                 android:screenOrientation="portrait"
-                 android:theme="@style/AppTheme"/>
+
+        <activity
+                android:name=".personalize.AddAddressScrollActivity"
+                android:label="@string/title_activity_add_address_scroll"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -133,8 +133,10 @@
         </activity>-->
         <activity android:name=".PassCodeActivity"
                   android:screenOrientation="portrait"/>
+
         <activity android:name=".booking.SeatLayoutOneSelectionActivity"
                   android:screenOrientation="portrait"/>
+
         <activity android:name=".booking.SeatSelectionActivity"
                   android:screenOrientation="portrait"/>
     </application>
