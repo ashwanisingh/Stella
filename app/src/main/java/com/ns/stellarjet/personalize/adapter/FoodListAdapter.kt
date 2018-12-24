@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
 import com.ns.stellarjet.R
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.squareup.picasso.Picasso
-import kotlin.system.exitProcess
 
 class FoodListAdapter (
     private val mFoodList : List<Food>,
