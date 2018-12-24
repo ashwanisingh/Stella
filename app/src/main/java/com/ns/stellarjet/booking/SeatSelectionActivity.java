@@ -12,13 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ns.networking.model.*;
+import com.ns.networking.model.City;
+import com.ns.networking.model.FlightSeatAlignment;
+import com.ns.networking.model.FlightSeatResponse;
+import com.ns.networking.model.FlightSeatsConfirmResponse;
 import com.ns.networking.model.guestrequest.BookedSeatsRequest;
 import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
-import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
@@ -181,10 +183,14 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 }
             }
             Log.d("BookSeats", "onClick: " + mConfirmedSeatsList);
-            if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-                confirmSeats(mConfirmedSeatsList);
-            }else{
-                Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            if(mConfirmedSeatsList.size()>0){
+                if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+                    confirmSeats(mConfirmedSeatsList);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                Toast.makeText(getApplicationContext(), "Seats are not selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
