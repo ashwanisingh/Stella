@@ -34,7 +34,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        /*try {
+        try {
             VideoView videoHolder = new VideoView(this);
             ViewGroup.LayoutParams mLayoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT ,
@@ -54,8 +54,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             videoHolder.start();
         } catch (Exception ex) {
             jump();
-        }*/
-
+        }
+/*
         if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
                 getUserData();
@@ -65,7 +65,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }else{
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private void getUserData(){
