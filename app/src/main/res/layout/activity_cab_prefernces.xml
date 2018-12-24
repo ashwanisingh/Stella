@@ -25,6 +25,7 @@
                     style="@style/StellarTextView_18sp"
                     android:id="@+id/textView_cab_preferences_title"
                     android:text="@string/personalize_cab_title"
+                    android:layout_marginStart="-56dp"
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal"
                     android:layout_height="wrap_content"/>
