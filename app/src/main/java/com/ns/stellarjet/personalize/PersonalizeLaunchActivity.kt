@@ -2,6 +2,7 @@ package com.ns.stellarjet.personalize
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.stellarjet.R
@@ -50,17 +51,19 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if(SharedPreferencesHelper.getCabPersonalize(this) &&
-            SharedPreferencesHelper.getFoodPersonalize(this)){
-            val mPersonalizeSuccessIntent  =  Intent(
-                this ,
-                PersonalizeSuccessActivity::class.java
-            )
-            mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(mPersonalizeSuccessIntent)
-            finish()
-            clearPersonalizedPreferences()
-        }
+        Handler().postDelayed({
+            if(SharedPreferencesHelper.getCabPersonalize(this) &&
+                SharedPreferencesHelper.getFoodPersonalize(this)){
+                val mPersonalizeSuccessIntent  =  Intent(
+                    this ,
+                    PersonalizeSuccessActivity::class.java
+                )
+                mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(mPersonalizeSuccessIntent)
+                finish()
+                clearPersonalizedPreferences()
+            }
+        }, 1000)
         if(SharedPreferencesHelper.getCabPersonalize(this)){
             binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok ,
