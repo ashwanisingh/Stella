@@ -91,7 +91,7 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
             setSelfInfo();
         }else {
-            mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_text) + "1");
+            mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_text) + " 1");
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText("");
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText("");
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setEnabled(true);
@@ -160,6 +160,9 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
                 mGuestRequestDataList.get(0).setGuestId("");
                 mGuestRequestDataList.get(0).setGuestStatus("");
                 mSelectedPhoneNumberList.remove(HomeActivity.sUserData.getPhone());
+            }else if(position!=0){
+                mPassengerTitleTextView.setText(
+                        itemView.getContext().getResources().getString(R.string.info_passenger_text) +" "+(position+1));
             }
 
             mPassengerSelfMobileNumberEditText.setEnabled(false);
