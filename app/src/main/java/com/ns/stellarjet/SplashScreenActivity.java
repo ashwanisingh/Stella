@@ -112,6 +112,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void jump() {
+        clearPreferences();
         if (isFinishing())
             return;
         if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
@@ -148,4 +149,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
     }
 
+    private void clearPreferences(){
+        SharedPreferencesHelper.saveFoodPersonalize(SplashScreenActivity.this , false);
+        SharedPreferencesHelper.saveCabDropPersonalizeID(SplashScreenActivity.this , "");
+        SharedPreferencesHelper.saveCabDropPersonalize(SplashScreenActivity.this , "");
+        SharedPreferencesHelper.saveCabPickupPersoalizeID(SplashScreenActivity.this , "");
+        SharedPreferencesHelper.saveCabPickupPersoalize(SplashScreenActivity.this , "");
+        SharedPreferencesHelper.saveCabPersonalize(SplashScreenActivity.this , false);
+        SharedPreferencesHelper.saveBookingId(SplashScreenActivity.this , "");
+    }
 }
