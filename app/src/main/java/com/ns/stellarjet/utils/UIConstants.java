@@ -79,6 +79,10 @@ public class UIConstants {
      */
     public static final String BUNDLE_CAB_TYPE = "CabType";
     /**
+     * String constant for bundle name for cabType
+     */
+    public static final String BUNDLE_CAB_LATLONG = "LatLong";
+    /**
      * String constant for bundle value for cabType pickup
      */
     public static final String BUNDLE_CAB_TYPE_PICK = "PickUp";

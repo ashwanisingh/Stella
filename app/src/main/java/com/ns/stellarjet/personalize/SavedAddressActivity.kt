@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
+import com.google.android.gms.location.places.ui.PlaceSelectionListener
+import com.google.android.gms.maps.model.LatLng
 import com.ns.networking.model.SavedAddressResponse
 import com.ns.networking.model.SavedAddresse
 import com.ns.networking.retrofit.RetrofitAPICaller
@@ -22,9 +27,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit {
+class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit, PlaceSelectionListener {
+
+    override fun onPlaceSelected(place: Place?) {
+        Log.d("SavedAddress", "Place: " + place?.name)
+        latLng = place?.latLng!!
+        val mAddAddressIntent = Intent(
+            this@SavedAddressActivity ,
+            AddAddressScrollActivity::class.java
+        )
+        mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType)
+        mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng)
+        startActivity(mAddAddressIntent)
+        finish()
+    }
+
+    override fun onError(status: Status?) {
+        Log.d("SavedAddress", "An error occurred: $status")
+    }
 
     private lateinit var cabType : String
+    private lateinit var latLng: LatLng
+
 
     private lateinit var binding : ActivitySavedAddressBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +69,17 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit {
             Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
         }
 
-        binding.textViewSavedAddressCurrentLocation.setOnClickListener {
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.place_autocomplete_fragment) as? PlaceAutocompleteFragment
+
+        autocompleteFragment?.setOnPlaceSelectedListener(this)
+
+               binding.textViewSavedAddressCurrentLocation.setOnClickListener {
             val mAddAddressIntent = Intent(
                 this ,
                 AddAddressScrollActivity::class.java
             )
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType)
+            mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , "")
             startActivity(mAddAddressIntent)
             finish()
         }

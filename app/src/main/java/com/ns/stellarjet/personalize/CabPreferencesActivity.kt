@@ -34,7 +34,7 @@ class CabPreferencesActivity : AppCompatActivity() {
         binding.editTextPickLocation.setOnClickListener {
             val pickUpIntent = Intent(
                 this ,
-                SavedAddressActivity::class.java
+                SavedAddressListActivity::class.java
             )
             pickUpIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , UIConstants.BUNDLE_CAB_TYPE_PICK)
             startActivity(pickUpIntent)
@@ -43,7 +43,7 @@ class CabPreferencesActivity : AppCompatActivity() {
         binding.editTextDropLocation.setOnClickListener {
             val dropIntent = Intent(
                 this ,
-                SavedAddressActivity::class.java
+                SavedAddressListActivity::class.java
             )
             dropIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , UIConstants.BUNDLE_CAB_TYPE_DROP)
             startActivity(dropIntent)

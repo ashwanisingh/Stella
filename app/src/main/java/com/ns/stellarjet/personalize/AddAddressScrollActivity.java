@@ -49,6 +49,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private Location myLocation;
+    private LatLng mLatLng;
 
     /**
      * Flag indicating whether a requested permission has been denied after returning in
@@ -71,6 +72,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         TextView mLocationTypeTextView = findViewById(R.id.textView_set_location);
 
         mCabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
+        mLatLng = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_CAB_LATLONG);
         if (mCabType != null) {
             if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
                 mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
@@ -276,10 +278,13 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
                 myLocation = lm.getLastKnownLocation(provider);
             }
         }
-        if(myLocation!=null){
+        if(myLocation!=null && mLatLng == null){
             LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17), 1500, null);
+        }else if(myLocation!=null && mLatLng!=null){
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
         }
         googleMap.setOnCameraIdleListener(() -> {
             Log.d("Maps", "onCameraIdle: " + mMap.getCameraPosition().target);

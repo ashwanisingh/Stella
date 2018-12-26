@@ -18,6 +18,14 @@
             <Button
                     android:id="@+id/button_saved_address_back"
                     style="@style/StellarBackButton"/>
+
+            <fragment
+                    android:id="@+id/place_autocomplete_fragment"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom"
+            />
 <!--
             <EditText
                     android:id="@+id/editText_search_place"
