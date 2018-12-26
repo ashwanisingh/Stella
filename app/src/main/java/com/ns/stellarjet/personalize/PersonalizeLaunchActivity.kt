@@ -41,6 +41,10 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         binding.buttonPersonalizeLater.setOnClickListener {
             launchHome()
         }
+
+        binding.buttonPersonalizeHome.setOnClickListener {
+            launchHome()
+        }
     }
 
     override fun onResume() {
