@@ -55,9 +55,15 @@ class CabPreferencesActivity : AppCompatActivity() {
 
         binding.buttonCabPreferencesUpdate.setOnClickListener {
             if(StellarJetUtils.isConnectingToInternet(applicationContext)){
-                updateCabPreferences()
+                val pickUpId = SharedPreferencesHelper.getCabPickupPersonlalizeID(this)
+                val dropId = SharedPreferencesHelper.getCabDropPersonalizeID(this)
+                if(pickUpId.equals(dropId , true)){
+                    Toast.makeText(this, "Pick and Drop places can't be same", Toast.LENGTH_SHORT).show()
+                }else{
+                    updateCabPreferences(pickUpId , dropId)
+                }
             }else{
-                Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -67,15 +73,15 @@ class CabPreferencesActivity : AppCompatActivity() {
         setPersonalizedAddress()
     }
 
-    private fun updateCabPreferences(){
+    private fun updateCabPreferences(pickUpId: String, dropId: String) {
         val progress = Progress.getInstance()
         progress.showProgress(this)
         val personalizeCab : Call<CabPersonalizeResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.personalizeCab(
             SharedPreferencesHelper.getUserToken(this) ,
             SharedPreferencesHelper.getBookingId(this) ,
-            SharedPreferencesHelper.getCabPickupPersonlalizeID(this),
-            SharedPreferencesHelper.getCabDropPersonalizeID(this)
+            pickUpId,
+            dropId
         )
 
         personalizeCab.enqueue(object : Callback<CabPersonalizeResponse> {
