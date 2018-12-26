@@ -9,6 +9,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityPersonalizeLaunchBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 
 class PersonalizeLaunchActivity : AppCompatActivity() {
@@ -30,6 +31,10 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             )
             startActivity(mCabPreferencesIntent)
         }
+
+        val expiryTime = getString(R.string.personalize_update_title) + SharedPreferencesHelper.getPersonalizeTime(this)
+        binding.textViewUpdatePreferences.text = expiryTime
+
 
         binding.textViewPersonalizeFoodPreferences.setOnClickListener {
             val mFoodPreferencesIntent = Intent(

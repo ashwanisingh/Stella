@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
         @JvmField var toCity : String = ""
         @JvmField var journeyTime : String = ""
         @JvmField var journeyDate : String = ""
+        @JvmField var journeyTimeInMillis : Long = 0
         @JvmField var arrivalTime : String = ""
         @JvmField var flightId : Int = 0
         @JvmField var mSeatNamesId : List<Int> = ArrayList()
@@ -39,6 +40,7 @@ class HomeActivity : AppCompatActivity() {
             toCityId = 0
             journeyDate = ""
             journeyTime = ""
+            journeyTimeInMillis = 0
             arrivalTime = ""
             flightId = 0
             mSeatNames = ArrayList()

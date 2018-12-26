@@ -216,6 +216,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void savePersonalizeTime(Context mContext , String dateTime){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_PERSONALIZE_TIME, dateTime);
+        mEditor.apply();
+    }
+
+    public static String getPersonalizeTime(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_PERSONALIZE_TIME , ""
+        );
+    }
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext

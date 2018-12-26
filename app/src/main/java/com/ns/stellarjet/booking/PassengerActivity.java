@@ -177,6 +177,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                             PassengerActivity.this ,
                             BookingConfirmedActivity.class
                     );
+                    SharedPreferencesHelper.savePersonalizeTime(
+                            PassengerActivity.this,
+                            StellarJetUtils.getPersonalizationHours(HomeActivity.journeyTimeInMillis));
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
                     HomeActivity.Companion.clearAllBookingData();

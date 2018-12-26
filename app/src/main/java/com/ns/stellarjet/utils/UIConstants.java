@@ -115,4 +115,8 @@ public class UIConstants {
      * String constant for SharedPreferences for personalize food
      */
     public static final String PREFERENCES_FOOD_PERSONALIZE = "FoodPreferences";
+    /**
+     * String constant for SharedPreferences for personalize time limit
+     */
+    public static final String PREFERENCES_PERSONALIZE_TIME = "PersonalizationTime";
 }
