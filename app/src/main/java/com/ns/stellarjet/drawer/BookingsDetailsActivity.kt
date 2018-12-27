@@ -69,7 +69,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
-        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)
+        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime)
         val journeyTime = StellarJetUtils.getFormattedhours(bookingData.journey_datetime) + " hrs"
         binding.textViewBookingsDetailsDepartureTime.text = journeyTime
         SharedPreferencesHelper.saveBookingId(this , bookingData.booking_id.toString())
@@ -95,11 +95,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
             )
         }
 
-        if(bookingData.service.equals("usual", true) ){
+        if(bookingData.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0 , 0 ,0 ,0
             )
-        }else if(bookingData.service.equals("preferred", true) ){
+        }else {
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )

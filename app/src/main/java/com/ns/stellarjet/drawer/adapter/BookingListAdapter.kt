@@ -57,7 +57,6 @@ class BookingListAdapter(
 
             val pickUpAddress = bookings.pick_address_main
             val dropAddress = bookings.drop_address_main
-            val foodPersonalizedService = bookings.service
             var isCabPersonlaized = false
             var isFoodPersonlaized = false
             if(pickUpAddress?.isEmpty()!! && dropAddress?.isEmpty()!!){
@@ -65,9 +64,7 @@ class BookingListAdapter(
             }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){
                 isCabPersonlaized = true
             }
-            if(foodPersonalizedService.equals("usual" , false)){
-                isFoodPersonlaized = false
-            }else if(foodPersonalizedService.equals("preferred" , false)){
+            if(!bookings.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
                 isFoodPersonlaized = true
             }
 
