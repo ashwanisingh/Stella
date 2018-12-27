@@ -38,17 +38,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <TextView
-                style="@style/StellarTextView_18sp"
-                android:text="@string/personalize_cab_title"
+
+        <LinearLayout
+                android:id="@+id/layout_personalize_cab"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="74dp"
+                android:gravity="center"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="30dp"
-                android:drawablePadding="14dp"
-                android:drawableEnd="@drawable/ic_date_next"
-                android:id="@+id/textView_personalize_cab_preferences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal">
+            <TextView
+                    style="@style/StellarTextView_18sp"
+                    android:text="@string/personalize_cab_title"
+                    android:id="@+id/textView_personalize_cab_preferences"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:src="@drawable/ic_date_next"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+        </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
@@ -60,16 +73,30 @@
                 android:layout_marginBottom="24dp"
                 android:background="@color/colorAddressDivider"/>
 
-        <TextView
-                style="@style/StellarTextView_18sp"
-                android:text="@string/personalize_food_title"
+
+        <LinearLayout
+                android:id="@+id/layout_personalize_food"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="30dp"
-                android:drawablePadding="14dp"
-                android:id="@+id/textView_personalize_food_preferences"
-                android:drawableEnd="@drawable/ic_date_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_weight="1"
+                    style="@style/StellarTextView_18sp"
+                    android:text="@string/personalize_food_title"
+                    android:id="@+id/textView_personalize_food_preferences"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:src="@drawable/ic_date_next"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+        </LinearLayout>
 
         <View
                 android:layout_width="match_parent"

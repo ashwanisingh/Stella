@@ -24,6 +24,9 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             this ,
             R.layout.activity_personalize_launch)
 
+        binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
+            0 ,0 ,R.drawable.ic_date_next , 0
+        )
         binding.textViewPersonalizeCabPreferences.setOnClickListener {
             val mCabPreferencesIntent = Intent(
                 this ,
