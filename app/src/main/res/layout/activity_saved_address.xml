@@ -11,6 +11,7 @@
             tools:context=".personalize.SavedAddressActivity">
 
         <LinearLayout
+                android:layout_marginStart="-20dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -20,19 +21,13 @@
                     style="@style/StellarBackButton"/>
 
             <fragment
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
                     android:id="@+id/place_autocomplete_fragment"
                     android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="bottom"
-            />
-<!--
-            <EditText
-                    android:id="@+id/editText_search_place"
-                    android:layout_marginTop="40dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"/>-->
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"/>
 
         </LinearLayout>
 
