@@ -104,18 +104,20 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         });
 
         activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
-            isOnlySelfTravelling  =false;
-            PassengerListAdapter.changeSelfInfo(PassengerActivity.this,false);
-            activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
-            activityPassengerBinding.textViewPassengerSelf.setTextColor(
-                    ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
-            );
-            activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_button_background));
-            activityPassengerBinding.textViewPassengerGuests.setTextColor(ContextCompat.getColor(PassengerActivity.this ,
-                    android.R.color.white));
-            if(numOfGuests == 1){
-                activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
-                activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+            if(isOnlySelfTravelling){
+                isOnlySelfTravelling  =false;
+                PassengerListAdapter.changeSelfInfo(PassengerActivity.this,false);
+                activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
+                activityPassengerBinding.textViewPassengerSelf.setTextColor(
+                        ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
+                );
+                activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_button_background));
+                activityPassengerBinding.textViewPassengerGuests.setTextColor(ContextCompat.getColor(PassengerActivity.this ,
+                        android.R.color.white));
+                if(numOfGuests == 1){
+                    activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+                    activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+                }
             }
         });
 
