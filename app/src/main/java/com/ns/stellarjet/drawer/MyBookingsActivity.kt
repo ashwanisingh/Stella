@@ -1,12 +1,16 @@
 package com.ns.stellarjet.drawer
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.ns.stellarjet.R
 import kotlinx.android.synthetic.main.activity_my_bookings.*
+import com.google.android.material.tabs.TabLayout
+
+
 
 class MyBookingsActivity : AppCompatActivity() {
 
@@ -21,6 +25,8 @@ class MyBookingsActivity : AppCompatActivity() {
 
         val adapter = BookingsAdapter(supportFragmentManager)
         viewPager_my_bookings.adapter = adapter
+        val tabLayout = findViewById<View>(R.id.sliding_tabs) as TabLayout
+        tabLayout.setupWithViewPager(viewPager_my_bookings)
     }
 
     private class BookingsAdapter(fm: FragmentManager?) :

@@ -71,7 +71,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
                 finish()
                 clearPersonalizedPreferences()
             }
-        }, 1000)
+        }, 2000)
         if(SharedPreferencesHelper.getCabPersonalize(this)){
             binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok ,

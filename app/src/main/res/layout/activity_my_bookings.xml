@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         tools:context=".drawer.MyBookingsActivity">
@@ -29,12 +29,20 @@
 
     </LinearLayout>
 
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@android:color/white"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabMode="fixed" />
+
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager_my_bookings"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.PagerTabStrip
+<!--        <androidx.viewpager.widget.PagerTabStrip
                 android:id="@+id/pager_tab_strip_bookings"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -43,7 +51,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp" />-->
 
     </androidx.viewpager.widget.ViewPager>
 

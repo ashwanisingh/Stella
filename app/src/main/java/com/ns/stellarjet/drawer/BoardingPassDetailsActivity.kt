@@ -26,9 +26,11 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
 
         var passengersName = ""
         var seatsName = ""
+        var numSeats = 0
         if(boardingPass?.travelling_self ==1){
             passengersName = HomeActivity.sUserData.name
             seatsName = boardingPass.customer_seat?.seat_code!!
+            numSeats += 1
         }
         val guests = boardingPass?.guest_seats
         guests?.forEach {
@@ -39,7 +41,10 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
                 passengersName = passengersName + ", " + it.name
                 seatsName = seatsName +", " +it.seat_code
             }
+            numSeats += 1
         }
+        val passengerTitle = resources.getString(R.string.booking_summary_passengers) +" ("+ numSeats +")"
+        binding.textViewBoardingPassDetailsPassengersTitle.text = passengerTitle
         binding.textViewBoardingPassDetailsPassengersName.text = passengersName
         binding.textViewBoardingPassDetailsSeatsName.text = seatsName
 

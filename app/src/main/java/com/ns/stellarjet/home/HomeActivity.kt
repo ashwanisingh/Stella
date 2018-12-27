@@ -71,18 +71,33 @@ class HomeActivity : AppCompatActivity() {
 
         /* set the seats limit  */
         val seatsAvailable = sUserData.customer_prefs.seats_available
+        val seatsRemaining: SpannableString
         activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
-        activityHomeBinding.textViewSeatLimits.text =
-                resources.getString(R.string.home_remaining_seats_first_half)
-        val seatsRemaining = SpannableString(" $seatsAvailable seats ")
-        seatsRemaining.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorCreditAlert)),
-            0,
-            seatsRemaining.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        if(seatsAvailable > 5){
+            activityHomeBinding.textViewSeatLimits.text =
+                    resources.getString(R.string.home_remaining_seats_first_half)
+            seatsRemaining = SpannableString(" $seatsAvailable seats ")
+            seatsRemaining.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorLoginButton)),
+                0,
+                seatsRemaining.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }else{
+            activityHomeBinding.textViewSeatLimits.text =
+                    resources.getString(R.string.home_remaining_seats_first_half)
+            seatsRemaining = SpannableString(" $seatsAvailable seats ")
+            seatsRemaining.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorCreditAlert)),
+                0,
+                seatsRemaining.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
         activityHomeBinding.textViewSeatLimits.append(seatsRemaining)
         activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
+
+
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
