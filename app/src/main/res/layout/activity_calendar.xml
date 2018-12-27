@@ -69,6 +69,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="29dp"
                 android:layout_marginEnd="29dp"
+                android:layout_marginTop="-20dp"
                 app:abbreviationsBarColor="@color/colorCalendarBackground"
                 app:abbreviationsLabelsColor="@android:color/white"
                 app:anotherMonthsDaysLabelsColor="@color/colorCalendarBackground"
