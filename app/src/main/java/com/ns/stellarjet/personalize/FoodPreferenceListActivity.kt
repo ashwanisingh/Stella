@@ -1,5 +1,6 @@
 package com.ns.stellarjet.personalize
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -89,7 +90,19 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                     this@FoodPreferenceListActivity ,
                     true
                 )
-                finish()/*
+                if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                    val mPersonalizeSuccessIntent  =  Intent(
+                        this@FoodPreferenceListActivity ,
+                        PersonalizeSuccessActivity::class.java
+                    )
+                    mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(mPersonalizeSuccessIntent)
+                    finish()
+                    clearPersonalizedPreferences()
+                }else{
+                    finish()
+                }
+                /*
                     if (response.body() != null && response.body()!!.resultcode == 1) {
 
                     }*/
@@ -119,6 +132,15 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
     override fun invoke(selectedID: String) {
         mSelectedFoodIds.add(selectedID.toInt().toString())
+    }
+
+    private fun clearPersonalizedPreferences(){
+        SharedPreferencesHelper.saveCabDropPersonalize(this , "")
+        SharedPreferencesHelper.saveCabDropPersonalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+        SharedPreferencesHelper.saveBookingId(this , "")
+        SharedPreferencesHelper.saveFoodPersonalize(this ,true)
     }
 }
 

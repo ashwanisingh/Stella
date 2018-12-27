@@ -98,7 +98,18 @@ class CabPreferencesActivity : AppCompatActivity() {
                         this@CabPreferencesActivity ,
                         response.body()!!.message ,
                         Toast.LENGTH_SHORT).show()
-                    finish()
+                    if(SharedPreferencesHelper.getFoodPersonalize(this@CabPreferencesActivity)){
+                        val mPersonalizeSuccessIntent  =  Intent(
+                            this@CabPreferencesActivity ,
+                            PersonalizeSuccessActivity::class.java
+                        )
+                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(mPersonalizeSuccessIntent)
+                        finish()
+                        clearPersonalizedPreferences()
+                    }else{
+                        finish()
+                    }
                 }
             }
 
@@ -119,5 +130,14 @@ class CabPreferencesActivity : AppCompatActivity() {
         if(!dropCabPersonalize.isEmpty()){
             binding.editTextDropLocation.text = dropCabPersonalize
         }
+    }
+
+    private fun clearPersonalizedPreferences(){
+        SharedPreferencesHelper.saveCabDropPersonalize(this , "")
+        SharedPreferencesHelper.saveCabDropPersonalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+        SharedPreferencesHelper.saveBookingId(this , "")
+        SharedPreferencesHelper.saveFoodPersonalize(this ,true)
     }
 }
