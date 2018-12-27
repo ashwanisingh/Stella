@@ -70,6 +70,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         );
 
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
+        activityPassengerBinding.recyclerViewPassengerList.setLayoutFrozen(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 PassengerActivity.this ,
                 RecyclerView.VERTICAL ,
