@@ -54,7 +54,7 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
             SharedPreferencesHelper.getUserToken(activity) ,
             SharedPreferencesHelper.getUserId(activity) ,
             1 ,
-            20 ,
+            150 ,
             "completed"
         )
 
