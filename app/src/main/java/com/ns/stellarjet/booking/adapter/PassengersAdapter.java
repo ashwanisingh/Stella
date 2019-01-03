@@ -20,7 +20,7 @@ import com.ns.stellarjet.home.HomeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdapter.PassengerInfoViewHolder> {
+public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.PassengerInfoViewHolder> {
 
     private List<Contact> items;
     private int numOfGuests;
@@ -34,7 +34,7 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
     public static PassengerInfoViewHolder mPassengerInfoViewHolder;
     private boolean isSelfTravelling;
 
-    public PassengerListAdapter(
+    public PassengersAdapter(
             onConfirmButtonEnableStateListener onConfirmButtonEnableStateListenerParams,
             onConfirmButtonDisableStateListener onConfirmButtonDiaableStateListenerParams,
             List<Contact> itemsParams ,
@@ -208,7 +208,7 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
                             mSelectedPhoneNumberList.remove(mPassengerSelfMobileNumberEditText.getText().toString());
                             mPassengerSelfMobileNumberEditText.setText("");
                         }catch (IndexOutOfBoundsException e){
-                            Log.d("PassengerListAdapter", "afterTextChanged: " + e);
+                            Log.d("PassengersAdapter", "afterTextChanged: " + e);
                         }
                     }else if(s.length()>=3){
                         mPassengerSelfMobileNumberEditText.setEnabled(true);
@@ -252,7 +252,7 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
                                 mGuestRequestDataList.get(position).setGuestName(mPassengerNameAutoCompleteTextView.getText().toString());
                                 mGuestRequestDataList.get(position).setGuestStatus(null);
                             }catch (IndexOutOfBoundsException e){
-                                Log.d("PassengerListAdapter", "afterTextChanged: " +e);
+                                Log.d("PassengersAdapter", "afterTextChanged: " +e);
                             }
 
                             /*if(mCompeletionList.contains(position)){

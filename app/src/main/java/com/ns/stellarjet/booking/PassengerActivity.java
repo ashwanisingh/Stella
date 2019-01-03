@@ -14,7 +14,7 @@ import com.ns.networking.model.GuestConfirmResponse;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
-import com.ns.stellarjet.booking.adapter.PassengerListAdapter;
+import com.ns.stellarjet.booking.adapter.PassengersAdapter;
 import com.ns.stellarjet.databinding.ActivityPassengerBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PassengerActivity extends AppCompatActivity implements PassengerListAdapter.onConfirmButtonEnableStateListener, PassengerListAdapter.onConfirmButtonDisableStateListener {
+public class PassengerActivity extends AppCompatActivity implements PassengersAdapter.onConfirmButtonEnableStateListener, PassengersAdapter.onConfirmButtonDisableStateListener {
 
     private ActivityPassengerBinding activityPassengerBinding;
     //    private boolean isSelfTravelling = false;
@@ -61,7 +61,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         }
 
         /* set RecyclerView */
-        PassengerListAdapter mPassengerListAdapter = new PassengerListAdapter(
+        PassengersAdapter mPassengersAdapter = new PassengersAdapter(
                 this ,
                 this,
                 HomeActivity.sUserData.getContacts() ,
@@ -69,14 +69,14 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
                 true
         );
 
-        activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
+        activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengersAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutFrozen(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 PassengerActivity.this ,
                 RecyclerView.VERTICAL ,
                 false
         );
-        activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengerListAdapter);
+        activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengersAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
 
         activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
@@ -89,7 +89,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
 
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
-            PassengerListAdapter.changeSelfInfo(PassengerActivity.this , true);
+            PassengersAdapter.changeSelfInfo(PassengerActivity.this , true);
             activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_button_background));
             activityPassengerBinding.textViewPassengerSelf.setTextColor(
                     ContextCompat.getColor(PassengerActivity.this , android.R.color.white)
@@ -107,7 +107,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
         activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
             if(isOnlySelfTravelling){
                 isOnlySelfTravelling  =false;
-                PassengerListAdapter.changeSelfInfo(PassengerActivity.this,false);
+                PassengersAdapter.changeSelfInfo(PassengerActivity.this,false);
                 activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
                 activityPassengerBinding.textViewPassengerSelf.setTextColor(
                         ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
@@ -352,9 +352,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengerLis
     @Override
     protected void onStop() {
         super.onStop();
-        PassengerListAdapter.mSelectedPhoneNumberList.clear();
-        PassengerListAdapter.mGuestRequestDataList.clear();
-        PassengerListAdapter.mPassengerInfoViewHolder = null;
+        PassengersAdapter.mSelectedPhoneNumberList.clear();
+        PassengersAdapter.mGuestRequestDataList.clear();
+        PassengersAdapter.mPassengerInfoViewHolder = null;
 
     }
 }

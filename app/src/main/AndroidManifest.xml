@@ -146,8 +146,11 @@
         <activity
                 android:name=".booking.SeatSelectionActivity"
                 android:screenOrientation="portrait"/>
-        <activity android:name=".personalize.SavedAddressListActivity">
-        </activity>
+        <activity
+                android:name=".personalize.SavedAddressListActivity"
+                android:screenOrientation="portrait"/>
+        <activity android:name=".booking.PassengerListActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
