@@ -22,5 +22,6 @@ public class Constants {
     public static final String ADDRESS_LIST_API = "address/list";
     public static final String ADD_GUEST_API = "contact/add";
     public static final String UPDATE_PREFERENCES_API = "customer/prefs_update";
+    public static final String FORGOT_PASSWORD_API = "password/request_test";
 
 }

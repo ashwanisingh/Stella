@@ -2,12 +2,14 @@ package com.ns.stellarjet.login;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
+import com.ns.networking.model.ForgotPasswordResponse;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
@@ -52,6 +54,43 @@ public class PasswordActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mActivityPasswordBinding.textviewForgotPassword.setOnClickListener(v -> {
+            forgotPassword(username);
+        });
+    }
+
+
+    private void forgotPassword(String username){
+        Call<ForgotPasswordResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
+                .getStellarJetAPIs().forgotPassword(username);
+
+        mLoginResponseCall.enqueue(new Callback<ForgotPasswordResponse>() {
+            @Override
+            public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                if(response.body()!=null){
+                    Toast.makeText(
+                            PasswordActivity.this,
+                            response.body().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }else if(response.errorBody()!=null){
+                    Toast.makeText(
+                            PasswordActivity.this,
+                            "Server Error , please try again later",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
+                Log.d("Password", "onFailure: " + t);
+                Toast.makeText(
+                        PasswordActivity.this,
+                        "Server Error , please try again later",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void doLogin(String username , String password){

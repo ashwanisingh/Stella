@@ -155,6 +155,12 @@ public interface StellarApiService {
             @Query("user") String userId
     );
 
+    @FormUrlEncoded
+    @POST(Constants.FORGOT_PASSWORD_API)
+    Call<ForgotPasswordResponse> forgotPassword(
+            @Field("email") String email
+    );
+
 
 /*
 @GET(Constants.CITY_LIST_API)
