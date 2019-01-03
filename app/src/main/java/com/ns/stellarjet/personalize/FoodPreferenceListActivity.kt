@@ -28,6 +28,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
     //    private var mSelectedFoodIds = ""
     private val mSelectedFoodIds : MutableList<String> = ArrayList()
+    private lateinit var flow: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         )
 
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
+        flow = intent?.extras?.getString("FlowFrom")!!
         activityBinding.textViewFoodListName.text = foodType
 
 
@@ -90,22 +92,22 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                     this@FoodPreferenceListActivity ,
                     true
                 )
-                if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                    val mPersonalizeSuccessIntent  =  Intent(
-                        this@FoodPreferenceListActivity ,
-                        PersonalizeSuccessActivity::class.java
-                    )
-                    mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(mPersonalizeSuccessIntent)
+                if(flow.equals("drawer" , true)){
                     finish()
-                    clearPersonalizedPreferences()
                 }else{
-                    finish()
+                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                        val mPersonalizeSuccessIntent  =  Intent(
+                            this@FoodPreferenceListActivity ,
+                            PersonalizeSuccessActivity::class.java
+                        )
+                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(mPersonalizeSuccessIntent)
+                        finish()
+                        clearPersonalizedPreferences()
+                    }else{
+                        finish()
+                    }
                 }
-                /*
-                    if (response.body() != null && response.body()!!.resultcode == 1) {
-
-                    }*/
             }
 
             override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
@@ -140,7 +142,8 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
         SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
-        SharedPreferencesHelper.saveFoodPersonalize(this ,true)
+        SharedPreferencesHelper.saveFoodPersonalize(this ,false)
+        SharedPreferencesHelper.saveCabPersonalize(this ,false)
     }
 }
 

@@ -9,7 +9,6 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityPersonalizeLaunchBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 
 class PersonalizeLaunchActivity : AppCompatActivity() {
@@ -32,6 +31,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
                 this ,
                 CabPreferencesActivity::class.java
             )
+            mCabPreferencesIntent.putExtra("FlowFrom" , "personalize")
             startActivity(mCabPreferencesIntent)
         }
 
@@ -44,6 +44,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
                 this ,
                 FoodPreferencesLaunchActivity::class.java
             )
+            mFoodPreferencesIntent.putExtra("FlowFrom" , "personalize")
             startActivity(mFoodPreferencesIntent)
         }
 

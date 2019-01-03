@@ -16,9 +16,13 @@ import java.util.*
 
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
+    private var flow : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_preferences_launch)
+
+        flow = intent?.extras?.getString("FlowFrom")!!
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
         DataBindingUtil.setContentView(
@@ -72,6 +76,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
             FoodPreferenceListActivity::class.java
         )
         mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
+        mFoodListIntent.putExtra("FlowFrom" , flow)
         startActivity(mFoodListIntent)
     }
 

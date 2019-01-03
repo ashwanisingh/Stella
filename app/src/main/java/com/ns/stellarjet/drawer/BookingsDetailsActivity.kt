@@ -18,11 +18,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
+    private lateinit var binding:ActivityBookingsDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding:ActivityBookingsDetailsBinding = DataBindingUtil.setContentView(
+        binding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_bookings_details
         )
@@ -69,17 +70,21 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
-        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime)
+        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData.journey_datetime)
         val journeyTime = StellarJetUtils.getFormattedhours(bookingData.journey_datetime) + " hrs"
         binding.textViewBookingsDetailsDepartureTime.text = journeyTime
         SharedPreferencesHelper.saveBookingId(this , bookingData.booking_id.toString())
 
-        binding.textViewBookingsDetailsCabsTitle.setOnClickListener {
-            startActivity(Intent(this , CabPreferencesActivity::class.java))
+        binding.layoutBookingsDetailsCabBase.setOnClickListener {
+            val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
+            cabPersonalizeIntent.putExtra("FlowFrom" , "drawer")
+            startActivity(cabPersonalizeIntent)
         }
 
-        binding.textViewBookingsDetailsFoodTitle.setOnClickListener {
-            startActivity(Intent(this , FoodPreferencesLaunchActivity::class.java))
+        binding.layoutBookingsDetailsFoodBase.setOnClickListener {
+            val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
+            foodPersonalizeIntent.putExtra("FlowFrom" , "drawer")
+            startActivity(foodPersonalizeIntent)
         }
 
         if(!bookingData.drop_address_main?.isEmpty()!! || !bookingData.pick_address_main?.isEmpty()!!){
@@ -100,6 +105,28 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 0 , 0 ,0 ,0
             )
         }else {
+            binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_tick_ok , 0 ,0 ,0
+            )
+            isFoodPersonalized = true
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val cabPersonalize = SharedPreferencesHelper.getCabPersonalize(
+            this@BookingsDetailsActivity
+        )
+        val foodPersonalize = SharedPreferencesHelper.getFoodPersonalize(
+            this@BookingsDetailsActivity
+        )
+        if(cabPersonalize){
+            binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_tick_ok , 0 ,0 ,0
+            )
+            isCabPersonalized = true
+        }
+        if(foodPersonalize){
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
