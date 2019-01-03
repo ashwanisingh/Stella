@@ -11,20 +11,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ns.networking.model.BookingConfirmResponse;
 import com.ns.networking.model.GuestConfirmResponse;
+import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.UserData;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
+import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.SplashScreenActivity;
 import com.ns.stellarjet.booking.adapter.PassengersAdapter;
 import com.ns.stellarjet.databinding.ActivityPassengerBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UIConstants;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -176,6 +184,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                     SharedPreferencesHelper.saveBookingId(
                             PassengerActivity.this ,
                             String.valueOf(response.body().getData().getBooking_id()));
+                    getUserData();
                     Intent mIntent = new Intent(
                             PassengerActivity.this ,
                             BookingConfirmedActivity.class
@@ -186,7 +195,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
                     HomeActivity.Companion.clearAllBookingData();
-                    Log.d("Booking", "onResponse: " + HomeActivity.journeyDate);
                 }
             }
 
@@ -195,6 +203,42 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                 progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
                 Toast.makeText(PassengerActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getUserData(){
+        Call<LoginResponse> mCustomerDataResponseCall = RetrofitAPICaller.getInstance(PassengerActivity.this)
+                .getStellarJetAPIs().getCustomerData(
+                        SharedPreferencesHelper.getUserToken(PassengerActivity.this),
+                        SharedPreferencesHelper.getUserId(PassengerActivity.this)
+                );
+
+        mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if(response.body()!=null){
+                    HomeActivity.sUserData = response.body().getData().getUser_data();
+                }else {
+                    try {
+                        JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        if(errorMessage.equalsIgnoreCase(UIConstants.USER_TOKEN_EXPIRY)){
+//                            getNewToken();
+                            Log.d("Splash", "onResponse: Expiry");
+                        }else {
+                            Toast.makeText(PassengerActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("splash", "onFailure: " + t);
             }
         });
     }
