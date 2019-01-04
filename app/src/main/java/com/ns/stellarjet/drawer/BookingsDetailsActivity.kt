@@ -38,6 +38,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
             binding.textViewBookingsDetailsFoodTitle.visibility = View.GONE
             binding.view3.visibility = View.GONE
             binding.viewBookingsDetailsDivider.visibility = View.GONE
+            binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+            binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
         }
         binding.bookings = bookingData
 
