@@ -25,11 +25,12 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         }
 
         textView_preferences_food.setOnClickListener {
-            startActivity(
-                Intent(
-                    this ,
-                    FoodPreferencesLaunchActivity::class.java
-                ))
+            val FoodPrefencesIntent =  Intent(
+                this ,
+                FoodPreferencesLaunchActivity::class.java
+            )
+            FoodPrefencesIntent.putExtra("FlowFrom" , "drawer")
+            startActivity(FoodPrefencesIntent)
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ns.networking.model.CommonPersonalizeFoodResponse
 import com.ns.networking.model.Food
 import com.ns.networking.model.FoodPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
@@ -16,6 +17,7 @@ import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
+import com.ns.stellarjet.utils.Progress.progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -27,7 +29,7 @@ import retrofit2.Response
 class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
     //    private var mSelectedFoodIds = ""
-    private val mSelectedFoodIds : MutableList<String> = ArrayList()
+    private val mSelectedFoodIds : MutableList<Int> = ArrayList()
     private lateinit var flow: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,12 +66,39 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
             Log.d("Booking", "onResponse:")
             if(StellarJetUtils.isConnectingToInternet(applicationContext)){
-                personalizeFood()
+                if(flow.equals("drawer" , true)){
+                    updateCommonPersonnalizeFood()
+                }else{
+                    personalizeFood()
+                }
             }else{
                 Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
             }
 
         }
+    }
+
+    private fun updateCommonPersonnalizeFood(){
+        val personalizeFood : Call<CommonPersonalizeFoodResponse> = RetrofitAPICaller.getInstance(this)
+            .stellarJetAPIs.updateCommonFoodPreferences(
+            SharedPreferencesHelper.getUserToken(this) ,
+            SharedPreferencesHelper.getUserId(this) ,
+            mSelectedFoodIds
+        )
+
+        personalizeFood.enqueue(object : Callback<CommonPersonalizeFoodResponse> {
+            override fun onResponse(
+                call: Call<CommonPersonalizeFoodResponse>,
+                response: Response<CommonPersonalizeFoodResponse>){
+                Log.d("Booking", "onResponse: $response")
+                finish()
+            }
+
+            override fun onFailure(call: Call<CommonPersonalizeFoodResponse>, t: Throwable) {
+                Log.d("Booking", "onResponse: $t")
+                Toast.makeText(this@FoodPreferenceListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun personalizeFood(){
@@ -133,7 +162,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     }
 
     override fun invoke(selectedID: String) {
-        mSelectedFoodIds.add(selectedID.toInt().toString())
+        mSelectedFoodIds.add(selectedID.toInt())
     }
 
     private fun clearPersonalizedPreferences(){
