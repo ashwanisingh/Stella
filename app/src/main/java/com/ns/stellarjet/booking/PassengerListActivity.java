@@ -1,7 +1,9 @@
 package com.ns.stellarjet.booking;
 
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +15,12 @@ import com.ns.stellarjet.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class PassengerListActivity extends AppCompatActivity {
 
     private ActivityPassengerListBinding activityPassengerBinding;
     public static List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
+    private boolean isOnlySelfTravelling = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,16 @@ public class PassengerListActivity extends AppCompatActivity {
                 this,
                 R.layout.activity_passenger_list);
 
+        activityPassengerBinding.buttonPassengerBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         // get the number of guests
-        int numOfGuests = Objects.requireNonNull(getIntent().getExtras()).getInt("numOfGuests");
+//        int numOfGuests = Objects.requireNonNull(getIntent().getExtras()).getInt("numOfGuests");
+        int numOfGuests = 2;
 
         // change the self and guests name
         if(numOfGuests == 1){
@@ -57,6 +67,39 @@ public class PassengerListActivity extends AppCompatActivity {
         );
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengersAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
+
+        activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
+            isOnlySelfTravelling  =true;
+            activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_button_background));
+            activityPassengerBinding.textViewPassengerSelf.setTextColor(
+                    ContextCompat.getColor(PassengerListActivity.this , android.R.color.white)
+            );
+            activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_passenger_select));
+            activityPassengerBinding.textViewPassengerGuests.setTextColor(
+                    ContextCompat.getColor(PassengerListActivity.this , R.color.colorLoginButton)
+            );
+            if(isOnlySelfTravelling && numOfGuests ==1){
+                activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
+                activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 1.0);
+            }
+        });
+
+        activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
+            if(isOnlySelfTravelling){
+                isOnlySelfTravelling  =false;
+                activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
+                activityPassengerBinding.textViewPassengerSelf.setTextColor(
+                        ContextCompat.getColor(PassengerListActivity.this , R.color.colorLoginButton)
+                );
+                activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_button_background));
+                activityPassengerBinding.textViewPassengerGuests.setTextColor(ContextCompat.getColor(PassengerListActivity.this ,
+                        android.R.color.white));
+                if(numOfGuests == 1){
+                    activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
+                    activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
+                }
+            }
+        });
     }
 
     private void makeGuestList(int numOfGuests) {

@@ -254,9 +254,10 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
             isOnlySelfTravelling = true;
         }else if(isOnlySelfTravelling && mGuestRequestDataList.size() > 0){
             mGuestRequestDataListTemp = mGuestRequestDataList;
-            mGuestRequestDataListTemp.remove(0);
+//            mGuestRequestDataListTemp.remove(0);
         }else {
             isOnlySelfTravelling = false;
+            mGuestRequestDataListTemp = mGuestRequestDataList;
         }
         makeGuestAddList(mGuestRequestDataListTemp);
 
@@ -346,34 +347,41 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     private void makeGuestAddList(List<AddGuestRequestData> mGuestRequestDataList){
         List<GuestPrefsDataRequest> editGuestPrefList = new ArrayList<>();
         List<AddGuestPrefsDataRequest> addGuestPrefList = new ArrayList<>();
+        mGuestList.clear();
+        mGuestIdsList.clear();
         for (int i = 0; i < mGuestRequestDataList.size(); i++) {
-            if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("edit")){
-                String id = mGuestRequestDataList.get(i).getGuestId();
-                String mobileNumber = mGuestRequestDataList.get(i).getGuestMobileNUmber();
-                List<Integer> mFoodsList = new ArrayList<>();
-                mFoodsList.add(mGuestRequestDataList.get(i).getGuestFoodPreferences());
-                GuestPrefsDataRequest editGuestPrefsData = new GuestPrefsDataRequest();
-                editGuestPrefsData.setGuestId(Integer.valueOf(id));
-                editGuestPrefsData.setPhone(mobileNumber);
-                editGuestPrefsData.setmFoodPrefsList(mFoodsList);
-                editGuestPrefList.add(editGuestPrefsData);
-                mGuestList.add(Integer.valueOf(id));
-            }else if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("add")){
-                String name = mGuestRequestDataList.get(i).getGuestName();
-                String mobileNumber = mGuestRequestDataList.get(i).getGuestMobileNUmber();
-                List<Integer> mFoodsList = new ArrayList<>();
-                mFoodsList.add(mGuestRequestDataList.get(i).getGuestFoodPreferences());
-                AddGuestPrefsDataRequest addGuestPrefsData = new AddGuestPrefsDataRequest();
-                addGuestPrefsData.setName(name);
-                addGuestPrefsData.setPhone(mobileNumber);
-                addGuestPrefsData.setmFoodPrefsList(mFoodsList);
-                addGuestPrefList.add(addGuestPrefsData);
+            if(isOnlySelfTravelling){
+                continue;
+            }else {
+                if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("edit")){
+                    String id = mGuestRequestDataList.get(i).getGuestId();
+                    String mobileNumber = mGuestRequestDataList.get(i).getGuestMobileNUmber();
+                    List<Integer> mFoodsList = new ArrayList<>();
+                    mFoodsList.add(mGuestRequestDataList.get(i).getGuestFoodPreferences());
+                    GuestPrefsDataRequest editGuestPrefsData = new GuestPrefsDataRequest();
+                    editGuestPrefsData.setGuestId(Integer.valueOf(id));
+                    editGuestPrefsData.setPhone(mobileNumber);
+                    editGuestPrefsData.setmFoodPrefsList(mFoodsList);
+                    editGuestPrefList.add(editGuestPrefsData);
+                    mGuestList.add(Integer.valueOf(id));
+                }else if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("add")){
+                    String name = mGuestRequestDataList.get(i).getGuestName();
+                    String mobileNumber = mGuestRequestDataList.get(i).getGuestMobileNUmber();
+                    List<Integer> mFoodsList = new ArrayList<>();
+                    mFoodsList.add(mGuestRequestDataList.get(i).getGuestFoodPreferences());
+                    AddGuestPrefsDataRequest addGuestPrefsData = new AddGuestPrefsDataRequest();
+                    addGuestPrefsData.setName(name);
+                    addGuestPrefsData.setPhone(mobileNumber);
+                    addGuestPrefsData.setmFoodPrefsList(mFoodsList);
+                    addGuestPrefList.add(addGuestPrefsData);
 //                mGuestList.add(Integer.valueOf(id));
-            }else if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("")){
-                String id = mGuestRequestDataList.get(i).getGuestId();
-                mGuestList.add(Integer.valueOf(id));
-                mGuestIdsList.add(Integer.valueOf(id));
+                }else if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("")){
+                    String id = mGuestRequestDataList.get(i).getGuestId();
+                    mGuestList.add(Integer.valueOf(id));
+                    mGuestIdsList.add(Integer.valueOf(id));
+                }
             }
+
         }
 
         if(editGuestPrefList.size() >0 && addGuestPrefList.size()==0){

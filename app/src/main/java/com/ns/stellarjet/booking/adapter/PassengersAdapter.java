@@ -82,6 +82,9 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
 
     public static void changeSelfInfo(Context mContext , boolean isSelfTravelling){
         if(isSelfTravelling){
+            if(mSelectedPhoneNumberList.contains(mGuestRequestDataList.get(0).getGuestMobileNUmber())){
+                mSelectedPhoneNumberList.remove(mGuestRequestDataList.get(0).getGuestMobileNUmber());
+            }
             mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_self));
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
@@ -91,6 +94,9 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
             setSelfInfo();
         }else {
+            if(mSelectedPhoneNumberList.contains(mGuestRequestDataList.get(0).getGuestMobileNUmber())){
+                mSelectedPhoneNumberList.remove(mGuestRequestDataList.get(0).getGuestMobileNUmber());
+            }
             mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_text) + " 1");
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText("");
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText("");
@@ -111,7 +117,9 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
         mGuestRequestDataList.get(0).setGuestMobileNUmber(HomeActivity.sUserData.getPhone());
         mGuestRequestDataList.get(0).setGuestId("");
         mGuestRequestDataList.get(0).setGuestStatus("");
-        mSelectedPhoneNumberList.add(HomeActivity.sUserData.getPhone());
+        if(!mSelectedPhoneNumberList.contains(HomeActivity.sUserData.getPhone())){
+            mSelectedPhoneNumberList.add(HomeActivity.sUserData.getPhone());
+        }
     }
 
     @Override
@@ -241,6 +249,7 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                             /*if(mCompeletionList.contains(position)){
                                 mCompeletionList.remove(position);
                             }*/
+                            mSelectedPhoneNumberList.remove(s.toString());
                             Toast.makeText(itemView.getContext(), "Passenger already selected", Toast.LENGTH_SHORT).show();
                             mOnConfirmButtonDisableStateListener.disableButton(false);
                             mPassengerNameAutoCompleteTextView.setText("");
@@ -265,6 +274,11 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                             validateGuests();
                         }
                     }else {
+                        String name = mPassengerNameAutoCompleteTextView.getText().toString();
+                        String number = getNumber(name);
+                        if(mSelectedPhoneNumberList.contains(number)){
+                            mSelectedPhoneNumberList.remove(number);
+                        }
                         mOnConfirmButtonDisableStateListener.disableButton(false);
                     }
                 }
@@ -278,11 +292,28 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
         }
     }
 
+    private void makeGuestPhoneNunbersList(){
+        for (int i = 0; i < numOfGuests; i++) {
+            mSelectedPhoneNumberList.add("number " + 1);
+        }
+    }
+
     private void makeGuestRequestDataList(int size){
         for (int i = 0; i < size; i++) {
             mGuestRequestDataList.add(new AddGuestRequestData());
         }
     }
+
+    private String getNumber(String name){
+        String mobileNumber = "";
+        for (int i = 0; i < items.size(); i++) {
+            if(items.get(i).getName().equalsIgnoreCase(name)){
+                mobileNumber = items.get(i).getPhone();
+            }
+        }
+        return mobileNumber;
+    }
+
 
     private String makeFilledData(String name , int passengerPosition , Context context){
         String mobileNumber = "";
