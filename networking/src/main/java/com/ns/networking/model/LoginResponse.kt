@@ -136,14 +136,20 @@ data class LockedSeats(
     val seat_reserved_at: String?,
     val status: Int?,
     val to_city: Int?,
-    val user: Int?
+    val user: Int?,
+    val datetime_ms : Long? ,
+    val expire_within_s : Int?,
+    val direction : String?,
+    val sun_rise_set : String?,
+    val arrival_time : String?
 ):Parcelable
 
 @Parcelize
 data class Flight(
     val flight_no: String?,
     val id: Int?,
-    val model: String?
+    val model: String?,
+    val no_of_seats: Int?
 ):Parcelable
 
 @Parcelize

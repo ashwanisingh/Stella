@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.UserData
 import com.ns.stellarjet.R
 import com.ns.stellarjet.booking.PlaceSelectionActivity
+import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
+import com.ns.stellarjet.booking.SeatSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
@@ -30,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         @JvmField var journeyTimeInMillis : Long = 0
         @JvmField var arrivalTime : String = ""
         @JvmField var flightId : Int = 0
-        @JvmField var mSeatNamesId : List<Int> = ArrayList()
+        @JvmField var mSeatNamesId : MutableList<Int> = ArrayList()
         @JvmField var mSeatNames : List<String> = ArrayList()
 
         fun clearAllBookingData(){
@@ -58,6 +60,33 @@ class HomeActivity : AppCompatActivity() {
         )
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
+
+        /*
+        set locked seats data and pass to Seat layout Activity
+        if(sUserData.locked_seats?.isNotEmpty()!!){
+            val numOfSeats = sUserData.locked_seats!![0].flight!!.no_of_seats
+            fromCityId = sUserData.locked_seats!![0].from_city!!
+            toCityId = sUserData.locked_seats!![0].to_city!!
+            journeyDate = sUserData.locked_seats!![0].journey_date!!
+            journeyTime = sUserData.locked_seats!![0].journey_time!!
+            journeyTimeInMillis = sUserData.locked_seats!![0].datetime_ms!!
+            arrivalTime = sUserData.locked_seats!![0].arrival_time!!
+            flightId = sUserData.locked_seats!![0].flight_id!!
+            sUserData.locked_seats!!.forEach {
+                mSeatNamesId.add(it.flight_seat_id!!)
+            }
+            if (numOfSeats == 8) {
+                val mSeatsIntent = Intent(this@HomeActivity, SeatLayoutOneSelectionActivity::class.java)
+                mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
+                mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                startActivity(mSeatsIntent)
+            } else if (numOfSeats == 12) {
+                val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
+                mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
+                mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                startActivity(mSeatsIntent)
+            }
+        }*/
 
         /* set the username only if he is primary*/
         if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
