@@ -85,6 +85,7 @@
                         android:id="@+id/scrollView_seat_layout_two"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingTop="32dp"
                         android:fillViewport="true">
 
                     <include layout="@layout/layout_seat_two"/>
