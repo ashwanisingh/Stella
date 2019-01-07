@@ -10,8 +10,6 @@ import com.ns.stellarjet.R
 import kotlinx.android.synthetic.main.activity_my_bookings.*
 import com.google.android.material.tabs.TabLayout
 
-
-
 class MyBookingsActivity : AppCompatActivity() {
 
 
