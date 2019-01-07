@@ -121,21 +121,17 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                     this@FoodPreferenceListActivity ,
                     true
                 )
-                if(flow.equals("drawer" , true)){
+                if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                    val mPersonalizeSuccessIntent  =  Intent(
+                        this@FoodPreferenceListActivity ,
+                        PersonalizeSuccessActivity::class.java
+                    )
+                    mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(mPersonalizeSuccessIntent)
                     finish()
+                    clearPersonalizedPreferences()
                 }else{
-                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                        val mPersonalizeSuccessIntent  =  Intent(
-                            this@FoodPreferenceListActivity ,
-                            PersonalizeSuccessActivity::class.java
-                        )
-                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(mPersonalizeSuccessIntent)
-                        finish()
-                        clearPersonalizedPreferences()
-                    }else{
-                        finish()
-                    }
+                    finish()
                 }
             }
 
