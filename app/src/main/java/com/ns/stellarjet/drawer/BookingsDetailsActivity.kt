@@ -88,7 +88,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.layoutBookingsDetailsFoodBase.setOnClickListener {
             val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
-            foodPersonalizeIntent.putExtra("FlowFrom" , "drawer")
+            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
+            foodPersonalizeIntent.putExtra("bookingDetails" , bookingData)
             startActivity(foodPersonalizeIntent)
         }
 

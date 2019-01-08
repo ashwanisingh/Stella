@@ -68,7 +68,7 @@ class BookingListAdapter(
                 isFoodPersonlaized = true
             }
 
-            if(isCabPersonlaized || isFoodPersonlaized){
+            if(isCabPersonlaized && isFoodPersonlaized){
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_tik_personalize , 0 , 0 , 0

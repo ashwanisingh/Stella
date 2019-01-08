@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ns.networking.model.Booking
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferencesLaunchBinding
 import com.ns.stellarjet.home.HomeActivity
@@ -17,12 +18,15 @@ import java.util.*
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
+    private var bookingData: Booking? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_preferences_launch)
 
         flow = intent?.extras?.getString("FlowFrom")!!
+        bookingData = intent.extras?.getParcelable("bookingDetails")
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
         DataBindingUtil.setContentView(
@@ -71,13 +75,26 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
 
     override fun invoke(foodTypeSelected: String) {
-        val mFoodListIntent =  Intent(
-            this ,
-            FoodPreferenceListActivity::class.java
-        )
-        mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
-        mFoodListIntent.putExtra("FlowFrom" , flow)
-        startActivity(mFoodListIntent)
+        if(bookingData == null){
+            val mFoodListIntent =  Intent(
+                this ,
+                FoodPreferenceListActivity::class.java
+            )
+            mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
+            mFoodListIntent.putExtra("FlowFrom" , flow)
+            mFoodListIntent.putExtra("bookingDetails" , "")
+            startActivity(mFoodListIntent)
+        }else{
+            val mFoodListIntent =  Intent(
+                this ,
+                FoodPreferenceListActivity::class.java
+            )
+            mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
+            mFoodListIntent.putExtra("FlowFrom" , flow)
+            mFoodListIntent.putExtra("bookingDetails" , bookingData)
+            startActivity(mFoodListIntent)
+        }
+
     }
 
 }

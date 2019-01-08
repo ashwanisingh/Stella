@@ -70,7 +70,7 @@ data class Food(
     val image_path: String,
     val img_url: String,
     val name: String,
-    val pref: Boolean
+    var pref: Boolean
 ):Parcelable
 
 @Parcelize
