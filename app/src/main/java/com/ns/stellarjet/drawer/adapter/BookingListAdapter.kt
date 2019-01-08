@@ -11,7 +11,7 @@ import com.ns.stellarjet.utils.StellarJetUtils
 
 class BookingListAdapter(
     private val mBookingList : List<Booking> , val bookingType :String ,
-    private val onSelectDishListenerParams : (Booking) -> Unit) : RecyclerView.Adapter<BookingListAdapter.BookingListViewHolder>() {
+    private val onSelectDishListenerParams : (Booking , Int) -> Unit) : RecyclerView.Adapter<BookingListAdapter.BookingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_row_bookings, parent, false)
@@ -23,7 +23,7 @@ class BookingListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookingListViewHolder, position: Int) {
-        holder.bind(mBookingList[position], bookingType , onSelectDishListenerParams)
+        holder.bind(mBookingList[position], bookingType , onSelectDishListenerParams , position)
     }
 
     class BookingListViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -38,7 +38,12 @@ class BookingListAdapter(
         private val mDivider: View = itemView.findViewById(R.id.view_bookings_two)
 
 
-        fun bind(bookings: Booking, bookingType: String , onSelectDishListenerParams: (Booking) -> Unit){
+        fun bind(
+            bookings: Booking,
+            bookingType: String,
+            onSelectDishListenerParams: (Booking, Int) -> Unit,
+            position: Int
+        ){
             mFromCity.text = bookings.from_city_info?.name
             mToCity.text = bookings.to_city_info?.name
             mFromAirport.text = bookings.from_city_info?.airport
@@ -47,7 +52,7 @@ class BookingListAdapter(
             val journeyTime = StellarJetUtils.getFormattedhours(bookings.journey_datetime) + " hrs"
             mBookingsTime.text = journeyTime
             itemView.setOnClickListener {
-                onSelectDishListenerParams(bookings)
+                onSelectDishListenerParams(bookings , position)
             }
 
             if(bookingType.equals("Completed" , true)){

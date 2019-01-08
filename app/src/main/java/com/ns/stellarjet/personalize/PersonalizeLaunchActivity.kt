@@ -50,6 +50,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
                 FoodPreferencesLaunchActivity::class.java
             )
             mFoodPreferencesIntent.putExtra("FlowFrom" , "personalize")
+            mFoodPreferencesIntent.putExtra("personalizeDrawer" , false)
             startActivity(mFoodPreferencesIntent)
         }
 

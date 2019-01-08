@@ -18,7 +18,6 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.FragmentCompletedBookingsBinding
 import com.ns.stellarjet.drawer.adapter.BookingListAdapter
-import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import retrofit2.Call
@@ -29,7 +28,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
+class CompletedBookingsFragment : Fragment(), (Booking , Int) -> Unit {
 
     private lateinit var binding : FragmentCompletedBookingsBinding
     private var mCompletedBookingHistoryList: List<Booking> = ArrayList()
@@ -83,7 +82,7 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking) {
+    override fun invoke(booking: Booking , position : Int) {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
         mDetailsIntent.putExtra("bookingType" , "Completed")

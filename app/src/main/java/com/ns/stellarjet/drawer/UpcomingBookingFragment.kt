@@ -29,10 +29,13 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
+class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
 
     private lateinit var binding : FragmentUpcomingBookingBinding
-    private var mUpcomingBookingHistoryList: List<Booking> = ArrayList()
+    companion object {
+        var mUpcomingBookingHistoryList: List<Booking> = ArrayList()
+        var adapter: BookingListAdapter? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +71,7 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 Response<BookingHistoryResponse>) {
                 progress.hideProgress()
                 mUpcomingBookingHistoryList = response.body()!!.data.booking_list
-                val adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
+                adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
                     "Upcoming" ,
                     this@UpcomingBookingFragment)
                 val layoutManager = LinearLayoutManager(
@@ -88,10 +91,11 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking) {
+    override fun invoke(booking: Booking , position :Int) {
 //        Toast.makeText(activity , selectedBooking.flight , Toast.LENGTH_LONG).show()
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
+        mDetailsIntent.putExtra("bookingPosition" , position)
         mDetailsIntent.putExtra("bookingType" , "upcoming")
         requireActivity().startActivity(mDetailsIntent)
     }

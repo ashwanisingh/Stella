@@ -18,6 +18,7 @@ import java.util.*
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
+    private var isPersonalizeDrawer: Boolean = false
     private var bookingData: Booking? = null
 
 
@@ -26,6 +27,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         setContentView(R.layout.activity_food_preferences_launch)
 
         flow = intent?.extras?.getString("FlowFrom")!!
+        isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         bookingData = intent.extras?.getParcelable("bookingDetails")
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
@@ -83,6 +85,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
             mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
             mFoodListIntent.putExtra("FlowFrom" , flow)
             mFoodListIntent.putExtra("bookingDetails" , "")
+            mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
             startActivity(mFoodListIntent)
         }else{
             val mFoodListIntent =  Intent(
@@ -92,6 +95,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
             mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
             mFoodListIntent.putExtra("FlowFrom" , flow)
             mFoodListIntent.putExtra("bookingDetails" , bookingData)
+            mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
             startActivity(mFoodListIntent)
         }
 

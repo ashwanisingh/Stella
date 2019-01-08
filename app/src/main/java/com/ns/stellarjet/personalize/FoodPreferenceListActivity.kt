@@ -18,7 +18,6 @@ import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
-import com.ns.stellarjet.utils.Progress.progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -32,6 +31,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     //    private var mSelectedFoodIds = ""
     private val mSelectedFoodIds : MutableList<Int> = ArrayList()
     private lateinit var flow: String
+    private var isPersonalizeDrawer: Boolean = false
     private var bookingData: Booking? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
         bookingData = intent.extras?.getParcelable("bookingDetails")
         flow = intent?.extras?.getString("FlowFrom")!!
+        isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         activityBinding.textViewFoodListName.text = foodType
 
 
@@ -124,17 +125,21 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                     this@FoodPreferenceListActivity ,
                     true
                 )
-                if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                    val mPersonalizeSuccessIntent  =  Intent(
-                        this@FoodPreferenceListActivity ,
-                        PersonalizeSuccessActivity::class.java
-                    )
-                    mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(mPersonalizeSuccessIntent)
+                if(isPersonalizeDrawer){
                     finish()
-                    clearPersonalizedPreferences()
                 }else{
-                    finish()
+                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                        val mPersonalizeSuccessIntent  =  Intent(
+                            this@FoodPreferenceListActivity ,
+                            PersonalizeSuccessActivity::class.java
+                        )
+                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(mPersonalizeSuccessIntent)
+                        finish()
+                        clearPersonalizedPreferences()
+                    }else{
+                        finish()
+                    }
                 }
             }
 
@@ -149,7 +154,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     private fun makeFoodListByCategory(foodType : String) :  MutableList<Food>{
         val mFoodsList =  HomeActivity.sUserData.customer_prefs.foods
 
-        var mFoodsDisplayList : MutableList<Food> = ArrayList()
+        val mFoodsDisplayList : MutableList<Food> = ArrayList()
 
         mFoodsList.forEach {
             if(it.food_type_text.equals(foodType , false)){
