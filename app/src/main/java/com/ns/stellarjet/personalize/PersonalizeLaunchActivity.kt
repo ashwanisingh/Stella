@@ -26,12 +26,17 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
             0 ,0 ,R.drawable.ic_date_next , 0
         )
+
+        val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
+        val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
         binding.textViewPersonalizeCabPreferences.setOnClickListener {
             val mCabPreferencesIntent = Intent(
                 this ,
                 CabPreferencesActivity::class.java
             )
             mCabPreferencesIntent.putExtra("FlowFrom" , "personalize")
+            mCabPreferencesIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , fromCity)
+            mCabPreferencesIntent.putExtra(UIConstants.BUNDLE_TO_CITY , toCity)
             startActivity(mCabPreferencesIntent)
         }
 

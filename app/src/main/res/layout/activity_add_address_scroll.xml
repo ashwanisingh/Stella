@@ -53,7 +53,7 @@
                         android:layout_height="32dp"
                         android:layout_above="@+id/view"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_pin_copy"/>
+                        android:src="@drawable/ic_location_pin"/>
             </RelativeLayout>
 
             <!--<androidx.appcompat.widget.Toolbar

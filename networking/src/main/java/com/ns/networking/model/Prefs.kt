@@ -10,8 +10,7 @@ data class Prefs(
     constructor(parcel: Parcel) : this(
         parcel.createTypedArrayList(CoPassenger),
         parcel.readParcelable(MainPassenger::class.java.classLoader)
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeTypedList(co_passengers)

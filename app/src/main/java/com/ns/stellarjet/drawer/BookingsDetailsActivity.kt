@@ -13,6 +13,7 @@ import com.ns.stellarjet.personalize.CabPreferencesActivity
 import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
+import com.ns.stellarjet.utils.UIConstants
 
 class BookingsDetailsActivity : AppCompatActivity() {
 
@@ -79,6 +80,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.layoutBookingsDetailsCabBase.setOnClickListener {
             val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
+            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , bookingData.from_city_info!!.name)
+            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY , bookingData.to_city_info!!.name)
             cabPersonalizeIntent.putExtra("FlowFrom" , "drawer")
             startActivity(cabPersonalizeIntent)
         }

@@ -50,6 +50,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
 
     private Location myLocation;
     private LatLng mLatLng;
+    private int mSelectedCityId = 0;
 
     /**
      * Flag indicating whether a requested permission has been denied after returning in
@@ -73,6 +74,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
 
         mCabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
         mLatLng = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_CAB_LATLONG);
+        mSelectedCityId = Objects.requireNonNull(getIntent().getExtras()).getInt(UIConstants.BUNDLE_SELECTED_CITY_ID);
         if (mCabType != null) {
             if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
                 mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
@@ -98,12 +100,11 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         }
 
         mAddAddressButton.setOnClickListener(v -> {
-            String cityId = "3";
             String address = mFlatNoEditText.getText().toString() +" "+ mAddressEditText.getText().toString();
             String nickName = mNickNameEditText.getText().toString();
-            if(!cityId.isEmpty() && !address.isEmpty()&& !nickName.isEmpty()){
+            if(mSelectedCityId!=0 && !address.isEmpty()&& !nickName.isEmpty()){
                 if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-                    addAddress(cityId , address , nickName);
+                    addAddress(String.valueOf(mSelectedCityId), address , nickName);
                 }else{
                     Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                 }

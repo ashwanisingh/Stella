@@ -22,6 +22,9 @@ public class BookingConfirmedActivity extends AppCompatActivity {
                 this ,
                 R.layout.activity_booking_confirmed);
 
+        String fromCity = getIntent().getExtras().getString(UIConstants.BUNDLE_FROM_CITY);
+        String toCity = getIntent().getExtras().getString(UIConstants.BUNDLE_TO_CITY);
+
         activityBookingConfirmedBinding.buttonHome.setOnClickListener(v -> {
             String bookingId = SharedPreferencesHelper.getBookingId(BookingConfirmedActivity.this);
             Log.d("BookingConfirmed", "onCreate: " +bookingId);
@@ -43,6 +46,8 @@ public class BookingConfirmedActivity extends AppCompatActivity {
                     BookingConfirmedActivity.this ,
                     PersonalizeLaunchActivity.class
             );
+            mIntent.putExtra(UIConstants.BUNDLE_FROM_CITY, fromCity);
+            mIntent.putExtra(UIConstants.BUNDLE_TO_CITY , toCity);
             startActivity(mIntent);
             finish();
         });

@@ -34,6 +34,8 @@ class CabPreferencesActivity : AppCompatActivity() {
         )
 
         flow = intent?.extras?.getString("FlowFrom")!!
+        val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
+        val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
 
         binding.editTextPickLocation.setOnClickListener {
             val pickUpIntent = Intent(
@@ -41,6 +43,7 @@ class CabPreferencesActivity : AppCompatActivity() {
                 SavedAddressListActivity::class.java
             )
             pickUpIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , UIConstants.BUNDLE_CAB_TYPE_PICK)
+            pickUpIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , fromCity)
             startActivity(pickUpIntent)
         }
 
@@ -50,6 +53,7 @@ class CabPreferencesActivity : AppCompatActivity() {
                 SavedAddressListActivity::class.java
             )
             dropIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , UIConstants.BUNDLE_CAB_TYPE_DROP)
+            dropIntent.putExtra(UIConstants.BUNDLE_TO_CITY , toCity)
             startActivity(dropIntent)
         }
 

@@ -55,8 +55,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         } catch (Exception ex) {
             jump();
         }
-/*
-        if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
+        /*if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
                 getUserData();
             }else {

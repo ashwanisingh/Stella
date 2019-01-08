@@ -90,7 +90,6 @@ public class UIConstants {
      * String constant for bundle value for cabType drop
      */
     public static final String BUNDLE_CAB_TYPE_DROP = "Drop";
-
     /**
      * String constant for SharedPreferences for personalize Cab
      */
@@ -119,4 +118,16 @@ public class UIConstants {
      * String constant for SharedPreferences for personalize time limit
      */
     public static final String PREFERENCES_PERSONALIZE_TIME = "PersonalizationTime";
+    /**
+     * String constant for bundle value for from city
+     */
+    public static final String BUNDLE_FROM_CITY = "FromCity";
+    /**
+     * String constant for bundle value for to city
+     */
+    public static final String BUNDLE_TO_CITY = "ToCity";
+    /**
+     * String constant for bundle value for to city
+     */
+    public static final String BUNDLE_SELECTED_CITY_ID = "selectedCityId";
 }

@@ -189,6 +189,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                             PassengerActivity.this ,
                             BookingConfirmedActivity.class
                     );
+                    mIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , HomeActivity.fromCity);
+                    mIntent.putExtra(UIConstants.BUNDLE_TO_CITY , HomeActivity.toCity);
                     SharedPreferencesHelper.savePersonalizeTime(
                             PassengerActivity.this,
                             StellarJetUtils.getPersonalizationHours(HomeActivity.journeyTimeInMillis));
@@ -350,7 +352,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         mGuestList.clear();
         mGuestIdsList.clear();
         for (int i = 0; i < mGuestRequestDataList.size(); i++) {
-            if(isOnlySelfTravelling){
+            if(isOnlySelfTravelling && i==0){
                 continue;
             }else {
                 if(mGuestRequestDataList.get(i).getGuestStatus().equalsIgnoreCase("edit")){

@@ -378,4 +378,7 @@
         can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.
     </string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
+
+    <string name="pick_current_location">Pin using pick location</string>
+    <string name="drop_current_location">Pin using drop location</string>
 </resources>

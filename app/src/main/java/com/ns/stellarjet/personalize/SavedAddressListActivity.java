@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.ns.networking.model.SavedAddresse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding;
+import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.personalize.adapter.SavedAddressListAdapter;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
@@ -33,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -41,6 +44,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
 
     private ActivitySavedAddressBinding binding;
     private String cabType ;
+    private String selectedCity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +55,32 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                 R.layout.activity_saved_address
         );
 
+        cabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
+        if(cabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK )){
+            selectedCity = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_FROM_CITY);
+            binding.textViewSavedAddressCurrentLocation.setText(getResources().getString(R.string.pick_current_location));
+        }else if(cabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_DROP)){
+            selectedCity = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_TO_CITY);
+            binding.textViewSavedAddressCurrentLocation.setText(getResources().getString(R.string.drop_current_location));
+        }
+
         binding.textViewSavedAddressCurrentLocation.setOnClickListener(v -> {
             LatLng latLng = null;
             Intent mAddAddressIntent = new Intent(
                     SavedAddressListActivity.this ,
                     AddAddressScrollActivity.class
             );
+            int selectedCityId = 0;
+            int citiesSize = HomeActivity.sUserData.getCities().size();
+            for (int i = 0; i < citiesSize; i++) {
+                if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                    selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                }
+            }
+            mAddAddressIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+
             startActivity(mAddAddressIntent);
             finish();
         });
@@ -68,7 +90,13 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        autocompleteFragment.setHint("Search your area");
+        autocompleteFragment.setHint("Search your area in " + selectedCity);
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15.0f);
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setTextColor(getResources().getColor(android.R.color.black));
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setBackgroundColor(getResources().getColor(android.R.color.white));
+
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -87,7 +115,6 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             }
         });
 
-        cabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
         if(StellarJetUtils.isConnectingToInternet(SavedAddressListActivity.this)){
             getSavedAddress();
         }else{
@@ -109,9 +136,14 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             @Override
             public void onResponse(@NonNull Call<SavedAddressResponse> call, @NonNull Response<SavedAddressResponse> response) {
                 progress.hideProgress();
-                List<SavedAddresse> addresses;
+                List<SavedAddresse> addresses = new ArrayList<>();
                 if (response.body() != null) {
-                    addresses = response.body().getData().getAddresses();
+                    for (int i = 0; i < response.body().getData().getAddresses().size(); i++) {
+                        if(response.body().getData().getAddresses().get(i).getCity_info().getName().equalsIgnoreCase(selectedCity)){
+                            addresses.add(response.body().getData().getAddresses().get(i));
+                        }
+                    }
+//                    addresses = response.body().getData().getAddresses();
                     setSavedAddress(addresses);
                 }
             }
@@ -169,6 +201,14 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                         SavedAddressListActivity.this ,
                         AddAddressScrollActivity.class
                 );
+                int selectedCityId = 0;
+                int citiesSize = HomeActivity.sUserData.getCities().size();
+                for (int i = 0; i < citiesSize; i++) {
+                    if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                        selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                    }
+                }
+                mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
                 mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
                 mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
                 startActivity(mIntent);
