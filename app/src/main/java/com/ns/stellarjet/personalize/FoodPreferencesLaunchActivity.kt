@@ -19,7 +19,6 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
     private var isPersonalizeDrawer: Boolean = false
-    private var bookingData: Booking? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +27,12 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
         flow = intent?.extras?.getString("FlowFrom")!!
         isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
-        bookingData = intent.extras?.getParcelable("bookingDetails")
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
-        DataBindingUtil.setContentView(
-                    this ,
-                    R.layout.activity_food_preferences_launch
-                )
+            DataBindingUtil.setContentView(
+                this ,
+                R.layout.activity_food_preferences_launch
+            )
 
         activityFoodPreferencesBinding.buttonFoodPrefBack.setOnClickListener {
             onBackPressed()
@@ -77,28 +75,14 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
 
     override fun invoke(foodTypeSelected: String) {
-        if(bookingData == null){
-            val mFoodListIntent =  Intent(
-                this ,
-                FoodPreferenceListActivity::class.java
-            )
-            mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
-            mFoodListIntent.putExtra("FlowFrom" , flow)
-            mFoodListIntent.putExtra("bookingDetails" , "")
-            mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
-            startActivity(mFoodListIntent)
-        }else{
-            val mFoodListIntent =  Intent(
-                this ,
-                FoodPreferenceListActivity::class.java
-            )
-            mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
-            mFoodListIntent.putExtra("FlowFrom" , flow)
-            mFoodListIntent.putExtra("bookingDetails" , bookingData)
-            mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
-            startActivity(mFoodListIntent)
-        }
-
+        val mFoodListIntent =  Intent(
+            this ,
+            FoodPreferenceListActivity::class.java
+        )
+        mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
+        mFoodListIntent.putExtra("FlowFrom" , flow)
+        mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
+        startActivity(mFoodListIntent)
     }
 
 }

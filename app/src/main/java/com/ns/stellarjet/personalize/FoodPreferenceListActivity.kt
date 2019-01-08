@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ns.networking.model.Booking
 import com.ns.networking.model.CommonPersonalizeFoodResponse
 import com.ns.networking.model.Food
 import com.ns.networking.model.FoodPersonalizeResponse
@@ -32,7 +31,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     private val mSelectedFoodIds : MutableList<Int> = ArrayList()
     private lateinit var flow: String
     private var isPersonalizeDrawer: Boolean = false
-    private var bookingData: Booking? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +41,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         )
 
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
-        bookingData = intent.extras?.getParcelable("bookingDetails")
         flow = intent?.extras?.getString("FlowFrom")!!
         isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         activityBinding.textViewFoodListName.text = foodType
@@ -161,16 +158,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                 mFoodsDisplayList.add(it)
             }
         }
-
-        mFoodsDisplayList.forEach {
-            if(it.pref){
-                it.pref = false
-            }
-            if(bookingData?.prefs?.main_passenger?.food_items?.id == it.id){
-                it.pref = true
-            }
-        }
-
 
         return mFoodsDisplayList
     }

@@ -90,7 +90,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
             foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
             foodPersonalizeIntent.putExtra("personalizeDrawer" , true)
-            foodPersonalizeIntent.putExtra("bookingDetails" , bookingData)
             startActivity(foodPersonalizeIntent)
         }
 
