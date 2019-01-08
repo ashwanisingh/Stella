@@ -28,7 +28,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class CompletedBookingsFragment : Fragment(), (Booking , Int) -> Unit {
+class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
 
     private lateinit var binding : FragmentCompletedBookingsBinding
     private var mCompletedBookingHistoryList: List<Booking> = ArrayList()
@@ -82,7 +82,7 @@ class CompletedBookingsFragment : Fragment(), (Booking , Int) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking , position : Int) {
+    override fun invoke(booking: Booking) {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
         mDetailsIntent.putExtra("bookingType" , "Completed")

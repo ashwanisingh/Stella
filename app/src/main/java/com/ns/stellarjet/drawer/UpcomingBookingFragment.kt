@@ -29,7 +29,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
+class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
 
     private lateinit var binding : FragmentUpcomingBookingBinding
     companion object {
@@ -43,14 +43,17 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_upcoming_booking, container, false)
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         if(StellarJetUtils.isConnectingToInternet(activity)){
             getUpcomingBookings()
         }else{
             Toast.makeText(activity, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
         }
-        return binding.root
     }
-
 
     private fun getUpcomingBookings() {
         val progress = Progress.getInstance()
@@ -91,11 +94,10 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking , position :Int) {
+    override fun invoke(booking: Booking) {
 //        Toast.makeText(activity , selectedBooking.flight , Toast.LENGTH_LONG).show()
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
-        mDetailsIntent.putExtra("bookingPosition" , position)
         mDetailsIntent.putExtra("bookingType" , "upcoming")
         requireActivity().startActivity(mDetailsIntent)
     }

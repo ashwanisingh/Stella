@@ -10,7 +10,6 @@ import com.ns.networking.model.CabPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityCabPreferncesBinding
-import com.ns.stellarjet.drawer.UpcomingBookingFragment
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
@@ -23,7 +22,6 @@ class CabPreferencesActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCabPreferncesBinding
     private lateinit var flow: String
-    private var position: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +35,6 @@ class CabPreferencesActivity : AppCompatActivity() {
         flow = intent?.extras?.getString("FlowFrom")!!
         val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
         val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
-        position = intent?.extras?.getInt("bookingPosition")!!
 
         binding.editTextPickLocation.setOnClickListener {
             val pickUpIntent = Intent(
@@ -104,16 +101,6 @@ class CabPreferencesActivity : AppCompatActivity() {
                     SharedPreferencesHelper.saveCabPersonalize(
                         this@CabPreferencesActivity ,
                         true)
-                    if(pickUpId.isNotEmpty()){
-                        UpcomingBookingFragment.mUpcomingBookingHistoryList[position].pick_address =
-                                SharedPreferencesHelper.getCabPickupPersonlalize(this@CabPreferencesActivity)
-                    }
-                    if(dropId.isNotEmpty()){
-                        UpcomingBookingFragment.mUpcomingBookingHistoryList[position].drop_address =
-                                SharedPreferencesHelper.getCabDropPersonalize(this@CabPreferencesActivity)
-                    }
-                    UpcomingBookingFragment.adapter?.notifyItemChanged(position)
-                    UpcomingBookingFragment.adapter?.notifyDataSetChanged()
 
                     Toast.makeText(
                         this@CabPreferencesActivity ,

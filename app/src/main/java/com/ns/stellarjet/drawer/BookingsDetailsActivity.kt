@@ -31,7 +31,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         val bookingData: Booking? = intent.extras?.getParcelable("bookingDetails")
         val bookingType = intent.extras?.getString("bookingType")
-        val position = intent.extras?.getInt("bookingPosition")
 
         if(bookingType.equals("completed" , true)){
             binding.textViewBookingsTitlePersonalize.visibility = View.GONE
@@ -83,7 +82,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
             cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , bookingData.from_city_info!!.name)
             cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY , bookingData.to_city_info!!.name)
-            cabPersonalizeIntent.putExtra("bookingPosition" , position)
             cabPersonalizeIntent.putExtra("FlowFrom" , "drawer")
             startActivity(cabPersonalizeIntent)
         }
@@ -91,7 +89,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
         binding.layoutBookingsDetailsFoodBase.setOnClickListener {
             val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
             foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
-            foodPersonalizeIntent.putExtra("bookingPosition" , position)
             foodPersonalizeIntent.putExtra("personalizeDrawer" , true)
             foodPersonalizeIntent.putExtra("bookingDetails" , bookingData)
             startActivity(foodPersonalizeIntent)
