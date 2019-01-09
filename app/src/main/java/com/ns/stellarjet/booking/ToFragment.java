@@ -144,7 +144,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
             @Override
             public void onResponse(@NonNull Call<FlightScheduleResponse> call, @NonNull Response<FlightScheduleResponse> response) {
                 progress.hideProgress();
-                if (response.body() != null) {
+                if(response.code()==200){
                     Log.d("Calendar", "onResponse: " + response.body());
                     List<FlightScheduleData> mFlightScheduleDataList = response.body().getData();
                     Intent mCalendarIntent = new Intent(
@@ -153,6 +153,8 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
                     );
                     mCalendarIntent.putExtra("dates" , (ArrayList<? extends Parcelable>)  mFlightScheduleDataList);
                     Objects.requireNonNull(getActivity()).startActivity(mCalendarIntent);
+                }else if(response.code() == 500){
+                    Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
