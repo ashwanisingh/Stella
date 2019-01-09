@@ -44,8 +44,10 @@ public abstract class PermissionUtils {
                                               String permission, boolean finishActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
-            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
-                    .show(activity.getSupportFragmentManager(), "dialog");
+            /*PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
+                    .show(activity.getSupportFragmentManager(), "dialog");*/
+//            Toast.makeText(activity, "Permission Denied", Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
         } else {
             // Location permission has not been granted yet, request it.
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);

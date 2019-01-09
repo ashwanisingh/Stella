@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -27,13 +28,18 @@ class DrawerActivity : AppCompatActivity() {
 
         button_drawer_personal_assistance.setOnClickListener {
             // TODO : contact number 180042577777
+
             val customerCare = HomeActivity.sUserData.customer_care_info.phone
             if (ContextCompat.checkSelfPermission(this@DrawerActivity, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
                 // Permission to access the location is missing.
-                PermissionUtils.requestPhonePermission(
+                PermissionUtils.requestPhonePermission(this ,
+                    CALL_PHONE_PERMISSION_REQUEST_CODE ,
+                    Manifest.permission.CALL_PHONE ,
+                    false)
+                /*PermissionUtils.requestPhonePermission(
                     this@DrawerActivity, CALL_PHONE_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.CALL_PHONE, true
-                )
+                    Manifest.permission.CALL_PHONE, true)*/
+
             } else {
                 val callIntent = Intent(Intent.ACTION_CALL)
                 callIntent.data = Uri.parse("tel:$customerCare")//change the number
@@ -79,8 +85,9 @@ class DrawerActivity : AppCompatActivity() {
             startActivity(callIntent)
         } else {
             // Display the missing permission error dialog when the fragments resume.
-            PermissionUtils.PermissionDeniedDialog
-                .newInstance(true).show(supportFragmentManager, "dialog")
+            Toast.makeText(this , "Permission Denied" , Toast.LENGTH_SHORT).show();
+            /*PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(supportFragmentManager, "dialog")*/
         }
     }
 }
