@@ -102,8 +102,9 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText("");
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setEnabled(true);
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setAlpha(1.0f);
-            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setEnabled(true);
-            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(1.0f);
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.requestFocus();
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setEnabled(false);
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
             mGuestRequestDataList.get(0).setGuestName("");
             mGuestRequestDataList.get(0).setGuestMobileNUmber("");
             mGuestRequestDataList.get(0).setGuestId("");
@@ -196,6 +197,9 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                     }
                 }
             });
+            if(position == numOfGuests-1){
+                mPassengerNameAutoCompleteTextView.requestFocus();
+            }
             mPassengerNameAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -269,7 +273,13 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                             }*/
 //                            mCompeletionList.add(position);
                         }
-                        if(mSelectedPhoneNumberList.size() == numOfGuests){
+                        List<String> mTempNumberList = new ArrayList<>();
+                        for (int i = 0; i < mGuestRequestDataList.size(); i++) {
+                            if(!mGuestRequestDataList.get(i).getGuestMobileNUmber().equalsIgnoreCase("")){
+                                mTempNumberList.add(mGuestRequestDataList.get(i).getGuestMobileNUmber());
+                            }
+                        }
+                        if(mTempNumberList.size() == numOfGuests){
                             Log.d("", "afterTextChanged: " + mGuestRequestDataList);
                             validateGuests();
                         }
@@ -300,7 +310,13 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
 
     private void makeGuestRequestDataList(int size){
         for (int i = 0; i < size; i++) {
-            mGuestRequestDataList.add(new AddGuestRequestData());
+            AddGuestRequestData mAddGuestRequestData = new AddGuestRequestData();
+            mAddGuestRequestData.setGuestName("");
+            mAddGuestRequestData.setGuestMobileNUmber("");
+            mAddGuestRequestData.setGuestId("");
+            mAddGuestRequestData.setGuestStatus("");
+            mAddGuestRequestData.setGuestFoodPreferences(0);
+            mGuestRequestDataList.add(mAddGuestRequestData);
         }
     }
 

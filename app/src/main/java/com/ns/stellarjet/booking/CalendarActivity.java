@@ -40,6 +40,8 @@ public class CalendarActivity extends AppCompatActivity {
         // obtain Binding
         mActivityCalendarBinding = DataBindingUtil.setContentView(this, R.layout.activity_calendar);
 
+        Calendar currentCalendar = Calendar.getInstance();
+        int day = currentCalendar.get(Calendar.DAY_OF_MONTH);
         // setting the minimum data as current date
         min = Calendar.getInstance();
         min.add(Calendar.DAY_OF_MONTH, -1);
@@ -47,7 +49,8 @@ public class CalendarActivity extends AppCompatActivity {
 
         // setting the maximum date to 90
         max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 88);
+        max.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+        max.add(Calendar.MONTH , 2);
         mActivityCalendarBinding.calendarView.setMaximumDate(max);
 
         mFlightScheduleDataList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("dates");
