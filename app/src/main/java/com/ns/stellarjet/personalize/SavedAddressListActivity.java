@@ -194,28 +194,59 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
         if (addresses != null&& addresses.size()>0) {
             city = addresses.get(0).getLocality();
 
-            if(city.equalsIgnoreCase("Bengaluru") ||
+            /*if(city.equalsIgnoreCase("Bengaluru") ||
                     city.equalsIgnoreCase("Delhi") || city.equalsIgnoreCase("New Delhi")
-                    || city.equalsIgnoreCase("Mumbai")){
-                Intent mIntent = new Intent(
-                        SavedAddressListActivity.this ,
-                        AddAddressScrollActivity.class
-                );
-                int selectedCityId = 0;
-                int citiesSize = HomeActivity.sUserData.getCities().size();
-                for (int i = 0; i < citiesSize; i++) {
-                    if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
-                        selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
-                    }
-                }
-                mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
-                mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
-                mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
-                startActivity(mIntent);
-                finish();
-            }else{
-                Toast.makeText(SavedAddressListActivity.this, "Service not Available", Toast.LENGTH_SHORT).show();
+                    || city.equalsIgnoreCase("Mumbai")){*/
+            String citySelected = "";
+            if(selectedCity.equalsIgnoreCase("delhi") || selectedCity.equalsIgnoreCase("new delhi")){
+                citySelected = "delhi";
+            }else {
+                citySelected = selectedCity;
             }
+            if(citySelected.equalsIgnoreCase("delhi")){
+                if(city.equalsIgnoreCase("Delhi") || city.equalsIgnoreCase("New Delhi")){
+                    Intent mIntent = new Intent(
+                            SavedAddressListActivity.this ,
+                            AddAddressScrollActivity.class
+                    );
+                    int selectedCityId = 0;
+                    int citiesSize = HomeActivity.sUserData.getCities().size();
+                    for (int i = 0; i < citiesSize; i++) {
+                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                            selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                        }
+                    }
+                    mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
+                    mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
+                    mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+                    startActivity(mIntent);
+                    finish();
+                }else{
+                    Toast.makeText(SavedAddressListActivity.this, "Please select a "+cabType+ " location", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                if(city.equalsIgnoreCase(selectedCity)){
+                    Intent mIntent = new Intent(
+                            SavedAddressListActivity.this ,
+                            AddAddressScrollActivity.class
+                    );
+                    int selectedCityId = 0;
+                    int citiesSize = HomeActivity.sUserData.getCities().size();
+                    for (int i = 0; i < citiesSize; i++) {
+                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                            selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                        }
+                    }
+                    mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
+                    mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
+                    mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+                    startActivity(mIntent);
+                    finish();
+                }else{
+                    Toast.makeText(SavedAddressListActivity.this, "Please select a "+cabType+ " location", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
     }
 
