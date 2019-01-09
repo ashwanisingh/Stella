@@ -5,19 +5,29 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.ns.networking.model.FlightSeatsConfirmResponse
 import com.ns.networking.model.UserData
+import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
+import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -33,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         @JvmField var arrivalTime : String = ""
         @JvmField var flightId : Int = 0
         @JvmField var mSeatNamesId : MutableList<Int> = ArrayList()
-        @JvmField var mSeatNames : List<String> = ArrayList()
+        @JvmField var mSeatNames : MutableList<String> = ArrayList()
 
         fun clearAllBookingData(){
             fromCity = ""
@@ -50,7 +60,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,10 +70,8 @@ class HomeActivity : AppCompatActivity() {
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
 
-        /*
-        set locked seats data and pass to Seat layout Activity
+//        set locked seats data and pass to Seat layout Activity
         if(sUserData.locked_seats?.isNotEmpty()!!){
-            val numOfSeats = sUserData.locked_seats!![0].flight!!.no_of_seats
             fromCityId = sUserData.locked_seats!![0].from_city!!
             toCityId = sUserData.locked_seats!![0].to_city!!
             journeyDate = sUserData.locked_seats!![0].journey_date!!
@@ -75,18 +82,12 @@ class HomeActivity : AppCompatActivity() {
             sUserData.locked_seats!!.forEach {
                 mSeatNamesId.add(it.flight_seat_id!!)
             }
-            if (numOfSeats == 8) {
-                val mSeatsIntent = Intent(this@HomeActivity, SeatLayoutOneSelectionActivity::class.java)
-                mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
-                mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
-                startActivity(mSeatsIntent)
-            } else if (numOfSeats == 12) {
-                val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
-                mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
-                mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
-                startActivity(mSeatsIntent)
+            sUserData.locked_seats!!.forEach {
+                mSeatNames.add(it.flight_seat!!.seat_code)
             }
-        }*/
+
+            launchDialog()
+        }
 
         /* set the username only if he is primary*/
         if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
@@ -126,8 +127,6 @@ class HomeActivity : AppCompatActivity() {
         activityHomeBinding.textViewSeatLimits.append(seatsRemaining)
         activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
 
-
-
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
             val mPlaceSelectionIntent = Intent(
@@ -147,5 +146,104 @@ class HomeActivity : AppCompatActivity() {
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
             startActivity(mDrawerActivtyIntent)
         }
+    }
+
+    private fun launchDialog(){
+
+        var lockedFromCity = ""
+        var lockedToCity = ""
+        sUserData.cities.forEach {
+            if(it.id == fromCityId){
+                lockedFromCity = it.name
+            }
+        }
+        sUserData.cities.forEach {
+            if(it.id == toCityId){
+                lockedToCity = it.name
+            }
+        }
+        val numOfSeats = sUserData.locked_seats!![0].flight?.no_of_seats
+
+        var seatNames  = ""
+
+        mSeatNames.forEach {
+            seatNames = if(seatNames.isEmpty()){
+                it
+            }else{
+                "$seatNames , $it"
+            }
+        }
+
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Previous booking")
+        alertDialogBuilder.setMessage("You have already locked seats $seatNames to go from $lockedFromCity to $lockedToCity" )
+        alertDialogBuilder.setCancelable(true)
+        alertDialogBuilder.setPositiveButton("Ok") { _, _ ->
+            run {
+                if (numOfSeats == 8) {
+                    val mSeatsIntent = Intent(this@HomeActivity, SeatLayoutOneSelectionActivity::class.java)
+                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    startActivity(mSeatsIntent)
+                } else if (numOfSeats == 12) {
+                    val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
+                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    startActivity(mSeatsIntent)
+                }
+
+            }
+        }
+
+        alertDialogBuilder.setNegativeButton("Cancel") { _id, _ ->
+            unlockSeats()
+            _id.dismiss()
+
+        }
+
+
+        val alert11 = alertDialogBuilder.create()
+        alert11.show()
+        alert11.setCanceledOnTouchOutside(false)
+        alert11.setCancelable(false)
+
+    }
+
+
+    private fun unlockSeats() {
+        val progress = Progress.getInstance()
+        progress.showProgress(this@HomeActivity)
+        val mFlightSeatsConfirmCall = RetrofitAPICaller.getInstance(this@HomeActivity)
+            .stellarJetAPIs.confirmFlightSeats(
+            SharedPreferencesHelper.getUserToken(this@HomeActivity),
+            HomeActivity.flightId,
+            SharedPreferencesHelper.getUserId(this@HomeActivity),
+            HomeActivity.fromCityId,
+            HomeActivity.toCityId,
+            HomeActivity.journeyDate,
+            HomeActivity.journeyTime,
+            HomeActivity.mSeatNamesId,
+            null
+        )
+
+        mFlightSeatsConfirmCall.enqueue(object : Callback<FlightSeatsConfirmResponse> {
+            override fun onResponse(
+                call: Call<FlightSeatsConfirmResponse>,
+                response: Response<FlightSeatsConfirmResponse>) {
+                progress.hideProgress()
+                if (response.body() != null) {
+                    Log.d("Booking", "onResponse: " + response.body()!!)
+                    if(response.code() == 200){
+                        Toast.makeText(this@HomeActivity , "Seats are unlocked" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FlightSeatsConfirmResponse>, t: Throwable) {
+                progress.hideProgress()
+                Log.d("Booking", "onFailure: $t")
+                Toast.makeText(this@HomeActivity, "Server Error Occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
