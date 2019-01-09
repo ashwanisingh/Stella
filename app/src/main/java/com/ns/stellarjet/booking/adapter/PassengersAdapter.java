@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -200,6 +201,7 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
             if(position == numOfGuests-1){
                 mPassengerNameAutoCompleteTextView.requestFocus();
             }
+            mPassengerNameAutoCompleteTextView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             mPassengerNameAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -225,6 +227,11 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                     }else if(s.length()>=3){
                         mPassengerSelfMobileNumberEditText.setEnabled(true);
                         mPassengerSelfMobileNumberEditText.setAlpha(1.0f);
+                        if(position == (numOfGuests-1)){
+                            mPassengerSelfMobileNumberEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                        }else {
+                            mPassengerSelfMobileNumberEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                        }
                     }else if(s.length()<=3){
                         mPassengerSelfMobileNumberEditText.setEnabled(false);
                         mPassengerSelfMobileNumberEditText.setAlpha(0.5f);

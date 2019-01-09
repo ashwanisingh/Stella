@@ -1,13 +1,8 @@
 package com.ns.stellarjet.booking;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ScrollView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -89,10 +84,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         activityPassengerBinding.recyclerViewPassengerList.setAdapter(mPassengersAdapter);
         activityPassengerBinding.recyclerViewPassengerList.setLayoutManager(layoutManager);
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
         activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
 
@@ -254,8 +245,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     @Override
     public void isButtonEnabled(boolean isEnabled,
                                 List<AddGuestRequestData> mGuestRequestDataList) {
-        /*InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);*/
         activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
         activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 1.0);
         List<AddGuestRequestData> mGuestRequestDataListTemp = new ArrayList<>();
