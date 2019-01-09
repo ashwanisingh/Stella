@@ -1,6 +1,7 @@
 package com.ns.networking.retrofit;
 
 import com.ns.networking.model.*;
+import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
@@ -49,7 +50,7 @@ public interface StellarApiService {
 
     @FormUrlEncoded
     @POST(Constants.FLIGHT_SEATS_API)
-    Call<FlightSeatResponse> getFlightSeats(
+    Call<FlightSeatListResponse> getFlightSeats(
             @Field("token") String token,
             @Field("flight_id") int flightId,
             @Field("from_city") int fromCity,
@@ -70,7 +71,6 @@ public interface StellarApiService {
             @Field("journey_time") String journeyTime,
             @Field("seats_for_unlock[]") List<Integer> mSeatsUnlock,
             @Field("seats_for_lock[]") List<Integer> mSeatsLock
-
     );
 
     @FormUrlEncoded

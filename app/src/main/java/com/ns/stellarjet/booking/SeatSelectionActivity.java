@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ns.networking.model.City;
-import com.ns.networking.model.FlightSeatAlignment;
-import com.ns.networking.model.FlightSeatResponse;
 import com.ns.networking.model.FlightSeatsConfirmResponse;
+import com.ns.networking.model.flightsseats.FlightSeatListResponse;
+import com.ns.networking.model.flightsseats.FlightSeats;
+import com.ns.networking.model.flightsseats.SeatsLockedByUser;
 import com.ns.networking.model.guestrequest.BookedSeatsRequest;
 import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
@@ -111,7 +111,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private boolean isKiloBooked = false;
     private boolean isLimoBooked = false;
 
-    private List<FlightSeatAlignment> mFlightSeatList = new ArrayList<>();
+    private List<FlightSeats> mFlightSeatList = new ArrayList<>();
     private List<SeatSelectionRequest> mSelectedSeatList = new ArrayList<>();
     private List<BookedSeatsRequest> mBookedSeatsList= new ArrayList<>();
     private List<Integer> mConfirmedSeatsList = new ArrayList<>();
@@ -197,7 +197,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
     private void getFlightSeats(){
 
-        Call<FlightSeatResponse> mFlightSeatsDataResponseCall =
+        Call<FlightSeatListResponse> mFlightSeatsDataResponseCall =
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().getFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
@@ -208,17 +208,19 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         HomeActivity.journeyTime
                 );
 
-        mFlightSeatsDataResponseCall.enqueue(new Callback<FlightSeatResponse>() {
+        mFlightSeatsDataResponseCall.enqueue(new Callback<FlightSeatListResponse>() {
             @Override
-            public void onResponse(@NonNull Call<FlightSeatResponse> call,@NonNull Response<FlightSeatResponse> response) {
+            public void onResponse(@NonNull Call<FlightSeatListResponse> call,@NonNull Response<FlightSeatListResponse> response) {
                 if(response.body()!=null){
                     Log.d("Booking", "onResponse: " + response.body());
                     mFlightSeatList = response.body().getData().getFlight_seats();
                     List<Integer> mBookedSeats = response.body().getData().getFlight_seat_availability().getBooked();
                     List<Integer> mLockedSeats = response.body().getData().getFlight_seat_availability().getLocked();
+                    List<SeatsLockedByUser> mLockedSeatsByUser = response.body().getData().getSeats_locked_by_user();
                     setSeats();
                     setBookedAndLockedSeats(mBookedSeats);
                     setBookedAndLockedSeats(mLockedSeats);
+                    setLockedSeatsByUser(mLockedSeatsByUser);
                 }else{
                     JSONObject mJsonObject = null;
                     try {
@@ -237,7 +239,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             }
 
             @Override
-            public void onFailure(@NonNull Call<FlightSeatResponse> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<FlightSeatListResponse> call,@NonNull Throwable t) {
                 Log.d("Booking", "onFailure: " + t);
                 Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
             }
@@ -267,9 +269,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     Log.d("Booking", "onResponse: " +response.body());
                     if(response.body().getResultcode()==1){
                         HomeActivity.mSeatNamesId.clear();
-                        for (int i = 0; i < mConfirmedSeatsList.size(); i++) {
-                            HomeActivity.mSeatNamesId.add(mConfirmedSeatsList.get(i));
-                        }
+                        HomeActivity.mSeatNamesId.addAll(mConfirmedSeatsList);
                     }
 //                    HomeActivity.mSeatNamesId = response.body().getData().getFlight_seat_availability().getLocked();
                     int numOfGuests = HomeActivity.mSeatNamesId.size();
@@ -512,6 +512,26 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    private void setLockedSeatsByUser(List<SeatsLockedByUser> mSelectedAndLockedSeatsList){
+        for (int i = 0; i < mBookedSeatsList.size(); i++) {
+            int seatId = mBookedSeatsList.get(i).getSeatId();
+            String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
+            Button mDesiredButton = mBookedSeatsList.get(i).getmDesiredButton();
+            for (int j = 0; j < mSelectedAndLockedSeatsList.size(); j++) {
+                int bookedSeatId = mSelectedAndLockedSeatsList.get(j).getFlight_seat_id();
+                if(seatId == bookedSeatId){
+                    makeSelectedSeatList(mDesiredButton);
+//                    mDesiredButton.setEnabled(false);
+                    if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
+                    }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_selected);
+                    }
+                }
+            }
+        }
+    }
+
     // set the selected seat selection to true
     private void makeSelectedSeatList(Button mSelectedButton){
         String seatId = (String) mSelectedButton.getTag();
@@ -555,33 +575,5 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         }
 
         return seatPosition;
-    }
-
-
-    private void getCityList(int fromId , int toId){
-        String fromCity = "";
-        String toCity = "";
-        List<City> mCitiesList  = HomeActivity.sUserData.getCities();
-        for (int i = 0; i < mCitiesList.size(); i++) {
-            if(mCitiesList.get(i).getId() == fromId){
-                fromCity = mCitiesList.get(i).getName();
-            }
-            if(mCitiesList.get(i).getId() == toId){
-                toCity = mCitiesList.get(i).getName();
-            }
-        }
-    }
-
-    private void getLockedSeatInfo(){
-        try{
-            HomeActivity.fromCityId = HomeActivity.sUserData.getLocked_seats().get(0).getFrom_city();
-            HomeActivity.toCityId = HomeActivity.sUserData.getLocked_seats().get(0).getTo_city();
-            HomeActivity.flightId = HomeActivity.sUserData.getLocked_seats().get(0).getFlight_id();
-            HomeActivity.journeyDate = HomeActivity.sUserData.getLocked_seats().get(0).getJourney_date();
-            HomeActivity.journeyTime = HomeActivity.sUserData.getLocked_seats().get(0).getJourney_time();
-//            HomeActivity.mSeatNamesId = HomeActivity.sUserData.getLocked_seats().get(0).getFlight_seat_id();
-        }catch (Exception e){
-            Log.d("Seat", "getLockedSeatInfo: " +e);
-        }
     }
 }
