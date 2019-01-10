@@ -123,7 +123,7 @@ public class StellarJetUtils {
      * retuns the Desired date/time format
      */
     public static String getFormattedCompeltedDate(long millis){
-        String pattern = "dd MMM YYYY, EEE - hh:mm aa";
+        String pattern = "dd MMM yyyy, EEE - hh:mm aa";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
@@ -137,7 +137,7 @@ public class StellarJetUtils {
      * retuns the bookings/boardingpass  date/time format
      */
     public static String getFormattedBookingsDate(long millis){
-        String pattern = "EEE ,dd MMM YYYY";
+        String pattern = "EEE ,dd MMM yyyy";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
