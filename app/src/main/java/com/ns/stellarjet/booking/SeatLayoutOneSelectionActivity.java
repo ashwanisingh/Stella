@@ -21,6 +21,7 @@ import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.json.JSONException;
@@ -95,7 +96,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     private List<SeatSelectionRequest> mSelectedSeatList = new ArrayList<>();
     private List<BookedSeatsRequest> mBookedSeatsList= new ArrayList<>();
     private List<Integer> mConfirmedSeatsList = new ArrayList<>();
-    private List<Integer> mUnlockedSeatsList = new ArrayList<>();
+    private String flowFrom = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
 
         String direction = Objects.requireNonNull(getIntent().getExtras()).getString("direction");
         String sunRiseSet = getIntent().getExtras().getString("sunRiseSet");
+        flowFrom = getIntent().getExtras().getString("flowFrom");
 
         String sunStatusDisplay = null;
         if (sunRiseSet != null) {
@@ -132,6 +134,8 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
         }
 
+        mConfirmedSeatsList.addAll(HomeActivity.mSeatNamesId);
+
         mAlphaButton.setOnClickListener(this);
         mBetaButton.setOnClickListener(this);
         mCharlieButton.setOnClickListener(this);
@@ -145,29 +149,19 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
 
         mSeatConfirmedButton.setOnClickListener(v -> {
             Log.d("BookSeats", "onClick: " + mSelectedSeatList);
-            mUnlockedSeatsList.clear();
-            mUnlockedSeatsList.addAll(mConfirmedSeatsList);
-            mConfirmedSeatsList.clear();
             HomeActivity.mSeatNames.clear();
+            HomeActivity.mSeatNamesId.clear();
             for (int i = 0; i < mSelectedSeatList.size(); i++) {
                 if(mSelectedSeatList.get(i).isSelected()){
                     int seatID = Integer.valueOf(mSelectedSeatList.get(i).getSeatId());
-                    if(!mConfirmedSeatsList.contains(seatID)){
-                        mConfirmedSeatsList.add(seatID);
-                        HomeActivity.mSeatNames.add(mSelectedSeatList.get(i).getSeatName());
-                    }
+                    HomeActivity.mSeatNames.add(mSelectedSeatList.get(i).getSeatName());
+                    HomeActivity.mSeatNamesId.add(seatID);
                 }
             }
-            Log.d("BookSeats", "onClick: " + mConfirmedSeatsList);
-            if(mConfirmedSeatsList.size()>0){
-                if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-                    confirmSeats(mConfirmedSeatsList);
-                }else{
-                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-                }
-            }else {
-                Toast.makeText(getApplicationContext(), "Seats are not selected", Toast.LENGTH_SHORT).show();
-            }
+            int numOfGuests = HomeActivity.mSeatNamesId.size();
+            Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerActivity.class);
+            mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
+            startActivity(mGuestAddIntent);
         });
     }
 
@@ -234,7 +228,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
-                        mUnlockedSeatsList,
+                        null,
                         mConfirmedSeatsList
                 );
 
@@ -372,6 +366,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
+        flowFrom = "seats";
         switch (v.getId()){
             case R.id.button_seats_alpha:
                 isAlphaBooked = !isAlphaBooked;
@@ -482,8 +477,133 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
                 isSelected = !isSelected;
                 mSelectedSeatList.get(i).setSelected(isSelected);
+                if(isSelected){
+                    // call confirm seats
+                    mSelectedButton.setEnabled(true);
+                    if(!flowFrom.equalsIgnoreCase("home")){
+                        List<Integer> mLockedSeatList = new ArrayList<>();
+                        mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
+                        confirmSingleSeats(mLockedSeatList);
+                    }
+                }else {
+                    // call unlock seats
+                    mSelectedButton.setEnabled(true);
+                    if(!flowFrom.equalsIgnoreCase("home")){
+                        List<Integer> mLockedSeatList = new ArrayList<>();
+                        mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
+                        unlockSingleSeats(mLockedSeatList);
+                    }
+                }
             }
         }
+    }
+
+    private void confirmSingleSeats(List<Integer> mLockSeatsList){
+        Progress mProgress = Progress.getInstance();
+        mProgress.showProgress(SeatLayoutOneSelectionActivity.this);
+
+        Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
+                RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
+                        .getStellarJetAPIs().confirmFlightSeats(
+                        SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
+                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
+                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
+                        null,
+                        mLockSeatsList
+                );
+
+        mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
+                mProgress.hideProgress();
+                if (response.body() != null) {
+                    Log.d("Booking", "onResponse: " +response.body());
+                    mConfirmedSeatsList.addAll(mLockSeatsList);
+                }else if(response.code()==400){
+                    JSONObject mJsonObject;
+                    try {
+                        mJsonObject = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }else if(response.code()==500){
+                    Toast.makeText(SeatLayoutOneSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
+                mProgress.hideProgress();
+                Log.d("Booking", "onFailure: " +t);
+                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void unlockSingleSeats(List<Integer> mUnlockSeatsList){
+        Progress mProgress = Progress.getInstance();
+        mProgress.showProgress(SeatLayoutOneSelectionActivity.this);
+
+        Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
+                RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
+                        .getStellarJetAPIs().confirmFlightSeats(
+                        SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
+                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
+                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
+                        mUnlockSeatsList,
+                        null
+                );
+
+        mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
+                mProgress.hideProgress();
+                if (response.body() != null) {
+                    if(response.code()==200){
+                        Log.d("Booking", "onResponse: " +response.body());
+                        mConfirmedSeatsList.removeAll(mUnlockSeatsList);
+                    }else if(response.code()==500){
+                        Toast.makeText(SeatLayoutOneSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                    }else if(response.code()==400){
+                        JSONObject mJsonObject;
+                        try {
+                            mJsonObject = new JSONObject(response.errorBody().string());
+                            String errorMessage = mJsonObject.getString("message");
+                            Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }else if(response.errorBody()!=null){
+                    JSONObject mJsonObject;
+                    try {
+                        mJsonObject = new JSONObject(response.errorBody().string());
+                        String errorMessage = mJsonObject.getString("message");
+                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
+                mProgress.hideProgress();
+                Log.d("Booking", "onFailure: " +t);
+                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
