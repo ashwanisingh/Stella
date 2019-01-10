@@ -159,9 +159,14 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 }
             }
             int numOfGuests = HomeActivity.mSeatNamesId.size();
-            Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerActivity.class);
-            mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
-            startActivity(mGuestAddIntent);
+            if(numOfGuests == 0){
+                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
+            }else {
+                Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerActivity.class);
+                mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
+                startActivity(mGuestAddIntent);
+            }
+
         });
     }
 

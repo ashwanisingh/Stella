@@ -194,6 +194,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                                     SharedPreferencesHelper.getJourneyTimeImMillis(PassengerActivity.this)));
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
+                    clearAllBooinngData();
                 }
             }
 

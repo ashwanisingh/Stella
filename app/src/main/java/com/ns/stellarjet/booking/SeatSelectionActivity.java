@@ -184,9 +184,13 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 }
             }
             int numOfGuests = HomeActivity.mSeatNamesId.size();
-            Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerActivity.class);
-            mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
-            startActivity(mGuestAddIntent);
+            if(numOfGuests == 0){
+                Toast.makeText(SeatSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
+            }else {
+                Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerActivity.class);
+                mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
+                startActivity(mGuestAddIntent);
+            }
         });
     }
 
