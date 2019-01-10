@@ -189,6 +189,7 @@ class HomeActivity : AppCompatActivity() {
                     val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
                     mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
                     mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    mSeatsIntent.putExtra("flowFrom", "home")
                     startActivity(mSeatsIntent)
                 }
 

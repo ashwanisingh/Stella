@@ -79,11 +79,13 @@ public class CalendarActivity extends AppCompatActivity {
                     Intent mSeatsIntent = new Intent(CalendarActivity.this , SeatLayoutOneSelectionActivity.class);
                     mSeatsIntent.putExtra("direction" , direction);
                     mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
+                    mSeatsIntent.putExtra("flowFrom", "calendar");
                     startActivity(mSeatsIntent);
                 }else if(numSeats == 12){
                     Intent mSeatsIntent = new Intent(CalendarActivity.this , SeatSelectionActivity.class);
                     mSeatsIntent.putExtra("direction" , direction);
                     mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
+                    mSeatsIntent.putExtra("flowFrom", "calendar");
                     startActivity(mSeatsIntent);
                 }
             }
