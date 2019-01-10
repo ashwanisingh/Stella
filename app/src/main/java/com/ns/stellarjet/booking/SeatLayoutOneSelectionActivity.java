@@ -463,7 +463,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 int bookedSeatId = mSelectedAndLockedSeatsList.get(j).getFlight_seat_id();
                 if(seatId == bookedSeatId){
                     makeSelectedSeatList(mDesiredButton);
-//                    mDesiredButton.setEnabled(false);
+                    mDesiredButton.setEnabled(true);
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
@@ -484,7 +484,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
                     // call confirm seats
-                    mSelectedButton.setEnabled(true);
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
@@ -492,7 +491,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     }
                 }else {
                     // call unlock seats
-                    mSelectedButton.setEnabled(true);
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
