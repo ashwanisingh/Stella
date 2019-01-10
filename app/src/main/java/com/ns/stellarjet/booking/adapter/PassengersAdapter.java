@@ -348,15 +348,20 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                 mobileNumber = items.get(i).getPhone();
             }
         }
-        if(mSelectedPhoneNumberList.contains(mobileNumber)){
-            mGuestRequestDataList.get(passengerPosition).setGuestName("");
-            mGuestRequestDataList.get(passengerPosition).setGuestMobileNUmber("");
-            mGuestRequestDataList.get(passengerPosition).setGuestId("");
-            mGuestRequestDataList.get(passengerPosition).setGuestStatus("");
-            Toast.makeText(context, "Passenger already selected", Toast.LENGTH_SHORT).show();
-            mOnConfirmButtonDisableStateListener.disableButton(false);
-            return "";
+        try{
+            if(mSelectedPhoneNumberList.contains(mobileNumber)){
+                mGuestRequestDataList.get(passengerPosition).setGuestName("");
+                mGuestRequestDataList.get(passengerPosition).setGuestMobileNUmber("");
+                mGuestRequestDataList.get(passengerPosition).setGuestId("");
+                mGuestRequestDataList.get(passengerPosition).setGuestStatus("");
+                Toast.makeText(context, "Passenger already selected", Toast.LENGTH_SHORT).show();
+                mOnConfirmButtonDisableStateListener.disableButton(false);
+                return "";
+            }
+        }catch (IndexOutOfBoundsException e){
+            Log.d("PassengersAdapter", "afterTextChanged: " +e);
         }
+
 //        validateGuests(passengerPosition , name , mobileNumber);
         return mobileNumber;
     }
