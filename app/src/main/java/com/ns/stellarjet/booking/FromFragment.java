@@ -17,6 +17,7 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.adapter.PlaceSelectAdapter;
 import com.ns.stellarjet.databinding.FragmentFromBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -98,8 +99,8 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
 
     @Override
     public void onPlaceSelected(String placeName, int placeId) {
-        HomeActivity.fromCityId = placeId;
-        HomeActivity.fromCity = placeName;
+        SharedPreferencesHelper.saveFromCityId(getActivity() , placeId);
+        SharedPreferencesHelper.saveFromCity(getActivity() , placeName);
         startExitAnimation();
         new Handler().postDelayed(() -> Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout_container ,  new ToFragment())

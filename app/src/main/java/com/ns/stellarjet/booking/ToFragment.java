@@ -62,7 +62,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         List<City> mDisplayCitiesList = new ArrayList<>();
 
         for (int i = 0; i < mCitiesList.size(); i++) {
-            if(mCitiesList.get(i).getId() != HomeActivity.fromCityId){
+            if(mCitiesList.get(i).getId() != SharedPreferencesHelper.getFromCityId(getActivity())){
                 mDisplayCitiesList.add(mCitiesList.get(i));
             }
         }
@@ -120,8 +120,8 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
     @Override
     public void onPlaceSelected(String placeName, int placeId) {
 //        Toast.makeText(getActivity(), placeId + "=="+ placeName, Toast.LENGTH_SHORT).show();
-        HomeActivity.toCityId = placeId;
-        HomeActivity.toCity = placeName;
+        SharedPreferencesHelper.saveToCityId(getActivity() , placeId);
+        SharedPreferencesHelper.saveToCity(getActivity() , placeName);
         if(StellarJetUtils.isConnectingToInternet(getActivity())){
             getFlightSchedules();
         }else{
@@ -135,8 +135,8 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         Call<FlightScheduleResponse> mFlightScheduleResponseCall = RetrofitAPICaller.getInstance(getActivity())
                 .getStellarJetAPIs().getFlightSchedules(
                         SharedPreferencesHelper.getUserToken(getActivity()) ,
-                        String.valueOf(HomeActivity.fromCityId) ,
-                        String.valueOf(HomeActivity.toCityId) ,
+                        String.valueOf(SharedPreferencesHelper.getFromCityId(getActivity())) ,
+                        String.valueOf(SharedPreferencesHelper.getToCityId(getActivity())) ,
                         "90"
                 );
 

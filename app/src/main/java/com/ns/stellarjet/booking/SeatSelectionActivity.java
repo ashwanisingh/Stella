@@ -196,11 +196,11 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().getFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
-                        HomeActivity.flightId,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId ,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime
+                        SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatSelectionActivity.this)
                 );
 
         mFlightSeatsDataResponseCall.enqueue(new Callback<FlightSeatListResponse>() {
@@ -241,61 +241,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    private void confirmSeats(List<Integer> mConfirmedSeatsList){
-        Progress mProgress = Progress.getInstance();
-        mProgress.showProgress(SeatSelectionActivity.this);
-
-        Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
-                RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
-                        .getStellarJetAPIs().confirmFlightSeats(
-                        SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
-                        HomeActivity.flightId ,
-                        SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
-                        null,
-                        mConfirmedSeatsList
-                );
-
-        mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
-                mProgress.hideProgress();
-                if (response.body() != null) {
-                    Log.d("Booking", "onResponse: " +response.body());
-                    if(response.body().getResultcode()==1){
-                        HomeActivity.mSeatNamesId.clear();
-                        HomeActivity.mSeatNamesId.addAll(mConfirmedSeatsList);
-                    }
-//                    HomeActivity.mSeatNamesId = response.body().getData().getFlight_seat_availability().getLocked();
-                    int numOfGuests = HomeActivity.mSeatNamesId.size();
-                    Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerActivity.class);
-                    mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
-                    startActivity(mGuestAddIntent);
-
-                }else if(response.errorBody()!=null){
-                    JSONObject mJsonObject;
-                    try {
-                        mJsonObject = new JSONObject(response.errorBody().string());
-                        String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
-                mProgress.hideProgress();
-                Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -318,12 +263,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
+                        SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatSelectionActivity.this),
                         mUnLockedSeatsList,
                         null
                 );
@@ -514,7 +459,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_booked);
                     }
                 }
-
             }
         }
     }
@@ -575,12 +519,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
+                        SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatSelectionActivity.this),
                         null,
                         mLockSeatsList
                 );
@@ -623,12 +567,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 RetrofitAPICaller.getInstance(SeatSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
+                        SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatSelectionActivity.this),
                         mUnlockSeatsList,
                         null
                 );

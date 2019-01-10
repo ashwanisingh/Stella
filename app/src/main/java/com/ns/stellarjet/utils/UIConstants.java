@@ -130,4 +130,51 @@ public class UIConstants {
      * String constant for bundle value for to city
      */
     public static final String BUNDLE_SELECTED_CITY_ID = "selectedCityId";
+
+    /*  storing booking data */
+    /**
+     * String constant for SharedPreferences for from city
+     */
+    public static final String PREFERENCES_BOOKING_FROM_CITY_ID = "fromCityId";
+    /**
+     * String constant for SharedPreferences for from city
+     */
+    public static final String PREFERENCES_BOOKING_FROM_CITY = "fromCity";
+    /**
+     * String constant for SharedPreferences for to city
+     */
+    public static final String PREFERENCES_BOOKING_TO_CITY_ID = "toCityId";
+    /**
+     * String constant for SharedPreferences for to city
+     */
+    public static final String PREFERENCES_BOOKING_TO_CITY = "toCity";
+    /**
+     * String constant for SharedPreferences journey date
+     */
+    public static final String PREFERENCES_BOOKING_JOURNEY_DATE = "journeyDate";
+    /**
+     * String constant for SharedPreferences journey time
+     */
+    public static final String PREFERENCES_BOOKING_JOURNEY_TIME = "journeyTime";
+    /**
+     * String constant for SharedPreferences journey timeinmillis
+     */
+    public static final String PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS = "journeyTimeOInMillis";
+    /**
+     * String constant for SharedPreferences journey Arrival time
+     */
+    public static final String PREFERENCES_BOOKING_JOURNEY_ARRIVAL_TIME = "journeyArrivalTime";
+    /**
+     * String constant for SharedPreferences flight id
+     */
+    public static final String PREFERENCES_BOOKING_FLIGHT_ID = "FlightId";
+    /**
+     * String constant for SharedPreferences seats id
+     */
+    public static final String PREFERENCES_BOOKING_SEATSID = "SeatsId";
+    /**
+     * String constant for SharedPreferences seatnames id
+     */
+    public static final String PREFERENCES_BOOKING_SEATSNAMES = "SeatsNames";
+
 }

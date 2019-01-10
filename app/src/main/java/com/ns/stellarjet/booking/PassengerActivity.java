@@ -161,12 +161,12 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                 .confirmFlightBooking(
                         SharedPreferencesHelper.getUserToken(PassengerActivity.this) ,
                         SharedPreferencesHelper.getUserId(PassengerActivity.this) ,
-                        HomeActivity.fromCityId ,
-                        HomeActivity.toCityId ,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime ,
-                        HomeActivity.arrivalTime ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFromCityId(PassengerActivity.this) ,
+                        SharedPreferencesHelper.getToCityId(PassengerActivity.this) ,
+                        SharedPreferencesHelper.getJourneyDate(PassengerActivity.this) ,
+                        SharedPreferencesHelper.getJourneyTime(PassengerActivity.this) ,
+                        SharedPreferencesHelper.getArrivalTime(PassengerActivity.this) ,
+                        SharedPreferencesHelper.getFlightId(PassengerActivity.this) ,
                         HomeActivity.mSeatNamesId ,
                         mGuestList ,
                         selfTravelling
@@ -186,14 +186,14 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                             PassengerActivity.this ,
                             BookingConfirmedActivity.class
                     );
-                    mIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , HomeActivity.fromCity);
-                    mIntent.putExtra(UIConstants.BUNDLE_TO_CITY , HomeActivity.toCity);
+                    mIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , SharedPreferencesHelper.getFromCity(PassengerActivity.this));
+                    mIntent.putExtra(UIConstants.BUNDLE_TO_CITY , SharedPreferencesHelper.getToCity(PassengerActivity.this));
                     SharedPreferencesHelper.savePersonalizeTime(
                             PassengerActivity.this,
-                            StellarJetUtils.getPersonalizationHours(HomeActivity.journeyTimeInMillis));
+                            StellarJetUtils.getPersonalizationHours(
+                                    SharedPreferencesHelper.getJourneyTimeImMillis(PassengerActivity.this)));
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
-                    HomeActivity.Companion.clearAllBookingData();
                 }
             }
 
@@ -407,5 +407,19 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         PassengersAdapter.mGuestRequestDataList.clear();
         PassengersAdapter.mPassengerInfoViewHolder = null;
 
+    }
+
+
+    private void clearAllBooinngData(){
+        SharedPreferencesHelper.saveFlightId(PassengerActivity.this , 0);
+        SharedPreferencesHelper.saveArrivalTime(PassengerActivity.this , "");
+        SharedPreferencesHelper.saveFromCityId(PassengerActivity.this , 0);
+        SharedPreferencesHelper.saveToCityId(PassengerActivity.this , 0);
+        SharedPreferencesHelper.saveToCity(PassengerActivity.this , "");
+        SharedPreferencesHelper.saveFromCity(PassengerActivity.this , "");
+        SharedPreferencesHelper.saveJourneyTimeImMillis(PassengerActivity.this , 0);
+        SharedPreferencesHelper.saveJourneyTime(PassengerActivity.this , "");
+        SharedPreferencesHelper.saveJourneyDate(PassengerActivity.this , "");
+        SharedPreferencesHelper.saveArrivalTime(PassengerActivity.this , "");
     }
 }

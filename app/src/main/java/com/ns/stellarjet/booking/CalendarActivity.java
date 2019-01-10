@@ -13,6 +13,7 @@ import com.ns.networking.model.FlightScheduleData;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityCalendarBinding;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 
 import java.text.SimpleDateFormat;
@@ -59,18 +60,28 @@ public class CalendarActivity extends AppCompatActivity {
 
         mActivityCalendarBinding.buttonScheduleBack.setOnClickListener(v -> onBackPressed());
 
-        mActivityCalendarBinding.textViewCalendarFrom.setText(HomeActivity.fromCity);
-        mActivityCalendarBinding.textViewCalendarTo.setText(HomeActivity.toCity);
+        mActivityCalendarBinding.textViewCalendarFrom.setText(SharedPreferencesHelper.getFromCity(CalendarActivity.this));
+        mActivityCalendarBinding.textViewCalendarTo.setText(SharedPreferencesHelper.getToCity(CalendarActivity.this));
 
         mActivityCalendarBinding.buttonScheduleConfirmDate.setOnClickListener(v -> {
             if(selectedIndex == -1){
                 Toast.makeText(CalendarActivity.this, "No Flights are available", Toast.LENGTH_SHORT).show();
             }else {
-                HomeActivity.journeyDate = mFlightScheduleDataList.get(selectedIndex).getJourney_date();
-                HomeActivity.journeyTime = mFlightScheduleDataList.get(selectedIndex).getJourney_time();
-                HomeActivity.journeyTimeInMillis = mFlightScheduleDataList.get(selectedIndex).getJourney_datetime_ms();
-                HomeActivity.arrivalTime = mFlightScheduleDataList.get(selectedIndex).getArrival_time();
-                HomeActivity.flightId = mFlightScheduleDataList.get(selectedIndex).getFlight_id();
+                SharedPreferencesHelper.saveJourneyDate(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getJourney_date());
+                SharedPreferencesHelper.saveJourneyTime(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getJourney_time());
+                SharedPreferencesHelper.saveJourneyTimeImMillis(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getJourney_datetime_ms());
+                SharedPreferencesHelper.saveArrivalTime(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getArrival_time());
+                SharedPreferencesHelper.saveFlightId(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getFlight_id());
                 String direction = mFlightScheduleDataList.get(selectedIndex).getDirection();
                 String sunRiseSet = mFlightScheduleDataList.get(selectedIndex).getSun_rise_set();
                 int numSeats = mFlightScheduleDataList.get(selectedIndex).getFlight_seat_availability().getTotal_seats();

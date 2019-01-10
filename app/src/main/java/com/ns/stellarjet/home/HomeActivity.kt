@@ -33,28 +33,10 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         lateinit var sUserData: UserData
-        @JvmField var fromCityId : Int = 0
-        @JvmField var toCityId : Int = 0
-        @JvmField var fromCity : String = ""
-        @JvmField var toCity : String = ""
-        @JvmField var journeyTime : String = ""
-        @JvmField var journeyDate : String = ""
-        @JvmField var journeyTimeInMillis : Long = 0
-        @JvmField var arrivalTime : String = ""
-        @JvmField var flightId : Int = 0
         @JvmField var mSeatNamesId : MutableList<Int> = ArrayList()
         @JvmField var mSeatNames : MutableList<String> = ArrayList()
 
         fun clearAllBookingData(){
-            fromCity = ""
-            fromCityId = 0
-            toCity = ""
-            toCityId = 0
-            journeyDate = ""
-            journeyTime = ""
-            journeyTimeInMillis = 0
-            arrivalTime = ""
-            flightId = 0
             mSeatNames = ArrayList()
             mSeatNamesId = ArrayList()
         }
@@ -72,13 +54,14 @@ class HomeActivity : AppCompatActivity() {
 
 //        set locked seats data and pass to Seat layout Activity
         if(sUserData.locked_seats?.isNotEmpty()!!){
-            fromCityId = sUserData.locked_seats!![0].from_city!!
-            toCityId = sUserData.locked_seats!![0].to_city!!
-            journeyDate = sUserData.locked_seats!![0].journey_date!!
-            journeyTime = sUserData.locked_seats!![0].journey_time!!
-            journeyTimeInMillis = sUserData.locked_seats!![0].datetime_ms!!
-            arrivalTime = sUserData.locked_seats!![0].arrival_time!!
-            flightId = sUserData.locked_seats!![0].flight_id!!
+            SharedPreferencesHelper.saveFromCityId(this@HomeActivity ,sUserData.locked_seats!![0].from_city!!)
+            SharedPreferencesHelper.saveToCityId(this@HomeActivity ,sUserData.locked_seats!![0].to_city!!)
+            SharedPreferencesHelper.saveJourneyDate(this@HomeActivity ,sUserData.locked_seats!![0].journey_date!!)
+            SharedPreferencesHelper.saveJourneyTime(this@HomeActivity ,sUserData.locked_seats!![0].journey_time!!)
+            SharedPreferencesHelper.saveJourneyTimeImMillis(this@HomeActivity ,sUserData.locked_seats!![0].datetime_ms!!)
+            SharedPreferencesHelper.saveArrivalTime(this@HomeActivity ,sUserData.locked_seats!![0].arrival_time)
+            SharedPreferencesHelper.saveFlightId(this@HomeActivity ,sUserData.locked_seats!![0].flight_id!!)
+
             sUserData.locked_seats!!.forEach {
                 mSeatNamesId.add(it.flight_seat_id!!)
             }
@@ -153,12 +136,12 @@ class HomeActivity : AppCompatActivity() {
         var lockedFromCity = ""
         var lockedToCity = ""
         sUserData.cities.forEach {
-            if(it.id == fromCityId){
+            if(it.id == SharedPreferencesHelper.getFromCityId(this)){
                 lockedFromCity = it.name
             }
         }
         sUserData.cities.forEach {
-            if(it.id == toCityId){
+            if(it.id == SharedPreferencesHelper.getToCityId(this)){
                 lockedToCity = it.name
             }
         }
@@ -217,12 +200,12 @@ class HomeActivity : AppCompatActivity() {
         val mFlightSeatsConfirmCall = RetrofitAPICaller.getInstance(this@HomeActivity)
             .stellarJetAPIs.confirmFlightSeats(
             SharedPreferencesHelper.getUserToken(this@HomeActivity),
-            HomeActivity.flightId,
+            SharedPreferencesHelper.getFlightId(this@HomeActivity),
             SharedPreferencesHelper.getUserId(this@HomeActivity),
-            HomeActivity.fromCityId,
-            HomeActivity.toCityId,
-            HomeActivity.journeyDate,
-            HomeActivity.journeyTime,
+            SharedPreferencesHelper.getFromCityId(this@HomeActivity),
+            SharedPreferencesHelper.getToCityId(this@HomeActivity),
+            SharedPreferencesHelper.getJourneyDate(this@HomeActivity),
+            SharedPreferencesHelper.getJourneyTime(this@HomeActivity),
             HomeActivity.mSeatNamesId,
             null
         )

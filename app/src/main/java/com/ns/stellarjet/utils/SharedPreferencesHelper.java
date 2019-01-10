@@ -2,6 +2,12 @@ package com.ns.stellarjet.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class SharedPreferencesHelper {
 
@@ -228,6 +234,146 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveFromCityId(Context mContext , int fromCityId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_FROM_CITY_ID, fromCityId);
+        mEditor.apply();
+    }
+
+    public static int getFromCityId(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_BOOKING_FROM_CITY_ID , 0
+        );
+    }
+
+    public static void saveFromCity(Context mContext , String fromCity){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_FROM_CITY, fromCity);
+        mEditor.apply();
+    }
+
+    public static String getFromCity(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_FROM_CITY , ""
+        );
+    }
+
+    public static void saveToCityId(Context mContext , int toCityId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_TO_CITY_ID, toCityId);
+        mEditor.apply();
+    }
+
+    public static int getToCityId(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_BOOKING_TO_CITY_ID , 0
+        );
+    }
+
+    public static void saveToCity(Context mContext , String toCity){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_TO_CITY, toCity);
+        mEditor.apply();
+    }
+
+    public static String getToCity(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_TO_CITY , ""
+        );
+    }
+
+    public static void saveJourneyDate(Context mContext , String journeyDate){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_DATE, journeyDate);
+        mEditor.apply();
+    }
+
+    public static String getJourneyDate(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_JOURNEY_DATE , ""
+        );
+    }
+
+    public static void saveJourneyTime(Context mContext , String journeyTime){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_TIME, journeyTime);
+        mEditor.apply();
+    }
+
+    public static String getJourneyTime(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_JOURNEY_TIME , ""
+        );
+    }
+
+    public static void saveJourneyTimeImMillis(Context mContext , long journeyTimeInMIllis){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putLong(UIConstants.PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS, journeyTimeInMIllis);
+        mEditor.apply();
+    }
+
+    public static long getJourneyTimeImMillis(Context mContext){
+        return getSharedPreferences(mContext).getLong(
+                UIConstants.PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS , 0
+        );
+    }
+
+    public static void saveArrivalTime(Context mContext , String arrivalTime){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_ARRIVAL_TIME, arrivalTime);
+        mEditor.apply();
+    }
+
+    public static String getArrivalTime(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_JOURNEY_ARRIVAL_TIME, ""
+        );
+    }
+
+    public static void saveFlightId(Context mContext , int flightId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_FLIGHT_ID, flightId);
+        mEditor.apply();
+    }
+
+    public static int getFlightId(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_BOOKING_FLIGHT_ID, 0
+        );
+    }
+
+    public void saveSeatsIdList(Context mContext , ArrayList<Integer> list){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_SEATSID, json);
+        mEditor.apply();     // This line is IMPORTANT !!!
+    }
+
+    public ArrayList<Integer> getSeatsIdList(Context mContext){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Gson gson = new Gson();
+        String json = prefs.getString(UIConstants.PREFERENCES_BOOKING_SEATSID, null);
+        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+    public void saveSeatsNamesList(Context mContext , ArrayList<String> list){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_SEATSNAMES, json);
+        mEditor.apply();     // This line is IMPORTANT !!!
+    }
+
+    public ArrayList<String> getSeatsNamesList(Context mContext){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Gson gson = new Gson();
+        String json = prefs.getString(UIConstants.PREFERENCES_BOOKING_SEATSNAMES, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext
@@ -242,6 +388,15 @@ public class SharedPreferencesHelper {
         mEditor.putString(UIConstants.PREFERENCES_USER_REFRESH_TOKEN, "");
         mEditor.putBoolean(UIConstants.PREFERENCES_IS_LOGGED_IN, false);
         mEditor.putString(UIConstants.PREFERENCES_PASSCODE, "");
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_FROM_CITY_ID, "");
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_TO_CITY_ID, "");
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_ARRIVAL_TIME, "");
+        mEditor.putLong(UIConstants.PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS, 0);
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_TIME,"");
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_JOURNEY_DATE,"");
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_FLIGHT_ID,0);
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_FROM_CITY,0);
+        mEditor.putInt(UIConstants.PREFERENCES_BOOKING_TO_CITY,0);
         mEditor.apply();
     }
 

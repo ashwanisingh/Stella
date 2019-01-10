@@ -1,5 +1,6 @@
 package com.ns.stellarjet.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -180,9 +181,9 @@ public class StellarJetUtils {
      * returns the reach by plane hour format
      */
     public static String getPersonalizationHours(long millis){
-        String pattern = "dd-MMM-YYYY, hh:mm aa";
+        String pattern = "dd-MMM-yyyy, hh:mm aa";
         // Creating date format
-        DateFormat simple = new SimpleDateFormat(pattern);
+        @SuppressLint("SimpleDateFormat") DateFormat simple = new SimpleDateFormat(pattern);
 
         // Creating date from milliseconds
         // using Date() constructor

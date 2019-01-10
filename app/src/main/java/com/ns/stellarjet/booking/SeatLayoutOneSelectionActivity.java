@@ -176,11 +176,11 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
                         .getStellarJetAPIs().getFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
-                        HomeActivity.flightId,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId ,
-                        HomeActivity.journeyDate ,
-                        HomeActivity.journeyTime
+                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this)
                 );
 
         mFlightSeatsDataResponseCall.enqueue(new Callback<FlightSeatListResponse>() {
@@ -228,12 +228,12 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
+                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
                         mUnlockedSeatsList,
                         mConfirmedSeatsList
                 );
@@ -288,12 +288,12 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
-                        HomeActivity.flightId ,
+                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
-                        HomeActivity.fromCityId,
-                        HomeActivity.toCityId,
-                        HomeActivity.journeyDate,
-                        HomeActivity.journeyTime,
+                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
+                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
                         mConfirmedSeatsList,
                         null
                 );
