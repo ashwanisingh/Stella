@@ -1,6 +1,7 @@
 package com.ns.stellarjet.booking;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -625,6 +627,18 @@ public class PassengerListActivity extends AppCompatActivity {
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
                     clearAllBooinngData();
+                }else if(response.code()==400){
+                    JSONObject mJsonObject;
+                    try {
+                        mJsonObject = new JSONObject(response.errorBody().string());
+                        int errorCode = mJsonObject.getInt("resultcode");
+                        if(errorCode == 4){
+                            // Operation timed out . please reselect seats
+                            showTimeOutDialog();
+                        }
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -635,6 +649,21 @@ public class PassengerListActivity extends AppCompatActivity {
                 Toast.makeText(PassengerListActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showTimeOutDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Operation timed out . please reselect seats");
+        alertDialogBuilder.setPositiveButton("Ok",
+                (arg0, arg1) -> onBackPressed());
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.setOnShowListener(dialog -> alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                getResources().getColor(R.color.colorButtonNew)
+        ));
+        alertDialog.show();
+
     }
 
     private void getUserData(){

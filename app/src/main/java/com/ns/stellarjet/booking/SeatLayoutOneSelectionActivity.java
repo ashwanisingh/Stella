@@ -101,6 +101,11 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setContentView(R.layout.layout_seat_eight);
 
         ButterKnife.bind(this);
@@ -166,7 +171,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
                 startActivity(mGuestAddIntent);
             }
-
         });
     }
 

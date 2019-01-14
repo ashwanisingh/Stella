@@ -137,12 +137,11 @@
                 android:alpha="0.3"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="27dp"
-                android:gravity="center"
+                android:gravity="start"
                 android:lineSpacingExtra="10dp"
-                android:layout_gravity="start"
                 android:id="@+id/textView_update_preferences"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="47dp"
+                android:layout_marginEnd="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

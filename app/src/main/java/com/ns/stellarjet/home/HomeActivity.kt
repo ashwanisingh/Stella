@@ -1,23 +1,18 @@
 package com.ns.stellarjet.home
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.FlightSeatsConfirmResponse
 import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
-import com.ns.stellarjet.booking.PassengerListActivity
 import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
@@ -174,22 +169,18 @@ class HomeActivity : AppCompatActivity() {
             _id.dismiss()
 
         }
-        val alert11 = alertDialogBuilder.create()
-        alert11.setCanceledOnTouchOutside(false)
-        alert11.setCancelable(false)
+        val stateMaintenenceDialog = alertDialogBuilder.create()
+        stateMaintenenceDialog.setCanceledOnTouchOutside(false)
+        stateMaintenenceDialog.setCancelable(false)
 
 
 
-        alert11.setOnShowListener {
-            alert11.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
-            alert11.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+        stateMaintenenceDialog.setOnShowListener {
+            stateMaintenenceDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+            stateMaintenenceDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
         }
 
-        alert11.show()
-
-
-
-
+        stateMaintenenceDialog.show()
     }
 
 

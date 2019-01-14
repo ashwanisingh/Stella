@@ -121,6 +121,13 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         setContentView(R.layout.layout_seat_twelve);
 
         ButterKnife.bind(SeatSelectionActivity.this);
@@ -147,15 +154,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 mLeftSunTextView.setText(sunStatusDisplay);
             }
         }
-        // gets the flight details like total seats, avail seats , flight seat parameters
-        if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
-            getFlightSeats();
-        }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-        }
-
-        mConfirmedSeatsList.addAll(HomeActivity.mSeatNamesId);
-//        HomeActivity.mSeatNamesId.clear();
 
         mAlphaButton.setOnClickListener(this);
         mBetaButton.setOnClickListener(this);
@@ -192,6 +190,16 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 startActivity(mGuestAddIntent);
             }
         });
+
+        // gets the flight details like total seats, avail seats , flight seat parameters
+        if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+            getFlightSeats();
+        }else{
+            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+
+        mConfirmedSeatsList.addAll(HomeActivity.mSeatNamesId);
+//        HomeActivity.mSeatNamesId.clear();
     }
 
     private void getFlightSeats(){

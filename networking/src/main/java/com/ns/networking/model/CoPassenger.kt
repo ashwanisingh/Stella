@@ -4,17 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class CoPassenger(
-    val food_items: FoodItems?,
+    val food_items: List<FoodItems>?,
     val name: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(FoodItems::class.java.classLoader),
+        parcel.createTypedArrayList(FoodItems.CREATOR),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(food_items, flags)
+        parcel.writeTypedList(food_items)
         parcel.writeString(name)
     }
 

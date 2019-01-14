@@ -27,5 +27,6 @@
     <color name="colorBoardingPassHeader">#3b3d58</color>
     <color name="colorBoardingPassBody">#34354c</color>
     <color name="colorPersonalizeButton">#656574</color>
+    <color name="colorCabPersonalizeCardView">#525376</color>
 
 </resources>

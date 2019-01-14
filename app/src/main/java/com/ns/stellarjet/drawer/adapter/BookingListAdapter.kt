@@ -68,9 +68,9 @@ class BookingListAdapter(
             }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){
                 isCabPersonlaized = true
             }
-            if(!bookings.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
+            /*if(!bookings.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
                 isFoodPersonlaized = true
-            }
+            }*/
 
             if(isCabPersonlaized && isFoodPersonlaized){
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)

@@ -23,7 +23,8 @@
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
         android:background="@drawable/drawable_edittext_background"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textFilter|textNoSuggestions"
+
         android:paddingStart="8dp"
         android:paddingEnd="8dp" />
 
@@ -44,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
         android:background="@drawable/drawable_edittext_background"
-        android:inputType="phone"
+        android:inputType="phone|textFilter|textNoSuggestions"
         android:digits="0123456789"
         android:maxLength="10"
         android:paddingStart="8dp"

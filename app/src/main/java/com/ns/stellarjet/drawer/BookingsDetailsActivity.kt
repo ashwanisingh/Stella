@@ -109,7 +109,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             )
         }
 
-        if(bookingData.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
+        /*if(bookingData.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0 , 0 ,0 ,0
             )
@@ -118,7 +118,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
             isFoodPersonalized = true
-        }
+        }*/
     }
 
     override fun onRestart() {

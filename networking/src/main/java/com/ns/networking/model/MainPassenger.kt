@@ -4,30 +4,26 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class MainPassenger(
-    val food_items: FoodItems?,
+    val food_items: List<FoodItems>?,
     val name: String?
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readParcelable(FoodItems::class.java.classLoader),
-        parcel.readString()
+    constructor(source: Parcel) : this(
+        source.createTypedArrayList(FoodItems.CREATOR),
+        source.readString()
     )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(food_items, flags)
-        parcel.writeString(name)
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeTypedList(food_items)
+        writeString(name)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MainPassenger> {
-        override fun createFromParcel(parcel: Parcel): MainPassenger {
-            return MainPassenger(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MainPassenger?> {
-            return arrayOfNulls(size)
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<MainPassenger> = object : Parcelable.Creator<MainPassenger> {
+            override fun createFromParcel(source: Parcel): MainPassenger = MainPassenger(source)
+            override fun newArray(size: Int): Array<MainPassenger?> = arrayOfNulls(size)
         }
     }
 }

@@ -61,7 +61,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:background="@color/colorCabPreferBackground"
+                android:background="@color/colorCabPersonalizeCardView"
                 android:orientation="vertical">
 
             <LinearLayout
@@ -127,7 +127,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:background="@color/colorCabPreferBackground"
+                android:alpha="0.9"
+                android:background="@color/colorCabPersonalizeCardView"
                 android:orientation="vertical">
 
             <LinearLayout
