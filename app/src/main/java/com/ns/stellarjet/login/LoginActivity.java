@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                 setContentView(this , R.layout.activity_login);
 
         /* remove the dummy login */
-        mActivityLoginBinding.editTextAccountId.setText("vignesh.p@ninestars.in");
+//        mActivityLoginBinding.editTextAccountId.setText("vignesh.p@ninestars.in");
 
         mActivityLoginBinding.btnLoginConfirm.setOnClickListener(v -> {
             String userName = mActivityLoginBinding.editTextAccountId.getText().toString();
@@ -54,15 +54,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateUser(String userName){
-        final Progress progress = Progress.getInstance();
-        progress.showProgress(LoginActivity.this);
+   /*     final Progress progress = Progress.getInstance();
+        progress.showProgress(LoginActivity.this);*/
         Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
                 .getStellarJetAPIs().doValidateCustomer(userName );
 
         mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
             @Override
             public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
-                progress.hideProgress();
+//                progress.hideProgress();
                 if(response.body()!=null){
                     Log.d("Login", "onResponse: " + response.body());
                     String userType = response.body().getData().getUsertype();
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
-                progress.hideProgress();
+//                progress.hideProgress();
                 Toast.makeText(LoginActivity.this , "Server Error" , Toast.LENGTH_LONG).show();
                 Log.d("Login", "onResponse: " + t);
             }
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showAccountIdErrorField(){
-        mActivityLoginBinding.editTextAccountId.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+        mActivityLoginBinding.editTextAccountId.setTextColor(getResources().getColor(android.R.color.white));
         mActivityLoginBinding.editTextAccountId.setBackground(getDrawable(R.drawable.drawable_edittext_error_background));
         final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
         animShake.setDuration(50);

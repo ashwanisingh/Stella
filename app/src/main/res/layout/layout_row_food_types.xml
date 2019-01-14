@@ -9,8 +9,7 @@
             tools:text="@string/food_type_veg"
             style="@style/StellarTextView_18sp"
             android:layout_marginTop="21dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="30dp"
             android:drawableEnd="@drawable/ic_date_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

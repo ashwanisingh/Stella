@@ -5,9 +5,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="27dp"
+        android:layout_marginStart="24dp"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         tools:context=".drawer.DrawerActivity">
+
 
     <Button
             android:layout_gravity="end"
@@ -18,34 +20,62 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/ic_close" />
 
+
+    <View
+            android:alpha="0.1"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="93dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="16dp"/>
+
     <TextView
             android:id="@+id/textView_drawer_boarding_pass"
             style="@style/StellarTextView_20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="93dp"
-            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical|start"
             android:text="@string/drawer_info_boarding_pass" />
+
+    <View
+            android:alpha="0.1"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="16dp"/>
 
     <TextView
             android:id="@+id/textView_drawer_bookings"
             style="@style/StellarTextView_20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="42dp"
+            android:gravity="center_vertical|start"
             android:text="@string/drawer_info_bookings" />
+
+    <View
+            android:alpha="0.1"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="16dp"/>
 
     <TextView
             android:id="@+id/textView_drawer_preferences"
             style="@style/StellarTextView_20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="42dp"
+            android:gravity="center_vertical|start"
             android:text="@string/drawer_info_preferences" />
+
+    <View
+            android:alpha="0.1"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="16dp"/>
 
     <View
             android:layout_weight="1"
@@ -54,29 +84,25 @@
             android:layout_height="0dp" />
 
     <Button
-            android:background="@color/colorPersonalizeButtonBackground"
             android:text="@string/drawer_personal_assistance"
             android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
+            android:gravity="start|center_vertical"
             android:id="@+id/button_drawer_personal_assistance"
-            android:drawableStart="@drawable/ic_telephone"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:layout_marginStart="38dp"
-            android:layout_marginEnd="38dp"
+            style="@style/StellarWhiteButton"
+            android:layout_marginEnd="21dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     <TextView
-            style="@style/StellarTextView_14sp"
-            android:alpha="0.3"
-            android:layout_gravity="center"
-            android:gravity="center"
+            style="@style/StellarTextView_16sp"
+            android:alpha="0.5"
+            android:gravity="center_vertical|start"
+            android:lineSpacingExtra="10dp"
             android:layout_marginTop="15dp"
             android:text="@string/drawer_help"
+            android:layout_marginEnd="21dp"
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.ns.stellarjet;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,12 +9,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.ns.networking.model.UserData;
-import com.ns.stellarjet.databinding.ActivityPassCodeBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.login.LoginActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
@@ -24,7 +27,6 @@ import java.util.Objects;
 public class PassCodeActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private ActivityPassCodeBinding activityPassCodeBinding;
     private EditText mCurrentEditText;
     private String mFirstEditTextPassCode;
     private String mSecondEditTextPassCode;
@@ -32,42 +34,86 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private String mFourEditTextPassCode;
     private UserData mUserData;
 
+    @BindView(R.id.button_passcode_one)
+    Button mPasscodeOneButton;
+    @BindView(R.id.button_passcode_two)
+    Button mPasscodeTwoButton;
+    @BindView(R.id.button_passcode_three)
+    Button mPasscodeThreeButton;
+    @BindView(R.id.button_passcode_four)
+    Button mPasscodeFOurButton;
+    @BindView(R.id.button_passcode_five)
+    Button mPasscodeFiveButton;
+    @BindView(R.id.button_passcode_six)
+    Button mPasscodeSixButton;
+    @BindView(R.id.button_passcode_seven)
+    Button mPasscodeSevenButton;
+    @BindView(R.id.button_passcode_eight)
+    Button mPasscodeEightButton;
+    @BindView(R.id.button_passcode_nine)
+    Button mPasscodeNineButton;
+    @BindView(R.id.button_passcode_zero)
+    Button mPasscodeZeroButton;
+    @BindView(R.id.button_passcode_del)
+    Button mPasscodeDelButton;
+    @BindView(R.id.textView_passcode_heading)
+    TextView mPasswordHeading;
+    @BindView(R.id.editText_passcode_number_one)
+    EditText mNumberOneEditText;
+    @BindView(R.id.editText_passcode_number_two)
+    EditText mNumberTwoEditText;
+    @BindView(R.id.editText_passcode_number_three)
+    EditText mNumberThreeEditText;
+    @BindView(R.id.editText_passcode_number_four)
+    EditText mNumberFourEditText;
+    @BindView(R.id.passcode_back)
+    Button mPassCodeBackButton;
+
     private int mPassCodeEntryOne = -1;
     private int mAttemptsTried = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_code);
 
-        activityPassCodeBinding = DataBindingUtil.setContentView(this , R.layout.activity_pass_code);
+        ButterKnife.bind(this);
 
-        mUserData = getIntent().getExtras().getParcelable(UIConstants.BUNDLE_USER_DATA);
+        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
 
         Log.d("PassCode", "onCreate: " + mUserData);
 
         String savedPassCode = SharedPreferencesHelper.getPassCode(PassCodeActivity.this);
         if (savedPassCode.isEmpty()){
-            activityPassCodeBinding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_create_passcode));
+            mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading_create));
         }else {
-            activityPassCodeBinding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_enter_passcode));
+            mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading));
         }
 
-        activityPassCodeBinding.buttonPasscodeOne.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeTwo.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeThree.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeFour.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeFive.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeSix.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeSeven.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeEight.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeNine.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeZero.setOnClickListener(this);
-        activityPassCodeBinding.buttonPasscodeDel.setOnClickListener(this);
-        activityPassCodeBinding.editTextPasscodeNumberOne.requestFocus();
-        mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberOne;
+        mPassCodeBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-        activityPassCodeBinding.editTextPasscodeNumberOne.addTextChangedListener(new TextWatcher() {
+        mPasscodeOneButton.setOnClickListener(this);
+        mPasscodeTwoButton.setOnClickListener(this);
+        mPasscodeThreeButton.setOnClickListener(this);
+        mPasscodeFOurButton.setOnClickListener(this);
+        mPasscodeFiveButton.setOnClickListener(this);
+        mPasscodeSixButton.setOnClickListener(this);
+        mPasscodeSevenButton.setOnClickListener(this);
+        mPasscodeEightButton.setOnClickListener(this);
+        mPasscodeNineButton.setOnClickListener(this);
+        mPasscodeZeroButton.setOnClickListener(this);
+        mPasscodeDelButton.setOnClickListener(this);
+
+        mNumberOneEditText.requestFocus();
+        mCurrentEditText = mNumberOneEditText;
+
+        mNumberOneEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -83,13 +129,13 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 String inputText = s.toString();
                 if(inputText.length()==1){
                     mFirstEditTextPassCode = inputText;
-                    mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberTwo;
-                    activityPassCodeBinding.editTextPasscodeNumberTwo.requestFocus();
+                    mCurrentEditText = mNumberTwoEditText;
+                    mNumberTwoEditText.requestFocus();
                 }
             }
         });
 
-        activityPassCodeBinding.editTextPasscodeNumberTwo.addTextChangedListener(new TextWatcher() {
+        mNumberTwoEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -105,13 +151,13 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 String inputText = s.toString();
                 if(inputText.length()==1){
                     mSecondEditTextPassCode = inputText;
-                    mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberThree;
-                    activityPassCodeBinding.editTextPasscodeNumberThree.requestFocus();
+                    mCurrentEditText = mNumberThreeEditText;
+                    mNumberThreeEditText.requestFocus();
                 }
             }
         });
 
-        activityPassCodeBinding.editTextPasscodeNumberThree.addTextChangedListener(new TextWatcher() {
+        mNumberThreeEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -127,13 +173,13 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 String inputText = s.toString();
                 if(inputText.length()==1){
                     mThreeEditTextPassCode = inputText;
-                    mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberFour;
-                    activityPassCodeBinding.editTextPasscodeNumberFour.requestFocus();
+                    mCurrentEditText = mNumberFourEditText;
+                    mNumberFourEditText.requestFocus();
                 }
             }
         });
 
-        activityPassCodeBinding.editTextPasscodeNumberFour.addTextChangedListener(new TextWatcher() {
+        mNumberFourEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -161,32 +207,33 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void disableKeyPad(){
-        activityPassCodeBinding.buttonPasscodeOne.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeTwo.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeThree.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeFour.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeFive.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeSix.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeSeven.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeEight.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeNine.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeZero.setEnabled(false);
-        activityPassCodeBinding.buttonPasscodeDel.setEnabled(false);
+    private void disableKeyPad() {
+        mPasscodeOneButton.setEnabled(false);
+        mPasscodeTwoButton.setEnabled(false);
+        mPasscodeThreeButton.setEnabled(false);
+        mPasscodeFOurButton.setEnabled(false);
+        mPasscodeFiveButton.setEnabled(false);
+        mPasscodeSixButton.setEnabled(false);
+        mPasscodeSevenButton.setEnabled(false);
+        mPasscodeEightButton.setEnabled(false);
+        mPasscodeNineButton.setEnabled(false);
+        mPasscodeZeroButton.setEnabled(false);
+        mPasscodeDelButton.setEnabled(false);
     }
 
+
     private void enableKeyPad(){
-        activityPassCodeBinding.buttonPasscodeOne.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeTwo.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeThree.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeFour.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeFive.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeSix.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeSeven.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeEight.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeNine.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeZero.setEnabled(true);
-        activityPassCodeBinding.buttonPasscodeDel.setEnabled(true);
+        mPasscodeOneButton.setEnabled(true);
+        mPasscodeTwoButton.setEnabled(true);
+        mPasscodeThreeButton.setEnabled(true);
+        mPasscodeFOurButton.setEnabled(true);
+        mPasscodeFiveButton.setEnabled(true);
+        mPasscodeSixButton.setEnabled(true);
+        mPasscodeSevenButton.setEnabled(true);
+        mPasscodeEightButton.setEnabled(true);
+        mPasscodeNineButton.setEnabled(true);
+        mPasscodeZeroButton.setEnabled(true);
+        mPasscodeDelButton.setEnabled(true);
     }
 
     @Override
@@ -229,27 +276,27 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void deletePassCode(){
-        if(mCurrentEditText == activityPassCodeBinding.editTextPasscodeNumberOne){
+        if(mCurrentEditText == mNumberOneEditText){
             mCurrentEditText.setText("");
-        }else if(mCurrentEditText == activityPassCodeBinding.editTextPasscodeNumberTwo){
+        }else if(mCurrentEditText == mNumberTwoEditText){
             mCurrentEditText.setText("");
-            mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberOne;
-        }else if(mCurrentEditText == activityPassCodeBinding.editTextPasscodeNumberThree){
+            mCurrentEditText = mNumberOneEditText;
+        }else if(mCurrentEditText == mNumberThreeEditText){
             mCurrentEditText.setText("");
-            mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberTwo;
-        }else if(mCurrentEditText == activityPassCodeBinding.editTextPasscodeNumberFour){
+            mCurrentEditText = mNumberTwoEditText;
+        }else if(mCurrentEditText == mNumberFourEditText){
             mCurrentEditText.setText("");
-            mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberThree;
+            mCurrentEditText = mNumberThreeEditText;
         }
     }
 
     private void clearPassCode(){
-        activityPassCodeBinding.editTextPasscodeNumberOne.setText("");
-        activityPassCodeBinding.editTextPasscodeNumberTwo.setText("");
-        activityPassCodeBinding.editTextPasscodeNumberThree.setText("");
-        activityPassCodeBinding.editTextPasscodeNumberFour.setText("");
-        activityPassCodeBinding.editTextPasscodeNumberOne.requestFocus();
-        mCurrentEditText = activityPassCodeBinding.editTextPasscodeNumberOne;
+        mNumberOneEditText.setText("");
+        mNumberTwoEditText.setText("");
+        mNumberThreeEditText.setText("");
+        mNumberFourEditText.setText("");
+        mNumberOneEditText.requestFocus();
+        mCurrentEditText = mNumberOneEditText;
         mFirstEditTextPassCode = "";
         mSecondEditTextPassCode= "";
         mThreeEditTextPassCode = "";
@@ -263,7 +310,8 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         Log.d("Passcode", "savePassCode: " + passCode);
         String savedPassCode = SharedPreferencesHelper.getPassCode(PassCodeActivity.this);
         if(savedPassCode.equals("")){
-            activityPassCodeBinding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_confirm_passcode));
+            mPasswordHeading.setText(
+                    getResources().getString(R.string.passcode_title_heading_confirm));
             clearPassCode();
             if(mPassCodeEntryOne == -1){
                 mPassCodeEntryOne = Integer.parseInt(passCode);
@@ -274,7 +322,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                     launchHomeActivity();
                 }else {
                     clearPassCode();
-                    activityPassCodeBinding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_create_passcode));
+                    mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading_create));
                     Toast.makeText(PassCodeActivity.this, "PassCode not matching ", Toast.LENGTH_SHORT).show();
                     mPassCodeEntryOne = -1;
                 }
@@ -327,6 +375,12 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogParams) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
+            }
+        });
         dialog.show();
     }
 }

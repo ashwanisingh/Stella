@@ -8,33 +8,31 @@
         android:fitsSystemWindows="true"
         tools:context=".drawer.MyBookingsActivity">
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="75dp">
 
-        <Button
-                android:id="@+id/button_bookings_back"
-                style="@style/StellarBackButton"/>
+    <Button
+            android:id="@+id/button_bookings_back"
+            style="@style/StellarBackButton"/>
 
-        <TextView
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:layout_marginStart="-26dp"
-                style="@style/StellarTextView_20sp"
-                android:text="@string/drawer_info_bookings"
-                android:id="@+id/textView_bookings_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-    </LinearLayout>
+    <TextView
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:layout_marginStart="24dp"
+            style="@style/StellarTextView_20sp"
+            android:text="@string/bookings_title"
+            android:id="@+id/textView_bookings_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <com.google.android.material.tabs.TabLayout
+            android:layout_marginTop="16dp"
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextColor="@android:color/white"
             app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@color/colorButtonNew"
+            app:tabTextAppearance="@style/BookingsTabText"
+            app:tabBackground="@drawable/drawable_bookings_selector"
             app:tabMode="fixed" />
 
     <androidx.viewpager.widget.ViewPager
@@ -42,16 +40,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<!--        <androidx.viewpager.widget.PagerTabStrip
-                android:id="@+id/pager_tab_strip_bookings"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="top"
-                android:background="@android:color/transparent"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />-->
+        <!--        <androidx.viewpager.widget.PagerTabStrip
+                        android:id="@+id/pager_tab_strip_bookings"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="top"
+                        android:background="@android:color/transparent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />-->
 
     </androidx.viewpager.widget.ViewPager>
 

@@ -10,7 +10,6 @@
             android:fitsSystemWindows="true"
             tools:context=".personalize.CabPreferencesActivity">
 
-
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -22,6 +21,7 @@
 
             <TextView
                     android:layout_marginTop="40dp"
+                    android:visibility="gone"
                     style="@style/StellarTextView_18sp"
                     android:id="@+id/textView_cab_preferences_title"
                     android:text="@string/personalize_cab_title"
@@ -31,11 +31,34 @@
                     android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <TextView
+                android:text="@string/cab_pref_title"
+                style="@style/StellarTextView_24sp"
+                android:layout_marginStart="30dp"
+                android:id="@+id/textView"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="@string/cab_pref_heading"
+                style="@style/StellarTextView_16sp"
+                android:alpha="0.5"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:lineSpacingExtra="5dp"
+                android:id="@+id/textView_cab_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         <LinearLayout
                 android:id="@+id/layout_cab_pickup"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="52dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
                 android:background="@color/colorCabPreferBackground"
@@ -69,7 +92,7 @@
             <TextView
                     style="@style/StellarTextView_12sp"
                     android:alpha="0.5"
-                    android:layout_marginTop="55dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginStart="16dp"
                     android:text="@string/cab_personalize_pickup_location"
                     android:id="@+id/textView_cab_pickup_location"
@@ -97,8 +120,10 @@
 
         <LinearLayout
                 android:id="@+id/layout_cab_drop"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
@@ -133,7 +158,7 @@
             <TextView
                     style="@style/StellarTextView_12sp"
                     android:alpha="0.5"
-                    android:layout_marginTop="55dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginStart="16dp"
                     android:text="@string/cab_personalize_drop_location"
                     android:id="@+id/textView_cab_drop_location"
@@ -165,12 +190,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"/>
         <Button
-                style="@style/StellarButton"
-                android:text="@string/cab_personalize_update_button"
+                style="@style/StellarWhiteButton"
+                android:gravity="center_vertical|start"
+                android:text="@string/food_list_confirm_button"
                 android:id="@+id/button_cab_preferences_update"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="23dp"
                 android:layout_marginBottom="21dp"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 

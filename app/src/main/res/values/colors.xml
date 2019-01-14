@@ -21,5 +21,11 @@
     <color name="colorBottomSheetDeactivate">#0076ff</color>
     <color name="colorBottomSheetDelete">#fe3824</color>
     <color name="colorBookingsPersonalize">#8a8a99</color>
+    <color name="colorButtonNew">#13132f</color>
+    <color name="colorPassengerSelectBg">#929292</color>
+    <color name="colorPassengerText">#949494</color>
+    <color name="colorBoardingPassHeader">#3b3d58</color>
+    <color name="colorBoardingPassBody">#34354c</color>
+    <color name="colorPersonalizeButton">#656574</color>
 
 </resources>

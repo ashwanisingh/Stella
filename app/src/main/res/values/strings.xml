@@ -4,16 +4,16 @@
     <!-- Login Activity -->
     <string name="login_button">Login</string>
     <string name="confirm_button">Confirm</string>
-    <string name="login_title">Welcome</string>
+    <string name="login_title">Hello, and welcome to Stellarjet.</string>
     <string name="login_header">
-        Sign-in using your personal identification number and password
+        Please sign-in using your personal identification number.
     </string>
-    <string name="login_accountId">email ID / Mobile No</string>
-    <string name="login_password">PASSWORD</string>
+    <string name="login_accountId">Personal identification number</string>
+    <string name="login_password">Password</string>
     <string name="login_forgot_password">Forgot Password?</string>
 
     <!-- password -->
-    <string name="password_header">Please enter your password for \n secure login</string>
+    <string name="password_header">Now enter your password to confirm your identity.</string>
 
     <!-- otp -->
     <string name="otp_title">OTP</string>
@@ -27,16 +27,20 @@
 
     <!-- Home Activity -->
     <string name="home_see_you_again">It\'s nice to see you again!</string>
-    <string name="home_remaining_seats">You have 2 seats in credit!</string>
-    <string name="home_remaining_seats_first_half">You have</string>
-    <string name="home_remaining_seats_second_half">in credit!</string>
-    <string name="home_button_book_flight">Book Flight</string>
+    <string name="home_remaining_seats">You still have 24 seats available before you need to top up your credit.
+    </string>
+    <string name="home_remaining_seats_first_half">You still have</string>
+    <string name="home_remaining_seats_second_half">seats available before you need to top up your credit.</string>
+    <string name="home_button_book_flight">Book a Flight</string>
+    <string name="home_title_hello_again_dummy">Hello again Ragav, Welcome back</string>
+    <string name="home_title_hello_again">Hello again \n</string>
+    <string name="home_title_welcome_back">\nWelcome back</string>
 
     <!-- booking -->
-    <string name="booking_from">From</string>
+    <string name="booking_from">Where are you flying from?</string>
     <string name="booking_from_dummy">Delhi Office</string>
     <string name="booking_from_city">Bangalore</string>
-    <string name="booking_to">To</string>
+    <string name="booking_to">Where are you going to?</string>
     <string name="booking_to_dummy">Home</string>
     <string name="booking_to_city">New Delhi</string>
     <string name="booking_id">Booking Id</string>
@@ -95,9 +99,9 @@
     <string name="booking_summary_day">Friday</string>
     <string name="booking_summary_date_time">18 Sep, 7:45 am</string>
     <string name="booking_summary_travelling_with">TRAVELLING WITH</string>
-    <string name="booking_summary_passengers">PASSENGERS</string>
+    <string name="booking_summary_passengers">Passengers</string>
     <string name="booking_summary_guest_names">Dimple , Shankar</string>
-    <string name="booking_summary_booked_seats">BOOKED SEATS</string>
+    <string name="booking_summary_booked_seats">Booked Seats</string>
     <string name="booking_summary_booked_seats_names">Golf, Hotel, Alpha, Bravo, Echo and Charlie</string>
     <string name="booking_summary_usual_service">Your usual in-flight service is fine?</string>
     <string name="booking_summary_button_fine">That’s Fine</string>
@@ -105,16 +109,19 @@
     <string name="booking_summary_service_with">WITH</string>
     <string name="booking_summary_service_preferred">Your preferred service</string>
     <string name="booking_summary_service_usual">Usual Service</string>
-    <string name="booking_summary_button_book_now">Let’s book now</string>
+    <string name="booking_summary_button_book_now">Confirm Booking</string>
     <string name="booking_summary_title_trip_details">Trip Details</string>
 
     <string name="booking_preferences_food_question">What do you like for breakfast?</string>
     <string name="booking_preferences_kit_question">Would you like to read in the \nmorning?</string>
     <string name="booking_preferences_update_preferences">Update Preferences</string>
 
-    <string name="booking_success_confirmed">Booking Confirmed</string>
+    <string name="booking_success_confirmed">Your booking is\nconfirmed</string>
     <string name="booking_success_arrival_time">We will see you at Home at 6.45am, \n this Friday</string>
-    <string name="booking_success_message">Your flight booking is confirmed \nEnjoy your travel with us!</string>
+    <string name="booking_success_message">
+        Please take a moment to personalise your booking by adding your pick-up and drop-off preferences and dining
+        choice.
+    </string>
     <string name="booking_success_contact_us">Contact Us</string>
     <string name="booking_success_contact_us_help_info">Contact us for any further assistance. We are \nhappy to help
         you
@@ -122,14 +129,14 @@
 
     <!-- personalize-->
     <string name="personalize">Personalize</string>
-    <string name="personalize_message">Personalize your food menu, pick up and\ndrop assistance</string>
+    <string name="personalize_message">This can be done at any time up to 4 hours before take off.</string>
 
     <string name="personalize_header">Please update preferences for the trip</string>
-    <string name="personalize_cab_title">Cab Preferences</string>
-    <string name="personalize_food_title">Food Preferences</string>
-    <string name="personalize_later_button">I’ll do it later</string>
-    <string name="personalize_update_title">Please update preferences before \n</string>
-    <string name="personalize_success">Thank you for confirming \n your preferences</string>
+    <string name="personalize_cab_title">Pick-up and drop-off</string>
+    <string name="personalize_food_title">Dining</string>
+    <string name="personalize_later_button">I’ll come back to this</string>
+    <string name="personalize_update_title">This can be done at any time up to\n</string>
+    <string name="personalize_success">Thank you\nYour preferences are now finalised</string>
     <string name="personalize_success_safe_flight">We wish you a safe flight!</string>
 
     <!-- cab preferences -->
@@ -147,10 +154,11 @@
 
     <!-- drawer -->
     <string name="drawer_info_preferences">Preferences</string>
+    <string name="drawer_info_preferences_heading">Your preferences</string>
     <string name="drawer_info_boarding_pass">Boarding Pass</string>
     <string name="drawer_info_bookings">My Bookings</string>
-    <string name="drawer_personal_assistance">Personal Assistance</string>
-    <string name="drawer_help">Contact us for any further assistance. We are \nhappy to help you</string>
+    <string name="drawer_personal_assistance">Call Us</string>
+    <string name="drawer_help">Contact us for any further assistance.\n We are happy to help you</string>
 
 
     <!--add address -->
@@ -159,10 +167,13 @@
 
 
     <!-- passcode  -->
+    <string name="passcode_title_hello_again">Hello again.</string>
     <string name="passcode_title_create_passcode">Create Passcode</string>
     <string name="passcode_title_confirm_passcode">Confirm Passcode</string>
     <string name="passcode_title_enter_passcode">Enter Passcode</string>
-    <string name="passcode_title_heading">Please enter a passcode for secure login</string>
+    <string name="passcode_title_heading">Please enter your passcode</string>
+    <string name="passcode_title_heading_confirm">Please confirm your passcode</string>
+    <string name="passcode_title_heading_create">Please create your passcode</string>
     <string name="passcode_kwypad_one">1</string>
     <string name="passcode_kwypad_two">2</string>
     <string name="passcode_kwypad_three">3</string>
@@ -181,6 +192,7 @@
     <string name="bookings_service_data">2 seats with usual service</string>
 
     <string name="boardingPass_title">Boarding Pass</string>
+    <string name="boardingPass_heading">Your Boarding Passes</string>
     <string name="boardingPass_details_title">Boarding Pass Details</string>
     <string name="boardingPass_dummy_day">This Friday</string>
     <string name="boardingPass_dummy_time">18 Sep, 7:45 am</string>
@@ -213,6 +225,7 @@
     <string name="info_use_current_location">Current Location</string>
     <string name="info_using_gps">Using GPS</string>
     <string name="info_saved_address">SAVED ADDRESSES</string>
+    <string name="info_saved_address_title">From one of my saved addresses</string>
     <string name="info_address">ADDRESS</string>
     <string name="info_saved_places">Saved Places</string>
     <string name="info_address_flat_no">House/flat no</string>
@@ -230,16 +243,16 @@
         KA
     </string>
 
-    <string name="info_flight_sunrise">S\nu\nn\nr\ni\ns\ne</string>
-    <string name="info_flight_sunset">S\nu\nn\ns\ne\nt</string>
+    <string name="info_flight_sunrise">Sunrise</string>
+    <string name="info_flight_sunset">Sunset</string>
 
     <string name="info_passenger_title">Passenger Info</string>
     <string name="info_passenger_heading">Please provide passenger info for the trip</string>
     <string name="info_passenger_self_question">Are you travelling in this trip?</string>
-    <string name="info_passenger_self">Self</string>
-    <string name="info_passenger_guest">Guest</string>
-    <string name="info_passenger_self_guests">Self &amp; Guests</string>
-    <string name="info_passenger_guests">Guests</string>
+    <string name="info_passenger_self">Me</string>
+    <string name="info_passenger_guest">My Guest</string>
+    <string name="info_passenger_self_guests">Me &amp; My Guests</string>
+    <string name="info_passenger_guests">My Guests</string>
 
     <string name="info_passenger_text">Passenger</string>
     <string name="info_passenger_dummy">Mr.Ragav shekar, Ms. Uma Shankaran N.S,Mr. Manish Pandey, Mr. Arya, Mr. Ramesh,
@@ -252,6 +265,7 @@
 
     <!-- food preferences -->
     <string name="food_title">Food Preferences</string>
+    <string name="food_title_new">What would you like to \neat ?</string>
     <string name="food_header">Choose your preferred food category</string>
     <string name="food_type_veg">Vegetarian</string>
     <string name="food_type_non_veg">Non - Vegetarian</string>
@@ -261,9 +275,15 @@
     <string name="food_list_content_dummy">Contains vegetables, fresh fruits and dairy products</string>
 
     <!-- preferences -->
-    <string name="info_preferences_managers">Managers</string>
-    <string name="info_preferences_managers_help">Who can assist you for booking</string>
-    <string name="info_preferences_food_help">Preferred food served during trip</string>
+    <string name="info_preferences_managers">Booking Managers</string>
+    <string name="info_preferences_managers_title">Your Booking Managers</string>
+    <string name="info_preferences_managers_heading">Booking managers have access to
+        your account to book tickets for you
+        on your behalf.
+    </string>
+    <string name="info_preferences_managers_help">Who can help you book tickets</string>
+    <string name="info_preferences_dining">Dining Preferences</string>
+    <string name="info_preferences_food_help">Set your favourite dining options</string>
     <string name="info_preferences_managers_dummy_name">Uma Sekhar</string>
     <string name="info_preferences_managers_dummy_phone">+91 98877 56487</string>
 
@@ -367,6 +387,10 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_booking_manager_add">Add a booking manager.</string>
+    <string name="title_booking_manager_heading">Please provide your contact name exactly as it appears
+        in the ID that they will bring with them if they fly.
+    </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_preference_managers_lists">PreferenceManagersListsActivity</string>
     <!--    Permissions    -->
@@ -379,6 +403,37 @@
     </string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
 
-    <string name="pick_current_location">Pin using pick location</string>
-    <string name="drop_current_location">Pin using drop location</string>
+    <string name="pick_current_location">Pin your pickup location</string>
+    <string name="drop_current_location">Pin your drop location</string>
+
+    <!-- new cab strings-->
+    <string name="cab_pref_title">Book your transportation</string>
+    <string name="cab_pref_heading">We would be happy to send one of our luxury service cars to take you
+        to and from the flight.
+    </string>
+
+    <!-- new passenger strings-->
+    <string name="passenger_title">Who is travelling?</string>
+    <string name="passenger_heading">Please provide your contact name exactly as
+        it appears in the ID that you will bring with you.
+    </string>
+
+    <!-- new boarding pass-->
+    <string name="boarding_seats">Seats</string>
+    <string name="boarding_passengers">Passengers</string>
+    <string name="boarding_passenger_single">Passenger</string>
+    <string name="boarding_passengers_reach_by">Please arrive by</string>
+
+    <!-- new booking-->
+    <string name="bookings_title">Your Bookings</string>
+
+    <!-- new personalize launch -->
+    <string name="personalize_title">Personalise your trip</string>
+    <string name="personalize_heading">Please take a moment to personalise your booking by adding your pick-up and
+        drop-off preferences and dining choices.
+    </string>
+
+    <!-- new seat -->
+    <string name="personalize_seat_title">Where would you like to sit?</string>
+
 </resources>

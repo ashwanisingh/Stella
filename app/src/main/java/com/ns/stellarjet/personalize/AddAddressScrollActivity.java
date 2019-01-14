@@ -175,7 +175,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         super.onResumeFragments();
         if (mPermissionDenied) {
             // Permission was not granted, display error dialog.
-            showMissingPermissionError();
+//            showMissingPermissionError();
             mPermissionDenied = false;
         }
     }

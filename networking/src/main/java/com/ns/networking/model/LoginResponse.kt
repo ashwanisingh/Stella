@@ -35,65 +35,65 @@ data class UserData(
 
 @Parcelize
 data class Subscription(
-    val created_at: String,
-    val expiry_date: String,
-    val no_of_seats: Int
+    val created_at: String?,
+    val expiry_date: String?,
+    val no_of_seats: Int?
 ):Parcelable
 
 @Parcelize
 data class CustomerPrefs(
-    val foods: List<Food>,
-    val payment_prefs: String,
-    val seat_prefs: List<SeatPreferences>,
-    val seats_available: Int,
-    val subscription_expiry: Long,
-    val subscription_expiry_datetime: String
+    val foods: List<Food>?,
+    val payment_prefs: String?,
+    val seat_prefs: List<SeatPreferences>?,
+    val seats_available: Int?,
+    val subscription_expiry: Long?,
+    val subscription_expiry_datetime: String?
 ):Parcelable
 
 @Parcelize
 data class SeatPreferences(
-    val flight: Flight,
-    val flight_id: Int,
-    val id: Int,
-    val seat_code: String,
-    val sort_order: Int
+    val flight: Flight?,
+    val flight_id: Int?,
+    val id: Int?,
+    val seat_code: String?,
+    val sort_order: Int?
 ):Parcelable
 
 
 @Parcelize
 data class Food(
-    val description: String,
-    val food_image: String,
-    val food_type: String,
-    val food_type_text: String,
-    val id: Int,
-    val image_path: String,
-    val img_url: String,
-    val name: String,
-    var pref: Boolean
+    val description: String?,
+    val food_image: String?,
+    val food_type: String?,
+    val food_type_text: String?,
+    val id: Int?,
+    val image_path: String?,
+    val img_url: String?,
+    val name: String?,
+    var pref: Boolean?
 ):Parcelable
 
 @Parcelize
 data class CustomerCareInfo(
-    val email: String,
-    val phone: String
+    val email: String?,
+    val phone: String?
 ):Parcelable
 
 @Parcelize
 data class Addresse(
-    val address: String,
-    val address_tag: String,
-    val city: Int,
-    val city_info: CityInfo,
-    val created_at: String,
-    val id: Int,
-    val user: Int
+    val address: String?,
+    val address_tag: String?,
+    val city: Int?,
+    val city_info: CityInfo?,
+    val created_at: String?,
+    val id: Int?,
+    val user: Int?
 ):Parcelable
 
 @Parcelize
 data class CityInfo(
-    val id: Int,
-    val name: String
+    val id: Int?,
+    val name: String?
 ):Parcelable
 
 @Parcelize
@@ -107,20 +107,20 @@ data class City(
 
 @Parcelize
 data class Contact(
-    val email: String,
-    val id: Int,
-    val name: String,
-    val nick_name: String,
-    val phone: String,
-    val relationship: String,
-    val user: Int,
-    val user_info: UserInfo
+    val email: String?,
+    val id: Int?,
+    val name: String?,
+    val nick_name: String?,
+    val phone: String?,
+    val relationship: String?,
+    val user: Int?,
+    val user_info: UserInfo?
 ):Parcelable
 
 @Parcelize
 data class UserInfo(
-    val id: Int,
-    val name: String
+    val id: Int?,
+    val name: String?
 ) : Parcelable
 
 @Parcelize
@@ -154,6 +154,6 @@ data class Flight(
 
 @Parcelize
 data class FlightSeat(
-    val id: Int,
-    val seat_code: String
+    val id: Int?,
+    val seat_code: String?
 ):Parcelable

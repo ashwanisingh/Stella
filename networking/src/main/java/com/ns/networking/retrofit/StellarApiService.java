@@ -110,7 +110,7 @@ public interface StellarApiService {
     Call<FoodPersonalizeResponse> personalizeFood(
             @Field("token") String token ,
             @Field("booking_id") String booking_id ,
-            @Field("foods_taken[]") List<Integer> foods_taken
+            @Field("foods_taken[]") List<String> foods_taken
     );
 
     @FormUrlEncoded
@@ -166,7 +166,7 @@ public interface StellarApiService {
     Call<CommonPersonalizeFoodResponse> updateCommonFoodPreferences(
             @Field("token") String token,
             @Field("user") String userId,
-            @Field("food_prefs[]") List<Integer> foodsList
+            @Field("food_prefs[]") List<String> foodsList
     );
 
 

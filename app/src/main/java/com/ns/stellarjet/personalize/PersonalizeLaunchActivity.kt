@@ -63,6 +63,11 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+//        launchHome()
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -119,6 +124,6 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
         SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
-        SharedPreferencesHelper.saveFoodPersonalize(this ,true)
+        SharedPreferencesHelper.saveFoodPersonalize(this ,false)
     }
 }

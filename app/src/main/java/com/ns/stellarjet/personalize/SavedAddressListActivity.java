@@ -66,6 +66,13 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
 
         binding.textViewSavedAddressCurrentLocation.setOnClickListener(v -> {
             LatLng latLng = null;
+            if(selectedCity.equalsIgnoreCase("Bengaluru")){
+                latLng = new LatLng(12.9716 , 77.5946);
+            }else if(selectedCity.equalsIgnoreCase("Mumbai")){
+                latLng = new LatLng( 19.0760, 72.8777);
+            }else if(selectedCity.equalsIgnoreCase("Delhi")){
+                latLng = new LatLng(28.7041, 77.1025);
+            }
             Intent mAddAddressIntent = new Intent(
                     SavedAddressListActivity.this ,
                     AddAddressScrollActivity.class
@@ -95,8 +102,11 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
         ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextColor(getResources().getColor(android.R.color.black));
         ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
-                .setBackgroundColor(getResources().getColor(android.R.color.white));
-
+                .setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setBackground(getResources().getDrawable(R.drawable.drawable_location_picker));
+        /*((Button)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button))
+                .setVisibility(View.GONE);*/
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override

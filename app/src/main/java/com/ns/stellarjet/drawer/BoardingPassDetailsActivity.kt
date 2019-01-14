@@ -1,7 +1,7 @@
 package com.ns.stellarjet.drawer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.Booking
 import com.ns.stellarjet.R
@@ -43,16 +43,20 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
             }
             numSeats += 1
         }
-        val passengerTitle = resources.getString(R.string.booking_summary_passengers) +" ("+ numSeats +")"
-        binding.textViewBoardingPassDetailsPassengersTitle.text = passengerTitle
+        /*val passengerTitle = resources.getString(R.string.booking_summary_passengers) +" ("+ numSeats +")"
+        binding.textViewBoardingPassDetailsPassengersTitle.text = passengerTitle*/
         binding.textViewBoardingPassDetailsPassengersName.text = passengersName
         binding.textViewBoardingPassDetailsSeatsName.text = seatsName
 
         val reachPlaneByHrs = StellarJetUtils.getReachByPlaneHours(boardingPass?.journey_datetime!!) + " hrs"
-        binding.textViewBoardingPassDetailsReachPlaneBy.text = reachPlaneByHrs
+        val reachPaneByHrs = resources.getString(R.string.boarding_passengers_reach_by)+" "+reachPlaneByHrs
+        binding.textViewBoardingPassDetailsReachPlaneBy.text = reachPaneByHrs
         val journeyTime = StellarJetUtils.getFormattedhours(boardingPass.journey_datetime) + " hrs"
         binding.textViewBoardingPassDetailsDepartureTime.text = journeyTime
         binding.textViewRowBoardingPassDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(boardingPass.journey_datetime)
+
+        val cities = boardingPass.from_city_info?.name + " to \n"+ boardingPass.to_city_info?.name
+        binding.textViewRowBoardingPassDetailsFromCity.text = cities
 
         button_boarding_pass_details_back.setOnClickListener {
             onBackPressed()

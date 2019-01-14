@@ -8,12 +8,6 @@
         android:fitsSystemWindows="true"
         tools:context=".drawer.PreferenceLaunchActivity">
 
-    <LinearLayout
-            android:id="@+id/layout_boarding_pass_details_base"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
         <Button
                 android:id="@+id/button_preferences_back"
                 style="@style/StellarBackButton"/>
@@ -21,14 +15,12 @@
         <TextView
                 android:layout_marginTop="40dp"
                 android:gravity="center"
-                android:layout_marginStart="-26dp"
+                android:layout_marginStart="24dp"
                 style="@style/StellarTextView_20sp"
-                android:text="@string/drawer_info_preferences"
+                android:text="@string/drawer_info_preferences_heading"
                 android:id="@+id/textView_preferences_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-    </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
     <TextView
             android:layout_marginTop="100dp"
@@ -63,7 +55,7 @@
             android:layout_marginTop="26dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/booking_title_food_preferences"
+            android:text="@string/info_preferences_dining"
             style="@style/StellarTextView_18sp"
             android:drawableEnd="@drawable/ic_date_next"
             android:id="@+id/textView_preferences_food"

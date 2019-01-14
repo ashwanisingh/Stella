@@ -4,253 +4,125 @@
     <data>
 
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             tools:context=".PassCodeActivity">
 
+        <Button
+                android:id="@+id/passcode_back"
+                style="@style/StellarBackButton"/>
+
         <TextView
                 android:id="@+id/textView_passcode_title"
-                style="@style/StellarTextView_22sp"
+                style="@style/StellarTextView_30sp"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="36dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:text="@string/passcode_title_create_passcode"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:text="@string/passcode_title_hello_again"/>
 
         <TextView
                 android:id="@+id/textView_passcode_heading"
                 style="@style/StellarTextView_16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="36dp"
                 android:alpha="0.5"
                 android:text="@string/passcode_title_heading"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_passcode_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView_passcode_title"
+                app:layout_constraintStart_toStartOf="@+id/textView_passcode_title"/>
 
-        <EditText
-                android:id="@+id/editText_passcode_number_one"
-                android:layout_width="45dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/drawable_keypad_edittext"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="numberPassword"
-                android:maxLength="1"
-                android:textColor="@android:color/white"
-                android:textSize="40sp"
-                app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_two"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_passcode_heading"/>
+        <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="36dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <EditText
-                android:id="@+id/editText_passcode_number_two"
-                android:layout_width="45dp"
-                android:layout_height="56dp"
-                android:background="@drawable/drawable_keypad_edittext"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="numberPassword"
-                android:maxLength="1"
-                android:textColor="@android:color/white"
-                android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_three"
-                app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_one"
-                app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+            <EditText
+                    android:id="@+id/editText_passcode_number_one"
+                    android:layout_width="45dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/drawable_keypad_edittext"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:inputType="numberPassword"
+                    android:maxLength="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_passcode_heading"
+                    app:layout_constraintStart_toStartOf="@+id/textView_passcode_heading"/>
 
-        <EditText
-                android:id="@+id/editText_passcode_number_three"
-                android:layout_width="45dp"
-                android:layout_height="56dp"
-                android:background="@drawable/drawable_keypad_edittext"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="numberPassword"
-                android:maxLength="1"
-                android:textColor="@android:color/white"
-                android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_four"
-                app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_two"
-                app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+            <EditText
+                    android:id="@+id/editText_passcode_number_two"
+                    android:layout_width="45dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/drawable_keypad_edittext"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:inputType="numberPassword"
+                    android:maxLength="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_three"
+                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_one"
+                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
 
-        <EditText
-                android:id="@+id/editText_passcode_number_four"
-                android:layout_width="45dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="80dp"
-                android:background="@drawable/drawable_keypad_edittext"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="numberPassword"
-                android:maxLength="1"
-                android:textColor="@android:color/white"
-                android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_three"
-                app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+            <EditText
+                    android:id="@+id/editText_passcode_number_three"
+                    android:layout_width="45dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/drawable_keypad_edittext"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:inputType="numberPassword"
+                    android:maxLength="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_four"
+                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_two"
+                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
 
-        <Button
-                android:id="@+id/button_passcode_one"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="120dp"
-                android:background="@android:color/transparent"
-                android:text="@string/passcode_kwypad_one"
-                app:layout_constraintEnd_toStartOf="@+id/button_passcode_two"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText_passcode_number_one"/>
+            <EditText
+                    android:id="@+id/editText_passcode_number_four"
+                    android:layout_width="45dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="@drawable/drawable_keypad_edittext"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:inputType="numberPassword"
+                    android:maxLength="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_three"
+                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
 
-        <Button
-                android:id="@+id/button_passcode_two"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_two"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_one"
-                app:layout_constraintEnd_toStartOf="@+id/button_passcode_three"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_passcode_one"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_one"/>
+        </LinearLayout>
 
-        <Button
-                android:id="@+id/button_passcode_three"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_three"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_passcode_two"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_one"/>
-
-
-        <Button
-                android:id="@+id/button_passcode_four"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_four"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_one"
-                app:layout_constraintTop_toBottomOf="@+id/button_passcode_one"/>
-
-        <Button
-                android:id="@+id/button_passcode_five"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_five"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_four"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_two"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_two"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_four"/>
-
-        <Button
-                android:id="@+id/button_passcode_six"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_six"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_five"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_three"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_three"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_five"/>
-
-        <Button
-                android:id="@+id/button_passcode_seven"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_seven"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_four"
-                app:layout_constraintTop_toBottomOf="@+id/button_passcode_four"/>
-
-        <Button
-                android:id="@+id/button_passcode_eight"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_eight"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_seven"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_five"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_five"/>
-
-        <Button
-                android:id="@+id/button_passcode_nine"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_nine"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_eight"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_six"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_six"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_eight"/>
-
-        <Button
-                android:id="@+id/button_passcode_zero"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/transparent"
-                android:padding="2dp"
-                android:text="@string/passcode_kwypad_zero"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_eight"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_eight"
-                app:layout_constraintTop_toBottomOf="@+id/button_passcode_eight"/>
-
-
-        <Button
-                android:id="@+id/button_passcode_del"
-                style="@style/StellarTextView_30sp"
-                android:layout_width="26dp"
-                android:layout_height="19dp"
-                android:background="@drawable/ic_keypad_del"
-                android:padding="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/button_passcode_zero"
-                app:layout_constraintEnd_toEndOf="@+id/button_passcode_nine"
-                app:layout_constraintStart_toStartOf="@+id/button_passcode_nine"
-                app:layout_constraintTop_toTopOf="@+id/button_passcode_zero"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+        <include layout="@layout/layout_keypad"/>
+    </LinearLayout>
 </layout>

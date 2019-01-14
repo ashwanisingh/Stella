@@ -20,17 +20,17 @@
                     android:id="@+id/button_food_list_back"
                     style="@style/StellarBackButton"/>
 
-            <TextView
-                    android:layout_marginTop="40dp"
-                    android:gravity="center"
-                    android:layout_marginStart="-56dp"
-                    style="@style/StellarTextView_18sp"
-                    android:text="@string/food_type_veg"
-                    android:id="@+id/textView_food_list_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
         </LinearLayout>
+
+        <TextView
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:layout_marginStart="23dp"
+                style="@style/StellarTextView_22sp"
+                android:text="@string/food_type_veg"
+                android:id="@+id/textView_food_list_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_weight="1"
@@ -39,16 +39,17 @@
                 tools:listitem="@layout/layout_row_food_list"
                 tools:orientation="horizontal"
                 android:layout_marginTop="37dp"
+                android:layout_marginStart="23dp"
                 android:layout_marginBottom="17dp"
                 android:layout_height="0dp"/>
 
         <Button
-                style="@style/StellarButton"
-                android:textSize="18sp"
-                android:textAllCaps="true"
+                style="@style/StellarWhiteButton"
+                android:gravity="start|center_vertical"
+                android:textAllCaps="false"
                 android:id="@+id/button_food_list_confirm"
-                android:layout_marginStart="21dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="23dp"
                 android:text="@string/food_list_confirm_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

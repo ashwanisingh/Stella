@@ -121,7 +121,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_seat_two_selection);
+        setContentView(R.layout.layout_seat_twelve);
 
         ButterKnife.bind(SeatSelectionActivity.this);
 
@@ -187,7 +187,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             if(numOfGuests == 0){
                 Toast.makeText(SeatSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
             }else {
-                Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerActivity.class);
+                Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerListActivity.class);
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
                 startActivity(mGuestAddIntent);
             }
@@ -493,7 +493,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             if(mSelectedSeatList.get(i).getSeatId().equalsIgnoreCase(seatId)){
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
                 isSelected = !isSelected;
-                mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){
@@ -509,8 +508,52 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         unlockSingleSeats(mLockedSeatList);
                     }
                 }
+                setSeatSelectionOnState(mSelectedSeatList.get(i).getSeatName() , isSelected);
+                mSelectedSeatList.get(i).setSelected(isSelected);
             }
         }
+    }
+
+    private void setSeatSelectionOnState(String seatName , boolean isSelected){
+        switch (seatName){
+            case "Alpha":
+                isAlphaBooked = isSelected;
+                break;
+            case "Brave":
+                isBravoBooked = isSelected;
+                break;
+            case "Charlie":
+                isCharlieBooked = isSelected;
+                break;
+            case "Delta":
+                isDeltaBooked = isSelected;
+                break;
+            case "Echo":
+                isEchoBooked = isSelected;
+                break;
+            case "Foxtrot":
+                isFoxtrotBooked = isSelected;
+                break;
+            case "Golf":
+                isGolfBooked = isSelected;
+                break;
+            case "Hotel":
+                isHotelBooked = isSelected;
+                break;
+            case "Indigo":
+                isIndigoBooked = isSelected;
+                break;
+            case "Juliet":
+                isJulietBooked = isSelected;
+                break;
+            case "Kilo":
+                isKiloBooked = isSelected;
+                break;
+            case "Limo":
+                isLimoBooked = isSelected;
+                break;
+        }
+
     }
 
     private void confirmSingleSeats(List<Integer> mLockSeatsList){

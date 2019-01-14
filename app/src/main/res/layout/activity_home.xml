@@ -7,6 +7,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginStart="24dp"
             android:fitsSystemWindows="true"
             tools:context=".home.HomeActivity">
 
@@ -24,16 +25,17 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_logo"
                 android:layout_marginTop="68dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="start"/>
 
         <TextView
-                style="@style/StellarTextView_22sp"
+                android:id="@+id/textview_home_hello_again"
+                style="@style/StellarTextView_32sp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="48dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="38dp"
                 android:layout_width="wrap_content"
-                android:alpha="0.5"
-                android:text="@string/login_title"/>
+                android:lineSpacingExtra="10dp"
+                android:text="@string/home_title_hello_again_dummy"/>
 
         <TextView
                 android:text="@string/app_name"
@@ -48,7 +50,7 @@
 
         <TextView
                 android:id="@+id/textView_home_see_again"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/StellarTextView_20sp"
@@ -58,12 +60,6 @@
                 android:layout_gravity="center"
                 android:text="@string/home_see_you_again"/>
 
-        <ImageView
-                android:layout_width="75dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_group"/>
-
         <View
                 android:background="@android:color/transparent"
                 android:layout_width="match_parent"
@@ -72,25 +68,26 @@
 
 
         <TextView
-                style="@style/StellarTextView_18sp"
+                style="@style/StellarTextView_16sp"
                 android:id="@+id/textView_seat_limits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:lineSpacingExtra="10dp"
                 android:layout_marginBottom="35dp"
                 android:text="@string/home_remaining_seats"/>
 
         <Button
                 android:id="@+id/button_book_flight"
-                style="@style/StellarButton"
+                style="@style/StellarWhiteButton"
+                android:gravity="center_vertical|start"
                 android:text="@string/home_button_book_flight"
-                android:textSize="18sp"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_marginStart="23dp"
+                android:layout_marginEnd="24dp"
                 android:layout_gravity="bottom"
-                android:layout_marginEnd="23dp"
                 android:layout_marginBottom="23dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="50dp"/>
 
     </LinearLayout>
 </layout>

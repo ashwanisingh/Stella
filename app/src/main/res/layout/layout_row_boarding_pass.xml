@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="18dp"
             android:id="@+id/layout_row_boarding_pass_city"
-            android:background="@color/colorFoodPreferBackground">
+            android:background="@color/colorBoardingPassHeader">
 
         <TextView
                 android:text="@string/booking_from_city"
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="25dp"
-            android:background="@color/colorBookingCardBg">
+            android:background="@color/colorBoardingPassBody">
 
         <TextView
                 android:text="@string/booking_summary_date"

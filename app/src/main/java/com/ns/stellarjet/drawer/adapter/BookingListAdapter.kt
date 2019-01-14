@@ -77,7 +77,7 @@ class BookingListAdapter(
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_tik_personalize , 0 , 0 , 0
                 )
-                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorLoginButton))
+                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
             }else{
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_need_personalize)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(

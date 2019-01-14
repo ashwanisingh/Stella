@@ -80,8 +80,8 @@ public abstract class PermissionUtils {
                                          String permission, boolean finishActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
-            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
-                    .show(activity.getSupportFragmentManager(), "dialog");
+//            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
+//                    .show(activity.getSupportFragmentManager(), "dialog");
         } else {
             // Location permission has not been granted yet, request it.
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
@@ -142,8 +142,8 @@ public abstract class PermissionUtils {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                Toast.makeText(getActivity(), R.string.permission_required_toast,
-                        Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), R.string.permission_required_toast,
+                        Toast.LENGTH_SHORT).show();*/
                 getActivity().finish();
             }
         }

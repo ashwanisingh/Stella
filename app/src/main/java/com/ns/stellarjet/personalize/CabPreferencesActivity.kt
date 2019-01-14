@@ -36,6 +36,11 @@ class CabPreferencesActivity : AppCompatActivity() {
         val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
         val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
 
+        val displayFromCity = resources.getString(R.string.cab_personalize_pickup_location) + " ("+fromCity+")"
+        binding.textViewCabPickupLocation.text =displayFromCity
+        val displayToCity = resources.getString(R.string.cab_personalize_drop_location) + " ("+toCity+")"
+        binding.textViewCabDropLocation.text =displayToCity
+
         binding.editTextPickLocation.setOnClickListener {
             val pickUpIntent = Intent(
                 this ,

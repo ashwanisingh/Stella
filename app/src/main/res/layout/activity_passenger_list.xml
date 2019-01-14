@@ -3,92 +3,103 @@
     <data>
 
     </data>
-    <ScrollView
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        <ScrollView
+                android:id="@+id/scrollView_passenger"
                 android:fitsSystemWindows="true"
-                android:orientation="vertical">
-
-            <Button
-                    android:id="@+id/button_passenger_back"
-                    style="@style/StellarBackButton"/>
-
-            <TextView
-                    style="@style/StellarTextView_22sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:text="@string/info_passenger_title"/>
-
-            <TextView
-                    style="@style/StellarTextView_16sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:alpha="0.5"
-                    android:gravity="center"
-                    android:text="@string/info_passenger_heading"/>
-
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center"
-                    android:layout_marginTop="47dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <Button
+                        android:id="@+id/button_passenger_back"
+                        style="@style/StellarBackButton"/>
 
                 <TextView
-                        android:id="@+id/textView_passenger_self"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/drawable_button_background"
-                        android:gravity="center"
-                        style="@style/StellarTextView_14sp"
-                        android:text="@string/info_passenger_self"/>
+                        style="@style/StellarTextView_30sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:gravity="start"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/passenger_title"/>
 
                 <TextView
-                        android:id="@+id/textView_passenger_guests"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        style="@style/StellarTextView_16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="24dp"
+                        android:lineSpacingExtra="5dp"
+                        android:alpha="0.5"
+                        android:gravity="start"
+                        android:text="@string/passenger_heading"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
                         android:gravity="center"
-                        android:layout_marginStart="-10dp"
-                        android:background="@drawable/drawable_passenger_select"
-                        android:textColor="@color/colorLoginButton"
-                        style="@style/StellarTextView_14sp"
-                        android:text="@string/info_passenger_guest"/>
+                        android:layout_marginTop="47dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/textView_passenger_self"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/drawable_passenger_select_bg"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:textColor="@android:color/black"
+                            android:text="@string/info_passenger_self"/>
+
+                    <TextView
+                            android:id="@+id/textView_passenger_guests"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginStart="-2dp"
+                            android:background="@drawable/drawable_passenger_select"
+                            android:textColor="@color/colorPassengerText"
+                            style="@style/StellarTextView_14sp"
+                            android:text="@string/info_passenger_guest"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/layout_passenger_scroll"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></LinearLayout>
+
+                <Button
+                        android:id="@+id/button_confirm_booking"
+                        style="@style/StellarWhiteButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical|start"
+                        android:layout_marginStart="23dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginEnd="23dp"
+                        android:text="@string/booking_summary_button_book_now"
+                        android:textAllCaps="false"/>
 
             </LinearLayout>
+        </ScrollView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_passenger_list"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_weight="1"
-                    android:layout_height="0dp"/>
-
-            <Button
-                    android:id="@+id/button_confirm_booking"
-                    style="@style/StellarButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="23dp"
-                    android:text="@string/booking_summary_button_book_now"
-                    android:textAllCaps="true"
-                    android:textSize="18sp"/>
-
-        </LinearLayout>
-    </ScrollView>
-
+    </RelativeLayout>
 </layout>

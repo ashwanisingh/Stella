@@ -88,46 +88,38 @@
                 app:todayLabelColor="@android:color/white"
                 app:type="one_day_picker"/>
 
-        <LinearLayout
-                android:layout_width="match_parent"
+        <TextView
+                android:id="@+id/textView_schedule_date"
+                style="@style/StellarTextView_14sp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="33dp"
-                android:layout_marginBottom="23dp"
-                android:layout_marginEnd="32dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="38dp"
+                android:text="@string/booking_date_dummy"/>
 
-            <TextView
-                    android:id="@+id/textView_schedule_date"
-                    style="@style/StellarTextView_14sp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/booking_date_dummy"/>
+        <TextView
+                android:id="@+id/textView_schedule_seats_available"
+                style="@style/StellarTextView_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/booking_date_seats_available"/>
 
-            <TextView
-                    android:id="@+id/textView_schedule_seats_available"
-                    style="@style/StellarTextView_14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:text="@string/booking_date_seats_available"/>
-
-        </LinearLayout>
 
         <Button
                 android:id="@+id/button_schedule_confirm_date"
-                style="@style/StellarButton"
+                style="@style/StellarWhiteButton"
+                android:gravity="start|center_vertical"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="23dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginEnd="23dp"
-                android:text="@string/booking_confirm_date"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/booking_confirm_date"/>
 
     </LinearLayout>
 </layout>

@@ -52,9 +52,10 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/drawable_button_background"
+                            android:background="@drawable/drawable_passenger_select_bg"
                             android:gravity="center"
-                            style="@style/StellarTextView_14sp"
+                            android:textSize="13sp"
+                            android:textColor="@android:color/black"
                             android:text="@string/info_passenger_self"/>
 
                     <TextView
@@ -63,9 +64,9 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:layout_marginStart="-10dp"
+                            android:layout_marginStart="-2dp"
                             android:background="@drawable/drawable_passenger_select"
-                            android:textColor="@color/colorLoginButton"
+                            android:textColor="@color/colorPassengerText"
                             style="@style/StellarTextView_14sp"
                             android:text="@string/info_passenger_guest"/>
 
@@ -82,15 +83,16 @@
 
                 <Button
                         android:id="@+id/button_confirm_booking"
-                        style="@style/StellarButton"
+                        style="@style/StellarWhiteButton"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical|start"
+                        android:paddingStart="24dp"
                         android:layout_marginStart="23dp"
                         android:layout_marginBottom="24dp"
                         android:layout_marginEnd="23dp"
                         android:text="@string/booking_summary_button_book_now"
-                        android:textAllCaps="true"
+                        android:textAllCaps="false"
                         android:textSize="18sp"/>
 
             </LinearLayout>

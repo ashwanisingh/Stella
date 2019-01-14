@@ -21,16 +21,21 @@ import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
 import kotlinx.android.synthetic.main.activity_food_preference_list.*
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
-class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
+class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int) -> Unit {
 
     //    private var mSelectedFoodIds = ""
-    private val mSelectedFoodIds : MutableList<Int> = ArrayList()
+    private var mSelectedFoodIds : MutableList<String> = ArrayList()
     private lateinit var flow: String
     private var isPersonalizeDrawer: Boolean = false
+    private var mFoodsList: List<Food>? = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +70,10 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
 
         button_food_list_confirm.setOnClickListener {
 
-            Log.d("Booking", "onResponse:")
+            Log.d("Booking", "onResponse:$mSelectedFoodIds")
             if(StellarJetUtils.isConnectingToInternet(applicationContext)){
                 if(flow.equals("drawer" , true)){
-                    updateCommonPersonnalizeFood()
+                    updateCommonPersonalizeFood()
                 }else{
                     personalizeFood()
                 }
@@ -79,7 +84,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         }
     }
 
-    private fun updateCommonPersonnalizeFood(){
+    private fun updateCommonPersonalizeFood(){
         val personalizeFood : Call<CommonPersonalizeFoodResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.updateCommonFoodPreferences(
             SharedPreferencesHelper.getUserToken(this) ,
@@ -92,7 +97,28 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                 call: Call<CommonPersonalizeFoodResponse>,
                 response: Response<CommonPersonalizeFoodResponse>){
                 Log.d("Booking", "onResponse: $response")
-                finish()
+                if(response.code() == 200){
+                    mFoodsList?.forEach {
+                        if(mSelectedFoodIds.contains(it.id.toString())){
+                            it.pref = true
+                        }
+                    }
+                    finish()
+                }else if(response.code() == 400){
+                    try {
+                        val mJsonObject = JSONObject(response.errorBody()!!.string())
+                        val errorMessage = mJsonObject.getString("message")
+                        Toast.makeText(this@FoodPreferenceListActivity, errorMessage, Toast.LENGTH_LONG).show()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                    finish()
+                }else if(response.code() == 500){
+                    Toast.makeText(this@FoodPreferenceListActivity, "Please try again later", Toast.LENGTH_LONG).show()
+                    finish()
+                }
             }
 
             override fun onFailure(call: Call<CommonPersonalizeFoodResponse>, t: Throwable) {
@@ -118,25 +144,39 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
                 response: Response<FoodPersonalizeResponse>){
                 progress.hideProgress()
                 Log.d("Booking", "onResponse: $response")
-                SharedPreferencesHelper.saveFoodPersonalize(
-                    this@FoodPreferenceListActivity ,
-                    true
-                )
-                if(isPersonalizeDrawer){
-                    finish()
-                }else{
-                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                        val mPersonalizeSuccessIntent  =  Intent(
-                            this@FoodPreferenceListActivity ,
-                            PersonalizeSuccessActivity::class.java
-                        )
-                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(mPersonalizeSuccessIntent)
+                if(response.code() == 200){
+                    SharedPreferencesHelper.saveFoodPersonalize(
+                        this@FoodPreferenceListActivity ,
+                        true
+                    )
+                    if(isPersonalizeDrawer){
                         finish()
-                        clearPersonalizedPreferences()
                     }else{
-                        finish()
+                        if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                            val mPersonalizeSuccessIntent  =  Intent(
+                                this@FoodPreferenceListActivity ,
+                                PersonalizeSuccessActivity::class.java
+                            )
+                            mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(mPersonalizeSuccessIntent)
+                            finish()
+                            clearPersonalizedPreferences()
+                        }else{
+                            finish()
+                        }
                     }
+                }else if(response.code() == 400){
+                    try {
+                        val mJsonObject = JSONObject(response.errorBody()!!.string())
+                        val errorMessage = mJsonObject.getString("message")
+                        Toast.makeText(this@FoodPreferenceListActivity, errorMessage, Toast.LENGTH_LONG).show()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }else if(response.code() == 500){
+                    Toast.makeText(this@FoodPreferenceListActivity, "Please try again later", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -149,11 +189,11 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
     }
 
     private fun makeFoodListByCategory(foodType : String) :  MutableList<Food>{
-        val mFoodsList =  HomeActivity.sUserData.customer_prefs.foods
+        mFoodsList = HomeActivity.sUserData.customer_prefs.foods
 
         val mFoodsDisplayList : MutableList<Food> = ArrayList()
 
-        mFoodsList.forEach {
+        mFoodsList!!.forEach {
             if(it.food_type_text.equals(foodType , false)){
                 mFoodsDisplayList.add(it)
             }
@@ -162,8 +202,13 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String) -> Unit {
         return mFoodsDisplayList
     }
 
-    override fun invoke(selectedID: String) {
-        mSelectedFoodIds.add(selectedID.toInt())
+    override fun invoke(selectedID: String , isSelected : Boolean , position :Int) {
+//        mFoodsList!![position].pref = isSelected
+        if(mSelectedFoodIds.contains(selectedID)){
+            mSelectedFoodIds.remove(selectedID)
+        }else{
+            mSelectedFoodIds.add(selectedID)
+        }
     }
 
     private fun clearPersonalizedPreferences(){

@@ -149,8 +149,10 @@
         <activity
                 android:name=".personalize.SavedAddressListActivity"
                 android:screenOrientation="portrait"/>
-        <activity android:name=".booking.PassengerListActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".booking.PassengerListActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

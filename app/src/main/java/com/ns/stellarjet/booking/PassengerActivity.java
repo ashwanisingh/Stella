@@ -68,7 +68,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         /* set RecyclerView */
         PassengersAdapter mPassengersAdapter = new PassengersAdapter(
                 this ,
-                this,
+                    this,
                 HomeActivity.sUserData.getContacts() ,
                 numOfGuests ,
                 true
@@ -95,13 +95,13 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
             PassengersAdapter.changeSelfInfo(PassengerActivity.this , true);
-            activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_button_background));
+            activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select_bg));
             activityPassengerBinding.textViewPassengerSelf.setTextColor(
-                    ContextCompat.getColor(PassengerActivity.this , android.R.color.white)
+                    ContextCompat.getColor(PassengerActivity.this , android.R.color.black)
             );
             activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_passenger_select));
             activityPassengerBinding.textViewPassengerGuests.setTextColor(
-                    ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
+                    ContextCompat.getColor(PassengerActivity.this , R.color.colorPassengerText)
             );
             if(isOnlySelfTravelling && numOfGuests ==1){
                 activityPassengerBinding.buttonConfirmBooking.setEnabled(true);
@@ -115,11 +115,11 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                 PassengersAdapter.changeSelfInfo(PassengerActivity.this,false);
                 activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
                 activityPassengerBinding.textViewPassengerSelf.setTextColor(
-                        ContextCompat.getColor(PassengerActivity.this , R.color.colorLoginButton)
+                        ContextCompat.getColor(PassengerActivity.this , R.color.colorPassengerText)
                 );
-                activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_button_background));
+                activityPassengerBinding.textViewPassengerGuests.setBackground(getDrawable(R.drawable.drawable_passenger_select_bg));
                 activityPassengerBinding.textViewPassengerGuests.setTextColor(ContextCompat.getColor(PassengerActivity.this ,
-                        android.R.color.white));
+                        android.R.color.black));
                 if(numOfGuests == 1){
                     activityPassengerBinding.buttonConfirmBooking.setEnabled(false);
                     activityPassengerBinding.buttonConfirmBooking.setAlpha((float) 0.4);
@@ -407,7 +407,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         PassengersAdapter.mSelectedPhoneNumberList.clear();
         PassengersAdapter.mGuestRequestDataList.clear();
         PassengersAdapter.mPassengerInfoViewHolder = null;
-
     }
 
 

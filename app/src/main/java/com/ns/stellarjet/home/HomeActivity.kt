@@ -1,5 +1,6 @@
 package com.ns.stellarjet.home
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
@@ -16,6 +17,7 @@ import com.ns.networking.model.FlightSeatsConfirmResponse
 import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
+import com.ns.stellarjet.booking.PassengerListActivity
 import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
@@ -66,49 +68,36 @@ class HomeActivity : AppCompatActivity() {
                 mSeatNamesId.add(it.flight_seat_id!!)
             }
             sUserData.locked_seats!!.forEach {
-                mSeatNames.add(it.flight_seat!!.seat_code)
+                mSeatNames.add(it.flight_seat!!.seat_code!!)
             }
 
             launchDialog()
         }
 
         /* set the username only if he is primary*/
-        if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
+        /*if(SharedPreferencesHelper.getUserType(this)!!.equals("primary" , ignoreCase = true)){
             activityHomeBinding.textViewHomeUserName.visibility = View.VISIBLE
             activityHomeBinding.textViewHomeUserName.text = sUserData.name
             activityHomeBinding.textViewHomeSeeAgain.visibility = View.GONE
         }else if(SharedPreferencesHelper.getUserType(this)!!.equals("secondary" , ignoreCase = true)){
             activityHomeBinding.textViewHomeUserName.visibility = View.GONE
             activityHomeBinding.textViewHomeSeeAgain.visibility = View.VISIBLE
-        }
+        }*/
+
+        val displayName = resources.getString(R.string.home_title_hello_again) + sUserData.name+ ","+
+                resources.getString(R.string.home_title_welcome_back)
+        activityHomeBinding.textviewHomeHelloAgain.text = displayName
+
 
         /* set the seats limit  */
         val seatsAvailable = sUserData.customer_prefs.seats_available
         val seatsRemaining: SpannableString
         activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
-        if(seatsAvailable > 5){
-            activityHomeBinding.textViewSeatLimits.text =
-                    resources.getString(R.string.home_remaining_seats_first_half)
-            seatsRemaining = SpannableString(" $seatsAvailable seats ")
-            seatsRemaining.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorLoginButton)),
-                0,
-                seatsRemaining.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }else{
-            activityHomeBinding.textViewSeatLimits.text =
-                    resources.getString(R.string.home_remaining_seats_first_half)
-            seatsRemaining = SpannableString(" $seatsAvailable seats ")
-            seatsRemaining.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(this , R.color.colorCreditAlert)),
-                0,
-                seatsRemaining.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-        activityHomeBinding.textViewSeatLimits.append(seatsRemaining)
-        activityHomeBinding.textViewSeatLimits.append(resources.getString(R.string.home_remaining_seats_second_half))
+        val displaySeats = resources.getString(R.string.home_remaining_seats_first_half) + " " +
+                seatsAvailable + " "+
+                resources.getString(R.string.home_remaining_seats_second_half)
+        activityHomeBinding.textViewSeatLimits.text = displaySeats
+
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
@@ -185,12 +174,21 @@ class HomeActivity : AppCompatActivity() {
             _id.dismiss()
 
         }
-
-
         val alert11 = alertDialogBuilder.create()
-        alert11.show()
         alert11.setCanceledOnTouchOutside(false)
         alert11.setCancelable(false)
+
+
+
+        alert11.setOnShowListener {
+            alert11.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+            alert11.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+        }
+
+        alert11.show()
+
+
+
 
     }
 

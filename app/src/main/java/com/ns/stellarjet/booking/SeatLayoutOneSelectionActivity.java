@@ -101,7 +101,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seat_selection);
+        setContentView(R.layout.layout_seat_eight);
 
         ButterKnife.bind(this);
 
@@ -162,7 +162,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             if(numOfGuests == 0){
                 Toast.makeText(SeatLayoutOneSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
             }else {
-                Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerActivity.class);
+                Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerListActivity.class);
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
                 startActivity(mGuestAddIntent);
             }
@@ -497,7 +497,38 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         unlockSingleSeats(mLockedSeatList);
                     }
                 }
+                setSeatSelectionOnState(mSelectedSeatList.get(i).getSeatName() , isSelected);
+                mSelectedSeatList.get(i).setSelected(isSelected);
             }
+        }
+    }
+
+    private void setSeatSelectionOnState(String seatName , boolean isSelected){
+        switch (seatName){
+            case "Alpha":
+                isAlphaBooked = isSelected;
+                break;
+            case "Brave":
+                isBravoBooked = isSelected;
+                break;
+            case "Charlie":
+                isCharlieBooked = isSelected;
+                break;
+            case "Delta":
+                isDeltaBooked = isSelected;
+                break;
+            case "Echo":
+                isEchoBooked = isSelected;
+                break;
+            case "Foxtrot":
+                isFoxtrotBooked = isSelected;
+                break;
+            case "Golf":
+                isGolfBooked = isSelected;
+                break;
+            case "Hotel":
+                isHotelBooked = isSelected;
+                break;
         }
     }
 

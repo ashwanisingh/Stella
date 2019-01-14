@@ -22,6 +22,7 @@
 
             <fragment
                     android:layout_marginTop="40dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
                     android:gravity="center"
                     android:id="@+id/place_autocomplete_fragment"
@@ -62,8 +63,9 @@
                 android:layout_height="2dp"/>
 
         <TextView
-                android:text="@string/info_saved_address"
+                android:text="@string/info_saved_address_title"
                 android:alpha="0.4"
+                android:textAllCaps="true"
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="65dp"
                 style="@style/StellarTextView_12sp"

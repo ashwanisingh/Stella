@@ -11,6 +11,8 @@ public class GuestPrefsDataRequest {
     private Integer guestId;
     @SerializedName("phone")
     private String phone = null;
+    @SerializedName("name")
+    private String name = null;
     @SerializedName("food_prefs")
     private List<Integer> mFoodPrefsList ;
 
@@ -39,5 +41,12 @@ public class GuestPrefsDataRequest {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 

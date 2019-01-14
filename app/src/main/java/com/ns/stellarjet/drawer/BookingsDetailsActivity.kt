@@ -20,6 +20,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
+    private var mSelectedFoodIds : MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +33,14 @@ class BookingsDetailsActivity : AppCompatActivity() {
         val bookingData: Booking? = intent.extras?.getParcelable("bookingDetails")
         val bookingType = intent.extras?.getString("bookingType")
 
+
         if(bookingType.equals("completed" , true)){
-            binding.textViewBookingsTitlePersonalize.visibility = View.GONE
-            binding.textViewBookingsDetailsPersonalizeTime.visibility = View.GONE
-            binding.textViewBookingsDetailsCabsTitle.visibility = View.GONE
-            binding.textViewBookingsDetailsFoodTitle.visibility = View.GONE
-            binding.view3.visibility = View.GONE
             binding.viewBookingsDetailsDivider.visibility = View.GONE
             binding.layoutBookingsDetailsCabBase.visibility = View.GONE
             binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
+            binding.viewCabAfterDivider.visibility = View.GONE
+            binding.viewFoodAfterDivider.visibility = View.GONE
+            binding.viewDetaisAfterDivider.visibility = View.GONE
         }
         binding.bookings = bookingData
 
@@ -67,9 +67,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
             }
         }
 
+        val cities = bookingData?.from_city_info?.name + " to \n"+ bookingData?.to_city_info?.name
+        binding.textViewBookingsDetailsFromCity.text = cities
+
         val expiryTime = getString(R.string.booking_summary_personalize_time_expiry) +
                 StellarJetUtils.getPersonalizationHours(bookingData?.journey_datetime!!)
-        binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime
+//        binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime
 
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName

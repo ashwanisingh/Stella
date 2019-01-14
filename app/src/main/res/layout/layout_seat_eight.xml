@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:fitsSystemWindows="true"
+              android:layout_marginBottom="20dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+            android:layout_marginStart="15dp"
+            style="@style/StellarBackButton"
+            android:id="@+id/button_seat_selection_back"    />
+
+    <TextView
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:text="@string/personalize_seat_title"
+            android:id="@+id/textView_seat_title"
+            android:layout_gravity="start"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        <LinearLayout
+                android:id="@+id/layout_left_sun_status"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+            <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_sun"
+                    android:contentDescription="@string/info_flight_sunset"/>
+
+            <com.ns.stellarjet.VerticalTextView
+                    android:gravity="center"
+                    android:id="@+id/textView_left_sun_status"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:rotation="0"
+                    android:text="@string/info_flight_sunset"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"/>
+
+        <ScrollView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <include layout="@layout/layout_seat_one"/>
+
+        </ScrollView>
+
+        <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"/>
+
+        <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/layout_right_sun_status"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_sun"
+                    android:contentDescription="@string/info_flight_sunrise"/>
+
+            <com.ns.stellarjet.VerticalTextView
+                    android:rotation="180"
+                    android:id="@+id/textView_right_sun_status"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:text="@string/info_flight_sunrise"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+            style="@style/StellarWhiteButton"
+            android:text="@string/booking_confirm_seats"
+            android:id="@+id/button_seat_confirmed"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

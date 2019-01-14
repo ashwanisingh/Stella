@@ -61,8 +61,8 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         val foodType : HashSet<String> = HashSet()
         val mFoodsTypeList : MutableList<String> = ArrayList()
 
-        mFoodsList.forEach {
-            foodType.add(it.food_type_text)
+        mFoodsList!!.forEach {
+            foodType.add(it.food_type_text!!)
         }
 
         foodType.forEach {
