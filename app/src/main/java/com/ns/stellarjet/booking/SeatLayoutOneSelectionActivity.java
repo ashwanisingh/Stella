@@ -114,6 +114,11 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         String sunRiseSet = getIntent().getExtras().getString("sunRiseSet");
         flowFrom = getIntent().getExtras().getString("flowFrom");
 
+        mFlightSeatList = new ArrayList<>();
+        mSelectedSeatList = new ArrayList<>();
+        mBookedSeatsList= new ArrayList<>();
+        mConfirmedSeatsList = new ArrayList<>();
+
         String sunStatusDisplay = null;
         if (sunRiseSet != null) {
             if(sunRiseSet.equalsIgnoreCase("rise")){
