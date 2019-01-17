@@ -374,6 +374,21 @@ public class SharedPreferencesHelper {
         return gson.fromJson(json, type);
     }
 
+
+    public static void saveDeviceToken(Context mContext , String token){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_DEVICE_TOKEN, token);
+        mEditor.apply();
+    }
+
+    public static String getDeviceToken(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_DEVICE_TOKEN, ""
+        );
+    }
+
+
+
     /**
      * clears all SharedPreferences if passcode attempts are failed
      * @param mContext

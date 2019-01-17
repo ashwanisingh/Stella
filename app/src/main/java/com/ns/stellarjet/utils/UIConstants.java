@@ -176,5 +176,9 @@ public class UIConstants {
      * String constant for SharedPreferences seatnames id
      */
     public static final String PREFERENCES_BOOKING_SEATSNAMES = "SeatsNames";
+    /**
+     * String constant for SharedPreferences device token
+     */
+    public static final String PREFERENCES_DEVICE_TOKEN = "DeviceToken";
 
 }

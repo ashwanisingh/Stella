@@ -169,6 +169,15 @@ public interface StellarApiService {
             @Field("food_prefs[]") List<String> foodsList
     );
 
+    @FormUrlEncoded
+    @POST(Constants.UPDATE_DEVICE_TOKEN_API)
+    Call<UpdateDeviceToken> updateDeviceToken(
+            @Field("token") String token,
+            @Field("user") String userId,
+            @Field("usertype") String userType,
+            @Field("device_token") String deviceToken
+    );
+
 
 /*
 @GET(Constants.CITY_LIST_API)

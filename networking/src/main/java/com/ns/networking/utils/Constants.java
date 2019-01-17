@@ -24,5 +24,6 @@ public class Constants {
     public static final String UPDATE_PREFERENCES_API = "customer/prefs_update";
     public static final String FORGOT_PASSWORD_API = "http://35.154.43.51/app/v2/public/api/v2/password/request_test";
     public static final String COMMON_FOOD_UPDATE_API = "customer/prefs_update";
+    public static final String UPDATE_DEVICE_TOKEN_API = "device_token/update";
 
 }

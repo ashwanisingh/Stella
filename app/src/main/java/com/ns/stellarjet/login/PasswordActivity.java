@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import com.ns.networking.model.ForgotPasswordResponse;
 import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.UpdateDeviceToken;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
@@ -112,6 +114,7 @@ public class PasswordActivity extends AppCompatActivity {
                     SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
                     SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
                     SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
+                    sendDeviceTokenToServer();
                     Intent mPassCodeIntent = new Intent(
                             PasswordActivity.this ,
                             PassCodeActivity.class
@@ -145,5 +148,33 @@ public class PasswordActivity extends AppCompatActivity {
         final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
         animShake.setDuration(50);
         mActivityPasswordBinding.editTextAccountPassword.startAnimation(animShake);
+    }
+
+    private void sendDeviceTokenToServer(){
+
+        Call<UpdateDeviceToken> mUpdateDeviceTokenCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
+                .getStellarJetAPIs().updateDeviceToken(
+                        SharedPreferencesHelper.getUserToken(PasswordActivity.this) ,
+                        SharedPreferencesHelper.getUserId(PasswordActivity.this) ,
+                        SharedPreferencesHelper.getUserType(PasswordActivity.this),
+                        SharedPreferencesHelper.getDeviceToken(PasswordActivity.this)
+                );
+
+        mUpdateDeviceTokenCall.enqueue(new Callback<UpdateDeviceToken>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateDeviceToken> call, @NonNull Response<UpdateDeviceToken> response) {
+                Log.d("DeviceToken", "onResponse: " + response.body());
+                if(response.body()!=null){
+                    if(response.body().getResultcode() == 1){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateDeviceToken> call, @NonNull Throwable t) {
+                Log.d("DeviceToken", "onResponse: " + t);
+            }
+        });
     }
 }
