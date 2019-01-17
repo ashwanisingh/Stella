@@ -61,7 +61,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:background="@color/colorCabPersonalizeCardView"
+                android:background="@drawable/drawable_booking_list_bg"
                 android:orientation="vertical">
 
             <LinearLayout
@@ -110,7 +110,7 @@
                     android:textColorHint="@android:color/white"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:alpha="0.4"
+                    android:alpha="0.3"
                     android:maxLength="30"
                     android:background="@drawable/drawable_edittext_background"
                     android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
                 android:alpha="0.9"
-                android:background="@color/colorCabPersonalizeCardView"
+                android:background="@drawable/drawable_booking_list_bg"
                 android:orientation="vertical">
 
             <LinearLayout
@@ -177,7 +177,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:alpha="0.4"
+                    android:alpha="0.3"
                     android:maxLength="30"
                     android:background="@drawable/drawable_edittext_background"
                     android:layout_width="match_parent"

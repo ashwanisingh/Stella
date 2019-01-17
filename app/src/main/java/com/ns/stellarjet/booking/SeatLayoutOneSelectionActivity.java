@@ -101,11 +101,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         setContentView(R.layout.layout_seat_eight);
 
         ButterKnife.bind(this);
@@ -113,11 +108,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         String direction = Objects.requireNonNull(getIntent().getExtras()).getString("direction");
         String sunRiseSet = getIntent().getExtras().getString("sunRiseSet");
         flowFrom = getIntent().getExtras().getString("flowFrom");
-
-        mFlightSeatList = new ArrayList<>();
-        mSelectedSeatList = new ArrayList<>();
-        mBookedSeatsList= new ArrayList<>();
-        mConfirmedSeatsList = new ArrayList<>();
 
         String sunStatusDisplay = null;
         if (sunRiseSet != null) {
@@ -177,6 +167,12 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 startActivity(mGuestAddIntent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void getFlightSeats(){

@@ -8,7 +8,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:background="@color/colorBookingCardBg"
+        android:background="@drawable/drawable_booking_list_bg"
         android:padding="12dp">
 
     <TextView

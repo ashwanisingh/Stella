@@ -36,7 +36,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
     private var isPersonalizeDrawer: Boolean = false
     private var mFoodsList: List<Food>? = ArrayList()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,12 +43,10 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
             this ,
             R.layout.activity_food_preference_list
         )
-
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
         flow = intent?.extras?.getString("FlowFrom")!!
         isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         activityBinding.textViewFoodListName.text = foodType
-
 
         val foodListAdapter = FoodListAdapter(
             makeFoodListByCategory(foodType) ,
@@ -99,9 +96,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 Log.d("Booking", "onResponse: $response")
                 if(response.code() == 200){
                     mFoodsList?.forEach {
-                        if(mSelectedFoodIds.contains(it.id.toString())){
-                            it.pref = true
-                        }
+                        it.pref = mSelectedFoodIds.contains(it.id.toString())
                     }
                     finish()
                 }else if(response.code() == 400){
@@ -196,6 +191,13 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
         mFoodsList!!.forEach {
             if(it.food_type_text.equals(foodType , false)){
                 mFoodsDisplayList.add(it)
+            }
+        }
+
+        if(flow.equals("personalize",true)){
+            val selectedPersonalizeFoodList = intent?.extras?.getIntegerArrayList("personalizeFoodSelect")!!
+            mFoodsDisplayList?.forEach {
+                it.pref = selectedPersonalizeFoodList.contains(it.id)
             }
         }
 

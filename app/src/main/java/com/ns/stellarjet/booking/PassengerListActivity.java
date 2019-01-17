@@ -634,7 +634,8 @@ public class PassengerListActivity extends AppCompatActivity {
                         int errorCode = mJsonObject.getInt("resultcode");
                         if(errorCode == 4){
                             // Operation timed out . please reselect seats
-                            showTimeOutDialog();
+//                            showTimeOutDialog();
+                            Toast.makeText(PassengerListActivity.this, "Operation timed out . please reselect seats", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();

@@ -23,6 +23,9 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             this ,
             R.layout.activity_personalize_launch)
 
+        SharedPreferencesHelper.saveCabDropPersonalize(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+
         binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
             0 ,0 ,R.drawable.ic_date_next , 0
         )
@@ -120,9 +123,9 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
 
     private fun clearPersonalizedPreferences(){
         SharedPreferencesHelper.saveCabDropPersonalize(this , "")
+        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveCabDropPersonalizeID(this , "")
         SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
-        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
         SharedPreferencesHelper.saveFoodPersonalize(this ,false)
     }

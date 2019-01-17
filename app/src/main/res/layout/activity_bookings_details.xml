@@ -32,6 +32,7 @@
                     android:alpha="0.9"
                     android:textAllCaps="false"
                     android:gravity="start"
+                    android:lineSpacingExtra="5dp"
                     android:layout_marginStart="24dp"
                     android:id="@+id/textView_bookings_details_from_city"
                     android:layout_width="wrap_content"
@@ -148,7 +149,7 @@
                     android:background="@color/colorAddressDivider"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="25dp"
                     android:layout_marginTop="50dp"/>
 
             <LinearLayout

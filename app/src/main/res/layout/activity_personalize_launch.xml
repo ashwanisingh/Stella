@@ -125,11 +125,11 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:layout_marginStart="47dp"
+                android:layout_marginStart="23dp"
                 android:layout_marginEnd="48dp"
                 android:alpha="0.8"
-                android:background="@color/colorPersonalizeButton"
-                android:layout_height="wrap_content"/>
+                android:background="@drawable/drawable_personalize_button"
+                android:layout_height="50dp"/>
 
         <TextView
                 android:text="@string/personalize_update_title"
@@ -140,7 +140,7 @@
                 android:gravity="start"
                 android:lineSpacingExtra="10dp"
                 android:id="@+id/textView_update_preferences"
-                android:layout_marginStart="47dp"
+                android:layout_marginStart="23dp"
                 android:layout_marginEnd="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

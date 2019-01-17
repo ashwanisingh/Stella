@@ -90,9 +90,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
         }
 
         binding.layoutBookingsDetailsFoodBase.setOnClickListener {
+            val foodItems = bookingData?.prefs?.main_passenger?.food_items
             val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
             foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
             foodPersonalizeIntent.putExtra("personalizeDrawer" , true)
+            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
             startActivity(foodPersonalizeIntent)
         }
 
@@ -109,7 +111,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             )
         }
 
-        /*if(bookingData.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
+        if(bookingData.service.equals("standard", true) ){
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0 , 0 ,0 ,0
             )
@@ -118,7 +120,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
             isFoodPersonalized = true
-        }*/
+        }
     }
 
     override fun onRestart() {

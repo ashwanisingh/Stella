@@ -68,14 +68,12 @@ class BookingListAdapter(
             }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){
                 isCabPersonlaized = true
             }
-            /*if(!bookings.prefs?.main_passenger?.food_items?.name.equals("standard", true) ){
-                isFoodPersonlaized = true
-            }*/
+            isFoodPersonlaized = !bookings.service.equals("standard", true)
 
             if(isCabPersonlaized && isFoodPersonlaized){
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_tik_personalize , 0 , 0 , 0
+                    R.mipmap.ic_booking_done, 0 , 0 , 0
                 )
                 mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
             }else{

@@ -28,5 +28,6 @@
     <color name="colorBoardingPassBody">#34354c</color>
     <color name="colorPersonalizeButton">#656574</color>
     <color name="colorCabPersonalizeCardView">#525376</color>
+    <color name="colorBookingBgCard">#34354c</color>
 
 </resources>

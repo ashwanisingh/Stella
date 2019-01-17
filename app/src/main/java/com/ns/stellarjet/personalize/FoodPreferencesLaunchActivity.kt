@@ -7,18 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ns.networking.model.Booking
+import com.ns.networking.model.FoodItems
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferencesLaunchBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodCategoryListAdapter
 import com.ns.stellarjet.utils.UIConstants
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
     private var isPersonalizeDrawer: Boolean = false
+    private var mSelectedFoodIds : MutableList<Int> = ArrayList()
+    var foodList: ArrayList<FoodItems>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +30,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
         flow = intent?.extras?.getString("FlowFrom")!!
         isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
+        foodList = intent?.extras?.getParcelableArrayList<FoodItems>("selectedFoods")
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
             DataBindingUtil.setContentView(
@@ -75,6 +79,9 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
 
     override fun invoke(foodTypeSelected: String) {
+        foodList?.forEach {
+            mSelectedFoodIds.add(it.id)
+        }
         val mFoodListIntent =  Intent(
             this ,
             FoodPreferenceListActivity::class.java
@@ -82,6 +89,9 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
         mFoodListIntent.putExtra("FlowFrom" , flow)
         mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
+        mFoodListIntent.putIntegerArrayListExtra("personalizeFoodSelect" ,
+            mSelectedFoodIds as java.util.ArrayList<Int>?
+        )
         startActivity(mFoodListIntent)
     }
 

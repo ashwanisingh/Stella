@@ -29,7 +29,7 @@
                 style="@style/StellarTextView_16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginStart="36dp"
                 android:alpha="0.5"
                 android:text="@string/passcode_title_heading"
