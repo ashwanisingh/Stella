@@ -93,7 +93,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             val foodItems = bookingData?.prefs?.main_passenger?.food_items
             val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
             foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
-            foodPersonalizeIntent.putExtra("personalizeDrawer" , true)
             foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
             startActivity(foodPersonalizeIntent)
         }

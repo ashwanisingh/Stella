@@ -33,8 +33,8 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
     //    private var mSelectedFoodIds = ""
     private var mSelectedFoodIds : MutableList<String> = ArrayList()
     private lateinit var flow: String
-    private var isPersonalizeDrawer: Boolean = false
     private var mFoodsList: List<Food>? = ArrayList()
+    private var mPersonalizeSelectedFoodsList: List<Int>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
         )
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
         flow = intent?.extras?.getString("FlowFrom")!!
-        isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         activityBinding.textViewFoodListName.text = foodType
 
         val foodListAdapter = FoodListAdapter(
@@ -144,21 +143,17 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                         this@FoodPreferenceListActivity ,
                         true
                     )
-                    if(isPersonalizeDrawer){
+                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                        val mPersonalizeSuccessIntent  =  Intent(
+                            this@FoodPreferenceListActivity ,
+                            PersonalizeSuccessActivity::class.java
+                        )
+                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(mPersonalizeSuccessIntent)
                         finish()
+                        clearPersonalizedPreferences()
                     }else{
-                        if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                            val mPersonalizeSuccessIntent  =  Intent(
-                                this@FoodPreferenceListActivity ,
-                                PersonalizeSuccessActivity::class.java
-                            )
-                            mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(mPersonalizeSuccessIntent)
-                            finish()
-                            clearPersonalizedPreferences()
-                        }else{
-                            finish()
-                        }
+                        finish()
                     }
                 }else if(response.code() == 400){
                     try {
@@ -196,10 +191,11 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
 
         if(flow.equals("personalize",true)){
             val selectedPersonalizeFoodList = intent?.extras?.getIntegerArrayList("personalizeFoodSelect")!!
-            mFoodsDisplayList?.forEach {
+            mFoodsDisplayList.forEach {
                 it.pref = selectedPersonalizeFoodList.contains(it.id)
             }
         }
+
 
         return mFoodsDisplayList
     }

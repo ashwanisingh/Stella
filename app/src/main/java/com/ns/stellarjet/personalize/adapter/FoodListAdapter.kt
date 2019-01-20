@@ -47,11 +47,11 @@ class FoodListAdapter (
                     mFoodName.setCompoundDrawablesWithIntrinsicBounds(0 ,0 ,
                         R.mipmap.ic_food_unselect, 0)
                     isSelected= false
-//                    onSelectDishListenerParams(foodType.id.toString() , isSelected, position)
+                    onSelectDishListenerParams(foodType.id.toString() , isSelected!!, position)
                 }else{
                     mFoodName.setCompoundDrawablesWithIntrinsicBounds( 0 , 0 , R.mipmap.ic_food_select,0)
                     isSelected= true
-//                    onSelectDishListenerParams(foodType.id.toString() , isSelected, position)
+                    onSelectDishListenerParams(foodType.id.toString() , isSelected!!, position)
                 }
             }
             /*mFoodDescription.text = foodType.description

@@ -19,7 +19,6 @@ import kotlin.collections.ArrayList
 class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
-    private var isPersonalizeDrawer: Boolean = false
     private var mSelectedFoodIds : MutableList<Int> = ArrayList()
     var foodList: ArrayList<FoodItems>? = null
 
@@ -29,7 +28,6 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         setContentView(R.layout.activity_food_preferences_launch)
 
         flow = intent?.extras?.getString("FlowFrom")!!
-        isPersonalizeDrawer = intent?.extras?.getBoolean("personalizeDrawer")!!
         foodList = intent?.extras?.getParcelableArrayList<FoodItems>("selectedFoods")
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
@@ -88,7 +86,6 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         )
         mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
         mFoodListIntent.putExtra("FlowFrom" , flow)
-        mFoodListIntent.putExtra("personalizeDrawer" , isPersonalizeDrawer)
         mFoodListIntent.putIntegerArrayListExtra("personalizeFoodSelect" ,
             mSelectedFoodIds as java.util.ArrayList<Int>?
         )
