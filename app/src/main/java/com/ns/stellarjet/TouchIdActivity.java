@@ -23,12 +23,17 @@ public class TouchIdActivity extends AppCompatActivity implements BiometricCallb
 
         mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
 
-        new BiometricManager.BiometricBuilder(TouchIdActivity.this)
-                .setTitle(getString(R.string.biometric_title))
-                .setSubtitle(getString(R.string.biometric_subtitle))
-                .setNegativeButtonText(getString(R.string.biometric_negative_button_text))
-                .build()
-                .authenticate(TouchIdActivity.this);
+        try{
+            new BiometricManager.BiometricBuilder(TouchIdActivity.this)
+                    .setTitle(getString(R.string.biometric_title))
+                    .setSubtitle(getString(R.string.biometric_subtitle))
+                    .setNegativeButtonText(getString(R.string.biometric_negative_button_text))
+                    .build()
+                    .authenticate(TouchIdActivity.this);
+        }catch (java.lang.RuntimeException e){
+            launchPasscodeActivity();
+        }
+
     }
 
 
