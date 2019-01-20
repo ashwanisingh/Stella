@@ -130,6 +130,10 @@ public class UIConstants {
      * String constant for bundle value for to city
      */
     public static final String BUNDLE_SELECTED_CITY_ID = "selectedCityId";
+    /**
+     * String constant for bundle value for to city
+     */
+    public static final String BUNDLE_SELECTED_CITY = "selectedCity";
 
     /*  storing booking data */
     /**

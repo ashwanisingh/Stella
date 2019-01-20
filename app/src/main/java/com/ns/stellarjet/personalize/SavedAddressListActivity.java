@@ -87,6 +87,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+            mAddAddressIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY , selectedCity);
 
             startActivity(mAddAddressIntent);
             finish();
@@ -229,6 +230,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
                     mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
                     mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+                    mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY , selectedCity);
                     startActivity(mIntent);
                     finish();
                 }else{
@@ -250,6 +252,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
                     mIntent.putExtra(UIConstants.BUNDLE_CAB_TYPE , cabType);
                     mIntent.putExtra(UIConstants.BUNDLE_CAB_LATLONG , latLng);
+                    mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY , selectedCity);
                     startActivity(mIntent);
                     finish();
                 }else{

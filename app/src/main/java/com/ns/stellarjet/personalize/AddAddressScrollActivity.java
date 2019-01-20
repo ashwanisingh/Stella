@@ -51,6 +51,8 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
     private Location myLocation;
     private LatLng mLatLng;
     private int mSelectedCityId = 0;
+    private String mSelectedCity = "";
+
 
     /**
      * Flag indicating whether a requested permission has been denied after returning in
@@ -75,6 +77,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         mCabType = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_CAB_TYPE);
         mLatLng = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_CAB_LATLONG);
         mSelectedCityId = Objects.requireNonNull(getIntent().getExtras()).getInt(UIConstants.BUNDLE_SELECTED_CITY_ID);
+        mSelectedCity = Objects.requireNonNull(getIntent().getExtras()).getString(UIConstants.BUNDLE_SELECTED_CITY);
         if (mCabType != null) {
             if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
                 mLocationTypeTextView.setText(getResources().getString(R.string.address_set_pickup_location));
@@ -194,7 +197,16 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
             String address = addresses.get(0).getAddressLine(0);
             //TODO : use postal code
-            mAddressEditText.setText(address);
+            String locality = addresses.get(0).getLocality();
+            if(locality.equalsIgnoreCase(mSelectedCity)){
+                mAddressEditText.setText(address);
+            }else {
+                mAddressEditText.setText("");
+                mAddressEditText.setHint("Please select area in " + mSelectedCity);
+                Toast.makeText(AddAddressScrollActivity.this,
+                        "Please select area in " + mSelectedCity,
+                        Toast.LENGTH_SHORT).show();
+            }
         }catch(Exception e){
             Log.d("Maps", "onLocationChanged: " + e);
         }
@@ -255,6 +267,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         mMap = googleMap;
 
         mMap.setOnMyLocationButtonClickListener(this);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
