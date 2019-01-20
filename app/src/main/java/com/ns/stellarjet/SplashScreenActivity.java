@@ -1,22 +1,14 @@
 package com.ns.stellarjet;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.Toast;
-import android.widget.VideoView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.google.firebase.messaging.FirebaseMessaging;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.model.RefreshTokenResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
-import com.ns.networking.utils.Constants;
-import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.login.LoginActivity;
-import com.ns.stellarjet.login.PasswordActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
@@ -28,6 +20,8 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
+//import com.google.firebase.messaging.FirebaseMessaging;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -35,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+//        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
         /*try {
             VideoView videoHolder = new VideoView(this);
@@ -84,7 +78,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Log.d("Splash", "onResponse: " + response.body());
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,
-                            PassCodeActivity.class
+                            TouchIdActivity.class
                     );
                     mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
                     startActivity(mHomeIntent);

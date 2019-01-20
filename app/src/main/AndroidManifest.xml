@@ -13,6 +13,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
+    <!-- Step 1: Add the following permission to the app  -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <!-- Step 2: This permission is depreciated in Android P  -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_stellar_launcher"
@@ -139,6 +145,7 @@
         -->
         <activity
                 android:name=".PassCodeActivity"
+                android:launchMode="singleInstance"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".booking.SeatLayoutOneSelectionActivity"
@@ -154,16 +161,15 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
 
-        <meta-data
-                android:name="com.google.android.gms.car.application"
-                android:resource="@xml/automotive_app_desc"/>
+        <!--        <service android:name=".notifications.MyFirebaseMessagingService">
+                    <intent-filter>
+                        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                    </intent-filter>
+                </service>-->
 
-        <service android:name=".notifications.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity android:name=".TouchIdActivity"
+                  android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
