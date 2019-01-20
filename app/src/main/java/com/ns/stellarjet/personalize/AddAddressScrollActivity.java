@@ -193,6 +193,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
             String address = addresses.get(0).getAddressLine(0);
+            //TODO : use postal code
             mAddressEditText.setText(address);
         }catch(Exception e){
             Log.d("Maps", "onLocationChanged: " + e);
