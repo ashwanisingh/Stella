@@ -195,7 +195,7 @@
                     android:id="@+id/button_seats_hotel"
                     android:layout_width="64dp"
                     android:layout_height="68dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="50dp"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:paddingBottom="10dp"
