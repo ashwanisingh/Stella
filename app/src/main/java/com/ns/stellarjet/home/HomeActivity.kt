@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.FlightSeatsConfirmResponse
+import com.ns.networking.model.UpdateDeviceToken
 import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
@@ -48,6 +49,8 @@ class HomeActivity : AppCompatActivity() {
         )
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
+
+        sendDeviceTokenToServer()
 
 //        set locked seats data and pass to Seat layout Activity
         if(sUserData.locked_seats?.isNotEmpty()!!){
@@ -217,6 +220,33 @@ class HomeActivity : AppCompatActivity() {
                 progress.hideProgress()
                 Log.d("Booking", "onFailure: $t")
                 Toast.makeText(this@HomeActivity, "Server Error Occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+    private fun sendDeviceTokenToServer() {
+
+        val mUpdateDeviceTokenCall = RetrofitAPICaller.getInstance(this@HomeActivity)
+            .stellarJetAPIs.updateDeviceToken(
+            SharedPreferencesHelper.getUserToken(this@HomeActivity),
+            SharedPreferencesHelper.getUserId(this@HomeActivity),
+            SharedPreferencesHelper.getUserType(this@HomeActivity),
+            SharedPreferencesHelper.getDeviceToken(this@HomeActivity)
+        )
+
+        mUpdateDeviceTokenCall.enqueue(object : Callback<UpdateDeviceToken> {
+            override fun onResponse(call: Call<UpdateDeviceToken>, response: Response<UpdateDeviceToken>) {
+                Log.d("DeviceToken", "onResponse: " + response.body()!!)
+                if (response.body() != null) {
+                    if (response.body()!!.resultcode == 1) {
+                        Log.d("tokenHome " , SharedPreferencesHelper.getDeviceToken(this@HomeActivity))
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateDeviceToken>, t: Throwable) {
+                Log.d("DeviceToken", "onResponse: $t")
             }
         })
     }
