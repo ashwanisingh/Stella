@@ -513,7 +513,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             case "Alpha":
                 isAlphaBooked = isSelected;
                 break;
-            case "Brave":
+            case "Bravo":
                 isBravoBooked = isSelected;
                 break;
             case "Charlie":

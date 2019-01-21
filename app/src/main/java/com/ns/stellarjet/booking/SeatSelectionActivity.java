@@ -528,7 +528,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             case "Alpha":
                 isAlphaBooked = isSelected;
                 break;
-            case "Brave":
+            case "Bravo":
                 isBravoBooked = isSelected;
                 break;
             case "Charlie":
