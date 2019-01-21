@@ -122,6 +122,7 @@ public class PasswordActivity extends AppCompatActivity {
                     mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
                     startActivity(mPassCodeIntent);
+                    finish();
                 }else {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
