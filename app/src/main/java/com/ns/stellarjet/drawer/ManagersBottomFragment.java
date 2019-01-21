@@ -38,7 +38,8 @@ public class ManagersBottomFragment extends BottomSheetDialogFragment {
         mCancelTextView = mRootView.findViewById(R.id.textView_botttomsheet_managers_cancel);
 
         mCancelTextView.setOnClickListener(v -> {
-            Objects.requireNonNull(getActivity()).onBackPressed();
+            dismiss();
+//            Objects.requireNonNull(getActivity()).onBackPressed();
         });
 
         return mRootView;

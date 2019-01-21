@@ -19,11 +19,11 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         }
 
         textView_preferences_managers.setOnClickListener {
-            /*startActivity(Intent(
+            startActivity(Intent(
                 this ,
                 PreferencesManagersListActivity::class.java
-            ))*/
-            Toast.makeText(this@PreferenceLaunchActivity , "Work in Progress" , Toast.LENGTH_SHORT).show()
+            ))
+//            Toast.makeText(this@PreferenceLaunchActivity , "Work in Progress" , Toast.LENGTH_SHORT).show()
         }
 
         textView_preferences_food.setOnClickListener {

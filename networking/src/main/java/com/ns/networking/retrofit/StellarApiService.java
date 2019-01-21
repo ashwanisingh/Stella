@@ -5,6 +5,8 @@ import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
+import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
+import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -176,6 +178,20 @@ public interface StellarApiService {
             @Field("user") String userId,
             @Field("usertype") String userType,
             @Field("device_token") String deviceToken
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.ADD_SECONDARY_USER_API)
+    Call<AddSecondaryUserResponse> addSecondaryUserToken(
+            @Field("token") String token,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone") String phone
+    );
+
+    @GET(Constants.SECONDARY_USER_LIST_API)
+    Call<SecondaryUsersListResponse> getSecondaryUsersList(
+            @Query("token") String token
     );
 
 
