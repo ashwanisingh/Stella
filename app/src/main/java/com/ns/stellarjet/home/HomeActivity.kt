@@ -164,11 +164,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        alertDialogBuilder.setNegativeButton("Cancel") { _id, _ ->
+/*        alertDialogBuilder.setNegativeButton("Cancel") { _id, _ ->
             unlockSeats()
             _id.dismiss()
 
-        }
+        }*/
         val stateMaintenenceDialog = alertDialogBuilder.create()
         stateMaintenenceDialog.setCanceledOnTouchOutside(false)
         stateMaintenenceDialog.setCancelable(false)
