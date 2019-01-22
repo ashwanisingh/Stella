@@ -39,7 +39,7 @@ class FoodListAdapter (
             mFoodName.text = foodType.name
             if(foodType.pref!!){
                 mFoodName.setCompoundDrawablesWithIntrinsicBounds( 0 , 0 , R.mipmap.ic_food_select,0)
-                onSelectDishListenerParams(foodType.id.toString() , true , position)
+//                onSelectDishListenerParams(foodType.id.toString() , true , position)
             }
             var isSelected:Boolean? = foodType.pref
             mFoodName.setOnClickListener {
@@ -54,52 +54,6 @@ class FoodListAdapter (
                     onSelectDishListenerParams(foodType.id.toString() , isSelected!!, position)
                 }
             }
-            /*mFoodDescription.text = foodType.description
-            Picasso.with(itemView.context)
-                .load(foodType.img_url)
-                .into(mFoodImage)
-            if(foodType.pref!!){
-                mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected))
-            }
-            var isExpanded = false
-            mFoodDescription.setOnClickListener {
-                if(!isExpanded){
-                    val params = LinearLayout.LayoutParams(
-                        StellarJetUtils.pxFromDp(itemView.context , 250.0f),
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    mFoodDescription.layoutParams = params
-                    mFoodDescription.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.ic_up_arrow ,0)
-                    isExpanded = true
-                }else if(isExpanded){
-                    val params = LinearLayout.LayoutParams(
-                        StellarJetUtils.pxFromDp(itemView.context , 250.0f),
-                        StellarJetUtils.pxFromDp(itemView.context , 50.0f)
-                    )
-                    mFoodDescription.layoutParams = params
-                    mFoodDescription.setCompoundDrawablesWithIntrinsicBounds(0 , 0,R.drawable.ic_down_arrow,0)
-                    isExpanded = false
-                }
-
-            }
-*/
-            /*  mFoodSelect.setOnClickListener {
-                  //                var isSelected = false
-  //                if(mFoodSelect.drawable.constantState == itemView.context.resources.getDrawable(R.drawable.ic_food_selected).constantState){
-                  if(mFoodSelect.drawable.constantState == ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected)?.constantState){
-  //                    isSelected = false
-                      mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_unselected))
-                  }else{
-                      onSelectDishListenerParams(foodType.id.toString())
-  //                    isSelected = true
-                      mFoodSelect.setImageDrawable(ContextCompat.getDrawable(itemView.context , R.drawable.ic_food_selected))
-                  }
-
-              }*/
-
-            /*itemView.setOnClickListener {
-                onSelectDishListenerParams(foodType)
-            }*/
         }
     }
 }

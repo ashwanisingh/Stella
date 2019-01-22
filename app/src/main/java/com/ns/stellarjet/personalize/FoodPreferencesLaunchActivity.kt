@@ -20,8 +20,12 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
     private var flow : String = ""
     private var mSelectedFoodIds : MutableList<Int> = ArrayList()
-    var foodList: ArrayList<FoodItems>? = null
-
+    private var foodList: ArrayList<FoodItems>? = null
+    private var isFromPostBooking : Boolean = false
+    companion object {
+        @JvmField var mCommonPreferenceFoodId : MutableList<String> = ArrayList()
+        @JvmField var mPersonalizationFoodId : MutableList<String> = ArrayList()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,8 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
         flow = intent?.extras?.getString("FlowFrom")!!
         foodList = intent?.extras?.getParcelableArrayList<FoodItems>("selectedFoods")
+        isFromPostBooking = intent?.extras?.getBoolean("isPostBooking" , false)!!
+        mCommonPreferenceFoodId.clear()
 
         val activityFoodPreferencesBinding: ActivityFoodPreferencesLaunchBinding =
             DataBindingUtil.setContentView(
@@ -67,6 +73,22 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
             foodType.add(it.food_type_text!!)
         }
 
+        if(flow.equals("personalize",true)){
+            if(mPersonalizationFoodId.size==0 || mPersonalizationFoodId.isEmpty()){
+                foodList?.forEach {
+                    if(!it.name.equals("standard" , true)){
+                        mPersonalizationFoodId.add(it.id.toString())
+                    }
+                }
+            }
+        }else{
+            mFoodsList.forEach {
+                if(it.pref!!){
+                    mCommonPreferenceFoodId.add(it.id.toString())
+                }
+            }
+        }
+
         foodType.forEach {
             mFoodsTypeList.add(it.capitalize())
             Log.d("FoodLaunchActivity" , it)
@@ -86,6 +108,7 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
         )
         mFoodListIntent.putExtra(UIConstants.BUNDLE_FOOD_TYPE , foodTypeSelected)
         mFoodListIntent.putExtra("FlowFrom" , flow)
+        mFoodListIntent.putExtra("isPostBooking" , isFromPostBooking)
         mFoodListIntent.putIntegerArrayListExtra("personalizeFoodSelect" ,
             mSelectedFoodIds as java.util.ArrayList<Int>?
         )

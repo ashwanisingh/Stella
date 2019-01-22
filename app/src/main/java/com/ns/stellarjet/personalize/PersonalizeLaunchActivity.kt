@@ -25,6 +25,8 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
 
         SharedPreferencesHelper.saveCabDropPersonalize(this , "")
         SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+        FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.clear()
+        FoodPreferencesLaunchActivity.mPersonalizationFoodId.clear()
 
         binding.textViewPersonalizeCabPreferences.setCompoundDrawablesWithIntrinsicBounds(
             0 ,0 ,R.drawable.ic_date_next , 0
@@ -53,7 +55,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
                 FoodPreferencesLaunchActivity::class.java
             )
             mFoodPreferencesIntent.putExtra("FlowFrom" , "personalize")
-            mFoodPreferencesIntent.putExtra("personalizeDrawer" , false)
+            mFoodPreferencesIntent.putExtra("isPostBooking" , true)
             startActivity(mFoodPreferencesIntent)
         }
 

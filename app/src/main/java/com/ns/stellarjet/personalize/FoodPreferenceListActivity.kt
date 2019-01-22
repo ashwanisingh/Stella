@@ -14,6 +14,7 @@ import com.ns.networking.model.FoodPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
+import com.ns.stellarjet.drawer.BookingsDetailsActivity
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
@@ -34,7 +35,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
     private var mSelectedFoodIds : MutableList<String> = ArrayList()
     private lateinit var flow: String
     private var mFoodsList: List<Food>? = ArrayList()
-    private var mPersonalizeSelectedFoodsList: List<Int>? = ArrayList()
+    private var isFromPostBooking : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
         )
         val foodType : String = intent.extras?.getString(UIConstants.BUNDLE_FOOD_TYPE)!!
         flow = intent?.extras?.getString("FlowFrom")!!
+        isFromPostBooking = intent?.extras?.getBoolean("isPostBooking" , false)!!
         activityBinding.textViewFoodListName.text = foodType
 
         val foodListAdapter = FoodListAdapter(
@@ -85,7 +87,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
             .stellarJetAPIs.updateCommonFoodPreferences(
             SharedPreferencesHelper.getUserToken(this) ,
             SharedPreferencesHelper.getUserId(this) ,
-            mSelectedFoodIds
+            FoodPreferencesLaunchActivity.mCommonPreferenceFoodId
         )
 
         personalizeFood.enqueue(object : Callback<CommonPersonalizeFoodResponse> {
@@ -94,8 +96,8 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 response: Response<CommonPersonalizeFoodResponse>){
                 Log.d("Booking", "onResponse: $response")
                 if(response.code() == 200){
-                    mFoodsList?.forEach {
-                        it.pref = mSelectedFoodIds.contains(it.id.toString())
+                    HomeActivity.sUserData.customer_prefs.foods?.forEach {
+                        it.pref = FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.contains(it.id.toString())
                     }
                     finish()
                 }else if(response.code() == 400){
@@ -143,22 +145,26 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                         this@FoodPreferenceListActivity ,
                         true
                     )
-                    if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
-                        val mPersonalizeSuccessIntent  =  Intent(
-                            this@FoodPreferenceListActivity ,
-                            PersonalizeSuccessActivity::class.java
-                        )
-                        mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(mPersonalizeSuccessIntent)
-                        finish()
-                        clearPersonalizedPreferences()
-                    }else{
-                        finish()
+                    FoodPreferencesLaunchActivity.mPersonalizationFoodId = mSelectedFoodIds
+                    finish()
+                    if(isFromPostBooking){
+                        if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
+                            val mPersonalizeSuccessIntent  =  Intent(
+                                this@FoodPreferenceListActivity ,
+                                PersonalizeSuccessActivity::class.java
+                            )
+                            mPersonalizeSuccessIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(mPersonalizeSuccessIntent)
+                            finish()
+                            clearPersonalizedPreferences()
+                        }else{
+                            finish()
+                        }
                     }
                 }else if(response.code() == 400){
                     try {
                         val mJsonObject = JSONObject(response.errorBody()!!.string())
-                        val errorMessage = mJsonObject.getString("message")
+                        val errorMessage = mJsonObject.getString("error_message")
                         Toast.makeText(this@FoodPreferenceListActivity, errorMessage, Toast.LENGTH_LONG).show()
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -190,23 +196,34 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
         }
 
         if(flow.equals("personalize",true)){
-            val selectedPersonalizeFoodList = intent?.extras?.getIntegerArrayList("personalizeFoodSelect")!!
             mFoodsDisplayList.forEach {
-                it.pref = selectedPersonalizeFoodList.contains(it.id)
+                it.pref = FoodPreferencesLaunchActivity.mPersonalizationFoodId.contains(it.id.toString())
             }
         }
 
+        FoodPreferencesLaunchActivity.mPersonalizationFoodId.forEach {
+            mSelectedFoodIds.add(it)
+        }
 
         return mFoodsDisplayList
     }
 
     override fun invoke(selectedID: String , isSelected : Boolean , position :Int) {
 //        mFoodsList!![position].pref = isSelected
-        if(mSelectedFoodIds.contains(selectedID)){
-            mSelectedFoodIds.remove(selectedID)
+        if(flow.equals("personalize",true)){
+            if(mSelectedFoodIds.contains(selectedID)){
+                mSelectedFoodIds.remove(selectedID)
+            }else{
+                mSelectedFoodIds.add(selectedID)
+            }
         }else{
-            mSelectedFoodIds.add(selectedID)
+            if(FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.contains(selectedID)){
+                FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.remove(selectedID)
+            }else{
+                FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.add(selectedID)
+            }
         }
+
     }
 
     private fun clearPersonalizedPreferences(){

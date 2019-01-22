@@ -20,7 +20,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
-    private var mSelectedFoodIds : MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +31,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         val bookingData: Booking? = intent.extras?.getParcelable("bookingDetails")
         val bookingType = intent.extras?.getString("bookingType")
+
+        SharedPreferencesHelper.saveFoodPersonalize(
+            this@BookingsDetailsActivity,
+            false
+        )
+        SharedPreferencesHelper.saveCabPersonalize(
+            this@BookingsDetailsActivity,
+            false
+        )
 
 
         if(bookingType.equals("completed" , true)){
@@ -70,16 +78,25 @@ class BookingsDetailsActivity : AppCompatActivity() {
         val cities = bookingData?.from_city_info?.name + " to \n"+ bookingData?.to_city_info?.name
         binding.textViewBookingsDetailsFromCity.text = cities
 
-        val expiryTime = getString(R.string.booking_summary_personalize_time_expiry) +
-                StellarJetUtils.getPersonalizationHours(bookingData?.journey_datetime!!)
-//        binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime
+        /*val expiryTime = getString(R.string.booking_summary_personalize_time_expiry) +
+                StellarJetUtils.getPersonalizationHours(bookingData.journey_datetime)
+        binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime*/
 
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
-        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData.journey_datetime)
+        binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)
         val journeyTime = StellarJetUtils.getFormattedhours(bookingData.journey_datetime) + " hrs"
         binding.textViewBookingsDetailsDepartureTime.text = journeyTime
         SharedPreferencesHelper.saveBookingId(this , bookingData.booking_id.toString())
+
+        if(bookingData?.prefs?.main_passenger == null){
+            binding.viewBookingsDetailsDivider.visibility = View.GONE
+            binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+            binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
+            binding.viewCabAfterDivider.visibility = View.GONE
+            binding.viewFoodAfterDivider.visibility = View.GONE
+            binding.viewDetaisAfterDivider.visibility = View.GONE
+        }
 
         binding.layoutBookingsDetailsCabBase.setOnClickListener {
             val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
@@ -97,7 +114,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             startActivity(foodPersonalizeIntent)
         }
 
-        if(!bookingData.drop_address_main?.isEmpty()!! || !bookingData.pick_address_main?.isEmpty()!!){
+        if(!bookingData.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!){
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
@@ -149,5 +166,10 @@ class BookingsDetailsActivity : AppCompatActivity() {
         SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveCabDropPersonalize(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        FoodPreferencesLaunchActivity.mPersonalizationFoodId.clear()
     }
 }

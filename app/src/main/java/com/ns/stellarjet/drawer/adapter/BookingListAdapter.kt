@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Booking
 import com.ns.stellarjet.R
@@ -59,29 +60,35 @@ class BookingListAdapter(
                 mPersonalizeStatus.visibility = View.GONE
             }
 
+            if(bookings.prefs?.main_passenger == null){
+                mDivider.visibility = View.GONE
+                mPersonalizeStatus.visibility = View.GONE
+            }
+
             val pickUpAddress = bookings.pick_address_main
             val dropAddress = bookings.drop_address_main
-            var isCabPersonlaized = false
-            var isFoodPersonlaized = false
+            var isCabPersonalized = false
+            val isFoodPersonalized: Boolean = !bookings.service.equals("standard", true)
             if(pickUpAddress?.isEmpty()!! && dropAddress?.isEmpty()!!){
-                isCabPersonlaized = false
+                isCabPersonalized = false
             }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){
-                isCabPersonlaized = true
+                isCabPersonalized = true
             }
-            isFoodPersonlaized = !bookings.service.equals("standard", true)
 
-            if(isCabPersonlaized && isFoodPersonlaized){
+            if(isCabPersonalized && isFoodPersonalized){
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.mipmap.ic_booking_done, 0 , 0 , 0
                 )
-                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
+//                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
+                mPersonalizeStatus.setTextColor(ContextCompat.getColor(itemView.context , R.color.colorBookingsPersonalize))
             }else{
                 mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_need_personalize)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_info_personalize , 0 , 0 , 0
                 )
-                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
+//                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
+                mPersonalizeStatus.setTextColor(ContextCompat.getColor(itemView.context ,R.color.colorBookingsPersonalize))
             }
         }
     }
