@@ -184,5 +184,9 @@ public class UIConstants {
      * String constant for SharedPreferences device token
      */
     public static final String PREFERENCES_DEVICE_TOKEN = "DeviceToken";
+    /**
+     * String constant for bundle value for to city
+     */
+    public static final String BUNDLE_IS_ONLY_GUEST_TRAVELLING= "isOnlyGuestTravelling";
 
 }

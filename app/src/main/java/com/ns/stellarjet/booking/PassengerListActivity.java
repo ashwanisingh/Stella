@@ -620,6 +620,11 @@ public class PassengerListActivity extends AppCompatActivity {
                     );
                     mIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , SharedPreferencesHelper.getFromCity(PassengerListActivity.this));
                     mIntent.putExtra(UIConstants.BUNDLE_TO_CITY , SharedPreferencesHelper.getToCity(PassengerListActivity.this));
+                    if(selfTravelling == 0){
+                        mIntent.putExtra(UIConstants.BUNDLE_IS_ONLY_GUEST_TRAVELLING , true);
+                    }else {
+                        mIntent.putExtra(UIConstants.BUNDLE_IS_ONLY_GUEST_TRAVELLING , false);
+                    }
                     SharedPreferencesHelper.savePersonalizeTime(
                             PassengerListActivity.this,
                             StellarJetUtils.getPersonalizationHours(
