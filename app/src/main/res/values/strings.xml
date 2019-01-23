@@ -450,4 +450,9 @@
     <string name="biometric_cancelled">Authentication cancelled by user</string>
     <string name="biometric_success">Login Successful</string>
 
+    <string name="biometric_thank_you">Thank you.</string>
+    <string name="biometric_sub_heading">
+        From now on, for speed and security, we’ll log you in using your Touch ID.
+        \n\nPlease hold your finger
+        over the button to confirm.</string>
 </resources>

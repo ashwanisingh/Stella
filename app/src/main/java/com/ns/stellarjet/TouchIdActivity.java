@@ -1,21 +1,49 @@
 package com.ns.stellarjet;
 
+import android.Manifest;
+import android.app.KeyguardManager;
 import android.content.Intent;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
+import android.security.keystore.KeyProperties;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.legacy.app.ActivityCompat;
 import com.an.biometric.BiometricCallback;
 import com.an.biometric.BiometricManager;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.utils.FingerprintHandler;
 import com.ns.stellarjet.utils.UIConstants;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import java.io.IOException;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.Objects;
 
-public class TouchIdActivity extends AppCompatActivity implements BiometricCallback {
+public class TouchIdActivity extends AppCompatActivity{
 
     private UserData mUserData;
 
+    private static final String KEY_NAME = "StellarJetKey";
+    private Cipher cipher;
+    private KeyStore keyStore;
+    private KeyGenerator keyGenerator;
+    private FingerprintManager.CryptoObject cryptoObject;
+    private FingerprintManager fingerprintManager;
+    private KeyguardManager keyguardManager;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +51,134 @@ public class TouchIdActivity extends AppCompatActivity implements BiometricCallb
 
         mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
 
-        try{
-            new BiometricManager.BiometricBuilder(TouchIdActivity.this)
-                    .setTitle(getString(R.string.biometric_title))
-                    .setSubtitle(getString(R.string.biometric_subtitle))
-                    .setNegativeButtonText(getString(R.string.biometric_negative_button_text))
-                    .build()
-                    .authenticate(TouchIdActivity.this);
-        }catch (java.lang.RuntimeException e){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+            keyguardManager =
+                    (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+            fingerprintManager =
+                    (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+
+            if (!fingerprintManager.isHardwareDetected()) {
+//                textView.setText("Your device doesn't support fingerprint authentication");
+                launchPasscodeActivity();
+            }
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+//                textView.setText("Please enable the fingerprint permission");
+                launchPasscodeActivity();
+            }
+
+            if (!fingerprintManager.hasEnrolledFingerprints()) {
+//                textView.setText("No fingerprint configured. Please register at least one fingerprint in your device's Settings");
+                launchPasscodeActivity();
+            }
+
+            if (!keyguardManager.isKeyguardSecure()) {
+//                textView.setText("Please enable lockscreen security in your device's Settings");
+                Log.d("Touch ID", "Please enable lockscreen security in your device's Settings");
+            } else {
+                try {
+
+                    generateKey();
+                } catch (FingerprintException e) {
+                    e.printStackTrace();
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (initCipher()) {
+                        cryptoObject = new FingerprintManager.CryptoObject(cipher);
+                        FingerprintHandler helper = new FingerprintHandler(TouchIdActivity.this , mUserData);
+                        helper.startAuth(fingerprintManager, cryptoObject);
+                    }
+                }/*else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P){
+                    try{
+                        new BiometricManager.BiometricBuilder(TouchIdActivity.this)
+                                .setTitle(getString(R.string.biometric_title))
+                                .setSubtitle(getString(R.string.biometric_subtitle))
+                                .setNegativeButtonText(getString(R.string.biometric_negative_button_text))
+                                .build()
+                                .authenticate(TouchIdActivity.this);
+                    }catch (java.lang.RuntimeException e){
+                        launchPasscodeActivity();
+                    }
+                }*/else {
+                    launchPasscodeActivity();
+                }
+            }
+        }else {
             launchPasscodeActivity();
         }
+    }
 
+    private void generateKey() throws FingerprintException {
+        try {
+
+            keyStore = KeyStore.getInstance("AndroidKeyStore");
+
+            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+
+            keyStore.load(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                keyGenerator.init(new
+                        KeyGenParameterSpec.Builder(KEY_NAME,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(
+                                KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                        .build());
+            }else {
+                launchPasscodeActivity();
+            }
+
+            keyGenerator.generateKey();
+
+        } catch (KeyStoreException
+                | NoSuchAlgorithmException
+                | NoSuchProviderException
+                | InvalidAlgorithmParameterException
+                | CertificateException
+                | IOException exc) {
+            exc.printStackTrace();
+            throw new FingerprintException(exc);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean initCipher() {
+        try {
+            cipher = Cipher.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+        } catch (NoSuchAlgorithmException |
+                NoSuchPaddingException e) {
+            throw new RuntimeException("Failed to get Cipher", e);
+        }
+
+        try {
+            keyStore.load(null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
+                    null);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            return true;
+        } catch (KeyPermanentlyInvalidatedException e) {
+            return false;
+        } catch (KeyStoreException | CertificateException
+                | UnrecoverableKeyException | IOException
+                | NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException("Failed to init Cipher", e);
+        }
+    }
+
+    private class FingerprintException extends Exception {
+        public FingerprintException(Exception e) {
+            super(e);
+        }
     }
 
 
-    @Override
+    /*@Override
     public void onSdkVersionNotSupported() {
         launchPasscodeActivity();
     }
@@ -86,7 +227,7 @@ public class TouchIdActivity extends AppCompatActivity implements BiometricCallb
     public void onAuthenticationError(int errorCode, CharSequence errString) {
 //        Toast.makeText(getApplicationContext(), errString, Toast.LENGTH_LONG).show();
         launchPasscodeActivity();
-    }
+    }*/
 
     private void launchHomeActivity(){
         Intent mHomeIntent = new Intent(TouchIdActivity.this , HomeActivity.class);
