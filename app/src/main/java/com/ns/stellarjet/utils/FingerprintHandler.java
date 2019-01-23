@@ -4,6 +4,7 @@ package com.ns.stellarjet.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -11,9 +12,11 @@ import android.os.Build;
 import android.os.CancellationSignal;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.legacy.app.ActivityCompat;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.PassCodeActivity;
+import com.ns.stellarjet.R;
 import com.ns.stellarjet.TouchIdActivity;
 import com.ns.stellarjet.home.HomeActivity;
 
@@ -49,9 +52,10 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationFailed() {
-        Toast.makeText(context,
+        /*Toast.makeText(context,
                 "Authentication failed",
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_LONG).show();*/
+        showPassCodeDialog();
     }
 
     @Override
@@ -90,6 +94,30 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         context.startActivity(mPasscodeIntent);
         ((Activity)context).finish();
+    }
+
+
+    private void showPassCodeDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setMessage("Authentication failed. please enter passcode");
+        alertDialogBuilder.setPositiveButton("Ok",
+                (arg0, arg1) -> launchPasscodeActivity());
+
+        alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.setOnShowListener(dialog -> {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    context.getResources().getColor(R.color.colorButtonNew)
+            );
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(
+                    context.getResources().getColor(R.color.colorButtonNew)
+            );
+        });
+
+        alertDialog.show();
+
     }
 
 
