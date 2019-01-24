@@ -88,7 +88,8 @@ public interface StellarApiService {
             @Field("flight_id") int flightId,
             @Field("seat_ids[]") List<Integer> mSeatsCodeList,
             @Field("guests[]") List<Integer> mGuestId,
-            @Field("travelling_self") int selfTravelling
+            @Field("travelling_self") int selfTravelling,
+            @Field("schedule_id") String scheduleId
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
     );
 

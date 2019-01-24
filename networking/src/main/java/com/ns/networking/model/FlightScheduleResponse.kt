@@ -19,6 +19,7 @@ data class FlightScheduleData(
     val journey_date: String,
     val journey_datetime_ms: Long,
     val journey_time: String,
+    val schedule_id: String,
     val sun_rise_set: String
 ):Parcelable
 

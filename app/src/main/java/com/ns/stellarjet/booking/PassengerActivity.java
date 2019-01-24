@@ -169,7 +169,8 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                         SharedPreferencesHelper.getFlightId(PassengerActivity.this) ,
                         HomeActivity.mSeatNamesId ,
                         mGuestList ,
-                        selfTravelling
+                        selfTravelling ,
+                        SharedPreferencesHelper.getScheduleId(PassengerActivity.this)
                 );
 
         mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {

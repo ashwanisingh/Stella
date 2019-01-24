@@ -79,6 +79,9 @@ public class CalendarActivity extends AppCompatActivity {
                 SharedPreferencesHelper.saveArrivalTime(
                         CalendarActivity.this ,
                         mFlightScheduleDataList.get(selectedIndex).getArrival_time());
+                SharedPreferencesHelper.saveScheduleId(
+                        CalendarActivity.this ,
+                        mFlightScheduleDataList.get(selectedIndex).getSchedule_id());
                 SharedPreferencesHelper.saveFlightId(
                         CalendarActivity.this ,
                         mFlightScheduleDataList.get(selectedIndex).getFlight_id());

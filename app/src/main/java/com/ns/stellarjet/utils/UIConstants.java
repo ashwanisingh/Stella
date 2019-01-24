@@ -161,6 +161,10 @@ public class UIConstants {
      */
     public static final String PREFERENCES_BOOKING_JOURNEY_TIME = "journeyTime";
     /**
+     * String constant for SharedPreferences journey time
+     */
+    public static final String PREFERENCES_BOOKING_SCHEDULE_ID = "scheduleId";
+    /**
      * String constant for SharedPreferences journey timeinmillis
      */
     public static final String PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS = "journeyTimeOInMillis";

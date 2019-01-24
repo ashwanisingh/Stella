@@ -306,6 +306,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveScheduleId(Context mContext , String scheduleId){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_BOOKING_SCHEDULE_ID, scheduleId);
+        mEditor.apply();
+    }
+
+    public static String getScheduleId(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_BOOKING_SCHEDULE_ID , ""
+        );
+    }
+
     public static void saveJourneyTimeImMillis(Context mContext , long journeyTimeInMIllis){
         SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
         mEditor.putLong(UIConstants.PREFERENCES_BOOKING_JOURNEY_TIMEINMILLIS, journeyTimeInMIllis);
