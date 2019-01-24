@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ns.networking.model.FlightSeatsConfirmResponse;
@@ -82,6 +83,8 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     LinearLayout mLeftLinearLayout;
     @BindView(R.id.layout_right_sun_status)
     LinearLayout mRightLinearLayout;
+    @BindView(R.id.layout_seat_container_eight)
+    ConstraintLayout mSeatContainerLayout;
 
     private boolean isAlphaBooked = false;
     private boolean isBravoBooked = false;
@@ -172,7 +175,53 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        for (int i = 0; i < mSelectedSeatList.size(); i++) {
+            mSelectedSeatList.get(i).setSelected(false);
+        }
+        mFlightSeatList.clear();
+        mSelectedSeatList.clear();
+        mBookedSeatsList.clear();
+        mConfirmedSeatsList.clear();
+
+        isAlphaBooked = false;
+        isBravoBooked = false;
+        isCharlieBooked = false;
+        isDeltaBooked = false;
+        isEchoBooked = false;
+        isFoxtrotBooked = false;
+        isGolfBooked = false;
+        isHotelBooked = false;
+
+        resetSeats(mAlphaButton);
+        resetSeats(mBetaButton);
+        resetSeats(mCharlieButton);
+        resetSeats(mDeltaButton);
+        resetSeats(mEchoButton);
+        resetSeats(mFoxtrotButton);
+        resetSeats(mGolfButton);
+        resetSeats(mHotelButton);
+
+        // gets the flight details like total seats, avail seats , flight seat parameters
+        if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+            getFlightSeats();
+        }else{
+            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void resetSeats(Button mDesiredButton){
+        String seatPOsition = getSeatPosition(mDesiredButton);
+        if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
+        }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+        }
     }
 
     private void getFlightSeats(){

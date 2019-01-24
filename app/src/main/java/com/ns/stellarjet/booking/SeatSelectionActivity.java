@@ -203,6 +203,62 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        for (int i = 0; i < mSelectedSeatList.size(); i++) {
+            mSelectedSeatList.get(i).setSelected(false);
+        }
+        mFlightSeatList.clear();
+        mSelectedSeatList.clear();
+        mBookedSeatsList.clear();
+        mConfirmedSeatsList.clear();
+
+        isAlphaBooked = false;
+        isBravoBooked = false;
+        isCharlieBooked = false;
+        isDeltaBooked = false;
+        isEchoBooked = false;
+        isFoxtrotBooked = false;
+        isGolfBooked = false;
+        isHotelBooked = false;
+        isIndigoBooked = false;
+        isJulietBooked = false;
+        isKiloBooked = false;
+        isLimoBooked = false;
+
+        resetSeats(mAlphaButton);
+        resetSeats(mBetaButton);
+        resetSeats(mCharlieButton);
+        resetSeats(mDeltaButton);
+        resetSeats(mEchoButton);
+        resetSeats(mFoxtrotButton);
+        resetSeats(mGolfButton);
+        resetSeats(mHotelButton);
+        resetSeats(mIndigoButton);
+        resetSeats(mJulietButton);
+        resetSeats(mKiloButton);
+        resetSeats(mLimoButton);
+
+        // gets the flight details like total seats, avail seats , flight seat parameters
+        if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
+            getFlightSeats();
+        }else{
+            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void resetSeats(Button mDesiredButton){
+        String seatPOsition = getSeatPosition(mDesiredButton);
+        if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
+        }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+        }
+    }
+
     private void getFlightSeats(){
 
         Call<FlightSeatListResponse> mFlightSeatsDataResponseCall =
