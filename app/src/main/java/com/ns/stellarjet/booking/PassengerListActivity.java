@@ -720,5 +720,6 @@ public class PassengerListActivity extends AppCompatActivity {
         SharedPreferencesHelper.saveJourneyTime(PassengerListActivity.this , "");
         SharedPreferencesHelper.saveJourneyDate(PassengerListActivity.this , "");
         SharedPreferencesHelper.saveArrivalTime(PassengerListActivity.this , "");
+        SharedPreferencesHelper.saveScheduleId(PassengerListActivity.this , "");
     }
 }

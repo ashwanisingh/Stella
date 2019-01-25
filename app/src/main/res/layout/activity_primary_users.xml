@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <LinearLayout
+            android:id="@+id/layout_to_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:fitsSystemWindows="true"
+            android:layout_marginBottom="60dp"
+            tools:context=".booking.PlaceSelectionActivity">
+
+        <Button
+                android:layout_marginStart="-2dp"
+                android:id="@+id/button_from_back"
+                style="@style/StellarBackButton"/>
+
+        <TextView
+                android:layout_marginTop="100dp"
+                style="@style/StellarTextView_22sp"
+                android:alpha="0.5"
+                android:text="@string/booking_for"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:alpha="0.2"
+                android:layout_marginBottom="30dp"
+                android:background="@color/colorAddressDivider"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_booking_for"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+    </LinearLayout>
+</layout>

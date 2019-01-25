@@ -96,6 +96,11 @@ class HomeActivity : AppCompatActivity() {
                 resources.getString(R.string.home_remaining_seats_second_half)
         activityHomeBinding.textViewSeatLimits.text = displaySeats
 
+        if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
+            activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
+            activityHomeBinding.textViewHomeBookingPrimaryUser.visibility = View.GONE
+        }
+
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {

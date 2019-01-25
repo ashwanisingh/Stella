@@ -35,6 +35,8 @@
     <string name="home_title_hello_again_dummy">Hello again Ragav, Welcome back</string>
     <string name="home_title_hello_again">Hello again \n</string>
     <string name="home_title_welcome_back">\nWelcome back</string>
+    <string name="home_booking_for">Booking for</string>
+    <string name="home_booking_for_primary">Mr.Raghav Sekar</string>
 
     <!-- booking -->
     <string name="booking_from">Where are you flying from?</string>
@@ -454,5 +456,9 @@
     <string name="biometric_sub_heading">
         From now on, for speed and security, we’ll log you in using your Touch ID.
         \n\nPlease hold your finger
-        over the button to confirm.</string>
+        over the button to confirm.
+    </string>
+
+    <!-- booking for -->
+    <string name="booking_for">You want to book for</string>
 </resources>
