@@ -68,8 +68,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void getUserData(){
         Call<LoginResponse> mCustomerDataResponseCall = RetrofitAPICaller.getInstance(SplashScreenActivity.this)
                 .getStellarJetAPIs().getCustomerData(
-                        SharedPreferencesHelper.getUserToken(SplashScreenActivity.this),
-                        SharedPreferencesHelper.getUserId(SplashScreenActivity.this)
+                        SharedPreferencesHelper.getUserToken(SplashScreenActivity.this)
                 );
 
         mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {

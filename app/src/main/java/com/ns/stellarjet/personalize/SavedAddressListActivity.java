@@ -139,8 +139,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
         progress.showProgress(this);
         Call<SavedAddressResponse> boardingPassCall = RetrofitAPICaller.getInstance(this)
                 .getStellarJetAPIs().getSavedAddress(
-                        SharedPreferencesHelper.getUserToken(this) ,
-                        SharedPreferencesHelper.getUserId(this)
+                        SharedPreferencesHelper.getUserToken(this)
                 );
 
         boardingPassCall.enqueue(new Callback<SavedAddressResponse>() {

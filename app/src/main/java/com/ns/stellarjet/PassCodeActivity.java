@@ -361,6 +361,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         Intent mHomeIntent = new Intent(PassCodeActivity.this , HomeActivity.class);
         // send bundle
         mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mHomeIntent);
         finish();
     }

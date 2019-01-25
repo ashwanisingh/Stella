@@ -192,14 +192,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun unlockSeats() {
+    /*private fun unlockSeats() {
         val progress = Progress.getInstance()
         progress.showProgress(this@HomeActivity)
         val mFlightSeatsConfirmCall = RetrofitAPICaller.getInstance(this@HomeActivity)
             .stellarJetAPIs.confirmFlightSeats(
             SharedPreferencesHelper.getUserToken(this@HomeActivity),
             SharedPreferencesHelper.getFlightId(this@HomeActivity),
-            SharedPreferencesHelper.getUserId(this@HomeActivity),
             SharedPreferencesHelper.getFromCityId(this@HomeActivity),
             SharedPreferencesHelper.getToCityId(this@HomeActivity),
             SharedPreferencesHelper.getJourneyDate(this@HomeActivity),
@@ -227,7 +226,7 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this@HomeActivity, "Server Error Occurred", Toast.LENGTH_SHORT).show()
             }
         })
-    }
+    }*/
 
 
     private fun sendDeviceTokenToServer() {
@@ -235,7 +234,6 @@ class HomeActivity : AppCompatActivity() {
         val mUpdateDeviceTokenCall = RetrofitAPICaller.getInstance(this@HomeActivity)
             .stellarJetAPIs.updateDeviceToken(
             SharedPreferencesHelper.getUserToken(this@HomeActivity),
-            SharedPreferencesHelper.getUserId(this@HomeActivity),
             SharedPreferencesHelper.getUserType(this@HomeActivity),
             SharedPreferencesHelper.getDeviceToken(this@HomeActivity)
         )

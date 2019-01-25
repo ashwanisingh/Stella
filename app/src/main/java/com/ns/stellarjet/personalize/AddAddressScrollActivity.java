@@ -127,7 +127,6 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         Call<AddAddressResponse> mAddressResponseCall = RetrofitAPICaller.getInstance(AddAddressScrollActivity.this)
                 .getStellarJetAPIs().addNewAddress(
                         SharedPreferencesHelper.getUserToken(AddAddressScrollActivity.this) ,
-                        SharedPreferencesHelper.getUserId(AddAddressScrollActivity.this),
                         cityId ,
                         address ,
                         nickName

@@ -83,6 +83,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         Intent mHomeIntent = new Intent(context, HomeActivity.class);
         // send bundle
         mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mHomeIntent);
         ((Activity)context).finish();
     }
@@ -92,6 +93,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         Intent mPasscodeIntent = new Intent(context , PassCodeActivity.class);
         // send bundle
         mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        mPasscodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mPasscodeIntent);
         ((Activity)context).finish();
     }

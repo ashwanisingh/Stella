@@ -31,8 +31,7 @@ public interface StellarApiService {
 
     @GET(Constants.CUSTOMER_DATA_API)
     Call<LoginResponse> getCustomerData(
-            @Query("token") String token ,
-            @Query("user") String userId
+            @Query("token") String token
     );
 
     @POST(Constants.REFRESH_TOKEN_API)
@@ -66,7 +65,6 @@ public interface StellarApiService {
     Call<FlightSeatsConfirmResponse> confirmFlightSeats(
             @Field("token") String token,
             @Field("flight_id") int flightId,
-            @Field("user") String userId,
             @Field("from_city") int fromCity,
             @Field("to_city") int toCity,
             @Field("journey_date") String journeyDate,
@@ -79,7 +77,6 @@ public interface StellarApiService {
     @POST(Constants.BOOK_SEATS_API)
     Call<BookingConfirmResponse> confirmFlightBooking(
             @Field("token") String token,
-            @Field("user") String userId,
             @Field("from_city") int fromCity,
             @Field("to_city") int toCity,
             @Field("journey_date") String journeyDate,
@@ -128,7 +125,6 @@ public interface StellarApiService {
     @GET(Constants.BOOKING_HISTORY_API)
     Call<BookingHistoryResponse> getBookingHistoryResponse(
             @Query("token") String token ,
-            @Query("user") String userId ,
             @Query("offset") int offset ,
             @Query("limit") int limit ,
             @Query("show_list") String show_list
@@ -146,7 +142,6 @@ public interface StellarApiService {
     @POST(Constants.ADD_ADDRESS_API)
     Call<AddAddressResponse> addNewAddress(
             @Field("token") String token,
-            @Field("user") String userId,
             @Field("city") String cityId,
             @Field("address") String address,
             @Field("address_tag") String addressTag
@@ -154,8 +149,7 @@ public interface StellarApiService {
 
     @GET(Constants.ADDRESS_LIST_API)
     Call<SavedAddressResponse> getSavedAddress(
-            @Query("token") String token,
-            @Query("user") String userId
+            @Query("token") String token
     );
 
     @FormUrlEncoded
@@ -168,7 +162,6 @@ public interface StellarApiService {
     @POST(Constants.COMMON_FOOD_UPDATE_API)
     Call<CommonPersonalizeFoodResponse> updateCommonFoodPreferences(
             @Field("token") String token,
-            @Field("user") String userId,
             @Field("food_prefs[]") List<String> foodsList
     );
 
@@ -176,7 +169,6 @@ public interface StellarApiService {
     @POST(Constants.UPDATE_DEVICE_TOKEN_API)
     Call<UpdateDeviceToken> updateDeviceToken(
             @Field("token") String token,
-            @Field("user") String userId,
             @Field("usertype") String userType,
             @Field("device_token") String deviceToken
     );

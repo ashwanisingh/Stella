@@ -95,8 +95,7 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit, Place
         progress.showProgress(this)
         val boardingPassCall: Call<SavedAddressResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.getSavedAddress(
-            SharedPreferencesHelper.getUserToken(this) ,
-            SharedPreferencesHelper.getUserId(this)
+            SharedPreferencesHelper.getUserToken(this)
         )
 
         boardingPassCall.enqueue(object : Callback<SavedAddressResponse>{

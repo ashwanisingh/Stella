@@ -1,7 +1,6 @@
 package com.ns.stellarjet.booking;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -507,7 +506,6 @@ public class PassengerListActivity extends AppCompatActivity {
 
     private void confirmGuests(){
 
-        addGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerListActivity.this));
         addGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerListActivity.this));
 
         final Progress progress = Progress.getInstance();
@@ -547,7 +545,6 @@ public class PassengerListActivity extends AppCompatActivity {
     private void confirmOnlyExistingGuests(){
 
         editGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerListActivity.this));
-        editGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerListActivity.this));
         final Progress progress = Progress.getInstance();
         progress.showProgress(PassengerListActivity.this);
         Call<GuestConfirmResponse> guestConfirmResponseCall =
@@ -592,7 +589,6 @@ public class PassengerListActivity extends AppCompatActivity {
         Call<BookingConfirmResponse> mBookingConfirmResponseCall =  RetrofitAPICaller.getInstance(PassengerListActivity.this).getStellarJetAPIs()
                 .confirmFlightBooking(
                         SharedPreferencesHelper.getUserToken(PassengerListActivity.this) ,
-                        SharedPreferencesHelper.getUserId(PassengerListActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(PassengerListActivity.this) ,
                         SharedPreferencesHelper.getToCityId(PassengerListActivity.this) ,
                         SharedPreferencesHelper.getJourneyDate(PassengerListActivity.this) ,
@@ -676,8 +672,7 @@ public class PassengerListActivity extends AppCompatActivity {
     private void getUserData(){
         Call<LoginResponse> mCustomerDataResponseCall = RetrofitAPICaller.getInstance(PassengerListActivity.this)
                 .getStellarJetAPIs().getCustomerData(
-                        SharedPreferencesHelper.getUserToken(PassengerListActivity.this),
-                        SharedPreferencesHelper.getUserId(PassengerListActivity.this)
+                        SharedPreferencesHelper.getUserToken(PassengerListActivity.this)
                 );
 
         mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {

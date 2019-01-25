@@ -10,8 +10,6 @@ public class GuestPrefsRequest {
     private String token;
     @SerializedName("edit")
     private List<GuestPrefsDataRequest> editGuestPrefsRequestList ;
-    @SerializedName("user")
-    private String userId;
     @SerializedName("add")
     private List<AddGuestPrefsDataRequest> addGuestPrefsRequestList ;
 
@@ -21,14 +19,6 @@ public class GuestPrefsRequest {
 
     public void setEditGuestPrefsRequestList(List<GuestPrefsDataRequest> editGuestPrefsRequestList) {
         this.editGuestPrefsRequestList = editGuestPrefsRequestList;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public List<AddGuestPrefsDataRequest> getAddGuestPrefsRequestList() {

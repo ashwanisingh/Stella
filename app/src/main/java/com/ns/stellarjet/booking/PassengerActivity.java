@@ -68,7 +68,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         /* set RecyclerView */
         PassengersAdapter mPassengersAdapter = new PassengersAdapter(
                 this ,
-                    this,
+                this,
                 HomeActivity.sUserData.getContacts() ,
                 numOfGuests ,
                 true
@@ -160,7 +160,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         Call<BookingConfirmResponse> mBookingConfirmResponseCall =  RetrofitAPICaller.getInstance(PassengerActivity.this).getStellarJetAPIs()
                 .confirmFlightBooking(
                         SharedPreferencesHelper.getUserToken(PassengerActivity.this) ,
-                        SharedPreferencesHelper.getUserId(PassengerActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(PassengerActivity.this) ,
                         SharedPreferencesHelper.getToCityId(PassengerActivity.this) ,
                         SharedPreferencesHelper.getJourneyDate(PassengerActivity.this) ,
@@ -211,8 +210,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     private void getUserData(){
         Call<LoginResponse> mCustomerDataResponseCall = RetrofitAPICaller.getInstance(PassengerActivity.this)
                 .getStellarJetAPIs().getCustomerData(
-                        SharedPreferencesHelper.getUserToken(PassengerActivity.this),
-                        SharedPreferencesHelper.getUserId(PassengerActivity.this)
+                        SharedPreferencesHelper.getUserToken(PassengerActivity.this)
                 );
 
         mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {
@@ -272,7 +270,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
 
     private void confirmGuests(){
 
-        addGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerActivity.this));
         addGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerActivity.this));
 
         final Progress progress = Progress.getInstance();
@@ -312,7 +309,6 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     private void confirmOnlyExistingGuests(){
 
         editGuestPrefsRequest.setToken(SharedPreferencesHelper.getUserToken(PassengerActivity.this));
-        editGuestPrefsRequest.setUserId(SharedPreferencesHelper.getUserId(PassengerActivity.this));
         final Progress progress = Progress.getInstance();
         progress.showProgress(PassengerActivity.this);
         Call<GuestConfirmResponse> guestConfirmResponseCall =

@@ -333,7 +333,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
-                        SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
@@ -630,7 +629,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
-                        SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),
@@ -678,7 +676,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatSelectionActivity.this),
-                        SharedPreferencesHelper.getUserId(SeatSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatSelectionActivity.this),

@@ -114,7 +114,6 @@ public class PasswordActivity extends AppCompatActivity {
                     SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
                     SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
                     SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
-                    sendDeviceTokenToServer();
                     Intent mPassCodeIntent = new Intent(
                             PasswordActivity.this ,
                             PassCodeActivity.class
@@ -150,31 +149,4 @@ public class PasswordActivity extends AppCompatActivity {
         mActivityPasswordBinding.editTextAccountPassword.startAnimation(animShake);
     }
 
-    private void sendDeviceTokenToServer(){
-
-        Call<UpdateDeviceToken> mUpdateDeviceTokenCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
-                .getStellarJetAPIs().updateDeviceToken(
-                        SharedPreferencesHelper.getUserToken(PasswordActivity.this) ,
-                        SharedPreferencesHelper.getUserId(PasswordActivity.this) ,
-                        SharedPreferencesHelper.getUserType(PasswordActivity.this),
-                        SharedPreferencesHelper.getDeviceToken(PasswordActivity.this)
-                );
-
-        mUpdateDeviceTokenCall.enqueue(new Callback<UpdateDeviceToken>() {
-            @Override
-            public void onResponse(@NonNull Call<UpdateDeviceToken> call, @NonNull Response<UpdateDeviceToken> response) {
-                Log.d("DeviceToken", "onResponse: " + response.body());
-                if(response.body()!=null){
-                    if(response.body().getResultcode() == 1){
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<UpdateDeviceToken> call, @NonNull Throwable t) {
-                Log.d("DeviceToken", "onResponse: " + t);
-            }
-        });
-    }
 }

@@ -282,7 +282,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this) ,
-                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
@@ -342,7 +341,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this) ,
-                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
@@ -595,7 +593,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this),
-                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
@@ -643,7 +640,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         .getStellarJetAPIs().confirmFlightSeats(
                         SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this),
-                        SharedPreferencesHelper.getUserId(SeatLayoutOneSelectionActivity.this) ,
                         SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
                         SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),

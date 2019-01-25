@@ -85,8 +85,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
     private fun updateCommonPersonalizeFood(){
         val personalizeFood : Call<CommonPersonalizeFoodResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.updateCommonFoodPreferences(
-            SharedPreferencesHelper.getUserToken(this) ,
-            SharedPreferencesHelper.getUserId(this) ,
+            SharedPreferencesHelper.getUserToken(this),
             FoodPreferencesLaunchActivity.mCommonPreferenceFoodId
         )
 

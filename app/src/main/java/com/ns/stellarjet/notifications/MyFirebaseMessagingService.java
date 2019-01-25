@@ -25,7 +25,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Call<UpdateDeviceToken> mUpdateDeviceTokenCall = RetrofitAPICaller.getInstance(getApplicationContext())
                 .getStellarJetAPIs().updateDeviceToken(
                         SharedPreferencesHelper.getUserToken(getApplicationContext()) ,
-                        SharedPreferencesHelper.getUserId(getApplicationContext()) ,
                         SharedPreferencesHelper.getUserType(getApplicationContext()),
                         deviceToken
                 );
