@@ -16,7 +16,7 @@
 
         <Button
                 android:layout_marginStart="-2dp"
-                android:id="@+id/button_from_back"
+                android:id="@+id/button_primary_users_back"
                 style="@style/StellarBackButton"/>
 
         <TextView

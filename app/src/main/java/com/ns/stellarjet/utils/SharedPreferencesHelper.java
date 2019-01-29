@@ -354,39 +354,6 @@ public class SharedPreferencesHelper {
         );
     }
 
-    public void saveSeatsIdList(Context mContext , ArrayList<Integer> list){
-        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        mEditor.putString(UIConstants.PREFERENCES_BOOKING_SEATSID, json);
-        mEditor.apply();     // This line is IMPORTANT !!!
-    }
-
-    public ArrayList<Integer> getSeatsIdList(Context mContext){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Gson gson = new Gson();
-        String json = prefs.getString(UIConstants.PREFERENCES_BOOKING_SEATSID, null);
-        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
-
-    public void saveSeatsNamesList(Context mContext , ArrayList<String> list){
-        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        mEditor.putString(UIConstants.PREFERENCES_BOOKING_SEATSNAMES, json);
-        mEditor.apply();     // This line is IMPORTANT !!!
-    }
-
-    public ArrayList<String> getSeatsNamesList(Context mContext){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Gson gson = new Gson();
-        String json = prefs.getString(UIConstants.PREFERENCES_BOOKING_SEATSNAMES, null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
-
-
     public static void saveDeviceToken(Context mContext , String token){
         SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
         mEditor.putString(UIConstants.PREFERENCES_DEVICE_TOKEN, token);
@@ -396,6 +363,30 @@ public class SharedPreferencesHelper {
     public static String getDeviceToken(Context mContext){
         return getSharedPreferences(mContext).getString(
                 UIConstants.PREFERENCES_DEVICE_TOKEN, ""
+        );
+    }
+
+    public static void saveCurrentPrimaryUserId(Context mContext , int primaryUserID){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_CURRENT_PRIMARY_USER_ID, primaryUserID);
+        mEditor.apply();
+    }
+
+    public static int getCurrentPrimaryUserId(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_CURRENT_PRIMARY_USER_ID, 0
+        );
+    }
+
+    public static void saveCurrentPrimaryUserName(Context mContext , String primaryUserName){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_CURRENT_PRIMARY_USER_NAME, primaryUserName);
+        mEditor.apply();
+    }
+
+    public static String getCurrentPrimaryUserName(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_CURRENT_PRIMARY_USER_NAME, ""
         );
     }
 

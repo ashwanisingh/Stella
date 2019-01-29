@@ -52,7 +52,10 @@ public class UIConstants {
      * String constant for bundle name for UserData From API
      */
     public static final String BUNDLE_USER_DATA = "UserData";
-
+    /**
+     * String constant for bundle name for UserData From API
+     */
+    public static final String BUNDLE_SECONDARY_USER_DATA = "SecondaryUserData";
     /**
      * String constant for bundle name for UserType(ie Primary/Secondary) From API
      */
@@ -192,5 +195,12 @@ public class UIConstants {
      * String constant for bundle value for to city
      */
     public static final String BUNDLE_IS_ONLY_GUEST_TRAVELLING= "isOnlyGuestTravelling";
-
+    /**
+     * String constant for SharedPreferences current primary user ID
+     */
+    public static final String PREFERENCES_CURRENT_PRIMARY_USER_ID = "currentPrimaryUserid";
+    /**
+     * String constant for SharedPreferences current primary user name
+     */
+    public static final String PREFERENCES_CURRENT_PRIMARY_USER_NAME = "currentPrimaryUserName";
 }

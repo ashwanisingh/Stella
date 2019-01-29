@@ -61,7 +61,7 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         val upcomingBook: Call<BookingHistoryResponse> = RetrofitAPICaller.getInstance(activity)
             .stellarJetAPIs.getBookingHistoryResponse(
             SharedPreferencesHelper.getUserToken(activity),
-            1,
+            0,
             150,
             "upcoming"
         )

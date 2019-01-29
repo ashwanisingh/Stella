@@ -91,6 +91,8 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
                         response.body()!!.message
                         , Toast.LENGTH_SHORT).show()
                     finish()
+                }else{
+                    Toast.makeText(this@PreferenceManagerInfoActivity , "Something went wrong" , Toast.LENGTH_SHORT).show()
                 }
             }
 

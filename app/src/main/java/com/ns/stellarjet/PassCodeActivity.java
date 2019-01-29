@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,12 +17,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.ns.networking.model.SecondaryUserData;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.login.LoginActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PassCodeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +37,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private String mThreeEditTextPassCode;
     private String mFourEditTextPassCode;
     private UserData mUserData;
+    private SecondaryUserData mSecondaryUserData;
 
     @BindView(R.id.button_passcode_one)
     Button mPasscodeOneButton;
@@ -80,7 +85,13 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         ButterKnife.bind(this);
 
-        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        if(SharedPreferencesHelper.getUserType(PassCodeActivity.this).equalsIgnoreCase("primary")){
+            mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        }else if(SharedPreferencesHelper.getUserType(PassCodeActivity.this).equalsIgnoreCase("secondary")){
+            mSecondaryUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_SECONDARY_USER_DATA);
+            mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        }
+
 
         Log.d("PassCode", "onCreate: " + mUserData);
 
@@ -319,7 +330,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 int mPassCodeEntryTwo = Integer.parseInt(passCode);
                 if(mPassCodeEntryOne == mPassCodeEntryTwo){
                     SharedPreferencesHelper.savePassCode(PassCodeActivity.this , passCode);
-                    launchHomeActivity();
+                    decideNextLaunchActivity();
                 }else {
                     clearPassCode();
                     mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading_create));
@@ -353,7 +364,21 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
             }
         }else if(savedPassCode.equals(passCode)){
             Log.d("Passcode", "savePassCode: Access Granted");
+            decideNextLaunchActivity();
+        }
+    }
+
+    private void decideNextLaunchActivity(){
+        String userType = SharedPreferencesHelper.getUserType(PassCodeActivity.this);
+        int currentPrimaryUserId = SharedPreferencesHelper.getCurrentPrimaryUserId(PassCodeActivity.this);
+        if(userType.equalsIgnoreCase("Primary")){
             launchHomeActivity();
+        }else if(userType.equalsIgnoreCase("Secondary") &&
+                currentPrimaryUserId!=0){
+            launchHomeActivity();
+        }else if(userType.equalsIgnoreCase("Secondary") &&
+                currentPrimaryUserId==0){
+            launchPrimaryUserListActivity();
         }
     }
 
@@ -361,6 +386,15 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         Intent mHomeIntent = new Intent(PassCodeActivity.this , HomeActivity.class);
         // send bundle
         mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(mHomeIntent);
+        finish();
+    }
+
+    private void launchPrimaryUserListActivity(){
+        Intent mHomeIntent = new Intent(PassCodeActivity.this , PrimaryUsersActivity.class);
+        // send bundle
+        mHomeIntent.putParcelableArrayListExtra(UIConstants.BUNDLE_SECONDARY_USER_DATA, (ArrayList<? extends Parcelable>) mSecondaryUserData.getPrimary_users());
         mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mHomeIntent);
         finish();

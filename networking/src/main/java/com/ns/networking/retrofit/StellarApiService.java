@@ -6,6 +6,7 @@ import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
+import com.ns.networking.model.secondaryusers.SecondaryUser;
 import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
@@ -21,6 +22,13 @@ public interface StellarApiService {
     Call<LoginResponse> doLogin(
             @Field("username") String username,
             @Field("password") String password
+    );
+
+    @POST(Constants.SWITCH_TO_PRIMARY_API)
+    @FormUrlEncoded
+    Call<LoginResponse> switchPrimaryUsers(
+            @Field("token") String token,
+            @Field("primary_user") int primaryUserId
     );
 
     @POST(Constants.VALIDATE_USER_API)
@@ -186,6 +194,14 @@ public interface StellarApiService {
     Call<SecondaryUsersListResponse> getSecondaryUsersList(
             @Query("token") String token
     );
+
+    @FormUrlEncoded
+    @POST(Constants.SECONDARY_USER_LOGIN_API)
+    Call<SecondaryUserLoginResponse> loginSecondaryUser(
+            @Field("username") String username,
+            @Field("otp") String otp
+    );
+
 
 
 /*

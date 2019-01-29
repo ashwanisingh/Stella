@@ -136,11 +136,11 @@
         <Button
                 android:text="@string/confirm_button"
                 android:textAllCaps="false"
-                android:layout_gravity="center_vertical|start"
                 style="@style/StellarWhiteButton"
+                android:gravity="start|center_vertical"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="23dp"
-                android:layout_marginBottom="23dp"
+                android:layout_marginBottom="27dp"
                 android:id="@+id/button_managers_info_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.this ,
                                 OTPActivity.class
                         );
+                        SharedPreferencesHelper.saveUserType(LoginActivity.this , response.body().getData().getUsertype());
                         mOTPIntent.putExtra("userEmail" , response.body().getData().getUsername());
                         startActivity(mOTPIntent);
                     }

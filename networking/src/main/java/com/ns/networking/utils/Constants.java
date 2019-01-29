@@ -5,6 +5,7 @@ public class Constants {
 
     public static final String BASE_URL = "http://35.154.43.51/app/v2/public/api/v2/";
     public static final String LOGIN_API = "auth/login";
+    public static final String SWITCH_TO_PRIMARY_API = "secondary_user/switch_to_primary";
     public static final String VALIDATE_USER_API = "user/validate";
     public static final String CUSTOMER_DATA_API = "customer/data";
     public static final String REFRESH_TOKEN_API = "token/refresh";
@@ -27,5 +28,6 @@ public class Constants {
     public static final String UPDATE_DEVICE_TOKEN_API = "device_token/update";
     public static final String ADD_SECONDARY_USER_API = "secondary_user/add";
     public static final String SECONDARY_USER_LIST_API = "secondary_user/list";
+    public static final String SECONDARY_USER_LOGIN_API = "secondary_user/login";
 
 }

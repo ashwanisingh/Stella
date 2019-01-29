@@ -17,7 +17,7 @@
 
     <!-- otp -->
     <string name="otp_title">OTP</string>
-    <string name="otp_header">Please enter OTP, sent to your mobile \n number</string>
+    <string name="otp_header">Please enter OTP, sent to your mobile \nnumber</string>
 
     <!-- Authentication Activity  -->
     <string name="authentication_title">Touch ID</string>
@@ -428,6 +428,7 @@
 
     <!-- new booking-->
     <string name="bookings_title">Your Bookings</string>
+    <string name="bookings_booked_by">Tickets booked by </string>
 
     <!-- new personalize launch -->
     <string name="personalize_title">Personalise your trip</string>

@@ -82,6 +82,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 StellarJetUtils.getPersonalizationHours(bookingData.journey_datetime)
         binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime*/
 
+        val bookedBy =  resources.getString(R.string.bookings_booked_by) + " "+bookingData?.booked_by
+        binding.textViewBookingDetailsBookedBy.text = bookedBy
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
         binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)

@@ -22,6 +22,7 @@ data class UserData(
     val addresses: List<Addresse>,
     val cities: List<City>,
     val contacts: List<Contact>,
+    val primary_users: List<PrimaryUser>,
     val created_at: String,
     val customer_care_info: CustomerCareInfo,
     val customer_prefs: CustomerPrefs,
@@ -32,6 +33,14 @@ data class UserData(
     val subscriptions: List<Subscription>,
     val user_id: Int
 ):Parcelable
+
+/*@Parcelize
+data class PrimaryUser(
+    val email: String?,
+    val id: Int?,
+    val name: String?,
+    val phone: String?
+):Parcelable*/
 
 @Parcelize
 data class Subscription(

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/textView_passcode_title"
+            style="@style/StellarTextView_22sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="start"
+            android:text="@string/login_title"/>
+
+    <TextView
+            android:id="@+id/textView_passcode_heading"
+            style="@style/StellarTextView_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0.5"
+            android:text="@string/otp_header"
+            android:gravity="start"/>
+
+    <TextView
+            android:id="@+id/textView_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="81dp"
+            android:alpha="0.5"
+            android:text="@string/otp_title"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"/>
+
+    <EditText
+            android:id="@+id/editText_account_otp"
+            style="@style/StellarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_marginTop="10dp"
+            android:inputType="number"/>
+
+    <Button
+            android:id="@+id/btn_otp_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:gravity="start|center_vertical"
+            android:textAllCaps="false"
+            style="@style/StellarWhiteButton"
+            android:text="@string/login_button"/>
+
+
+</LinearLayout>

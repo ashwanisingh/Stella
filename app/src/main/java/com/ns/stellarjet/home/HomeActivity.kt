@@ -2,6 +2,7 @@ package com.ns.stellarjet.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.SpannableString
 import android.util.Log
 import android.view.View
@@ -9,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.ns.networking.model.FlightSeatsConfirmResponse
 import com.ns.networking.model.UpdateDeviceToken
 import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
@@ -19,12 +19,14 @@ import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
-import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 
 class HomeActivity : AppCompatActivity() {
@@ -96,9 +98,25 @@ class HomeActivity : AppCompatActivity() {
                 resources.getString(R.string.home_remaining_seats_second_half)
         activityHomeBinding.textViewSeatLimits.text = displaySeats
 
+
+
+
         if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
             activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
             activityHomeBinding.textViewHomeBookingPrimaryUser.visibility = View.GONE
+        }else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
+            activityHomeBinding.textViewHomeBookingPrimaryUser.text =
+                SharedPreferencesHelper.getCurrentPrimaryUserName(this@HomeActivity)
+
+            activityHomeBinding.textViewHomeBookingPrimaryUser.setOnClickListener {
+                val mHomeIntent = Intent(this@HomeActivity, PrimaryUsersActivity::class.java)
+                // send bundle
+                mHomeIntent.putParcelableArrayListExtra(
+                    UIConstants.BUNDLE_SECONDARY_USER_DATA,
+                    sUserData.primary_users as java.util.ArrayList<out Parcelable >
+                )
+                startActivity(mHomeIntent)
+            }
         }
 
 
@@ -240,11 +258,22 @@ class HomeActivity : AppCompatActivity() {
 
         mUpdateDeviceTokenCall.enqueue(object : Callback<UpdateDeviceToken> {
             override fun onResponse(call: Call<UpdateDeviceToken>, response: Response<UpdateDeviceToken>) {
-                Log.d("DeviceToken", "onResponse: " + response.body()!!)
                 if (response.body() != null) {
+                    Log.d("DeviceToken", "onResponse: " + response.body()!!)
                     if (response.body()!!.resultcode == 1) {
                         Log.d("tokenHome " , SharedPreferencesHelper.getDeviceToken(this@HomeActivity))
                     }
+                }else {
+                    try {
+                        val mJsonObject = JSONObject(response.errorBody()!!.string())
+                        val errorMessage = mJsonObject.getString("message")
+                        Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_LONG).show()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+
                 }
             }
 
