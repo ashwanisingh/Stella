@@ -11,7 +11,7 @@
         android:id="@+id/layout_bottom_sheet">
 
     <TextView
-            android:textColor="@color/colorBottomSheetManagersName"
+            android:textColor="@color/colorButtonNew"
             android:layout_gravity="center"
             android:text="@string/info_preferences_managers_dummy_name"
             style="@style/StellarTextView_14sp"
@@ -20,27 +20,30 @@
             android:gravity="center"
             android:layout_height="wrap_content"/>
 
-    <View
+   <!-- <View
             android:alpha="0.6"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"/>-->
 
     <TextView
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:textColor="@color/colorBottomSheetDeactivate"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/colorButtonNew"
             android:text="@string/info_managers_deactivate"
             android:id="@+id/textView_botttomsheet_managers_deactivate"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"/>
+            android:gravity="start"
+            android:visibility="gone"
+            android:layout_height="match_parent"/>
 
     <View
             android:alpha="0.6"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
             android:layout_width="match_parent"
@@ -49,26 +52,28 @@
     <TextView
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:textColor="@color/colorBottomSheetDelete"
+            android:textColor="@color/colorButtonNew"
             android:text="@string/info_managers_delete"
+            android:layout_marginStart="8dp"
             android:id="@+id/textView_botttomsheet_managers_delete"
             android:layout_width="match_parent"
-            android:gravity="center"
+            android:gravity="start"
             android:layout_height="wrap_content"/>
 
-    <View
+    <!--<View
             android:alpha="0.6"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorBottomSheetDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"/>-->
 
     <TextView
             android:layout_gravity="center"
             android:textSize="20sp"
             android:textColor="@color/colorBottomSheetDeactivate"
             android:text="@string/info_managers_cancel"
+            android:visibility="gone"
             android:id="@+id/textView_botttomsheet_managers_cancel"
             android:layout_width="match_parent"
             android:gravity="center"

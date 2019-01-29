@@ -29,5 +29,6 @@ public class Constants {
     public static final String ADD_SECONDARY_USER_API = "secondary_user/add";
     public static final String SECONDARY_USER_LIST_API = "secondary_user/list";
     public static final String SECONDARY_USER_LOGIN_API = "secondary_user/login";
+    public static final String DEACTIVATE_SECONDARY_USER_API = "secondary_user/active_deactive";
 
 }

@@ -6,6 +6,7 @@ import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
+import com.ns.networking.model.secondaryusers.DeactivateSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.SecondaryUser;
 import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
@@ -200,6 +201,14 @@ public interface StellarApiService {
     Call<SecondaryUserLoginResponse> loginSecondaryUser(
             @Field("username") String username,
             @Field("otp") String otp
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.DEACTIVATE_SECONDARY_USER_API)
+    Call<DeactivateSecondaryUserResponse> deactivateSecondaryUser(
+            @Field("token") String token ,
+            @Field("secondary_user_id") int secondary_user_id,
+            @Field("status") int status
     );
 
 

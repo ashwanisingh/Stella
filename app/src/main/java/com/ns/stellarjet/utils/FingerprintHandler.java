@@ -119,7 +119,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         });
 
         alertDialog.show();
-
     }
 
 

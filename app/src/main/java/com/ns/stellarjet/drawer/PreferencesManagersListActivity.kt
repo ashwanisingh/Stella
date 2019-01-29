@@ -79,7 +79,7 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
                         this@PreferencesManagersListActivity
                     )
 
-                    val layoutManager : LinearLayoutManager = LinearLayoutManager(
+                    val layoutManager = LinearLayoutManager(
                         this@PreferencesManagersListActivity ,
                         RecyclerView.VERTICAL ,
                         false
@@ -116,7 +116,11 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
      * when each row overflow icon is clicked
      */
     override fun invoke(p1: SecondaryUserInfoList, p2: Int) {
-        var managersBottomFragment = ManagersBottomFragment()
+        val managersBottomFragment = ManagersBottomFragment()
+        val bundle = Bundle()
+        bundle.putString("SecondaryName" , p1.su_name)
+        bundle.putInt("SecondaryId" , p1.su_id)
+        managersBottomFragment.arguments = bundle
         managersBottomFragment.show(supportFragmentManager , managersBottomFragment.tag)
     }
 }

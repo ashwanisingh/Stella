@@ -46,9 +46,9 @@ class SecondaryUserListAdapter(
                 onSelectUsersActionListener(mSecondaryUsers , position)
             }
 
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 onSelectUsersListener(mSecondaryUsers)
-            }
+            }*/
         }
     }
 
