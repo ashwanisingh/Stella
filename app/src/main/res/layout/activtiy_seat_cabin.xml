@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:fitsSystemWindows="true"
+              android:layout_marginBottom="20dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:layout_marginTop="15dp"
+                style="@style/StellarBackButton"
+                android:id="@+id/button_seat_selection_back"    />
+
+        <TextView
+                android:layout_gravity="bottom"
+                android:textSize="22sp"
+                android:textColor="@android:color/white"
+                android:text="@string/personalize_seat_title"
+                android:id="@+id/textView_seat_title"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/colorBoardingPassHeader"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_available"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                android:text="@string/seats_available"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/button_cabin_selected"/>
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_selected"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                android:text="@string/seats_selected"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_cabin_available"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/button_cabin_booked"/>
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_booked"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                android:text="@string/seats_booked"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_booked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_cabin_selected" android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:text="@string/seats_available_dummy"
+            android:id="@+id/textView_cabin_seats_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        <LinearLayout
+                android:id="@+id/layout_left_sun_status"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+            <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_sun"
+                    android:contentDescription="@string/info_flight_sunset"/>
+
+            <com.ns.stellarjet.VerticalTextView
+                    android:gravity="center"
+                    android:id="@+id/textView_left_sun_status"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:rotation="0"
+                    android:text="@string/info_flight_sunset"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"/>
+
+        <ScrollView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <include layout="@layout/layout_seat_cabin"/>
+
+        </ScrollView>
+
+        <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"/>
+
+        <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/layout_right_sun_status"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_sun"
+                    android:contentDescription="@string/info_flight_sunrise"/>
+
+            <com.ns.stellarjet.VerticalTextView
+                    android:rotation="180"
+                    android:id="@+id/textView_right_sun_status"
+                    style="@style/StellarTextView_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:text="@string/info_flight_sunrise"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+            style="@style/StellarWhiteButton"
+            android:text="@string/booking_confirm_seats"
+            android:id="@+id/button_seat_confirmed"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

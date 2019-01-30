@@ -8,6 +8,6 @@ public class SeatDummyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_seat_twelve);
+        setContentView(R.layout.activtiy_seat_cabin);
     }
 }

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_seat_container_eight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="16dp">
+
+            <Button
+                    android:id="@+id/button_seats_a"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:rotation="270"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_a"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seat_alpha"
+                    android:rotation="270"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_a"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_a"
+                    app:layout_constraintStart_toEndOf="@+id/button_seats_a"
+                    android:layout_marginStart="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_d"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="270"
+                    android:layout_marginTop="0dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_a"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_a"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_a"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_d"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seat_delta"
+                    android:rotation="270"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_d"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_d"
+                    app:layout_constraintStart_toEndOf="@+id/button_seats_d"
+                    android:layout_marginStart="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_e"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="270"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_d"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_d"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_d"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_e"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seat_echo"
+                    android:rotation="270"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_e"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_e"
+                    app:layout_constraintStart_toEndOf="@+id/button_seats_e"
+                    android:layout_marginStart="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_b"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_a"
+                    app:layout_constraintBottom_toTopOf="@+id/button_seats_d"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_b"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_beta"
+                    android:rotation="90"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_b"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_b"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_b"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_c"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_b"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_b"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_b"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_c"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_charlie"
+                    android:rotation="90"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_c"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_c"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_c"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_f"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_c"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_c"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_c"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_f"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_foxtrot"
+                    android:rotation="90"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_f"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_f"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_f"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_g"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_e"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_e"
+                    android:layout_marginTop="64dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_e"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_g"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_golf"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_g"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_g"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_g"/>
+
+            <Button
+                    android:id="@+id/button_seats_h"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_g"
+                    app:layout_constraintBottom_toTopOf="@+id/textView_seat_g"
+                    app:layout_constraintStart_toEndOf="@+id/button_seats_g"
+                    app:layout_constraintVertical_bias="0.0"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_h"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_hotel"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_h"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_h"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_h"/>
+
+            <Button
+                    android:id="@+id/button_seats_i"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_f"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_f"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_g"
+                    app:layout_constraintBottom_toTopOf="@+id/textView_seat_g"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_i"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_indigo"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_i"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_i"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_i"/>
+
+            <Button
+                    android:id="@+id/button_seats_l"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_reverse_available"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_g"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_seat_g"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_g"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_l"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_lima"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_l"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_l"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_l"/>
+
+            <Button
+                    android:id="@+id/button_seats_k"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_reverse_available"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_h"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_seat_h"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_h"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_k"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_kilo"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_k"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_k"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_k"/>
+
+            <Button
+                    android:id="@+id/button_seats_j"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_reverse_available"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_i"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_seat_i"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_i"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_j"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_juliet"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_j"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_j"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_j"/>
+
+            <Button
+                    android:id="@+id/button_seats_p"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_l"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_l"
+                    android:layout_marginTop="64dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_l"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_p"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_p"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_p"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_p"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_p"/>
+
+            <Button
+                    android:id="@+id/button_seats_m"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_j"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_j"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_p"
+                    app:layout_constraintBottom_toTopOf="@+id/textView_seat_p"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_m"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_m"
+                    android:rotation="90"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_m"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_m"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_m"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_n"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_m"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_m"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_m"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_n"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_n"
+                    android:rotation="90"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_n"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_n"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_n"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_o"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:rotation="90"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_n"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_n"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_n"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_o"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_o"
+                    android:rotation="90"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_o"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_o"
+                    app:layout_constraintEnd_toStartOf="@+id/button_seats_o"
+                    android:layout_marginEnd="8dp"/>
+
+            <Button
+                    android:id="@+id/button_seats_q"
+                    android:layout_width="64dp"
+                    android:layout_height="68dp"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ic_seat_reverse_available"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_p"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_p"
+                    app:layout_constraintTop_toTopOf="@+id/button_seats_o"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_seats_o"/>
+
+            <TextView
+                    android:id="@+id/textView_seat_q"
+                    style="@style/StellarTextView_10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"
+                    android:text="@string/seat_q"
+                    app:layout_constraintEnd_toEndOf="@+id/button_seats_q"
+                    app:layout_constraintStart_toStartOf="@+id/button_seats_q"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_seats_q"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

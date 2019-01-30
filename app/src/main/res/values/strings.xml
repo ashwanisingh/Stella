@@ -223,6 +223,11 @@
     <string name="seat_juliet">Juliet</string>
     <string name="seat_kilo">Kilo</string>
     <string name="seat_lima">Lima</string>
+    <string name="seat_m">M</string>
+    <string name="seat_n">N</string>
+    <string name="seat_o">O</string>
+    <string name="seat_p">P</string>
+    <string name="seat_q">Q</string>
 
     <string name="info_use_current_location">Current Location</string>
     <string name="info_using_gps">Using GPS</string>
@@ -462,4 +467,9 @@
 
     <!-- booking for -->
     <string name="booking_for">You want to book for</string>
+    <!-- seats notification-->
+    <string name="seats_available">Available</string>
+    <string name="seats_selected">Selected</string>
+    <string name="seats_booked">Booked</string>
+    <string name="seats_available_dummy">10 seats available</string>
 </resources>
