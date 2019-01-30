@@ -63,7 +63,8 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
         progress.showProgress(this)
         val secondaryUserCallList: Call<SecondaryUsersListResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.getSecondaryUsersList(
-            SharedPreferencesHelper.getUserToken(this)
+            SharedPreferencesHelper.getUserToken(this),
+            1
         )
 
         secondaryUserCallList.enqueue(object : Callback<SecondaryUsersListResponse> {

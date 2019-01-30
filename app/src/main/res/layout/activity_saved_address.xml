@@ -37,10 +37,10 @@
                 style="@style/StellarTextView_18sp"
                 android:alpha="0.8"
                 android:layout_marginTop="41dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:text="@string/info_use_current_location"
-                android:drawableStart="@drawable/ic_location"
-                android:drawablePadding="23dp"
+                android:drawableStart="@drawable/ic_tracker"
+                android:drawablePadding="20dp"
                 android:id="@+id/textView_saved_address_current_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -48,26 +48,26 @@
         <TextView
                 android:text="@string/info_using_gps"
                 android:alpha="0.4"
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="48dp"
                 style="@style/StellarTextView_12sp"
                 android:id="@+id/textView_saved_address_gps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <View
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="48dp"
                 android:alpha="0.2"
                 android:layout_marginTop="17dp"
                 android:background="@color/colorAddressDivider"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"/>
+                android:layout_height="1dp"/>
 
         <TextView
                 android:text="@string/info_saved_address_title"
                 android:alpha="0.4"
                 android:textAllCaps="true"
                 android:layout_marginTop="40dp"
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="48dp"
                 style="@style/StellarTextView_12sp"
                 android:id="@+id/textView_saved_address_title"
                 android:layout_width="wrap_content"

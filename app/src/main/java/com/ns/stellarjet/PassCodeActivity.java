@@ -22,6 +22,7 @@ import com.ns.networking.model.UserData;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.login.LoginActivity;
+import com.ns.stellarjet.utils.MyPasswordTransformationMethod;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
 
@@ -121,6 +122,10 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         mPasscodeZeroButton.setOnClickListener(this);
         mPasscodeDelButton.setOnClickListener(this);
 
+        /*mNumberOneEditText.setTransformationMethod(new MyPasswordTransformationMethod());
+        mNumberTwoEditText.setTransformationMethod(new MyPasswordTransformationMethod());
+        mNumberThreeEditText.setTransformationMethod(new MyPasswordTransformationMethod());
+        mNumberFourEditText.setTransformationMethod(new MyPasswordTransformationMethod());*/
         mNumberOneEditText.requestFocus();
         mCurrentEditText = mNumberOneEditText;
 

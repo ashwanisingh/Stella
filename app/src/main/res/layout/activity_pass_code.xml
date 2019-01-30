@@ -56,9 +56,7 @@
                     android:inputType="numberPassword"
                     android:maxLength="1"
                     android:textColor="@android:color/white"
-                    android:textSize="40sp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_passcode_heading"
-                    app:layout_constraintStart_toStartOf="@+id/textView_passcode_heading"/>
+                    android:textSize="40sp"/>
 
             <EditText
                     android:id="@+id/editText_passcode_number_two"
@@ -73,11 +71,7 @@
                     android:maxLength="1"
                     android:textColor="@android:color/white"
                     android:textSize="40sp"
-                    android:layout_marginEnd="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                    app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_three"
-                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_one"
-                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+                    android:layout_marginEnd="10dp"/>
 
             <EditText
                     android:id="@+id/editText_passcode_number_three"
@@ -92,11 +86,7 @@
                     android:maxLength="1"
                     android:textColor="@android:color/white"
                     android:textSize="40sp"
-                    android:layout_marginEnd="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                    app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_four"
-                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_two"
-                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+                    android:layout_marginEnd="10dp"/>
 
             <EditText
                     android:id="@+id/editText_passcode_number_four"
@@ -111,11 +101,7 @@
                     android:inputType="numberPassword"
                     android:maxLength="1"
                     android:textColor="@android:color/white"
-                    android:textSize="40sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText_passcode_number_one"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editText_passcode_number_three"
-                    app:layout_constraintTop_toTopOf="@+id/editText_passcode_number_one"/>
+                    android:textSize="40sp"/>
 
         </LinearLayout>
 

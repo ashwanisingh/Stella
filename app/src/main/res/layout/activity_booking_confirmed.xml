@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="27dp"
+                android:layout_marginBottom="14dp"
                 android:paddingStart="16dp"
                 android:textSize="18sp"
                 android:text="@string/personalize"

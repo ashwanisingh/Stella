@@ -8,19 +8,19 @@
         android:fitsSystemWindows="true"
         tools:context=".drawer.PreferenceLaunchActivity">
 
-        <Button
-                android:id="@+id/button_preferences_back"
-                style="@style/StellarBackButton"/>
+    <Button
+            android:id="@+id/button_preferences_back"
+            style="@style/StellarBackButton"/>
 
-        <TextView
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:layout_marginStart="24dp"
-                style="@style/StellarTextView_20sp"
-                android:text="@string/drawer_info_preferences_heading"
-                android:id="@+id/textView_preferences_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_marginStart="28dp"
+            style="@style/StellarTextView_20sp"
+            android:text="@string/drawer_info_preferences_heading"
+            android:id="@+id/textView_preferences_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <TextView
             android:layout_marginTop="100dp"

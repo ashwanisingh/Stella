@@ -26,8 +26,8 @@
         android:background="@drawable/drawable_passenger_background"
         android:alpha="0.6"
         android:inputType="textPersonName|textFilter|textNoSuggestions"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp" />
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
 
     <TextView
         android:id="@+id/textView_passenger_self_mobile_number"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:alpha="0.56"
         android:textAllCaps="false"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="23dp"
         android:text="@string/booking_guest_mobile_number" />
 
     <EditText
@@ -51,8 +51,8 @@
         android:inputType="phone|textFilter|textNoSuggestions"
         android:digits="0123456789"
         android:maxLength="10"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp" />
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
 
     <View
         android:id="@+id/view_passenger_divider"

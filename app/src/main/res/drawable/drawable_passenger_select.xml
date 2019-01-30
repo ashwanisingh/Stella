@@ -8,7 +8,7 @@
     <corners android:radius="4dp"/>
 
     <stroke
-            android:color="@color/colorPassengerSelectBg"
-            android:width="2dp"/>
+            android:color="@color/colorPassengerText"
+            android:width="1dp"/>
 
 </shape>

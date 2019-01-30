@@ -38,8 +38,10 @@ class CabPreferencesActivity : AppCompatActivity() {
 
         val displayFromCity = resources.getString(R.string.cab_personalize_pickup_location) + " ("+fromCity+")"
         binding.textViewCabPickupLocation.text =displayFromCity
+        binding.textViewCabPickupLocation.alpha=1.0f
         val displayToCity = resources.getString(R.string.cab_personalize_drop_location) + " ("+toCity+")"
         binding.textViewCabDropLocation.text =displayToCity
+        binding.textViewCabDropLocation.alpha =1.0f
 
         binding.editTextPickLocation.setOnClickListener {
             val pickUpIntent = Intent(
@@ -144,9 +146,11 @@ class CabPreferencesActivity : AppCompatActivity() {
         val dropCabPersonalize = SharedPreferencesHelper.getCabDropPersonalize(this)
         if(!pickupCabPersonalize.isEmpty()){
             binding.editTextPickLocation.text = pickupCabPersonalize
+            binding.editTextPickLocation.alpha = 1.0f
         }
         if(!dropCabPersonalize.isEmpty()){
             binding.editTextDropLocation.text = dropCabPersonalize
+            binding.editTextDropLocation.alpha = 1.0f
         }
     }
 

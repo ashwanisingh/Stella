@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:letterSpacing="0.05"
             android:padding="8dp"
             tools:text="@string/booking_source_dummy_one"/>
 </LinearLayout>

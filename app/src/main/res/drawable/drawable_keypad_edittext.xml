@@ -2,9 +2,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
 
     <gradient
-        android:startColor="@color/colorSecondaryButton"
-        android:centerColor="@color/colorSecondaryButton"
-        android:endColor="@color/colorSecondaryButton"
+        android:startColor="@color/colorEditTextPassCode"
+        android:centerColor="@color/colorEditTextPassCode"
+        android:endColor="@color/colorEditTextPassCode"
         android:type="linear" />
 
     <corners

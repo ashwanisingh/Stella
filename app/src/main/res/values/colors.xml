@@ -29,5 +29,7 @@
     <color name="colorPersonalizeButton">#656574</color>
     <color name="colorCabPersonalizeCardView">#525376</color>
     <color name="colorBookingBgCard">#34354c</color>
+    <color name="colorEditText">#46465A</color>
+    <color name="colorEditTextPassCode">#6E6E7D</color>
 
 </resources>

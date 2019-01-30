@@ -54,15 +54,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateUser(String userName){
-   /*     final Progress progress = Progress.getInstance();
-        progress.showProgress(LoginActivity.this);*/
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(LoginActivity.this);
         Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
                 .getStellarJetAPIs().doValidateCustomer(userName );
 
         mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
             @Override
             public void onResponse(Call<ValidateCustomerResponse> call, Response<ValidateCustomerResponse> response) {
-//                progress.hideProgress();
+                progress.hideProgress();
                 if(response.body()!=null){
                     Log.d("Login", "onResponse: " + response.body());
                     String userType = response.body().getData().getUsertype();
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
-//                progress.hideProgress();
+                progress.hideProgress();
                 Toast.makeText(LoginActivity.this , "Server Error" , Toast.LENGTH_LONG).show();
                 Log.d("Login", "onResponse: " + t);
             }

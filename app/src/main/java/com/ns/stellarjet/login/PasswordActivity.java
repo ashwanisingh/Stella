@@ -17,10 +17,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPasswordBinding;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -41,6 +38,11 @@ public class PasswordActivity extends AppCompatActivity {
                 this ,
                 R.layout.activity_password
         );
+
+        mActivityPasswordBinding.editTextAccountPassword
+                .setTransformationMethod(
+                        new MyPasswordTransformationMethod()
+                );
 
         String username = getIntent().getStringExtra("userEmail");
 

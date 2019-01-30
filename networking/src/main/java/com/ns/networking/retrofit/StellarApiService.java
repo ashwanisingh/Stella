@@ -193,7 +193,9 @@ public interface StellarApiService {
 
     @GET(Constants.SECONDARY_USER_LIST_API)
     Call<SecondaryUsersListResponse> getSecondaryUsersList(
-            @Query("token") String token
+            @Query("token") String token ,
+            @Query("status") int status
+
     );
 
     @FormUrlEncoded

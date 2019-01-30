@@ -55,14 +55,33 @@ public class SplashScreenActivity extends AppCompatActivity {
         }*/
         if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
-                getUserData();
+//                getUserData();
+                decideNextLaunchActivity();
             }else {
-                startActivity(new Intent(SplashScreenActivity.this , LoginActivity.class));
-                finish();
+                launchLoginActivty();
             }
         }else{
             Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void decideNextLaunchActivity(){
+        String userType = SharedPreferencesHelper.getUserType(SplashScreenActivity.this);
+        int currentPrimaryUserId = SharedPreferencesHelper.getCurrentPrimaryUserId(SplashScreenActivity.this);
+        if(userType.equalsIgnoreCase("Primary")){
+            getUserData();
+        }else if(userType.equalsIgnoreCase("Secondary") &&
+                currentPrimaryUserId!=0){
+            getUserData();
+        }else if(userType.equalsIgnoreCase("Secondary") &&
+                currentPrimaryUserId==0){
+            launchLoginActivty();
+        }
+    }
+
+    private void launchLoginActivty(){
+        startActivity(new Intent(SplashScreenActivity.this , LoginActivity.class));
+        finish();
     }
 
     private void getUserData(){
