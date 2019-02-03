@@ -177,6 +177,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         mActivityCalendarBinding.calendarView.setOnDayClickListener(eventDay -> {
             String pattern = "dd MMM, EEE";
+            mActivityCalendarBinding.scrollviewCalendar.fullScroll(View.FOCUS_DOWN);
             if(eventDay.isEnabled()){
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
                 dateFormat.setTimeZone(eventDay.getCalendar().getTimeZone());
