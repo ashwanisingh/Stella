@@ -327,11 +327,15 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
                     myLocation = lm.getLastKnownLocation(provider);
                 }
             }
-            if(myLocation!=null && mLatLng == null){
+            /*if(myLocation!=null && mLatLng == null){
                 LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17), 1500, null);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
             }else if(myLocation!=null && mLatLng!=null){
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
+            }*/
+            if(mLatLng!=null){
 //                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
             }
