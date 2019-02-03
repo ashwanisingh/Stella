@@ -28,7 +28,7 @@ class MyBookingsActivity : AppCompatActivity() {
     }
 
     private class BookingsAdapter(fm: FragmentManager?) :
-        FragmentStatePagerAdapter(fm) {
+        FragmentStatePagerAdapter(fm!!) {
 
 
         override fun getItem(position: Int): Fragment {

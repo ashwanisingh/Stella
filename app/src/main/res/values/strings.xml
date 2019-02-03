@@ -472,4 +472,7 @@
     <string name="seats_selected">Selected</string>
     <string name="seats_booked">Booked</string>
     <string name="seats_available_dummy">10 seats available</string>
+    <!--gps -->
+    <string name="gps_message">To Continue ,please turn on Device Location</string>
+    <string name="gps_open_location_settings">Enable</string>
 </resources>

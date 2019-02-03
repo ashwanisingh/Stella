@@ -2,15 +2,21 @@ package com.ns.stellarjet.personalize;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.*;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
@@ -116,9 +122,18 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             }
         });
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+        if (ContextCompat.checkSelfPermission(
+                getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(
+                        getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
         }
+
     }
 
     private void addAddress(String cityId , String address , String nickName){
@@ -225,6 +240,11 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
+            Toast.makeText(
+                    AddAddressScrollActivity.this,
+                    "Please permit location permission to proceed",
+                    Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -269,41 +289,6 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        if (lm != null) {
-            myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-
-        if (myLocation == null) {
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-            String provider;
-            if (lm != null) {
-                provider = lm.getBestProvider(criteria, true);
-                myLocation = lm.getLastKnownLocation(provider);
-            }
-        }
-        if(myLocation!=null && mLatLng == null){
-            LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17), 1500, null);
-        }else if(myLocation!=null && mLatLng!=null){
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
-        }
-        googleMap.setOnCameraIdleListener(() -> {
-            Log.d("Maps", "onCameraIdle: " + mMap.getCameraPosition().target);
-            getAddress(mMap.getCameraPosition().target);
-        });
     }
 
 
@@ -319,7 +304,41 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
+            ;            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            if (lm != null) {
+                myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+
+            if (myLocation == null) {
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+                String provider;
+                if (lm != null) {
+                    provider = lm.getBestProvider(criteria, true);
+                    myLocation = lm.getLastKnownLocation(provider);
+                }
+            }
+            if(myLocation!=null && mLatLng == null){
+                LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17), 1500, null);
+            }else if(myLocation!=null && mLatLng!=null){
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17), 1500, null);
+            }
+            mMap.setOnCameraIdleListener(() -> {
+                Log.d("Maps", "onCameraIdle: " + mMap.getCameraPosition().target);
+                getAddress(mMap.getCameraPosition().target);
+            });
         }
     }
-
 }

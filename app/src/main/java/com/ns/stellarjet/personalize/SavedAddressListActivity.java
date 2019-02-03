@@ -137,12 +137,12 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
     private void getSavedAddress(){
         Progress progress = Progress.getInstance();
         progress.showProgress(this);
-        Call<SavedAddressResponse> boardingPassCall = RetrofitAPICaller.getInstance(this)
+        Call<SavedAddressResponse> savedAddressCall = RetrofitAPICaller.getInstance(this)
                 .getStellarJetAPIs().getSavedAddress(
                         SharedPreferencesHelper.getUserToken(this)
                 );
 
-        boardingPassCall.enqueue(new Callback<SavedAddressResponse>() {
+        savedAddressCall.enqueue(new Callback<SavedAddressResponse>() {
             @Override
             public void onResponse(@NonNull Call<SavedAddressResponse> call, @NonNull Response<SavedAddressResponse> response) {
                 progress.hideProgress();
