@@ -87,7 +87,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
         binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)
-        val journeyTime = StellarJetUtils.getFormattedhours(bookingData.journey_datetime) + " hrs"
+        val journeyTime = StellarJetUtils.getFormattedhoursInAPM(bookingData.journey_datetime)
         binding.textViewBookingsDetailsDepartureTime.text = journeyTime
         SharedPreferencesHelper.saveBookingId(this , bookingData.booking_id.toString())
 

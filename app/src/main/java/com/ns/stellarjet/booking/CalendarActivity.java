@@ -165,7 +165,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
             mActivityCalendarBinding.calendarView.setPreviousButtonImage(null);
             mActivityCalendarBinding.textViewScheduleDate.setText(
-                    StellarJetUtils.getFormattedBookDate(
+                    StellarJetUtils.getFormattedCalendarBookDate(
                             mFlightScheduleDataList.get(0).getJourney_datetime_ms()));
             mActivityCalendarBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
             String seatsAvailable = mFlightScheduleDataList.get(0).getFlight_seat_availability()
@@ -185,7 +185,7 @@ public class CalendarActivity extends AppCompatActivity {
                     int index = mDates.indexOf(selectedDay);
                     selectedIndex = index;
                     mActivityCalendarBinding.textViewScheduleDate.setText(
-                            StellarJetUtils.getFormattedBookDate(
+                            StellarJetUtils.getFormattedCalendarBookDate(
                                     mFlightScheduleDataList.get(selectedIndex).getJourney_datetime_ms()));
                     mActivityCalendarBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
                     String seatsAvailable = mFlightScheduleDataList.get(index).getFlight_seat_availability()

@@ -48,7 +48,7 @@ class BookingListAdapter(
             mToCity.text = bookings.to_city_info?.name
             mFromAirport.text = bookings.from_city_info?.airport
             mToAirport.text = bookings.to_city_info?.airport
-            mBookingsDate.text = StellarJetUtils.getFormattedBookingsDate(bookings.journey_datetime)
+            mBookingsDate.text = StellarJetUtils.getFormattedCompeltedDate(bookings.journey_datetime)
             val journeyTime = StellarJetUtils.getFormattedhours(bookings.journey_datetime) + " hrs"
             mBookingsTime.text = journeyTime
             itemView.setOnClickListener {

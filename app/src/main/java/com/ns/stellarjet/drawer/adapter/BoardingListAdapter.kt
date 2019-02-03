@@ -43,7 +43,7 @@ class BoardingListAdapter(
             mToCity.text = boardingPass.to_city_info?.name
             mFromAirport.text = boardingPass.from_city_info?.airport
             mToAirport.text = boardingPass.to_city_info?.airport
-            mBookingsDate.text = StellarJetUtils.getFormattedBookingsDate(boardingPass.journey_datetime)
+            mBookingsDate.text = StellarJetUtils.getFormattedCompeltedDate(boardingPass.journey_datetime)
             val journeyTime = StellarJetUtils.getFormattedhours(boardingPass.journey_datetime) + " hrs"
             mBookingsTime.text = journeyTime
             var numOfSeats = 0

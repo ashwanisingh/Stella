@@ -88,7 +88,7 @@ public class StellarJetUtils {
     }
 
     /**
-     * retuns the Desired date/time format
+     * returns the Desired date/time format
      */
     public static String getFormattedBookDate(long millis){
         String pattern = "dd MMM, EEE - hh:mm aa";
@@ -104,7 +104,23 @@ public class StellarJetUtils {
 
 
     /**
-     * retuns the Desired date/time format
+     * returns the Desired date/time format
+     */
+    public static String getFormattedCalendarBookDate(long millis){
+        String pattern = "EEEE dd MMMM, hh:mm a";
+//        String pattern = "dd MMM , hh:mm aa";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis);
+        return simple.format(result);
+    }
+
+
+    /**
+     * returns the Desired date/time format
      */
     public static String getFormattedCalendarDate(long millis){
         String pattern = "dd MMM, EEE";
@@ -123,7 +139,7 @@ public class StellarJetUtils {
      * retuns the Desired date/time format
      */
     public static String getFormattedCompeltedDate(long millis){
-        String pattern = "dd MMM yyyy, EEE - hh:mm aa";
+        String pattern = " EEE, dd -MM- yyyy";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
@@ -137,7 +153,7 @@ public class StellarJetUtils {
      * retuns the bookings/boardingpass  date/time format
      */
     public static String getFormattedBookingsDate(long millis){
-        String pattern = "EEE ,dd MMM yyyy";
+        String pattern = "EEEE, dd MMMM";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
@@ -151,8 +167,22 @@ public class StellarJetUtils {
     /**
      * returns the hour format
      */
+    public static String getFormattedhoursInAPM(long millis){
+        String pattern = "hh:mm a";
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat(pattern);
+
+        // Creating date from milliseconds
+        // using Date() constructor
+        Date result = new Date(millis);
+        return simple.format(result);
+    }
+
+    /**
+     * returns the hour format
+     */
     public static String getFormattedhours(long millis){
-        String pattern = "hh:mm";
+        String pattern = "HH:mm";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
@@ -166,7 +196,7 @@ public class StellarJetUtils {
      * returns the reach by plane hour format
      */
     public static String getReachByPlaneHours(long millis){
-        String pattern = "hh:mm";
+        String pattern = "hh:mm a";
         // Creating date format
         DateFormat simple = new SimpleDateFormat(pattern);
 
