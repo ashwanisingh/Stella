@@ -14,9 +14,12 @@ import com.ns.stellarjet.databinding.ActivityPreferenceManagerInfoBinding
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class PreferenceManagerInfoActivity : AppCompatActivity() {
 
@@ -101,8 +104,20 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
                         response.body()!!.message
                         , Toast.LENGTH_SHORT).show()
                     finish()
-                }else{
-                    Toast.makeText(this@PreferenceManagerInfoActivity , "Something went wrong" , Toast.LENGTH_SHORT).show()
+                } else if (response.code() == 400) {
+                    val mJsonObject: JSONObject
+                    try {
+                        mJsonObject = JSONObject(response.errorBody()!!.string())
+                        val errorMessage = mJsonObject.getString("message")
+                        Toast.makeText(
+                            this@PreferenceManagerInfoActivity ,
+                            errorMessage ,
+                            Toast.LENGTH_SHORT).show()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
                 }
             }
 
