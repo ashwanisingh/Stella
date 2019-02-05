@@ -34,7 +34,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
 
         val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
         val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
-        binding.textViewPersonalizeCabPreferences.setOnClickListener {
+        binding.layoutPersonalizeCab.setOnClickListener {
             val mCabPreferencesIntent = Intent(
                 this ,
                 CabPreferencesActivity::class.java
@@ -49,7 +49,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         binding.textViewUpdatePreferences.text = expiryTime
 
 
-        binding.textViewPersonalizeFoodPreferences.setOnClickListener {
+        binding.layoutPersonalizeFood.setOnClickListener {
             val mFoodPreferencesIntent = Intent(
                 this ,
                 FoodPreferencesLaunchActivity::class.java

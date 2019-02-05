@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:id="@+id/layout_row_foodsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-            android:id="@+id/textView_row_foodsList_name"
-            tools:text="@string/food_type_veg"
-            style="@style/StellarTextView_18sp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="30dp"
-            android:drawableEnd="@drawable/ic_date_next"
+    <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="75dp">
+        <TextView
+                android:id="@+id/textView_row_foodsList_name"
+                tools:text="@string/food_type_veg"
+                style="@style/StellarTextView_18sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <ImageView
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_date_next"
+                android:layout_width="16dp"
+                android:layout_height="16dp"/>
+
+    </LinearLayout>
 
     <View
-            android:layout_marginTop="28dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorAddressDivider"

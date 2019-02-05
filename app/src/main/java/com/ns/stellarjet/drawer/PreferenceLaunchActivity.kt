@@ -1,10 +1,9 @@
 package com.ns.stellarjet.drawer
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.ns.stellarjet.R
 import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
@@ -27,7 +26,7 @@ class PreferenceLaunchActivity : AppCompatActivity() {
             view_preferences_managers.visibility = View.INVISIBLE
         }
 
-        textView_preferences_managers.setOnClickListener {
+        layout_preferences_managers.setOnClickListener {
             startActivity(Intent(
                 this ,
                 PreferencesManagersListActivity::class.java
@@ -35,7 +34,7 @@ class PreferenceLaunchActivity : AppCompatActivity() {
 //            Toast.makeText(this@PreferenceLaunchActivity , "Work in Progress" , Toast.LENGTH_SHORT).show()
         }
 
-        textView_preferences_food.setOnClickListener {
+        layout_preferences_food.setOnClickListener {
             val FoodPrefencesIntent =  Intent(
                 this ,
                 FoodPreferencesLaunchActivity::class.java

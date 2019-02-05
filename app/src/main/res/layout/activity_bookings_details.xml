@@ -150,27 +150,28 @@
                     android:background="@color/colorAddressDivider"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginBottom="25dp"
                     android:layout_marginTop="50dp"/>
 
             <LinearLayout
                     android:id="@+id/layout_bookings_details_cab_base"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="24dp">
+                    android:layout_height="65dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="30dp">
                 <TextView
                         android:text="@string/personalize_cab_title"
                         android:alpha="0.8"
                         style="@style/StellarTextView_16sp"
                         android:id="@+id/textView_bookings_details_cabs_title"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:drawablePadding="18dp"/>
 
                 <ImageView
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_date_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -182,17 +183,15 @@
                     android:alpha="0.2"
                     android:background="@color/colorAddressDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="25dp"/>
+                    android:layout_height="2dp"/>
 
             <LinearLayout
                     android:id="@+id/layout_bookings_details_food_base"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="24dp">
+                    android:layout_height="65dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="30dp">
 
                 <TextView
                         android:text="@string/personalize_food_title"
@@ -201,10 +200,12 @@
                         android:id="@+id/textView_bookings_details_food_title"
                         android:drawablePadding="18dp"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"/>
 
                 <ImageView
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_date_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -216,8 +217,7 @@
                     android:alpha="0.2"
                     android:background="@color/colorAddressDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="25dp"/>
+                    android:layout_height="2dp"/>
         </LinearLayout>
     </ScrollView>
 
