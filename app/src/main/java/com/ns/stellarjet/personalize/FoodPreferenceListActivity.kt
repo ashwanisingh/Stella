@@ -95,6 +95,11 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 response: Response<CommonPersonalizeFoodResponse>){
                 Log.d("Booking", "onResponse: $response")
                 if(response.code() == 200){
+                    Toast.makeText(
+                        this@FoodPreferenceListActivity,
+                        "Preferences Updated successfullt",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     HomeActivity.sUserData.customer_prefs.foods?.forEach {
                         it.pref = FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.contains(it.id.toString())
                     }
@@ -145,6 +150,11 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                         true
                     )
                     FoodPreferencesLaunchActivity.mPersonalizationFoodId = mSelectedFoodIds
+                    Toast.makeText(
+                        this@FoodPreferenceListActivity,
+                        "Preferences Updated successfullt",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                     if(isFromPostBooking){
                         if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
