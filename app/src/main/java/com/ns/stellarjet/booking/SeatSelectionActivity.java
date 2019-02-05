@@ -117,6 +117,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private List<BookedSeatsRequest> mBookedSeatsList= new ArrayList<>();
     private List<Integer> mConfirmedSeatsList = new ArrayList<>();
     private String flowFrom = "";
+    private boolean isReturnFromPassenger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +207,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onRestart() {
         super.onRestart();
+
+        isReturnFromPassenger = true;
 
         for (int i = 0; i < mSelectedSeatList.size(); i++) {
             mSelectedSeatList.get(i).setSelected(false);
@@ -429,6 +432,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         flowFrom = "seats";
+        isReturnFromPassenger = false;
         switch (v.getId()){
             case R.id.button_seats_alpha:
                 isAlphaBooked = !isAlphaBooked;
@@ -562,7 +566,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
-                        confirmSingleSeats(mLockedSeatList);
+                        if(!isReturnFromPassenger){
+                            confirmSingleSeats(mLockedSeatList);
+                        }
                     }
                 }else {
                     // call unlock seats
@@ -756,5 +762,45 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         }
 
         return seatPosition;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        for (int i = 0; i < mSelectedSeatList.size(); i++) {
+            mSelectedSeatList.get(i).setSelected(false);
+        }
+        mFlightSeatList.clear();
+        mSelectedSeatList.clear();
+        mBookedSeatsList.clear();
+        mConfirmedSeatsList.clear();
+
+        isAlphaBooked = false;
+        isBravoBooked = false;
+        isCharlieBooked = false;
+        isDeltaBooked = false;
+        isEchoBooked = false;
+        isFoxtrotBooked = false;
+        isGolfBooked = false;
+        isHotelBooked = false;
+        isIndigoBooked = false;
+        isJulietBooked = false;
+        isKiloBooked = false;
+        isLimoBooked = false;
+
+        resetSeats(mAlphaButton);
+        resetSeats(mBetaButton);
+        resetSeats(mCharlieButton);
+        resetSeats(mDeltaButton);
+        resetSeats(mEchoButton);
+        resetSeats(mFoxtrotButton);
+        resetSeats(mGolfButton);
+        resetSeats(mHotelButton);
+        resetSeats(mIndigoButton);
+        resetSeats(mJulietButton);
+        resetSeats(mKiloButton);
+        resetSeats(mLimoButton);
+
     }
 }

@@ -58,7 +58,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     Button mGolfButton;
     @BindView(R.id.button_seats_hotel)
     Button mHotelButton;
-
     @BindView(R.id.textView_seat_alpha)
     TextView mAlphaTextView;
     @BindView(R.id.textView_seat_beta)
@@ -100,6 +99,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     private List<BookedSeatsRequest> mBookedSeatsList= new ArrayList<>();
     private List<Integer> mConfirmedSeatsList = new ArrayList<>();
     private String flowFrom = "";
+    private boolean isReturnFromPassenger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,13 +173,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
+
+        isReturnFromPassenger = true;
 
         for (int i = 0; i < mSelectedSeatList.size(); i++) {
             mSelectedSeatList.get(i).setSelected(false);
@@ -216,10 +213,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     }
 
     private void resetSeats(Button mDesiredButton){
-        String seatPOsition = getSeatPosition(mDesiredButton);
-        if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
+        String seatPosition = getSeatPosition(mDesiredButton);
+        if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
-        }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
+        }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
         }
     }
@@ -424,6 +421,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         flowFrom = "seats";
+        isReturnFromPassenger = false;
         switch (v.getId()){
             case R.id.button_seats_alpha:
                 isAlphaBooked = !isAlphaBooked;
@@ -539,7 +537,9 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
-                        confirmSingleSeats(mLockedSeatList);
+                        if(!isReturnFromPassenger){
+                            confirmSingleSeats(mLockedSeatList);
+                        }
                     }
                 }else {
                     // call unlock seats
@@ -713,5 +713,35 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         }
 
         return seatPosition;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        for (int i = 0; i < mSelectedSeatList.size(); i++) {
+            mSelectedSeatList.get(i).setSelected(false);
+        }
+        mFlightSeatList.clear();
+        mSelectedSeatList.clear();
+        mBookedSeatsList.clear();
+        mConfirmedSeatsList.clear();
+
+        isAlphaBooked = false;
+        isBravoBooked = false;
+        isCharlieBooked = false;
+        isDeltaBooked = false;
+        isEchoBooked = false;
+        isFoxtrotBooked = false;
+        isGolfBooked = false;
+        isHotelBooked = false;
+
+        resetSeats(mAlphaButton);
+        resetSeats(mBetaButton);
+        resetSeats(mCharlieButton);
+        resetSeats(mDeltaButton);
+        resetSeats(mEchoButton);
+        resetSeats(mFoxtrotButton);
+        resetSeats(mGolfButton);
+        resetSeats(mHotelButton);
     }
 }
