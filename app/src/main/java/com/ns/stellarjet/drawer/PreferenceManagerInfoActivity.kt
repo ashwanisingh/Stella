@@ -7,13 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse
+import com.ns.networking.model.secondaryusers.SecondaryUserInfoList
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityPreferenceManagerInfoBinding
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
-import kotlinx.android.synthetic.main.activity_preference_manager_info.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,15 +32,20 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
         )
 
         val isAddUser = intent?.extras?.getBoolean("isAddSecondaryUser")
+        val mSecondaryUserInfoList = intent?.extras?.getParcelable<SecondaryUserInfoList>("SecondaryUserInfo")
 
         if(isAddUser!!){
             mSecondaryUserBinding.buttonManagerInfoEdit.visibility = View.GONE
         }else{
-            mSecondaryUserBinding.buttonManagerInfoEdit.visibility = View.VISIBLE
+            mSecondaryUserBinding.buttonManagerInfoEdit.visibility = View.GONE
             mSecondaryUserBinding.textViewManagerInfoTitle.text = resources.getString(R.string.preferences_manager_info_title)
             mSecondaryUserBinding.textViewManagerInfoSubHeading.visibility = View.GONE
             mSecondaryUserBinding.buttonManagersInfoConfirm.visibility = View.GONE
         }
+
+        mSecondaryUserBinding.textViewManagersInfoName.text = mSecondaryUserInfoList?.su_name
+        mSecondaryUserBinding.textViewManagersInfoMobile.text = mSecondaryUserInfoList?.su_phone
+        mSecondaryUserBinding.textViewManagersInfoEmail.text = mSecondaryUserInfoList?.su_email
 
         mSecondaryUserBinding.buttonManagerInfoBack.setOnClickListener {
             onBackPressed()

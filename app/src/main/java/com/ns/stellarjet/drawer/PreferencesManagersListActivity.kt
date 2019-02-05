@@ -115,6 +115,7 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
             PreferenceManagerInfoActivity::class.java
         )
         mAddSecondaryUserIntent.putExtra("isAddSecondaryUser" , false)
+        mAddSecondaryUserIntent.putExtra("SecondaryUserInfo" , p1)
         startActivity(mAddSecondaryUserIntent)
     }
 

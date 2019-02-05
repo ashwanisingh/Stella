@@ -443,7 +443,7 @@
 
     <!-- new seat -->
     <string name="personalize_seat_title">Where would you like to sit?</string>
-    <string name="preferences_manager_info_title">Your booking \n manager’s details</string>
+    <string name="preferences_manager_info_title">Your booking \nmanager’s details</string>
 
     <!-- Biometric-->
     <string name="biometric_title">Login</string>
