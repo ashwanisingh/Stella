@@ -99,23 +99,32 @@ class HomeActivity : AppCompatActivity() {
         activityHomeBinding.textViewSeatLimits.text = displaySeats
 
 
-
-
         if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
             activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
             activityHomeBinding.textViewHomeBookingPrimaryUser.visibility = View.GONE
         }else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
             activityHomeBinding.textViewHomeBookingPrimaryUser.text =
                 SharedPreferencesHelper.getCurrentPrimaryUserName(this@HomeActivity)
-
-            activityHomeBinding.textViewHomeBookingPrimaryUser.setOnClickListener {
-                val mHomeIntent = Intent(this@HomeActivity, PrimaryUsersActivity::class.java)
-                // send bundle
-                mHomeIntent.putParcelableArrayListExtra(
-                    UIConstants.BUNDLE_SECONDARY_USER_DATA,
-                    sUserData.primary_users as java.util.ArrayList<out Parcelable >
+            /*if(sUserData.primary_users.size > 1){
+                activityHomeBinding.textViewHomeBookingPrimaryUser.setCompoundDrawablesWithIntrinsicBounds(
+                    0 , 0 ,R.mipmap.baseline_arrow_drop_down ,0
                 )
-                startActivity(mHomeIntent)
+            }*/
+            activityHomeBinding.textViewHomeBookingPrimaryUser.setOnClickListener {
+                if(sUserData.primary_users.size > 1){
+                    val mHomeIntent = Intent(this@HomeActivity, PrimaryUsersActivity::class.java)
+                    // send bundle
+                    mHomeIntent.putParcelableArrayListExtra(
+                        UIConstants.BUNDLE_SECONDARY_USER_DATA,
+                        sUserData.primary_users as java.util.ArrayList<out Parcelable >
+                    )
+                    startActivity(mHomeIntent)
+                }else{
+                    Toast.makeText(
+                        this@HomeActivity ,
+                        "You have only one primary user",
+                        Toast.LENGTH_LONG).show()
+                }
             }
         }
 
