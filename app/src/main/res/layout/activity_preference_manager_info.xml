@@ -84,7 +84,6 @@
                 android:layout_height="wrap_content"/>
 
         <EditText
-                android:visibility="gone"
                 android:id="@+id/editText_managers_info_name"
                 style="@style/StellarEditText"
                 android:layout_width="match_parent"
@@ -118,7 +117,6 @@
                 android:layout_height="wrap_content"/>
 
         <EditText
-                android:visibility="gone"
                 android:id="@+id/editText_managers_info_mobile"
                 style="@style/StellarEditText"
                 android:layout_width="match_parent"
@@ -153,7 +151,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <EditText
-                android:visibility="gone"
                 android:id="@+id/editText_managers_info_email"
                 style="@style/StellarEditText"
                 android:layout_width="match_parent"

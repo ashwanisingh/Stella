@@ -36,17 +36,22 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
 
         if(isAddUser!!){
             mSecondaryUserBinding.buttonManagerInfoEdit.visibility = View.GONE
+            mSecondaryUserBinding.textViewManagersInfoName.visibility = View.GONE
+            mSecondaryUserBinding.textViewManagersInfoMobile.visibility = View.GONE
+            mSecondaryUserBinding.textViewManagersInfoEmail.visibility = View.GONE
         }else{
             mSecondaryUserBinding.buttonManagerInfoEdit.visibility = View.GONE
             mSecondaryUserBinding.textViewManagerInfoTitle.text = resources.getString(R.string.preferences_manager_info_title)
             mSecondaryUserBinding.textViewManagerInfoSubHeading.visibility = View.GONE
             mSecondaryUserBinding.buttonManagersInfoConfirm.visibility = View.GONE
+            mSecondaryUserBinding.editTextManagersInfoEmail.visibility= View.GONE
+            mSecondaryUserBinding.editTextManagersInfoMobile.visibility= View.GONE
+            mSecondaryUserBinding.editTextManagersInfoName.visibility= View.GONE
+            mSecondaryUserBinding.textViewManagersInfoName.text = mSecondaryUserInfoList?.su_name
+            mSecondaryUserBinding.textViewManagersInfoMobile.text = mSecondaryUserInfoList?.su_phone
+            mSecondaryUserBinding.textViewManagersInfoEmail.text = mSecondaryUserInfoList?.su_email
+
         }
-
-        mSecondaryUserBinding.textViewManagersInfoName.text = mSecondaryUserInfoList?.su_name
-        mSecondaryUserBinding.textViewManagersInfoMobile.text = mSecondaryUserInfoList?.su_phone
-        mSecondaryUserBinding.textViewManagersInfoEmail.text = mSecondaryUserInfoList?.su_email
-
         mSecondaryUserBinding.buttonManagerInfoBack.setOnClickListener {
             onBackPressed()
         }
