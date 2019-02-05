@@ -187,16 +187,6 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
         });
     }
 
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        if (mPermissionDenied) {
-            // Permission was not granted, display error dialog.
-//            showMissingPermissionError();
-            mPermissionDenied = false;
-        }
-    }
-
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
@@ -239,7 +229,6 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             enableMyLocation();
         } else {
             // Display the missing permission error dialog when the fragments resume.
-            mPermissionDenied = true;
             Toast.makeText(
                     AddAddressScrollActivity.this,
                     "Please permit location permission to proceed",
