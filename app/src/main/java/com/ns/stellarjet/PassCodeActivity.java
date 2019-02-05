@@ -1,7 +1,6 @@
 package com.ns.stellarjet;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ns.networking.model.SecondaryUserData;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.login.LoginActivity;
-import com.ns.stellarjet.utils.MyPasswordTransformationMethod;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
 
@@ -38,7 +35,6 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private String mThreeEditTextPassCode;
     private String mFourEditTextPassCode;
     private UserData mUserData;
-    private SecondaryUserData mSecondaryUserData;
 
     @BindView(R.id.button_passcode_one)
     Button mPasscodeOneButton;
@@ -86,15 +82,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         ButterKnife.bind(this);
 
-        if(SharedPreferencesHelper.getUserType(PassCodeActivity.this).equalsIgnoreCase("primary")){
-            mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
-        }else if(SharedPreferencesHelper.getUserType(PassCodeActivity.this).equalsIgnoreCase("secondary")){
-            mSecondaryUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_SECONDARY_USER_DATA);
-            mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
-        }
-
-
-        Log.d("PassCode", "onCreate: " + mUserData);
+        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
 
         String savedPassCode = SharedPreferencesHelper.getPassCode(PassCodeActivity.this);
         if (savedPassCode.isEmpty()){
@@ -103,12 +91,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
             mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading));
         }
 
-        mPassCodeBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mPassCodeBackButton.setOnClickListener(v -> onBackPressed());
 
         mPasscodeOneButton.setOnClickListener(this);
         mPasscodeTwoButton.setOnClickListener(this);
@@ -319,7 +302,6 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         mFourEditTextPassCode = "";
     }
 
-
     private void savePassCode(){
         String passCode = mFirstEditTextPassCode + mSecondEditTextPassCode +
                 mThreeEditTextPassCode + mFourEditTextPassCode;
@@ -335,6 +317,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 int mPassCodeEntryTwo = Integer.parseInt(passCode);
                 if(mPassCodeEntryOne == mPassCodeEntryTwo){
                     SharedPreferencesHelper.savePassCode(PassCodeActivity.this , passCode);
+                    saveLoginData();
                     decideNextLaunchActivity();
                 }else {
                     clearPassCode();
@@ -343,7 +326,6 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                     mPassCodeEntryOne = -1;
                 }
             }
-
             Log.d("Passcode", "savePassCode: save new preferences");
         }else if(!savedPassCode.equals(passCode)){
             Log.d("Passcode", "savePassCode: Access Denied");
@@ -376,13 +358,16 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private void decideNextLaunchActivity(){
         String userType = SharedPreferencesHelper.getUserType(PassCodeActivity.this);
         int currentPrimaryUserId = SharedPreferencesHelper.getCurrentPrimaryUserId(PassCodeActivity.this);
+        boolean isPrimaryUserSelected = SharedPreferencesHelper.isPrimaryUserSelected(PassCodeActivity.this);
         if(userType.equalsIgnoreCase("Primary")){
             launchHomeActivity();
         }else if(userType.equalsIgnoreCase("Secondary") &&
-                currentPrimaryUserId!=0){
+                currentPrimaryUserId!=0 &&
+                isPrimaryUserSelected){
             launchHomeActivity();
         }else if(userType.equalsIgnoreCase("Secondary") &&
-                currentPrimaryUserId==0){
+                currentPrimaryUserId!=0 &&
+                !isPrimaryUserSelected){
             launchPrimaryUserListActivity();
         }
     }
@@ -399,7 +384,8 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private void launchPrimaryUserListActivity(){
         Intent mHomeIntent = new Intent(PassCodeActivity.this , PrimaryUsersActivity.class);
         // send bundle
-        mHomeIntent.putParcelableArrayListExtra(UIConstants.BUNDLE_SECONDARY_USER_DATA, (ArrayList<? extends Parcelable>) mSecondaryUserData.getPrimary_users());
+        mHomeIntent.putParcelableArrayListExtra(UIConstants.BUNDLE_SECONDARY_USER_DATA,
+                (ArrayList<? extends Parcelable>) mUserData.getPrimary_users());
         mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mHomeIntent);
         finish();
@@ -415,12 +401,14 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogParams) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
-            }
-        });
+        dialog.setOnShowListener(dialogParams -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorButtonNew)));
         dialog.show();
+    }
+
+    private void saveLoginData(){
+        SharedPreferencesHelper.saveUserName(PassCodeActivity.this , mUserData.getName());
+        SharedPreferencesHelper.saveUserEmail(PassCodeActivity.this , mUserData.getEmail());
+        SharedPreferencesHelper.saveUserPhone(PassCodeActivity.this , mUserData.getPhone());
+        SharedPreferencesHelper.saveLoginStatus(PassCodeActivity.this , true);
     }
 }

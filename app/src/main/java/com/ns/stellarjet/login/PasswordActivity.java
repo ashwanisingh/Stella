@@ -1,18 +1,15 @@
 package com.ns.stellarjet.login;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import com.ns.networking.model.ForgotPasswordResponse;
 import com.ns.networking.model.LoginResponse;
-import com.ns.networking.model.UpdateDeviceToken;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
@@ -112,10 +109,6 @@ public class PasswordActivity extends AppCompatActivity {
                     SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
                     SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
                     SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
-                    SharedPreferencesHelper.saveUserName(PasswordActivity.this , response.body().getData().getUser_data().getName());
-                    SharedPreferencesHelper.saveUserEmail(PasswordActivity.this , response.body().getData().getUser_data().getEmail());
-                    SharedPreferencesHelper.saveUserPhone(PasswordActivity.this , response.body().getData().getUser_data().getPhone());
-                    SharedPreferencesHelper.saveLoginStatus(PasswordActivity.this , true);
                     Intent mPassCodeIntent = new Intent(
                             PasswordActivity.this ,
                             PassCodeActivity.class

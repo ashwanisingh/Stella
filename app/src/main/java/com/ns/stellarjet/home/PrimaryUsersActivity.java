@@ -111,6 +111,7 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
                     SharedPreferencesHelper.saveLoginStatus(PrimaryUsersActivity.this , true);
                     SharedPreferencesHelper.saveCurrentPrimaryUserId(PrimaryUsersActivity.this , response.body().getData().getUser_data().getUser_id());
                     SharedPreferencesHelper.saveCurrentPrimaryUserName(PrimaryUsersActivity.this , response.body().getData().getUser_data().getName());
+                    SharedPreferencesHelper.setPrimaryUserSelectionStatus(PrimaryUsersActivity.this , true);
                     Intent mHomeIntent = new Intent(
                             PrimaryUsersActivity.this ,
                             HomeActivity.class

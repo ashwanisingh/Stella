@@ -390,6 +390,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void setPrimaryUserSelectionStatus(Context mContext , boolean isSelected){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putBoolean(UIConstants.PREFERENCES_IS_PRIMARY_USER_SELECTED, isSelected);
+        mEditor.apply();
+    }
+
+    public static boolean isPrimaryUserSelected(Context mContext){
+        return getSharedPreferences(mContext).getBoolean(
+                UIConstants.PREFERENCES_IS_PRIMARY_USER_SELECTED, false
+        );
+    }
+
 
 
     /**

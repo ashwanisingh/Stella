@@ -203,4 +203,8 @@ public class UIConstants {
      * String constant for SharedPreferences current primary user name
      */
     public static final String PREFERENCES_CURRENT_PRIMARY_USER_NAME = "currentPrimaryUserName";
+    /**
+     * String constant for SharedPreferences primary user selected status
+     */
+    public static final String PREFERENCES_IS_PRIMARY_USER_SELECTED = "isPrimaryUserSelected";
 }
