@@ -21,6 +21,7 @@ class PreferenceLaunchActivity : AppCompatActivity() {
 
         val userType = SharedPreferencesHelper.getUserType(this@PreferenceLaunchActivity)
         if(userType.equals("secondary" , true)){
+            layout_preferences_managers.visibility = View.INVISIBLE
             textView_preferences_managers.visibility = View.INVISIBLE
             textView_preferences_managers_help.visibility = View.INVISIBLE
             view_preferences_managers.visibility = View.INVISIBLE
