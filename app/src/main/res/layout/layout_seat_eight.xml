@@ -1,26 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:fitsSystemWindows="true"
               android:layout_marginBottom="20dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
-            android:layout_marginStart="15dp"
-            style="@style/StellarBackButton"
-            android:id="@+id/button_seat_selection_back"    />
+    <LinearLayout
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:layout_marginTop="15dp"
+                style="@style/StellarBackButton"
+                android:id="@+id/button_seat_selection_back"    />
+
+        <TextView
+                android:layout_gravity="bottom"
+                android:textSize="22sp"
+                android:textColor="@android:color/white"
+                android:text="@string/personalize_seat_title"
+                android:id="@+id/textView_seat_title"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/colorBoardingPassHeader"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_available"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                style="@style/StellarTextView_12sp"
+                android:text="@string/seats_available"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/button_cabin_selected"/>
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_selected"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                android:text="@string/seats_selected"
+                style="@style/StellarTextView_12sp"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_cabin_available"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/button_cabin_booked"/>
+
+        <Button
+                android:drawableTop="@drawable/ic_seat_booked"
+                android:background="@android:color/transparent"
+                android:drawablePadding="6dp"
+                android:text="@string/seats_booked"
+                style="@style/StellarTextView_12sp"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:id="@+id/button_cabin_booked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_cabin_selected" android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-            android:textSize="22sp"
-            android:textColor="@android:color/white"
-            android:text="@string/personalize_seat_title"
-            android:id="@+id/textView_seat_title"
-            android:layout_gravity="start"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
+            tools:text="10 seats available"
+            style="@style/StellarTextView_14sp"
+            android:id="@+id/textView_seat_eight_available_seats"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     <LinearLayout

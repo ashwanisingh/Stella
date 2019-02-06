@@ -98,6 +98,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     LinearLayout mLeftLinearLayout;
     @BindView(R.id.layout_two_right_sun_status)
     LinearLayout mRightLinearLayout;
+    @BindView(R.id.textView_seat_twelve_available_seats)
+    TextView mSeatsAvailableTextView;
 
     private boolean isAlphaBooked = false;
     private boolean isBravoBooked = false;
@@ -281,6 +283,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 if(response.body()!=null){
                     Log.d("Booking", "onResponse: " + response.body());
                     mFlightSeatList = response.body().getData().getFlight_seats();
+                    String seatsAvailable =
+                            String.valueOf(response.body().getData().getFlight_seat_availability().getAvailable_seats())
+                                    +" seats available";
+                    mSeatsAvailableTextView.setText(seatsAvailable);
                     List<Integer> mBookedSeats = response.body().getData().getFlight_seat_availability().getBooked();
                     List<Integer> mLockedSeats = response.body().getData().getFlight_seat_availability().getLocked();
                     List<SeatsLockedByUser> mLockedSeatsByUser = response.body().getData().getSeats_locked_by_user();
@@ -536,6 +542,14 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     }
 
     private void setLockedSeatsByUser(List<SeatsLockedByUser> mSelectedAndLockedSeatsList){
+        int numOfConfirmedSeats = mSelectedAndLockedSeatsList.size();
+        String confirmSeatsDisplay = "";
+        if(numOfConfirmedSeats == 0){
+            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
+        }else {
+            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+        }
+        mSeatConfirmedButton.setText(confirmSeatsDisplay);
         for (int i = 0; i < mBookedSeatsList.size(); i++) {
             int seatId = mBookedSeatsList.get(i).getSeatId();
             String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
@@ -650,6 +664,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 if (response.body() != null) {
                     Log.d("Booking", "onResponse: " +response.body());
                     mConfirmedSeatsList.addAll(mLockSeatsList);
+                    String confirmSeatsDisplay =
+                            getResources().getString(R.string.booking_confirm_seats) + " - "+
+                                    mConfirmedSeatsList.size();
+                    mSeatConfirmedButton.setText(confirmSeatsDisplay);
                 }else if(response.code()==400){
                     JSONObject mJsonObject;
                     try {
@@ -698,6 +716,14 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     if(response.code()==200){
                         Log.d("Booking", "onResponse: " +response.body());
                         mConfirmedSeatsList.removeAll(mUnlockSeatsList);
+                        int numOfConfirmedSeats = mConfirmedSeatsList.size();
+                        String confirmSeatsDisplay = "";
+                        if(numOfConfirmedSeats == 0){
+                            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
+                        }else {
+                            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+                        }
+                        mSeatConfirmedButton.setText(confirmSeatsDisplay);
                     }else if(response.code()==500){
                         Toast.makeText(SeatSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
                     }else if(response.code()==400){
