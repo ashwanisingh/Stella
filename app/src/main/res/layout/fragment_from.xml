@@ -20,7 +20,7 @@
                 style="@style/StellarTextView_22sp"
                 android:alpha="0.5"
                 android:letterSpacing="0.05"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="@string/booking_from"
                 android:layout_gravity="start"
                 android:layout_width="wrap_content"
