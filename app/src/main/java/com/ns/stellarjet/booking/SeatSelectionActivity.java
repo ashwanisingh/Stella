@@ -120,6 +120,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private List<Integer> mConfirmedSeatsList = new ArrayList<>();
     private String flowFrom = "";
     private boolean isReturnFromPassenger = false;
+    private int mNumOfSeatsLocked = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,10 +284,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 if(response.body()!=null){
                     Log.d("Booking", "onResponse: " + response.body());
                     mFlightSeatList = response.body().getData().getFlight_seats();
-                    String seatsAvailable =
-                            String.valueOf(response.body().getData().getFlight_seat_availability().getAvailable_seats())
-                                    +" seats available";
-                    mSeatsAvailableTextView.setText(seatsAvailable);
                     List<Integer> mBookedSeats = response.body().getData().getFlight_seat_availability().getBooked();
                     List<Integer> mLockedSeats = response.body().getData().getFlight_seat_availability().getLocked();
                     List<SeatsLockedByUser> mLockedSeatsByUser = response.body().getData().getSeats_locked_by_user();
@@ -294,6 +291,13 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     setBookedAndLockedSeats(mBookedSeats);
                     setBookedAndLockedSeats(mLockedSeats);
                     setLockedSeatsByUser(mLockedSeatsByUser);
+                    int numOfSeatsAvailable =
+                            response.body().getData().getFlight_seat_availability().getAvailable_seats() +
+                            mLockedSeatsByUser.size();
+                    String seatsAvailable =
+                            String.valueOf(numOfSeatsAvailable)
+                                    +" seats available";
+                    mSeatsAvailableTextView.setText(seatsAvailable);
                 }else{
                     JSONObject mJsonObject = null;
                     try {
@@ -549,7 +553,11 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         }else {
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
         }
+        mNumOfSeatsLocked = mSelectedAndLockedSeatsList.size();
         mSeatConfirmedButton.setText(confirmSeatsDisplay);
+        for (int i = 0; i < mSelectedAndLockedSeatsList.size(); i++) {
+            mConfirmedSeatsList.add(mSelectedAndLockedSeatsList.get(i).getFlight_seat_id());
+        }
         for (int i = 0; i < mBookedSeatsList.size(); i++) {
             int seatId = mBookedSeatsList.get(i).getSeatId();
             String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
@@ -637,7 +645,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 isLimoBooked = isSelected;
                 break;
         }
-
     }
 
     private void confirmSingleSeats(List<Integer> mLockSeatsList){
@@ -664,9 +671,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 if (response.body() != null) {
                     Log.d("Booking", "onResponse: " +response.body());
                     mConfirmedSeatsList.addAll(mLockSeatsList);
+                    mNumOfSeatsLocked = mNumOfSeatsLocked + 1;
                     String confirmSeatsDisplay =
                             getResources().getString(R.string.booking_confirm_seats) + " - "+
-                                    mConfirmedSeatsList.size();
+                                    mNumOfSeatsLocked;
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
                 }else if(response.code()==400){
                     JSONObject mJsonObject;
@@ -716,12 +724,13 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     if(response.code()==200){
                         Log.d("Booking", "onResponse: " +response.body());
                         mConfirmedSeatsList.removeAll(mUnlockSeatsList);
-                        int numOfConfirmedSeats = mConfirmedSeatsList.size();
-                        String confirmSeatsDisplay = "";
-                        if(numOfConfirmedSeats == 0){
+                        mNumOfSeatsLocked = mNumOfSeatsLocked - 1;
+                        String confirmSeatsDisplay;
+                        if(mNumOfSeatsLocked == 0){
                             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
                         }else {
-                            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+                            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats)
+                                    + " - "+ mNumOfSeatsLocked;
                         }
                         mSeatConfirmedButton.setText(confirmSeatsDisplay);
                     }else if(response.code()==500){
