@@ -12,7 +12,6 @@ import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.ns.networking.model.FlightScheduleData;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityCalendarBinding;
-import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 
