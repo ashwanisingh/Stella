@@ -430,6 +430,8 @@
     <string name="boarding_passengers">Passengers</string>
     <string name="boarding_passenger_single">Passenger</string>
     <string name="boarding_passengers_reach_by">Please arrive by</string>
+    <string name="boarding_passengers_breakfast">Breakfast</string>
+    <string name="boarding_passengers_dinner">Dinner</string>
 
     <!-- new booking-->
     <string name="bookings_title">Your Bookings</string>

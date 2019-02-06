@@ -1,6 +1,7 @@
 package com.ns.stellarjet.drawer
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.Booking
@@ -57,6 +58,23 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
 
         val cities = boardingPass.from_city_info?.name + " to \n"+ boardingPass.to_city_info?.name
         binding.textViewRowBoardingPassDetailsFromCity.text = cities
+
+        var foodNames = ""
+        if(boardingPass.travelling_self ==1 ){
+            boardingPass.prefs?.main_passenger?.food_items?.forEach {
+                if(foodNames.isEmpty()){
+                    foodNames = it.name!!
+                }else{
+                    foodNames =  foodNames + " , "+ it.name
+                }
+            }
+            binding.textViewBoardingPassDetailsFoodsNo.text = foodNames
+        }else{
+            binding.textViewBoardingPassDetailsFoodsNo.text = "N/A"
+        }
+        if(journeyTime.contains("pm" , true)){
+            binding.textViewBoardingPassDetailsFoods.text = resources.getString(R.string.boarding_passengers_dinner)
+        }
 
         button_boarding_pass_details_back.setOnClickListener {
             onBackPressed()
