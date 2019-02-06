@@ -433,7 +433,7 @@
 
     <!-- new booking-->
     <string name="bookings_title">Your Bookings</string>
-    <string name="bookings_booked_by">Tickets booked by </string>
+    <string name="bookings_booked_by">Tickets booked by</string>
 
     <!-- new personalize launch -->
     <string name="personalize_title">Personalise your trip</string>

@@ -5,6 +5,7 @@ import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
+import com.ns.networking.model.schedulefood.ScheduleFoodListResponse;
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.DeactivateSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.SecondaryUser;
@@ -213,7 +214,12 @@ public interface StellarApiService {
             @Field("status") int status
     );
 
-
+    @GET(Constants.FOOD_SCHEDULE_LIST_API)
+    Call<ScheduleFoodListResponse> getFoodListBySchedule(
+            @Query("token") String token ,
+            @Query("schedule_id") int schedule_id,
+            @Query("journey_date") String journey_date
+    );
 
 /*
 @GET(Constants.CITY_LIST_API)

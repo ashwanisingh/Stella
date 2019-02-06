@@ -11,6 +11,7 @@ import com.ns.stellarjet.databinding.ActivityBookingsDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.CabPreferencesActivity
 import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
+import com.ns.stellarjet.personalize.PersonalizeFoodLaunchActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.UIConstants
@@ -110,9 +111,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.layoutBookingsDetailsFoodBase.setOnClickListener {
             val foodItems = bookingData?.prefs?.main_passenger?.food_items
-            val foodPersonalizeIntent = Intent(this , FoodPreferencesLaunchActivity::class.java)
-            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
-            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
+            val foodPersonalizeIntent = Intent(this , PersonalizeFoodLaunchActivity::class.java)
+//            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
+            foodPersonalizeIntent.putExtra("JourneyDate" , bookingData.journey_date)
+            foodPersonalizeIntent.putExtra("ScheduleId" , bookingData.schedule_id)
+//            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
             startActivity(foodPersonalizeIntent)
         }
 

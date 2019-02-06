@@ -26,6 +26,7 @@ data class Booking(
     val pick_address_main: String?,
     val prefs: Prefs?,
     val service: String?,
+    val schedule_id: String?,
     val status: String?,
     val to_city: Int,
     val to_city_info: ToCityInfo?,
@@ -56,6 +57,7 @@ data class Booking(
         parcel.readString(),
         parcel.readString(),
         parcel.readParcelable(Prefs::class.java.classLoader),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
@@ -90,6 +92,7 @@ data class Booking(
         parcel.writeString(pick_address_main)
         parcel.writeParcelable(prefs, flags)
         parcel.writeString(service)
+        parcel.writeString(schedule_id)
         parcel.writeString(status)
         parcel.writeInt(to_city)
         parcel.writeParcelable(to_city_info, flags)
