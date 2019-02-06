@@ -294,4 +294,10 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mSeatNames.clear()
+        mSeatNamesId.clear()
+    }
 }
