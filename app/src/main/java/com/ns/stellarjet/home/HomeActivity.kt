@@ -52,8 +52,6 @@ class HomeActivity : AppCompatActivity() {
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
 
-        sendDeviceTokenToServer()
-
 //        set locked seats data and pass to Seat layout Activity
         if(sUserData.locked_seats?.isNotEmpty()!!){
             SharedPreferencesHelper.saveFromCityId(this@HomeActivity ,sUserData.locked_seats!![0].from_city!!)
@@ -141,13 +139,18 @@ class HomeActivity : AppCompatActivity() {
 
         /* launch DrawerActivity */
         activityHomeBinding.buttonDrawer.setOnClickListener {
-            val mDrawerActivtyIntent = Intent(
+            val mDrawerActivityIntent = Intent(
                 this ,
                 DrawerActivity::class.java
             )
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
-            startActivity(mDrawerActivtyIntent)
+            startActivity(mDrawerActivityIntent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sendDeviceTokenToServer()
     }
 
     private fun launchDialog(){
