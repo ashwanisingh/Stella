@@ -14,7 +14,6 @@ import com.ns.networking.model.FoodPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
-import com.ns.stellarjet.drawer.BookingsDetailsActivity
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
@@ -97,7 +96,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 if(response.code() == 200){
                     Toast.makeText(
                         this@FoodPreferenceListActivity,
-                        "Preferences Updated successfullt",
+                        "Preferences Updated successfully",
                         Toast.LENGTH_SHORT
                     ).show()
                     HomeActivity.sUserData.customer_prefs.foods?.forEach {
