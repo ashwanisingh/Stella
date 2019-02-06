@@ -48,14 +48,17 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         val expiryTime = getString(R.string.personalize_update_title) + SharedPreferencesHelper.getPersonalizeTime(this)
         binding.textViewUpdatePreferences.text = expiryTime
 
-
         binding.layoutPersonalizeFood.setOnClickListener {
             val mFoodPreferencesIntent = Intent(
                 this ,
-                FoodPreferencesLaunchActivity::class.java
+                PersonalizeFoodLaunchActivity::class.java
             )
             mFoodPreferencesIntent.putExtra("FlowFrom" , "personalize")
             mFoodPreferencesIntent.putExtra("isPostBooking" , true)
+            mFoodPreferencesIntent.putExtra("JourneyDate" ,
+                SharedPreferencesHelper.getJourneyDate(this@PersonalizeLaunchActivity))
+            mFoodPreferencesIntent.putExtra("ScheduleId" ,
+                SharedPreferencesHelper.getScheduleId(this@PersonalizeLaunchActivity))
             startActivity(mFoodPreferencesIntent)
         }
 
@@ -121,6 +124,7 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         startActivity(mHomeIntent)
         finish()
         clearPersonalizedPreferences()
+        SharedPreferencesHelper.clearAllBookingData(this@PersonalizeLaunchActivity)
     }
 
     private fun clearPersonalizedPreferences(){

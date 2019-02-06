@@ -628,7 +628,6 @@ public class PassengerListActivity extends AppCompatActivity {
                                     SharedPreferencesHelper.getJourneyTimeImMillis(PassengerListActivity.this)));
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mIntent);
-                    clearAllBooinngData();
                 }else if(response.code()==400){
                     JSONObject mJsonObject;
                     try {
@@ -702,19 +701,5 @@ public class PassengerListActivity extends AppCompatActivity {
                 Log.d("splash", "onFailure: " + t);
             }
         });
-    }
-
-    private void clearAllBooinngData(){
-        SharedPreferencesHelper.saveFlightId(PassengerListActivity.this , 0);
-        SharedPreferencesHelper.saveArrivalTime(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveFromCityId(PassengerListActivity.this , 0);
-        SharedPreferencesHelper.saveToCityId(PassengerListActivity.this , 0);
-        SharedPreferencesHelper.saveToCity(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveFromCity(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveJourneyTimeImMillis(PassengerListActivity.this , 0);
-        SharedPreferencesHelper.saveJourneyTime(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveJourneyDate(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveArrivalTime(PassengerListActivity.this , "");
-        SharedPreferencesHelper.saveScheduleId(PassengerListActivity.this , "");
     }
 }

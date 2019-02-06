@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
+import com.ns.networking.model.FoodItems
 import com.ns.networking.model.schedulefood.ScheduleFoodListResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
@@ -28,8 +29,10 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
     private var mJourneyDate : String = ""
     private var scheduleId : String= ""
     private var isFromPostBooking : Boolean = false
+    private var foodList: ArrayList<FoodItems>? = null
     companion object {
         @JvmField var mCommonFoodsList : MutableList<Food> = ArrayList()
+        @JvmField var mPersonalizationFoodId : MutableList<String> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +41,9 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
         scheduleId = intent?.extras?.getString("ScheduleId" , "")!!
         mJourneyDate = intent?.extras?.getString("JourneyDate")!!
         isFromPostBooking = intent?.extras?.getBoolean("isPostBooking" , false)!!
-
+        foodList = intent?.extras?.getParcelableArrayList<FoodItems>("selectedFoods")
+        mCommonFoodsList.clear()
+        mPersonalizationFoodId.clear()
 
         button_food_pref_back.setOnClickListener {
             onBackPressed()
@@ -61,6 +66,12 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
         foodType.forEach {
             mFoodsTypeList.add(it.capitalize())
             Log.d("FoodLaunchActivity" , it)
+        }
+
+        foodList?.forEach {
+            if(!it.name.equals("standard" , true)){
+                mPersonalizationFoodId.add(it.id.toString())
+            }
         }
 
         return mFoodsTypeList.sortedDescending()
@@ -88,7 +99,6 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
                         finish()
                     }else{
                         mCommonFoodsList.addAll(response.body()!!.data)
-                        makeCommonFoodTypeList(response.body()!!.data)
                         val foodListAdapter  = FoodCategoryListAdapter(
                             makeCommonFoodTypeList(response.body()!!.data),
                             this@PersonalizeFoodLaunchActivity

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ns.stellarjet.booking.PassengerListActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -428,6 +429,20 @@ public class SharedPreferencesHelper {
         mEditor.putInt(UIConstants.PREFERENCES_BOOKING_FROM_CITY,0);
         mEditor.putInt(UIConstants.PREFERENCES_BOOKING_TO_CITY,0);
         mEditor.apply();
+    }
+
+    public static void clearAllBookingData(Context context){
+        SharedPreferencesHelper.saveFlightId(context , 0);
+        SharedPreferencesHelper.saveArrivalTime(context , "");
+        SharedPreferencesHelper.saveFromCityId(context , 0);
+        SharedPreferencesHelper.saveToCityId(context , 0);
+        SharedPreferencesHelper.saveToCity(context , "");
+        SharedPreferencesHelper.saveFromCity(context , "");
+        SharedPreferencesHelper.saveJourneyTimeImMillis(context , 0);
+        SharedPreferencesHelper.saveJourneyTime(context , "");
+        SharedPreferencesHelper.saveJourneyDate(context , "");
+        SharedPreferencesHelper.saveArrivalTime(context , "");
+        SharedPreferencesHelper.saveScheduleId(context , "");
     }
 
 

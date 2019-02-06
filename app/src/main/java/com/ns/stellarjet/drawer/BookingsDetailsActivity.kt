@@ -115,7 +115,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
 //            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
             foodPersonalizeIntent.putExtra("JourneyDate" , bookingData.journey_date)
             foodPersonalizeIntent.putExtra("ScheduleId" , bookingData.schedule_id)
-//            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
+            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
             startActivity(foodPersonalizeIntent)
         }
 

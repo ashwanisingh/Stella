@@ -49,6 +49,7 @@ public class BookingConfirmedActivity extends AppCompatActivity {
             mIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData);
             startActivity(mIntent);
             finish();
+            SharedPreferencesHelper.clearAllBookingData(BookingConfirmedActivity.this);
         });
 
         activityBookingConfirmedBinding.buttonConfirmedPersonalize.setOnClickListener(v -> {
