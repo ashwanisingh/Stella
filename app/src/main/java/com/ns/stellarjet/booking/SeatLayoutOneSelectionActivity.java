@@ -221,7 +221,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
         }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available_reverse);
         }
     }
 
@@ -281,55 +281,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         });
     }
 
-
-    private void confirmSeats(List<Integer> mConfirmedSeatsList){
-        Call<FlightSeatsConfirmResponse> mFlightSeatsConfirmCall =
-                RetrofitAPICaller.getInstance(SeatLayoutOneSelectionActivity.this)
-                        .getStellarJetAPIs().confirmFlightSeats(
-                        SharedPreferencesHelper.getUserToken(SeatLayoutOneSelectionActivity.this) ,
-                        SharedPreferencesHelper.getFlightId(SeatLayoutOneSelectionActivity.this) ,
-                        SharedPreferencesHelper.getFromCityId(SeatLayoutOneSelectionActivity.this),
-                        SharedPreferencesHelper.getToCityId(SeatLayoutOneSelectionActivity.this),
-                        SharedPreferencesHelper.getJourneyDate(SeatLayoutOneSelectionActivity.this),
-                        SharedPreferencesHelper.getJourneyTime(SeatLayoutOneSelectionActivity.this),
-                        null,
-                        mConfirmedSeatsList
-                );
-
-        mFlightSeatsConfirmCall.enqueue(new Callback<FlightSeatsConfirmResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Response<FlightSeatsConfirmResponse> response) {
-                Log.d("Booking", "onResponse: " +response.body());
-                if (response.body() != null) {
-                    HomeActivity.mSeatNamesId.clear();
-                    if(response.body().getResultcode()==1){
-                        HomeActivity.mSeatNamesId.clear();
-                        HomeActivity.mSeatNamesId.addAll(mConfirmedSeatsList);
-                    }
-                    HomeActivity.mSeatNamesId = response.body().getData().getFlight_seat_availability().getLocked();
-                    int numOfGuests = HomeActivity.mSeatNamesId.size();
-                    Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerActivity.class);
-                    mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
-                    startActivity(mGuestAddIntent);
-                }else if(response.errorBody()!=null){
-                    JSONObject mJsonObject;
-                    try {
-                        mJsonObject = new JSONObject(response.errorBody().string());
-                        String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
-                Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {
@@ -424,6 +375,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         mBookedSeatsRequest.setSeatId(seatId);
         mBookedSeatsRequest.setmDesiredButton(mSelectedButton);
         mBookedSeatsRequest.setSeatPosition(getSeatPosition(mSelectedButton));
+        mBookedSeatsRequest.setSeatName(seatName);
         mBookedSeatsList.add(mBookedSeatsRequest);
     }
 
@@ -485,9 +437,9 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             }
         }else if(seatFace.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
             if (isSelected){
-                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_reverse_selected);
+                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_selected_reverse);
             }else {
-                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_available_reverse);
             }
         }
     }
@@ -499,17 +451,41 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             int seatId = mBookedSeatsList.get(i).getSeatId();
             String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
             Button mDesiredButton = mBookedSeatsList.get(i).getmDesiredButton();
+            String mSeatName = mBookedSeatsList.get(i).getSeatName();
             for (int j = 0; j < mSelectedAndLockedSeatsList.size(); j++) {
                 int bookedSeatId = mSelectedAndLockedSeatsList.get(j);
                 if(seatId == bookedSeatId){
                     mDesiredButton.setEnabled(false);
+                    mDesiredButton.setText("");
+                    hideBookedSeatsText(mSeatName);
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_booked);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_booked);
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_booked_reverse);
+                        mDesiredButton.setText("");
                     }
                 }
             }
+        }
+    }
+
+    private void hideBookedSeatsText(String seatName){
+        if(seatName.equalsIgnoreCase("alpha")){
+            mAlphaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("bravo")){
+            mBetaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("charlie")){
+            mCharlieTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("delta")){
+            mDeltaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("echo")){
+            mEchoTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("foxtrot")){
+            mFoxtrotTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("golf")){
+            mGolfTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("hotel")){
+            mHotelTextView.setAlpha(0.3f);
         }
     }
 
@@ -538,7 +514,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_selected);
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected_reverse);
                     }
                 }
             }

@@ -7,6 +7,7 @@ public class BookedSeatsRequest {
     private int seatId;
     private Button mDesiredButton;
     private String seatPosition;
+    private String seatName;
 
     public int getSeatId() {
         return seatId;
@@ -30,5 +31,13 @@ public class BookedSeatsRequest {
 
     public void setSeatPosition(String seatPosition) {
         this.seatPosition = seatPosition;
+    }
+
+    public String getSeatName() {
+        return seatName;
+    }
+
+    public void setSeatName(String seatName) {
+        this.seatName = seatName;
     }
 }

@@ -262,7 +262,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
         }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available_reverse);
         }
     }
 
@@ -435,6 +435,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         mBookedSeatsRequest.setSeatId(seatId);
         mBookedSeatsRequest.setmDesiredButton(mSelectedButton);
         mBookedSeatsRequest.setSeatPosition(getSeatPosition(mSelectedButton));
+        mBookedSeatsRequest.setSeatName(seatName);
         mBookedSeatsList.add(mBookedSeatsRequest);
     }
 
@@ -516,9 +517,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             }
         }else if(seatFace.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
             if (isSelected){
-                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_reverse_selected);
+                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_selected_reverse);
             }else {
-                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_reverse_available);
+                mSelectedButton.setBackgroundResource(R.drawable.ic_seat_available_reverse);
             }
         }
     }
@@ -530,17 +531,48 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             int seatId = mBookedSeatsList.get(i).getSeatId();
             String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
             Button mDesiredButton = mBookedSeatsList.get(i).getmDesiredButton();
+            String mSeatName = mBookedSeatsList.get(i).getSeatName();
             for (int j = 0; j < mSelectedAndLockedSeatsList.size(); j++) {
                 int bookedSeatId = mSelectedAndLockedSeatsList.get(j);
                 if(seatId == bookedSeatId){
                     mDesiredButton.setEnabled(false);
+                    mDesiredButton.setText("");
+                    hideBookedSeatsText(mSeatName);
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_booked);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_booked);
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_booked_reverse);
                     }
                 }
             }
+        }
+    }
+
+    private void hideBookedSeatsText(String seatName){
+        if(seatName.equalsIgnoreCase("alpha")){
+            mAlphaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("bravo")){
+            mBetaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("charlie")){
+            mCharlieTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("delta")){
+            mDeltaTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("echo")){
+            mEchoTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("foxtrot")){
+            mFoxtrotTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("golf")){
+            mGolfTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("hotel")){
+            mHotelTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("Indigo")){
+            mIndigoTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("Juliet")){
+            mJulietTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("Kilo")){
+            mKiloTextView.setAlpha(0.3f);
+        }else if(seatName.equalsIgnoreCase("Lima")){
+            mLimoTextView.setAlpha(0.3f);
         }
     }
 
@@ -568,7 +600,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
-                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_reverse_selected);
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected_reverse);
                     }
                 }
             }

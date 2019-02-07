@@ -4,6 +4,7 @@
               android:orientation="vertical"
               android:fitsSystemWindows="true"
               android:layout_marginBottom="20dp"
+              android:background="@color/colorSeatBg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -34,7 +35,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@color/colorBoardingPassHeader"
+            android:background="@color/colorSeatNotationBg"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:paddingTop="5dp"
@@ -85,7 +86,7 @@
                 app:layout_constraintStart_toStartOf="@+id/button_cabin_booked"/>
 
         <ImageView
-                android:src="@drawable/ic_seat_available"
+                android:src="@drawable/ic_seat_available_thumbnail"
                 android:background="@android:color/transparent"
                 android:id="@+id/button_cabin_available"
                 android:layout_width="36dp"
@@ -97,7 +98,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
-                android:src="@drawable/ic_seat_selected"
+                android:src="@drawable/ic_seat_selected_thumbnail"
                 android:background="@android:color/transparent"
                 android:id="@+id/button_cabin_selected"
                 android:layout_width="36dp"
@@ -109,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
-                android:src="@drawable/ic_seat_booked"
+                android:src="@drawable/ic_seat_booked_thumbnail"
                 android:background="@android:color/transparent"
                 android:id="@+id/button_cabin_booked"
                 android:layout_width="36dp"
@@ -117,7 +118,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/button_cabin_selected" android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.5" android:layout_marginBottom="8dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -163,6 +165,7 @@
         </LinearLayout>
 
         <View
+                android:alpha="0.5"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"/>
@@ -178,6 +181,7 @@
         </ScrollView>
 
         <View
+                android:alpha="0.5"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"/>

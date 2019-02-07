@@ -31,5 +31,7 @@
     <color name="colorBookingBgCard">#34354c</color>
     <color name="colorEditText">#46465A</color>
     <color name="colorEditTextPassCode">#6E6E7D</color>
+    <color name="colorSeatBg">#26273F</color>
+    <color name="colorSeatNotationBg">#313248</color>
 
 </resources>

@@ -76,7 +76,7 @@
                     android:textSize="16sp"
                     android:paddingBottom="10dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/ic_seat_reverse_available"
+                    android:background="@drawable/ic_seat_available_reverse"
                     app:layout_constraintStart_toStartOf="@+id/button_seats_alpha"
                     app:layout_constraintTop_toBottomOf="@+id/button_seats_alpha"/>
 
@@ -99,7 +99,7 @@
                     android:textSize="16sp"
                     android:paddingBottom="10dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/ic_seat_reverse_available"
+                    android:background="@drawable/ic_seat_available_reverse"
                     app:layout_constraintBottom_toBottomOf="@+id/button_seats_charlie"
                     app:layout_constraintStart_toEndOf="@+id/button_seats_charlie"
                     app:layout_constraintTop_toTopOf="@+id/button_seats_charlie"/>
@@ -150,7 +150,7 @@
                     android:textSize="16sp"
                     android:paddingBottom="10dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/ic_seat_reverse_available"
+                    android:background="@drawable/ic_seat_available_reverse"
                     app:layout_constraintBottom_toBottomOf="@+id/button_seats_delta"
                     app:layout_constraintEnd_toEndOf="@+id/button_seats_echo"
                     app:layout_constraintStart_toStartOf="@+id/button_seats_echo"
@@ -201,7 +201,7 @@
                     android:textSize="16sp"
                     android:paddingBottom="10dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/ic_seat_reverse_available"
+                    android:background="@drawable/ic_seat_available_reverse"
                     app:layout_constraintEnd_toEndOf="@+id/button_seats_golf"
                     app:layout_constraintStart_toStartOf="@+id/button_seats_golf"
                     app:layout_constraintTop_toBottomOf="@+id/button_seats_golf"/>
