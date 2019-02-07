@@ -103,6 +103,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     private String flowFrom = "";
     private boolean isReturnFromPassenger = false;
     private int mNumOfSeatsLocked = 0;
+    private int numOfSeatsAvailable = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,9 +250,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     setBookedAndLockedSeats(mBookedSeats);
                     setBookedAndLockedSeats(mLockedSeats);
                     setLockedSeatsByUser(mLockedSeatsByUser);
-                    int numOfSeatsAvailable =
-                            response.body().getData().getFlight_seat_availability().getAvailable_seats() +
-                                    mLockedSeatsByUser.size();
+                    numOfSeatsAvailable = response.body().getData().getFlight_seat_availability().getAvailable_seats();
                     String seatsAvailable =
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
@@ -635,6 +634,12 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                             getResources().getString(R.string.booking_confirm_seats) + " - "+
                                     mNumOfSeatsLocked;
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                    mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                    numOfSeatsAvailable = numOfSeatsAvailable  - 1;
+                    String seatsAvailable =
+                            String.valueOf(numOfSeatsAvailable)
+                                    +" seats available";
+                    mSeatsAvailableTextView.setText(seatsAvailable);
                 }else if(response.code()==400){
                     JSONObject mJsonObject;
                     try {
@@ -692,6 +697,11 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                                     + " - "+ mNumOfSeatsLocked;
                         }
                         mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                        numOfSeatsAvailable = numOfSeatsAvailable + 1;
+                        String seatsAvailable =
+                                String.valueOf(numOfSeatsAvailable)
+                                        +" seats available";
+                        mSeatsAvailableTextView.setText(seatsAvailable);
                     }else if(response.code()==500){
                         Toast.makeText(SeatLayoutOneSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
                     }else if(response.code()==400){

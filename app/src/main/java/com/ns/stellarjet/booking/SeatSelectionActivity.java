@@ -121,6 +121,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private String flowFrom = "";
     private boolean isReturnFromPassenger = false;
     private int mNumOfSeatsLocked = 0;
+    private int numOfSeatsAvailable = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -291,9 +292,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     setBookedAndLockedSeats(mBookedSeats);
                     setBookedAndLockedSeats(mLockedSeats);
                     setLockedSeatsByUser(mLockedSeatsByUser);
-                    int numOfSeatsAvailable =
-                            response.body().getData().getFlight_seat_availability().getAvailable_seats() +
-                            mLockedSeatsByUser.size();
+                    numOfSeatsAvailable = response.body().getData().getFlight_seat_availability().getAvailable_seats();
                     String seatsAvailable =
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
@@ -676,6 +675,11 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                             getResources().getString(R.string.booking_confirm_seats) + " - "+
                                     mNumOfSeatsLocked;
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                    numOfSeatsAvailable = numOfSeatsAvailable  - 1;
+                    String seatsAvailable =
+                            String.valueOf(numOfSeatsAvailable)
+                                    +" seats available";
+                    mSeatsAvailableTextView.setText(seatsAvailable);
                 }else if(response.code()==400){
                     JSONObject mJsonObject;
                     try {
@@ -733,6 +737,11 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                                     + " - "+ mNumOfSeatsLocked;
                         }
                         mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                        numOfSeatsAvailable = numOfSeatsAvailable + 1;
+                        String seatsAvailable =
+                                String.valueOf(numOfSeatsAvailable)
+                                        +" seats available";
+                        mSeatsAvailableTextView.setText(seatsAvailable);
                     }else if(response.code()==500){
                         Toast.makeText(SeatSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
                     }else if(response.code()==400){
