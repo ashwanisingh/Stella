@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
@@ -91,12 +92,13 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
                 if(response.body()!=null){
                     Log.d("Booking", "onResponse: $response")
                     if(response.body()!!.data.isEmpty()){
-                        Toast.makeText(
+                        /*Toast.makeText(
                             this@PersonalizeFoodLaunchActivity ,
-                            "No Foods are available",
+                            response.body()!!.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                        finish()
+                        finish()*/
+                        showResponseDialog(response.body()!!.message)
                     }else{
                         mCommonFoodsList.addAll(response.body()!!.data)
                         val foodListAdapter  = FoodCategoryListAdapter(
@@ -150,4 +152,26 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
         mFoodListIntent.putExtra("isPostBooking" , isFromPostBooking)
         startActivity(mFoodListIntent)
     }
+
+    private fun showResponseDialog(message : String) {
+        val alertDialogBuilder = AlertDialog.Builder(this@PersonalizeFoodLaunchActivity)
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setCancelable(false)
+
+        alertDialogBuilder.setPositiveButton(
+            "Ok"
+        ) { arg0, arg1 -> finish() }
+
+        val alertDialog = alertDialogBuilder.create()
+
+        alertDialog.setOnShowListener { dialog ->
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                resources.getColor(R.color.colorButtonNew)
+            )
+        }
+
+        alertDialog.show()
+    }
+
+
 }

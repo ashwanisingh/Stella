@@ -13,6 +13,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.personalize.PersonalizeFoodLaunchActivity.Companion.mCommonFoodsList
 import com.ns.stellarjet.personalize.PersonalizeFoodLaunchActivity.Companion.mPersonalizationFoodId
+import com.ns.stellarjet.personalize.PersonalizeLaunchActivity.Companion.mPersonalizationSelectedFoodIds
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
@@ -56,7 +57,19 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
         }
 
         button_food_list_confirm.setOnClickListener {
-            personalizeFood()
+            if(isFromPostBooking){
+                if(mPersonalizationSelectedFoodIds == mSelectedFoodIds){
+                    finish()
+                }else{
+                    personalizeFood()
+                }
+            }else{
+                if(mPersonalizationFoodId == mSelectedFoodIds){
+                    finish()
+                }else{
+                    personalizeFood()
+                }
+            }
         }
     }
 
@@ -68,12 +81,24 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
                 mFoodsDisplayList.add(it)
             }
         }
-        mFoodsDisplayList.forEach {
-            it.pref = mPersonalizationFoodId.contains(it.id.toString())
+
+        if(isFromPostBooking){
+            mFoodsDisplayList.forEach {
+                it.pref = mPersonalizationSelectedFoodIds.contains(it.id.toString())
+            }
+            mPersonalizationSelectedFoodIds.forEach {
+                mSelectedFoodIds.add(it)
+            }
+        }else{
+            mFoodsDisplayList.forEach {
+                it.pref = mPersonalizationFoodId.contains(it.id.toString())
+            }
+            mPersonalizationFoodId.forEach {
+                mSelectedFoodIds.add(it)
+            }
         }
-        mPersonalizationFoodId.forEach {
-            mSelectedFoodIds.add(it)
-        }
+
+
         return mFoodsDisplayList
     }
 
@@ -98,7 +123,11 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
                         this@PersonalizeFoodListActivity ,
                         true
                     )
-                    mPersonalizationFoodId = mSelectedFoodIds
+                    if(isFromPostBooking){
+                        PersonalizeLaunchActivity.mPersonalizationSelectedFoodIds = mSelectedFoodIds
+                    }else{
+                        mPersonalizationFoodId = mSelectedFoodIds
+                    }
                     Toast.makeText(
                         this@PersonalizeFoodListActivity,
                         response.body()?.message,

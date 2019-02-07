@@ -94,11 +94,6 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 response: Response<CommonPersonalizeFoodResponse>){
                 Log.d("Booking", "onResponse: $response")
                 if(response.code() == 200){
-                    Toast.makeText(
-                        this@FoodPreferenceListActivity,
-                        "Preferences Updated successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     HomeActivity.sUserData.customer_prefs.foods?.forEach {
                         it.pref = FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.contains(it.id.toString())
                     }

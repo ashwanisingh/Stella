@@ -14,6 +14,9 @@ import com.ns.stellarjet.utils.UIConstants
 class PersonalizeLaunchActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityPersonalizeLaunchBinding
+    companion object {
+        @JvmField var mPersonalizationSelectedFoodIds : MutableList<String> = ArrayList()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,5 +137,10 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
         SharedPreferencesHelper.saveCabPickupPersoalizeID(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
         SharedPreferencesHelper.saveFoodPersonalize(this ,false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPersonalizationSelectedFoodIds.clear()
     }
 }
