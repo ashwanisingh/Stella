@@ -57,6 +57,12 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
         }
 
         button_food_list_confirm.setOnClickListener {
+           /* if(mSelectedFoodIds.size==0){
+                Toast.makeText(
+                    this@PersonalizeFoodListActivity ,
+                    "please select at least one food",
+                    Toast.LENGTH_SHORT).show()
+            }*/
             if(isFromPostBooking){
                 if(mPersonalizationSelectedFoodIds == mSelectedFoodIds){
                     finish()
@@ -119,10 +125,17 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
                 progress.hideProgress()
                 if(response.code() == 200){
                     Log.d("Booking", "onResponse: $response")
-                    SharedPreferencesHelper.saveFoodPersonalize(
-                        this@PersonalizeFoodListActivity ,
-                        true
-                    )
+                    if(mSelectedFoodIds.size == 0){
+                        SharedPreferencesHelper.saveFoodPersonalize(
+                            this@PersonalizeFoodListActivity ,
+                            false
+                        )
+                    }else{
+                        SharedPreferencesHelper.saveFoodPersonalize(
+                            this@PersonalizeFoodListActivity ,
+                            true
+                        )
+                    }
                     if(isFromPostBooking){
                         PersonalizeLaunchActivity.mPersonalizationSelectedFoodIds = mSelectedFoodIds
                     }else{
