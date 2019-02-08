@@ -28,7 +28,7 @@
 
     <ImageView
             android:id="@+id/imageView_row_managers_overflow"
-            android:src="@drawable/ic_more"
+            android:src="@drawable/ic_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
