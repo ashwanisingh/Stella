@@ -101,19 +101,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     @BindView(R.id.textView_seat_twelve_available_seats)
     TextView mSeatsAvailableTextView;
 
-    private boolean isAlphaBooked = false;
-    private boolean isBravoBooked = false;
-    private boolean isCharlieBooked = false;
-    private boolean isDeltaBooked = false;
-    private boolean isEchoBooked = false;
-    private boolean isFoxtrotBooked = false;
-    private boolean isGolfBooked = false;
-    private boolean isHotelBooked = false;
-    private boolean isIndigoBooked = false;
-    private boolean isJulietBooked = false;
-    private boolean isKiloBooked = false;
-    private boolean isLimoBooked = false;
-
     private List<FlightSeats> mFlightSeatList = new ArrayList<>();
     private List<SeatSelectionRequest> mSelectedSeatList = new ArrayList<>();
     private List<BookedSeatsRequest> mBookedSeatsList= new ArrayList<>();
@@ -221,19 +208,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         mSelectedSeatList.clear();
         mBookedSeatsList.clear();
         mConfirmedSeatsList.clear();
-
-        isAlphaBooked = false;
-        isBravoBooked = false;
-        isCharlieBooked = false;
-        isDeltaBooked = false;
-        isEchoBooked = false;
-        isFoxtrotBooked = false;
-        isGolfBooked = false;
-        isHotelBooked = false;
-        isIndigoBooked = false;
-        isJulietBooked = false;
-        isKiloBooked = false;
-        isLimoBooked = false;
 
         resetSeats(mAlphaButton);
         resetSeats(mBetaButton);
@@ -445,64 +419,40 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         isReturnFromPassenger = false;
         switch (v.getId()){
             case R.id.button_seats_alpha:
-                isAlphaBooked = !isAlphaBooked;
-                selectButtonSelection(mAlphaButton , getResources().getString(R.string.tag_seat_straight) , isAlphaBooked);
-                makeSelectedSeatList(mAlphaButton);
+                makeSelectedSeatList(mAlphaButton,getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_beta:
-                isBravoBooked = !isBravoBooked;
-                selectButtonSelection(mBetaButton , getResources().getString(R.string.tag_seat_straight), isBravoBooked);
-                makeSelectedSeatList(mBetaButton);
+                makeSelectedSeatList(mBetaButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_charlie:
-                isCharlieBooked = !isCharlieBooked;
-                selectButtonSelection(mCharlieButton, getResources().getString(R.string.tag_seat_reverse) ,isCharlieBooked);
-                makeSelectedSeatList(mCharlieButton);
+                makeSelectedSeatList(mCharlieButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_delta:
-                isDeltaBooked = !isDeltaBooked;
-                selectButtonSelection(mDeltaButton, getResources().getString(R.string.tag_seat_reverse) , isDeltaBooked);
-                makeSelectedSeatList(mDeltaButton);
+                makeSelectedSeatList(mDeltaButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_echo:
-                isEchoBooked = !isEchoBooked;
-                selectButtonSelection(mEchoButton, getResources().getString(R.string.tag_seat_straight) , isEchoBooked);
-                makeSelectedSeatList(mEchoButton);
+                makeSelectedSeatList(mEchoButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_foxtrot:
-                isFoxtrotBooked = !isFoxtrotBooked;
-                selectButtonSelection(mFoxtrotButton, getResources().getString(R.string.tag_seat_reverse), isFoxtrotBooked);
-                makeSelectedSeatList(mFoxtrotButton);
+                makeSelectedSeatList(mFoxtrotButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_golf:
-                isGolfBooked = !isGolfBooked;
-                selectButtonSelection(mGolfButton, getResources().getString(R.string.tag_seat_straight), isGolfBooked);
-                makeSelectedSeatList(mGolfButton);
+                makeSelectedSeatList(mGolfButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_hotel:
-                isHotelBooked = !isHotelBooked;
-                selectButtonSelection(mHotelButton, getResources().getString(R.string.tag_seat_reverse), isHotelBooked);
-                makeSelectedSeatList(mHotelButton);
+                makeSelectedSeatList(mHotelButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_indigo:
-                isIndigoBooked = !isIndigoBooked;
-                selectButtonSelection(mIndigoButton, getResources().getString(R.string.tag_seat_straight), isIndigoBooked);
-                makeSelectedSeatList(mIndigoButton);
+                makeSelectedSeatList(mIndigoButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_juliet:
-                isJulietBooked = !isJulietBooked;
-                selectButtonSelection(mJulietButton, getResources().getString(R.string.tag_seat_reverse), isJulietBooked);
-                makeSelectedSeatList(mJulietButton);
+                makeSelectedSeatList(mJulietButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_kilo:
-                isKiloBooked = !isKiloBooked;
-                selectButtonSelection(mKiloButton, getResources().getString(R.string.tag_seat_straight), isKiloBooked);
-                makeSelectedSeatList(mKiloButton);
+                makeSelectedSeatList(mKiloButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_lima:
-                isLimoBooked = !isLimoBooked;
-                selectButtonSelection(mLimoButton, getResources().getString(R.string.tag_seat_reverse), isLimoBooked);
-                makeSelectedSeatList(mLimoButton);
+                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
         }
     }
@@ -578,7 +528,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
     private void setLockedSeatsByUser(List<SeatsLockedByUser> mSelectedAndLockedSeatsList){
         int numOfConfirmedSeats = mSelectedAndLockedSeatsList.size();
-        String confirmSeatsDisplay = "";
+        String confirmSeatsDisplay;
         if(numOfConfirmedSeats == 0){
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
         }else {
@@ -596,7 +546,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             for (int j = 0; j < mSelectedAndLockedSeatsList.size(); j++) {
                 int bookedSeatId = mSelectedAndLockedSeatsList.get(j).getFlight_seat_id();
                 if(seatId == bookedSeatId){
-                    makeSelectedSeatList(mDesiredButton);
+                    makeSelectedSeatList(mDesiredButton , seatPosition);
                     if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_straight))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
@@ -608,19 +558,23 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     }
 
     // set the selected seat selection to true
-    private void makeSelectedSeatList(Button mSelectedButton){
+    private void makeSelectedSeatList(Button mSelectedButton,String seatPosition){
         String seatId = (String) mSelectedButton.getTag();
         for (int i = 0; i < mSelectedSeatList.size(); i++) {
             if(mSelectedSeatList.get(i).getSeatId().equalsIgnoreCase(seatId)){
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
                 isSelected = !isSelected;
+                mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
                         if(!isReturnFromPassenger){
-                            confirmSingleSeats(mLockedSeatList);
+                            confirmSingleSeats(mLockedSeatList,
+                                    mSelectedButton ,
+                                    seatPosition ,
+                                    i);
                         }
                     }
                 }else {
@@ -628,57 +582,18 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     if(!flowFrom.equalsIgnoreCase("home")){
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
-                        unlockSingleSeats(mLockedSeatList);
+                        unlockSingleSeats(mLockedSeatList,
+                                mSelectedButton ,
+                                seatPosition,
+                                i);
                     }
                 }
-                setSeatSelectionOnState(mSelectedSeatList.get(i).getSeatName() , isSelected);
-                mSelectedSeatList.get(i).setSelected(isSelected);
             }
         }
     }
 
-    private void setSeatSelectionOnState(String seatName , boolean isSelected){
-        switch (seatName){
-            case "Alpha":
-                isAlphaBooked = isSelected;
-                break;
-            case "Bravo":
-                isBravoBooked = isSelected;
-                break;
-            case "Charlie":
-                isCharlieBooked = isSelected;
-                break;
-            case "Delta":
-                isDeltaBooked = isSelected;
-                break;
-            case "Echo":
-                isEchoBooked = isSelected;
-                break;
-            case "Foxtrot":
-                isFoxtrotBooked = isSelected;
-                break;
-            case "Golf":
-                isGolfBooked = isSelected;
-                break;
-            case "Hotel":
-                isHotelBooked = isSelected;
-                break;
-            case "Indigo":
-                isIndigoBooked = isSelected;
-                break;
-            case "Juliet":
-                isJulietBooked = isSelected;
-                break;
-            case "Kilo":
-                isKiloBooked = isSelected;
-                break;
-            case "Limo":
-                isLimoBooked = isSelected;
-                break;
-        }
-    }
-
-    private void confirmSingleSeats(List<Integer> mLockSeatsList){
+    private void confirmSingleSeats(List<Integer> mLockSeatsList, Button mDesiredButton, String seatPosition,
+                                    int position){
         Progress mProgress = Progress.getInstance();
         mProgress.showProgress(SeatSelectionActivity.this);
 
@@ -712,7 +627,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
                     mSeatsAvailableTextView.setText(seatsAvailable);
+                    selectButtonSelection(mDesiredButton, seatPosition ,true);
+                    mSelectedSeatList.get(position).setSelected(true);
                 }else if(response.code()==400){
+                    mSelectedSeatList.get(position).setSelected(false);
                     JSONObject mJsonObject;
                     try {
                         mJsonObject = new JSONObject(response.errorBody().string());
@@ -735,7 +653,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    private void unlockSingleSeats(List<Integer> mUnlockSeatsList){
+    private void unlockSingleSeats(List<Integer> mUnlockSeatsList , Button mDesiredButton,
+                                   String seatPosition,int position){
         Progress mProgress = Progress.getInstance();
         mProgress.showProgress(SeatSelectionActivity.this);
 
@@ -774,9 +693,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                                 String.valueOf(numOfSeatsAvailable)
                                         +" seats available";
                         mSeatsAvailableTextView.setText(seatsAvailable);
+                        selectButtonSelection(mDesiredButton, seatPosition ,false);
+                        mSelectedSeatList.get(position).setSelected(false);
                     }else if(response.code()==500){
                         Toast.makeText(SeatSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
                     }else if(response.code()==400){
+                        mSelectedSeatList.get(position).setSelected(false);
                         JSONObject mJsonObject;
                         try {
                             mJsonObject = new JSONObject(response.errorBody().string());
@@ -851,19 +773,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         mSelectedSeatList.clear();
         mBookedSeatsList.clear();
         mConfirmedSeatsList.clear();
-
-        isAlphaBooked = false;
-        isBravoBooked = false;
-        isCharlieBooked = false;
-        isDeltaBooked = false;
-        isEchoBooked = false;
-        isFoxtrotBooked = false;
-        isGolfBooked = false;
-        isHotelBooked = false;
-        isIndigoBooked = false;
-        isJulietBooked = false;
-        isKiloBooked = false;
-        isLimoBooked = false;
 
         resetSeats(mAlphaButton);
         resetSeats(mBetaButton);
