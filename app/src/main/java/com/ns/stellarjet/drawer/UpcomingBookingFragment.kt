@@ -21,6 +21,7 @@ import com.ns.stellarjet.drawer.adapter.BookingListAdapter
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
+import com.ns.stellarjet.utils.UiUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +52,8 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         if(StellarJetUtils.isConnectingToInternet(activity)){
             getUpcomingBookings()
         }else{
-            Toast.makeText(activity, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+            context?.let { UiUtils.showSimpleDialog(it, resources.getString(R.string.error_not_connected_internet)) }
+//            Toast.makeText(activity, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
         }
     }
 

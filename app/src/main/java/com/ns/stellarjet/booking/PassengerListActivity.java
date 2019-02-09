@@ -23,10 +23,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPassengerListBinding;
 import com.ns.stellarjet.home.HomeActivity;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -125,7 +122,10 @@ public class PassengerListActivity extends AppCompatActivity {
         if(isAllDataEntered()){
             validateGuests();
         }else {
-            Toast.makeText(this, "Passenger details needs to be filled", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    PassengerListActivity.this ,
+                    "Passenger details needs to be filled"
+            );
         }
     }
 
@@ -210,19 +210,18 @@ public class PassengerListActivity extends AppCompatActivity {
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             if(isGuestEdited){
                 confirmOnlyExistingGuests();
-//                Toast.makeText(this, "confirmOnlyExistingGuests()", Toast.LENGTH_SHORT).show();
             }else if(isOnlyNewGuestsAdded){
                 confirmGuests();
-//                Toast.makeText(this, "confirmGuests()", Toast.LENGTH_SHORT).show();
             }else if(isOnlyGuestsSelected){
                 bookFlight();
-//                Toast.makeText(this, "bookFlight()", Toast.LENGTH_SHORT).show();
             }else if(isOnlySelfTravelling){
                 bookFlight();
-//                Toast.makeText(this, "bookFlight()", Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    PassengerListActivity.this ,
+                    getResources().getString(R.string.error_not_connected_internet)
+            );
         }
     }
 
@@ -537,7 +536,10 @@ public class PassengerListActivity extends AppCompatActivity {
             public void onFailure(Call<GuestConfirmResponse> call, Throwable t) {
                 progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
-                Toast.makeText(PassengerListActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        PassengerListActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -572,7 +574,10 @@ public class PassengerListActivity extends AppCompatActivity {
             public void onFailure(Call<GuestConfirmResponse> call, Throwable t) {
                 progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
-                Toast.makeText(PassengerListActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        PassengerListActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -636,7 +641,6 @@ public class PassengerListActivity extends AppCompatActivity {
                         if(errorCode == 4){
                             // Operation timed out . please reselect seats
                             showTimeOutDialog();
-//                            Toast.makeText(PassengerListActivity.this, "Operation timed out . please reselect seats", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
@@ -648,7 +652,10 @@ public class PassengerListActivity extends AppCompatActivity {
             public void onFailure(@NotNull Call<BookingConfirmResponse> call, @NotNull Throwable t) {
                 progress.hideProgress();
                 Log.d("Booking", "onResponse: " + t);
-                Toast.makeText(PassengerListActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        PassengerListActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -687,7 +694,9 @@ public class PassengerListActivity extends AppCompatActivity {
 //                            getNewToken();
                             Log.d("Splash", "onResponse: Expiry");
                         }else {
-                            Toast.makeText(PassengerListActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                            UiUtils.Companion.showSimpleDialog(
+                                    PassengerListActivity.this , errorMessage
+                            );
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();

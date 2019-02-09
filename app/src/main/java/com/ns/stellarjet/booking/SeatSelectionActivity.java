@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -24,6 +23,7 @@ import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UiUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -169,7 +169,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             }
             int numOfGuests = HomeActivity.mSeatNamesId.size();
             if(numOfGuests == 0){
-                Toast.makeText(SeatSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        SeatSelectionActivity.this, "Please select seats"
+                );
             }else {
                 Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerListActivity.class);
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
@@ -181,7 +183,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             getFlightSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showNoInternetDialog(SeatSelectionActivity.this);
         }
 
         mConfirmedSeatsList.addAll(HomeActivity.mSeatNamesId);
@@ -226,7 +228,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             getFlightSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showNoInternetDialog(SeatSelectionActivity.this);
         }
     }
 
@@ -281,7 +283,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         if (mJsonObject != null) {
                             errorMessage = mJsonObject.getString("message");
                         }
-                        Toast.makeText(SeatSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(
+                                SeatSelectionActivity.this, errorMessage
+                        );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -291,7 +295,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(@NonNull Call<FlightSeatListResponse> call,@NonNull Throwable t) {
                 Log.d("Booking", "onFailure: " + t);
-                Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
             }
         });
     }
@@ -302,7 +306,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             unlockSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showNoInternetDialog(SeatSelectionActivity.this);
         }
     }
 
@@ -341,8 +345,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call, @NonNull Throwable t) {
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
-
+                UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
             }
         });
     }
@@ -635,12 +638,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     try {
                         mJsonObject = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(SeatSelectionActivity.this, errorMessage);
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }else if(response.code()==500){
-                    Toast.makeText(SeatSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
                 }
             }
 
@@ -648,7 +651,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
                 mProgress.hideProgress();
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
             }
         });
     }
@@ -696,14 +699,14 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         selectButtonSelection(mDesiredButton, seatPosition ,false);
                         mSelectedSeatList.get(position).setSelected(false);
                     }else if(response.code()==500){
-                        Toast.makeText(SeatSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
                     }else if(response.code()==400){
                         mSelectedSeatList.get(position).setSelected(false);
                         JSONObject mJsonObject;
                         try {
                             mJsonObject = new JSONObject(response.errorBody().string());
                             String errorMessage = mJsonObject.getString("message");
-                            Toast.makeText(SeatSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            UiUtils.Companion.showSimpleDialog(SeatSelectionActivity.this, errorMessage);
                         } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
@@ -714,7 +717,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     try {
                         mJsonObject = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(SeatSelectionActivity.this, errorMessage);
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -725,7 +728,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
                 mProgress.hideProgress();
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
             }
         });
     }

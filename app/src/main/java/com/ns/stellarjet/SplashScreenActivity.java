@@ -3,7 +3,6 @@ package com.ns.stellarjet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ns.networking.model.LoginResponse;
@@ -13,6 +12,7 @@ import com.ns.stellarjet.login.LoginActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
 import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.UiUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -61,7 +61,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                 launchLoginActivty();
             }
         }else{
-            Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SplashScreenActivity.this ,
+                    getResources().getString(R.string.error_server)
+            );
         }
     }
 
@@ -110,7 +113,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 //                            getNewToken();
                             Log.d("Splash", "onResponse: Expiry");
                         }else {
-                            Toast.makeText(SplashScreenActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                            UiUtils.Companion.showSimpleDialog(
+                                    SplashScreenActivity.this , errorMessage
+                            );
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
@@ -138,7 +143,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         }else{
-            Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SplashScreenActivity.this ,
+                    getResources().getString(R.string.error_server)
+            );
         }
     }
 

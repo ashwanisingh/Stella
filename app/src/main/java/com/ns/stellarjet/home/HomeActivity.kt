@@ -182,7 +182,6 @@ class HomeActivity : AppCompatActivity() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle("Previous booking")
         alertDialogBuilder.setMessage("You have already locked seats $seatNames to go from $lockedFromCity to $lockedToCity" )
-        alertDialogBuilder.setCancelable(true)
         alertDialogBuilder.setPositiveButton("Ok") { _, _ ->
             run {
                 if (numOfSeats == 8) {
@@ -202,17 +201,9 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-/*        alertDialogBuilder.setNegativeButton("Cancel") { _id, _ ->
-            unlockSeats()
-            _id.dismiss()
-
-        }*/
         val stateMaintenenceDialog = alertDialogBuilder.create()
         stateMaintenenceDialog.setCanceledOnTouchOutside(false)
         stateMaintenenceDialog.setCancelable(false)
-
-
-
         stateMaintenenceDialog.setOnShowListener {
             stateMaintenenceDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
             stateMaintenenceDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
@@ -220,44 +211,6 @@ class HomeActivity : AppCompatActivity() {
 
         stateMaintenenceDialog.show()
     }
-
-
-    /*private fun unlockSeats() {
-        val progress = Progress.getInstance()
-        progress.showProgress(this@HomeActivity)
-        val mFlightSeatsConfirmCall = RetrofitAPICaller.getInstance(this@HomeActivity)
-            .stellarJetAPIs.confirmFlightSeats(
-            SharedPreferencesHelper.getUserToken(this@HomeActivity),
-            SharedPreferencesHelper.getFlightId(this@HomeActivity),
-            SharedPreferencesHelper.getFromCityId(this@HomeActivity),
-            SharedPreferencesHelper.getToCityId(this@HomeActivity),
-            SharedPreferencesHelper.getJourneyDate(this@HomeActivity),
-            SharedPreferencesHelper.getJourneyTime(this@HomeActivity),
-            HomeActivity.mSeatNamesId,
-            null
-        )
-
-        mFlightSeatsConfirmCall.enqueue(object : Callback<FlightSeatsConfirmResponse> {
-            override fun onResponse(
-                call: Call<FlightSeatsConfirmResponse>,
-                response: Response<FlightSeatsConfirmResponse>) {
-                progress.hideProgress()
-                if (response.body() != null) {
-                    Log.d("Booking", "onResponse: " + response.body()!!)
-                    if(response.code() == 200){
-                        Toast.makeText(this@HomeActivity , "Seats are unlocked" , Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<FlightSeatsConfirmResponse>, t: Throwable) {
-                progress.hideProgress()
-                Log.d("Booking", "onFailure: $t")
-                Toast.makeText(this@HomeActivity, "Server Error Occurred", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }*/
-
 
     private fun sendDeviceTokenToServer() {
 

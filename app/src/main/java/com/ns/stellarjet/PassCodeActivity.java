@@ -22,6 +22,7 @@ import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.login.LoginActivity;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -322,7 +323,10 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 }else {
                     clearPassCode();
                     mPasswordHeading.setText(getResources().getString(R.string.passcode_title_heading_create));
-                    Toast.makeText(PassCodeActivity.this, "PassCode not matching ", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            PassCodeActivity.this,
+                            "PassCode not matching "
+                    );
                     mPassCodeEntryOne = -1;
                 }
             }

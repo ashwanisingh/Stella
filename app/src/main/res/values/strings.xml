@@ -477,4 +477,8 @@
     <!--gps -->
     <string name="gps_message">To Continue ,please turn on Device Location</string>
     <string name="gps_open_location_settings">Enable</string>
+
+    <!-- error strings-->
+    <string name="error_not_connected_internet">Not Connected to Internet</string>
+    <string name="error_server">Server Error</string>
 </resources>

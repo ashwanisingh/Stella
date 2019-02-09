@@ -1,29 +1,25 @@
 package com.ns.stellarjet.home;
 
-import android.app.SharedElementCallback;
 import android.content.Intent;
-import android.net.wifi.hotspot2.pps.HomeSp;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.model.PrimaryUser;
-import com.ns.networking.model.SecondaryUserData;
 import com.ns.networking.retrofit.RetrofitAPICaller;
-import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.adapter.PrimaryUsersAdapter;
-import com.ns.stellarjet.login.PasswordActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.UiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,12 +47,7 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
             mBackButton.setVisibility(View.GONE);
         }
 
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mBackButton.setOnClickListener(v -> onBackPressed());
 
 
         try {
@@ -97,7 +88,7 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
 
         mSwitchUserCall.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 progress.hideProgress();
                 if(response.body()!=null){
                     Log.d("PrimaryUsers", "onResponse: " + response.body());
@@ -120,15 +111,21 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
                     mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mHomeIntent);
                 }else {
-                    Toast.makeText(PrimaryUsersActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            PrimaryUsersActivity.this,
+                            "Something went wrong"
+                    );
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 progress.hideProgress();
                 Log.d("PrimaryUsers", "onResponse: " + t);
-                Toast.makeText(PrimaryUsersActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        PrimaryUsersActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
 

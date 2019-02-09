@@ -6,7 +6,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -24,10 +23,7 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.personalize.adapter.SavedAddressListAdapter;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.*;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import retrofit2.Call;
@@ -129,7 +125,10 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
         if(StellarJetUtils.isConnectingToInternet(SavedAddressListActivity.this)){
             getSavedAddress();
         }else{
-            Toast.makeText(SavedAddressListActivity.this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SavedAddressListActivity.this,
+                    getResources().getString(R.string.error_not_connected_internet)
+            );
         }
     }
 
@@ -161,7 +160,10 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             @Override
             public void onFailure(@NonNull Call<SavedAddressResponse> call,@NonNull Throwable t) {
                 progress.hideProgress();
-                Toast.makeText(SavedAddressListActivity.this , "Server Error" ,Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        SavedAddressListActivity.this ,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -233,7 +235,10 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     startActivity(mIntent);
                     finish();
                 }else{
-                    Toast.makeText(SavedAddressListActivity.this, "Please select a "+cabType+ " location", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            SavedAddressListActivity.this,
+                            "Please select a "+cabType+ " location in " + selectedCity
+                    );
                 }
             }else{
                 if(city.equalsIgnoreCase(selectedCity)){
@@ -255,7 +260,10 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     startActivity(mIntent);
                     finish();
                 }else{
-                    Toast.makeText(SavedAddressListActivity.this, "Please select a "+cabType+ " location", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            SavedAddressListActivity.this,
+                            "Please select a "+cabType+ " location in " + selectedCity
+                    );
                 }
             }
 

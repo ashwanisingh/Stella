@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -25,6 +24,7 @@ import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UiUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -129,7 +129,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             getFlightSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SeatLayoutOneSelectionActivity.this,
+                    getResources().getString(R.string.error_not_connected_internet)
+            );
         }
 
         mConfirmedSeatsList.addAll(HomeActivity.mSeatNamesId);
@@ -158,7 +161,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             }
             int numOfGuests = HomeActivity.mSeatNamesId.size();
             if(numOfGuests == 0){
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Please select seats", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        SeatLayoutOneSelectionActivity.this ,
+                        "Please select seats"
+                );
             }else {
                 Intent mGuestAddIntent = new Intent(SeatLayoutOneSelectionActivity.this , PassengerListActivity.class);
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
@@ -194,7 +200,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             getFlightSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SeatLayoutOneSelectionActivity.this ,
+                    getResources().getString(R.string.error_not_connected_internet)
+            );
         }
     }
 
@@ -247,7 +256,9 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         if (mJsonObject != null) {
                             errorMessage = mJsonObject.getString("message");
                         }
-                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(
+                                SeatLayoutOneSelectionActivity.this, errorMessage
+                        );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -257,8 +268,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             @Override
             public void onFailure(@NonNull Call<FlightSeatListResponse> call,@NonNull Throwable t) {
                 Log.d("Booking", "onFailure: " + t);
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
-
+                UiUtils.Companion.showSimpleDialog(
+                        SeatLayoutOneSelectionActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -270,7 +283,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             unlockSeats();
         }else{
-            Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showSimpleDialog(
+                    SeatLayoutOneSelectionActivity.this ,
+                    getResources().getString(R.string.error_not_connected_internet)
+            );
         }
     }
 
@@ -301,8 +317,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             @Override
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
-
+                UiUtils.Companion.showSimpleDialog(
+                        SeatLayoutOneSelectionActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -570,12 +588,17 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     try {
                         mJsonObject = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(
+                                SeatLayoutOneSelectionActivity.this, errorMessage
+                        );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }else if(response.code()==500){
-                    Toast.makeText(SeatLayoutOneSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            SeatLayoutOneSelectionActivity.this,
+                            getResources().getString(R.string.error_server)
+                    );
                 }
             }
 
@@ -583,7 +606,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
                 mProgress.hideProgress();
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        SeatLayoutOneSelectionActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
@@ -630,7 +656,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     selectButtonSelection(mDesiredButton, seatPosition ,false);
                     mSelectedSeatList.get(position).setSelected(false);
                 }else if(response.code()==500){
-                    Toast.makeText(SeatLayoutOneSelectionActivity.this, "Internal Server Error", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showSimpleDialog(
+                            SeatLayoutOneSelectionActivity.this,
+                            getResources().getString(R.string.error_server)
+                    );
                 }else if(response.code()==400){
                     selectButtonSelection(mDesiredButton, seatPosition ,false);
                     mSelectedSeatList.get(position).setSelected(false);
@@ -638,7 +667,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     try {
                         mJsonObject = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(SeatLayoutOneSelectionActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showSimpleDialog(
+                                SeatLayoutOneSelectionActivity.this,
+                                errorMessage
+                        );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -649,7 +681,10 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             public void onFailure(@NonNull Call<FlightSeatsConfirmResponse> call,@NonNull Throwable t) {
                 mProgress.hideProgress();
                 Log.d("Booking", "onFailure: " +t);
-                Toast.makeText(SeatLayoutOneSelectionActivity.this, "Server Error Occurred", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        SeatLayoutOneSelectionActivity.this,
+                        getResources().getString(R.string.error_server)
+                );
             }
         });
     }
