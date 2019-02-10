@@ -14,6 +14,7 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityCalendarBinding;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UiUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ public class CalendarActivity extends AppCompatActivity {
 
         mActivityCalendarBinding.buttonScheduleConfirmDate.setOnClickListener(v -> {
             if(selectedIndex == -1){
-                Toast.makeText(CalendarActivity.this, "No Flights are available", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        CalendarActivity.this, "No Flights are available"
+                );
             }else {
                 SharedPreferencesHelper.saveJourneyDate(
                         CalendarActivity.this ,

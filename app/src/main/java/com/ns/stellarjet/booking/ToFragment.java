@@ -4,7 +4,6 @@ package com.ns.stellarjet.booking;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -125,7 +125,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         if(StellarJetUtils.isConnectingToInternet(getActivity())){
             getFlightSchedules();
         }else{
-            Toast.makeText(getActivity(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+            UiUtils.Companion.showNoInternetDialog(getActivity());
         }
     }
 
@@ -154,14 +154,14 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
                     mCalendarIntent.putExtra("dates" , (ArrayList<? extends Parcelable>)  mFlightScheduleDataList);
                     Objects.requireNonNull(getActivity()).startActivity(mCalendarIntent);
                 }else if(response.code() == 500){
-                    Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showServerErrorDialog(Objects.requireNonNull(getActivity()));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<FlightScheduleResponse> call, @NonNull Throwable t) {
                 progress.hideProgress();
-                Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(Objects.requireNonNull(getActivity()));
                 Log.d("Calendar", "onFailure: " + t);
             }
         });
