@@ -6,7 +6,6 @@ import android.os.Parcelable
 import android.text.SpannableString
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -21,6 +20,7 @@ import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.UiUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -103,11 +103,11 @@ class HomeActivity : AppCompatActivity() {
         }else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
             activityHomeBinding.textViewHomeBookingPrimaryUser.text =
                 SharedPreferencesHelper.getCurrentPrimaryUserName(this@HomeActivity)
-            /*if(sUserData.primary_users.size > 1){
+            if(sUserData.primary_users.size > 1){
                 activityHomeBinding.textViewHomeBookingPrimaryUser.setCompoundDrawablesWithIntrinsicBounds(
-                    0 , 0 ,R.mipmap.baseline_arrow_drop_down ,0
+                    0 , 0 ,R.drawable.ic_user_dropdown,0
                 )
-            }*/
+            }
             activityHomeBinding.textViewHomeBookingPrimaryUser.setOnClickListener {
                 if(sUserData.primary_users.size > 1){
                     val mHomeIntent = Intent(this@HomeActivity, PrimaryUsersActivity::class.java)
@@ -118,10 +118,8 @@ class HomeActivity : AppCompatActivity() {
                     )
                     startActivity(mHomeIntent)
                 }else{
-                    Toast.makeText(
-                        this@HomeActivity ,
-                        "You have only one primary user",
-                        Toast.LENGTH_LONG).show()
+                    UiUtils.showSimpleDialog(this@HomeActivity ,
+                        "You have only one primary user")
                 }
             }
         }
@@ -232,7 +230,7 @@ class HomeActivity : AppCompatActivity() {
                     try {
                         val mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("message")
-                        Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_LONG).show()
+//                        UiUtils.showSimpleDialog(this@HomeActivity, errorMessage)
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     } catch (e: IOException) {
