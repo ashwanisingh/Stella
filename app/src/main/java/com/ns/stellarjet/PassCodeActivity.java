@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -338,7 +337,6 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
             int totalAttempts = 3;
             int attemptNumber = totalAttempts - mAttemptsTried;
             if(attemptNumber == 0){
-//                Toast.makeText(this, " Launch Login Activity", Toast.LENGTH_SHORT).show();
                 SharedPreferencesHelper.clearAllSharedPreferencesData(PassCodeActivity.this);
                 Intent mIntent = new Intent(
                         PassCodeActivity.this ,
@@ -347,11 +345,11 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(mIntent);
                 finish();
-                Toast.makeText(this, "Please login again", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showToast(PassCodeActivity.this , "Please login again");
             }else if(attemptNumber == 2){
                 showAttemptsRemaining(attemptNumber);
             }else {
-                Toast.makeText(this, (totalAttempts - mAttemptsTried) + " attempt remaining", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showToast(PassCodeActivity.this , (totalAttempts - mAttemptsTried) + " attempt remaining");
             }
         }else if(savedPassCode.equals(passCode)){
             Log.d("Passcode", "savePassCode: Access Granted");

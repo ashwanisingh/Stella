@@ -2,21 +2,14 @@ package com.ns.stellarjet.personalize;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.*;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
@@ -115,10 +108,12 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
                 if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
                     addAddress(String.valueOf(mSelectedCityId), address , nickName);
                 }else{
-                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showNoInternetDialog(AddAddressScrollActivity.this);
                 }
             }else {
-                Toast.makeText(AddAddressScrollActivity.this, "All Fields are Mandatory", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(
+                        AddAddressScrollActivity.this, "All Fields are Mandatory"
+                );
             }
         });
 
@@ -153,10 +148,10 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
                 progress.hideProgress();
                 if (response.body() != null && response.body().getResultcode() == 1) {
                     Log.d("Address", "onResponse: " + response.body());
-                    Toast.makeText(
+                    UiUtils.Companion.showToast(
                             AddAddressScrollActivity.this,
-                            response.body().getMessage(),
-                            Toast.LENGTH_SHORT).show();
+                            response.body().getMessage()
+                    );
                     if(mCabType.equalsIgnoreCase(UIConstants.BUNDLE_CAB_TYPE_PICK)){
                         SharedPreferencesHelper.saveCabPickupPersoalizeID(
                                 AddAddressScrollActivity.this ,
@@ -182,7 +177,7 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             public void onFailure(@NonNull Call<AddAddressResponse> call,@NonNull Throwable t) {
                 Log.d("Address", "onResponse: " + t);
                 progress.hideProgress();
-                Toast.makeText(AddAddressScrollActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(AddAddressScrollActivity.this);
             }
         });
     }
@@ -207,9 +202,8 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             }else {
                 mAddressEditText.setText("");
                 mAddressEditText.setHint("Please select area in " + mSelectedCity);
-                Toast.makeText(AddAddressScrollActivity.this,
-                        "Please select area in " + mSelectedCity,
-                        Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showSimpleDialog(AddAddressScrollActivity.this,
+                        "Please select area in " + mSelectedCity);
             }
         }catch(Exception e){
             Log.d("Maps", "onLocationChanged: " + e);
@@ -229,10 +223,10 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
             enableMyLocation();
         } else {
             // Display the missing permission error dialog when the fragments resume.
-            Toast.makeText(
+            UiUtils.Companion.showToast(
                     AddAddressScrollActivity.this,
-                    "Please permit location permission to proceed",
-                    Toast.LENGTH_SHORT).show();
+                    "Please permit location permission to proceed"
+            );
             finish();
         }
     }
@@ -254,10 +248,10 @@ public class AddAddressScrollActivity extends AppCompatActivity implements
 
     @Override
     public void onProviderDisabled(String provider) {
-        Toast.makeText(
+        UiUtils.Companion.showToast(
                 AddAddressScrollActivity.this,
-                "Please Enable GPS and Internet",
-                Toast.LENGTH_SHORT).show();
+                "Please Enable GPS and Internet"
+        );
     }
 
     @Override

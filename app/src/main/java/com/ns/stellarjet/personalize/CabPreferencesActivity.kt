@@ -3,17 +3,13 @@ package com.ns.stellarjet.personalize
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.CabPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityCabPreferncesBinding
-import com.ns.stellarjet.utils.Progress
-import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.StellarJetUtils
-import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,12 +68,14 @@ class CabPreferencesActivity : AppCompatActivity() {
                 val pickUpId = SharedPreferencesHelper.getCabPickupPersonlalizeID(this)
                 val dropId = SharedPreferencesHelper.getCabDropPersonalizeID(this)
                 if(pickUpId.isEmpty() && dropId.isEmpty()){
-                    Toast.makeText(this, "Please select either Pickup or Drop off", Toast.LENGTH_SHORT).show()
+                    UiUtils.showSimpleDialog(
+                        this@CabPreferencesActivity,
+                        "Please select either Pickup or Drop off location")
                 }else{
                     updateCabPreferences(pickUpId , dropId)
                 }
             }else{
-                Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+                UiUtils.showNoInternetDialog(this@CabPreferencesActivity)
             }
         }
     }
@@ -108,11 +106,10 @@ class CabPreferencesActivity : AppCompatActivity() {
                     SharedPreferencesHelper.saveCabPersonalize(
                         this@CabPreferencesActivity ,
                         true)
-
-                    Toast.makeText(
+                    UiUtils.showToast(
                         this@CabPreferencesActivity ,
-                        response.body()!!.message ,
-                        Toast.LENGTH_SHORT).show()
+                        response.body()!!.message
+                    )
                     if(flow.equals("drawer" , true)){
                         finish()
                     }else{
@@ -136,7 +133,9 @@ class CabPreferencesActivity : AppCompatActivity() {
             override fun onFailure(call: Call<CabPersonalizeResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
                 progress.hideProgress()
-                Toast.makeText(this@CabPreferencesActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(
+                    this@CabPreferencesActivity
+                )
             }
         })
     }

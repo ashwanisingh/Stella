@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -24,6 +23,7 @@ import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.UiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,17 +42,6 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     private String mSecondEditTextPassCode;
     private String mThreeEditTextPassCode;
     private String mFourEditTextPassCode;
-    /*mOtpLoginButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String otpEntered = mOtpEditText.getText().toString();
-            if(!otpEntered.isEmpty()){
-                doSecondaryUserLogin(username , otpEntered);
-            }else {
-                Toast.makeText(OTPActivity.this, "Please Enter OTP", Toast.LENGTH_SHORT).show();
-            }
-        }
-    });*/
     @BindView(R.id.button_passcode_one)
     Button mPasscodeOneButton;
     @BindView(R.id.button_passcode_two)
@@ -310,7 +299,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                     SharedPreferencesHelper.setPrimaryUserSelectionStatus(OTPActivity.this , false);
                     selectDefaultPrimaryUser(Objects.requireNonNull(response.body().getData().getPrimary_users()).get(0).getId());
                 }else {
-                    Toast.makeText(OTPActivity.this, "OTP Error", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showToast(
+                            OTPActivity.this, "OTP Error"
+                    );
                 }
             }
 
@@ -318,7 +309,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             public void onFailure(@NonNull Call<SecondaryUserLoginResponse> call, @NonNull Throwable t) {
                 Log.d("OTP", "onResponse: " +t);
                 progress.hideProgress();
-                Toast.makeText(OTPActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(OTPActivity.this);
             }
         });
     }
@@ -355,7 +346,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                     mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
                     startActivity(mPassCodeIntent);
                 }else {
-                    Toast.makeText(OTPActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showToast(
+                            OTPActivity.this, "Something went wrong"
+                    );
                 }
             }
 
@@ -363,7 +356,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 progress.hideProgress();
                 Log.d("PrimaryUsers", "onResponse: " + t);
-                Toast.makeText(OTPActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(OTPActivity.this);
             }
         });
 

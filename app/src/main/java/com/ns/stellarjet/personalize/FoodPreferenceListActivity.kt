@@ -3,7 +3,6 @@ package com.ns.stellarjet.personalize
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +15,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
-import com.ns.stellarjet.utils.Progress
-import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.StellarJetUtils
-import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.*
 import kotlinx.android.synthetic.main.activity_food_preference_list.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -75,7 +71,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                     personalizeFood()
                 }
             }else{
-                Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+                UiUtils.showNoInternetDialog(this@FoodPreferenceListActivity)
             }
 
         }
@@ -102,7 +98,10 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                     try {
                         val mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("message")
-                        Toast.makeText(this@FoodPreferenceListActivity, errorMessage, Toast.LENGTH_LONG).show()
+                        UiUtils.showSimpleDialog(
+                            this@FoodPreferenceListActivity ,
+                            errorMessage
+                        )
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     } catch (e: IOException) {
@@ -110,14 +109,16 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                     }
                     finish()
                 }else if(response.code() == 500){
-                    Toast.makeText(this@FoodPreferenceListActivity, "Please try again later", Toast.LENGTH_LONG).show()
+                    UiUtils.showToast(
+                        this@FoodPreferenceListActivity, "Please try again later"
+                    )
                     finish()
                 }
             }
 
             override fun onFailure(call: Call<CommonPersonalizeFoodResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
-                Toast.makeText(this@FoodPreferenceListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@FoodPreferenceListActivity)
             }
         })
     }
@@ -144,11 +145,8 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                         true
                     )
                     FoodPreferencesLaunchActivity.mPersonalizationFoodId = mSelectedFoodIds
-                    Toast.makeText(
-                        this@FoodPreferenceListActivity,
-                        "Preferences Updated successfullt",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    UiUtils.showToast(this@FoodPreferenceListActivity,
+                        "Preferences Updated successfully")
                     finish()
                     if(isFromPostBooking){
                         if(SharedPreferencesHelper.getCabPersonalize(this@FoodPreferenceListActivity)){
@@ -168,21 +166,23 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                     try {
                         val mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("error_message")
-                        Toast.makeText(this@FoodPreferenceListActivity, errorMessage, Toast.LENGTH_LONG).show()
+                        UiUtils.showSimpleDialog(
+                            this@FoodPreferenceListActivity, errorMessage
+                        )
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }else if(response.code() == 500){
-                    Toast.makeText(this@FoodPreferenceListActivity, "Please try again later", Toast.LENGTH_LONG).show()
+                    UiUtils.showServerErrorDialog(this@FoodPreferenceListActivity)
                 }
             }
 
             override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
                 progress.hideProgress()
                 Log.d("Booking", "onResponse: $t")
-                Toast.makeText(this@FoodPreferenceListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@FoodPreferenceListActivity)
             }
         })
     }

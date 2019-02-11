@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import com.ns.networking.model.ValidateCustomerResponse;
@@ -15,6 +14,7 @@ import com.ns.stellarjet.databinding.ActivityLoginBinding;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.StellarJetUtils;
+import com.ns.stellarjet.utils.UiUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
                     validateUser(userName);
                 }else{
-                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showNoInternetDialog(LoginActivity.this);
                 }
             }
 
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(LoginActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                        UiUtils.Companion.showSimpleDialog(LoginActivity.this , errorMessage );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ValidateCustomerResponse> call, Throwable t) {
                 progress.hideProgress();
-                Toast.makeText(LoginActivity.this , "Server Error" , Toast.LENGTH_LONG).show();
+                UiUtils.Companion.showServerErrorDialog(LoginActivity.this);
                 Log.d("Login", "onResponse: " + t);
             }
         });

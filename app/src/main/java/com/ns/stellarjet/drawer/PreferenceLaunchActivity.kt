@@ -32,7 +32,6 @@ class PreferenceLaunchActivity : AppCompatActivity() {
                 this ,
                 PreferencesManagersListActivity::class.java
             ))
-//            Toast.makeText(this@PreferenceLaunchActivity , "Work in Progress" , Toast.LENGTH_SHORT).show()
         }
 
         layout_preferences_food.setOnClickListener {

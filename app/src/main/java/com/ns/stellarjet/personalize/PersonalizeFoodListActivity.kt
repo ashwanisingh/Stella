@@ -3,7 +3,6 @@ package com.ns.stellarjet.personalize
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +17,7 @@ import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_food_preference_list.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -57,12 +57,6 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
         }
 
         button_food_list_confirm.setOnClickListener {
-           /* if(mSelectedFoodIds.size==0){
-                Toast.makeText(
-                    this@PersonalizeFoodListActivity ,
-                    "please select at least one food",
-                    Toast.LENGTH_SHORT).show()
-            }*/
             if(isFromPostBooking){
                 if(mPersonalizationSelectedFoodIds == mSelectedFoodIds){
                     finish()
@@ -141,11 +135,9 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
                     }else{
                         mPersonalizationFoodId = mSelectedFoodIds
                     }
-                    Toast.makeText(
-                        this@PersonalizeFoodListActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    UiUtils.showToast(this@PersonalizeFoodListActivity,
+                        response.body()?.message!!
+                    )
                     finish()
                     if(isFromPostBooking){
                         if(SharedPreferencesHelper.getCabPersonalize(this@PersonalizeFoodListActivity)){
@@ -165,21 +157,21 @@ class PersonalizeFoodListActivity : AppCompatActivity(), (String, Boolean, Int) 
                     try {
                         val mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("error_message")
-                        Toast.makeText(this@PersonalizeFoodListActivity, errorMessage, Toast.LENGTH_LONG).show()
+                        UiUtils.showSimpleDialog(this@PersonalizeFoodListActivity, errorMessage)
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }else if(response.code() == 500){
-                    Toast.makeText(this@PersonalizeFoodListActivity, "Please try again later", Toast.LENGTH_LONG).show()
+                    UiUtils.showServerErrorDialog(this@PersonalizeFoodListActivity)
                 }
             }
 
             override fun onFailure(call: Call<FoodPersonalizeResponse>, t: Throwable) {
                 progress.hideProgress()
                 Log.d("Booking", "onResponse: $t")
-                Toast.makeText(this@PersonalizeFoodListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@PersonalizeFoodListActivity)
             }
         })
     }

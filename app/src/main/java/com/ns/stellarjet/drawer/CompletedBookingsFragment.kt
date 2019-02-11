@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +43,6 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
             getCompletedBookings()
         }else{
             context?.let { UiUtils.showSimpleDialog(it, resources.getString(R.string.error_not_connected_internet)) }
-//            Toast.makeText(activity, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
@@ -77,8 +75,7 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
 
             override fun onFailure(call: Call<BookingHistoryResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
-                Toast.makeText(activity , "Server Error" , Toast.LENGTH_SHORT).show()
-
+                context?.let { UiUtils.showSimpleDialog(it, resources.getString(R.string.error_server)) }
             }
         })
     }

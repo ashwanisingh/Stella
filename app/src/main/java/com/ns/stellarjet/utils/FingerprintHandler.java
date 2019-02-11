@@ -4,20 +4,18 @@ package com.ns.stellarjet.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
-import android.widget.Toast;
+import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.legacy.app.ActivityCompat;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
-import com.ns.stellarjet.TouchIdActivity;
 import com.ns.stellarjet.home.HomeActivity;
 
 
@@ -45,25 +43,18 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationError(int errMsgId,
                                       CharSequence errString) {
-        Toast.makeText(context,
-                "Authentication error\n" + errString,
-                Toast.LENGTH_LONG).show();
+        Log.d("FingerprintHandler", "onAuthenticationError " + errString);
     }
 
     @Override
     public void onAuthenticationFailed() {
-        /*Toast.makeText(context,
-                "Authentication failed",
-                Toast.LENGTH_LONG).show();*/
         showPassCodeDialog();
     }
 
     @Override
     public void onAuthenticationHelp(int helpMsgId,
                                      CharSequence helpString) {
-        Toast.makeText(context,
-                "Authentication help\n" + helpString,
-                Toast.LENGTH_LONG).show();
+        Log.d("FingerprintHandler", "onAuthenticationHelp: " +helpString);
     }
 
 
@@ -71,9 +62,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public void onAuthenticationSucceeded(
             FingerprintManager.AuthenticationResult result) {
 
-      /*  Toast.makeText(context,
-                "Success!",
-                Toast.LENGTH_LONG).show();*/
         launchHomeActivity();
 
     }

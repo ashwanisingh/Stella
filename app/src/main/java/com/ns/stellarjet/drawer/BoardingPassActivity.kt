@@ -3,7 +3,6 @@ package com.ns.stellarjet.drawer
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +16,7 @@ import com.ns.stellarjet.drawer.adapter.BoardingListAdapter
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
+import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_boarding_pass.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +39,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
         if(StellarJetUtils.isConnectingToInternet(applicationContext)){
             getBoardingPass()
         }else{
-            Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+            UiUtils.showNoInternetDialog(this@BoardingPassActivity)
         }
 
         button_boarding_pass_back.setOnClickListener {
@@ -79,7 +79,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
             override fun onFailure(call: Call<BoardingPassResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
                 progress.hideProgress()
-                Toast.makeText(this@BoardingPassActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@BoardingPassActivity )
             }
         })
     }

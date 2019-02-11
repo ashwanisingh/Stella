@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import com.ns.networking.model.ForgotPasswordResponse;
@@ -51,7 +50,7 @@ public class PasswordActivity extends AppCompatActivity {
                 if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
                     doLogin(username , password);
                 }else{
-                    Toast.makeText(getApplicationContext(), "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showNoInternetDialog(PasswordActivity.this);
                 }
             }
         });
@@ -70,25 +69,19 @@ public class PasswordActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
                 if(response.body()!=null){
-                    Toast.makeText(
+                    UiUtils.Companion.showToast(
                             PasswordActivity.this,
-                            response.body().getMessage(),
-                            Toast.LENGTH_SHORT).show();
+                            response.body().getMessage()
+                    );
                 }else if(response.errorBody()!=null){
-                    Toast.makeText(
-                            PasswordActivity.this,
-                            "Server Error , please try again later",
-                            Toast.LENGTH_SHORT).show();
+                    UiUtils.Companion.showServerErrorDialog(PasswordActivity.this);
                 }
             }
 
             @Override
             public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
                 Log.d("Password", "onFailure: " + t);
-                Toast.makeText(
-                        PasswordActivity.this,
-                        "Server Error , please try again later",
-                        Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(PasswordActivity.this);
             }
         });
 
@@ -120,7 +113,7 @@ public class PasswordActivity extends AppCompatActivity {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");
-                        Toast.makeText(PasswordActivity.this , errorMessage , Toast.LENGTH_LONG).show();
+                        UiUtils.Companion.showSimpleDialog(PasswordActivity.this , errorMessage );
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
@@ -130,7 +123,7 @@ public class PasswordActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 progress.hideProgress();
-                Toast.makeText(PasswordActivity.this, "Serer Error", Toast.LENGTH_SHORT).show();
+                UiUtils.Companion.showServerErrorDialog(PasswordActivity.this);
                 Log.d("Password", "onFailure: " + t);
             }
         });

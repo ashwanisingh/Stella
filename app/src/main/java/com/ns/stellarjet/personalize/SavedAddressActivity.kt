@@ -3,7 +3,6 @@ package com.ns.stellarjet.personalize
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,10 +18,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding
 import com.ns.stellarjet.personalize.adapter.SavedAddressListAdapter
-import com.ns.stellarjet.utils.Progress
-import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.StellarJetUtils
-import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +62,7 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit, Place
         if(StellarJetUtils.isConnectingToInternet(applicationContext)){
             getSavedAddress()
         }else{
-            Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+            UiUtils.showNoInternetDialog(this@SavedAddressActivity)
         }
 
         val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.place_autocomplete_fragment) as? PlaceAutocompleteFragment
@@ -111,7 +107,7 @@ class SavedAddressActivity : AppCompatActivity(), (SavedAddresse) -> Unit, Place
             override fun onFailure(call: Call<SavedAddressResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
                 progress.hideProgress()
-                Toast.makeText(this@SavedAddressActivity , "Server Error" ,Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@SavedAddressActivity)
             }
         })
     }

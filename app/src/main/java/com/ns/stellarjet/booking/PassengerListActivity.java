@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -416,7 +419,7 @@ public class PassengerListActivity extends AppCompatActivity {
                             mGuestRequestDataList.get(finalI).setGuestMobileNUmber(mMobileNumberEditText.getText().toString());
 
                         }else {
-                            Toast.makeText(mContext, "Passenger already selected", Toast.LENGTH_SHORT).show();
+                            UiUtils.Companion.showToast(mContext, "Passenger already selected");
                             mNamesAutoCompleteTextView.getText().clear();
                             mMobileNumberEditText.getText().clear();
                         }

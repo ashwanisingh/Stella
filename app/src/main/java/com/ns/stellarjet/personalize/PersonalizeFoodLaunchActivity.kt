@@ -1,11 +1,10 @@
 package com.ns.stellarjet.personalize
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Food
@@ -16,6 +15,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.personalize.adapter.FoodCategoryListAdapter
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_food_preferences_launch.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,6 +24,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.HashSet
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.forEach
+import kotlin.collections.sortedDescending
 
 class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
@@ -92,12 +97,6 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
                 if(response.body()!=null){
                     Log.d("Booking", "onResponse: $response")
                     if(response.body()!!.data.isEmpty()){
-                        /*Toast.makeText(
-                            this@PersonalizeFoodLaunchActivity ,
-                            response.body()!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        finish()*/
                         showResponseDialog(response.body()!!.message)
                     }else{
                         mCommonFoodsList.addAll(response.body()!!.data)
@@ -119,11 +118,8 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
                     try {
                         mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("message")
-                        Toast.makeText(
-                            this@PersonalizeFoodLaunchActivity ,
-                            errorMessage,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        UiUtils.showToast(this@PersonalizeFoodLaunchActivity ,
+                            errorMessage)
                         finish()
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -135,10 +131,7 @@ class PersonalizeFoodLaunchActivity : AppCompatActivity(), (String) -> Unit {
 
             override fun onFailure(call: Call<ScheduleFoodListResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
-                Toast.makeText(
-                    this@PersonalizeFoodLaunchActivity ,
-                    "Server Error" ,
-                    Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@PersonalizeFoodLaunchActivity)
             }
         })
     }

@@ -3,7 +3,6 @@ package com.ns.stellarjet.drawer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse
@@ -14,6 +13,7 @@ import com.ns.stellarjet.databinding.ActivityPreferenceManagerInfoBinding
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
+import com.ns.stellarjet.utils.UiUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -69,12 +69,14 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
                 if(StellarJetUtils.isConnectingToInternet(applicationContext)){
                     addSecondaryUser(name , email , phone)
                 }else{
-                    Toast.makeText(applicationContext, "Not Connected to Internet", Toast.LENGTH_SHORT).show()
+                    UiUtils.showNoInternetDialog(this@PreferenceManagerInfoActivity)
                 }
 
             }else{
-                Toast.makeText(this@PreferenceManagerInfoActivity ,
-                    "All Fields are mandatory" , Toast.LENGTH_SHORT).show()
+                UiUtils.showSimpleDialog(
+                    this@PreferenceManagerInfoActivity ,
+                    "All Fields are mandatory"
+                )
             }
         }
 
@@ -100,19 +102,20 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
                 Response<AddSecondaryUserResponse>) {
                 progress.hideProgress()
                 if(response.body()!=null && response.body()!!.resultcode == 1){
-                    Toast.makeText(this@PreferenceManagerInfoActivity ,
+                    UiUtils.showToast(
+                        this@PreferenceManagerInfoActivity ,
                         response.body()!!.message
-                        , Toast.LENGTH_SHORT).show()
+                    )
                     finish()
                 } else if (response.code() == 400) {
                     val mJsonObject: JSONObject
                     try {
                         mJsonObject = JSONObject(response.errorBody()!!.string())
                         val errorMessage = mJsonObject.getString("message")
-                        Toast.makeText(
+                        UiUtils.showSimpleDialog(
                             this@PreferenceManagerInfoActivity ,
-                            errorMessage ,
-                            Toast.LENGTH_SHORT).show()
+                            errorMessage
+                        )
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     } catch (e: IOException) {
@@ -124,7 +127,7 @@ class PreferenceManagerInfoActivity : AppCompatActivity() {
             override fun onFailure(call: Call<AddSecondaryUserResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
                 progress.hideProgress()
-                Toast.makeText(this@PreferenceManagerInfoActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@PreferenceManagerInfoActivity)
             }
         })
     }

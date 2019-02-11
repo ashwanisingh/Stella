@@ -3,7 +3,6 @@ package com.ns.stellarjet.drawer
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,6 +16,7 @@ import com.ns.stellarjet.databinding.ActivityPreferencesManagersAddBinding
 import com.ns.stellarjet.drawer.adapter.SecondaryUserListAdapter
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.UiUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -100,7 +100,7 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
             override fun onFailure(call: Call<SecondaryUsersListResponse>, t: Throwable) {
                 Log.d("Booking", "onResponse: $t")
                 progress.hideProgress()
-                Toast.makeText(this@PreferencesManagersListActivity , "Server Error" , Toast.LENGTH_SHORT).show()
+                UiUtils.showServerErrorDialog(this@PreferencesManagersListActivity)
             }
         })
     }
@@ -173,10 +173,8 @@ class PreferencesManagersListActivity : AppCompatActivity(), (SecondaryUserInfoL
                 if (response.body() != null) {
                     Log.d("ManagersBottomFragment", "onResponse: " + response.body()!!)
                     if (response.body()!!.resultcode == 1) {
-                        Toast.makeText(
-                            this@PreferencesManagersListActivity,
-                            "$name Deleted", Toast.LENGTH_SHORT
-                        ).show()
+                        UiUtils.showToast(this@PreferencesManagersListActivity,
+                            "$name Deleted")
                         mSecondaryUsersList.removeAt(index)
                         mSecondaryListBinding.recyclerViewManagers.adapter?.notifyItemRemoved(index)
                     }

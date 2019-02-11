@@ -22,7 +22,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import com.ns.stellarjet.R;
@@ -46,7 +45,6 @@ public abstract class PermissionUtils {
             // Display a dialog with rationale.
             /*PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
                     .show(activity.getSupportFragmentManager(), "dialog");*/
-//            Toast.makeText(activity, "Permission Denied", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
         } else {
             // Location permission has not been granted yet, request it.
@@ -142,8 +140,6 @@ public abstract class PermissionUtils {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                /*Toast.makeText(getActivity(), R.string.permission_required_toast,
-                        Toast.LENGTH_SHORT).show();*/
                 getActivity().finish();
             }
         }
@@ -213,10 +209,8 @@ public abstract class PermissionUtils {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                Toast.makeText(getActivity(),
-                        R.string.permission_required_toast,
-                        Toast.LENGTH_SHORT)
-                        .show();
+                UiUtils.Companion.showToast(getActivity(),
+                        getResources().getString(R.string.permission_required_toast));
                 getActivity().finish();
             }
         }

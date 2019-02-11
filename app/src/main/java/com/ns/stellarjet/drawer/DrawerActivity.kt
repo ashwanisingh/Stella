@@ -5,13 +5,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ns.stellarjet.R
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.PermissionUtils
+import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 
 class DrawerActivity : AppCompatActivity() {
@@ -85,7 +85,7 @@ class DrawerActivity : AppCompatActivity() {
             startActivity(callIntent)
         } else {
             // Display the missing permission error dialog when the fragments resume.
-            Toast.makeText(this , "Permission Denied" , Toast.LENGTH_SHORT).show();
+            UiUtils.showSimpleDialog(this@DrawerActivity , "Permission Denied")
             /*PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(supportFragmentManager, "dialog")*/
         }

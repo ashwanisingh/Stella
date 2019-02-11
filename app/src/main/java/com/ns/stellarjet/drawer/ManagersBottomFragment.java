@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -17,6 +16,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.UiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,8 +73,8 @@ public class ManagersBottomFragment extends BottomSheetDialogFragment {
                 if(response.body() !=null){
                     Log.d("ManagersBottomFragment", "onResponse: " + response.body());
                     if(response.body().getResultcode() == 1){
-                        Toast.makeText(getActivity(),
-                                name + " Deleted", Toast.LENGTH_SHORT).show();
+                        UiUtils.Companion.showToast(Objects.requireNonNull(getActivity()),
+                                name + " Deleted");
                     }
                 }
             }
