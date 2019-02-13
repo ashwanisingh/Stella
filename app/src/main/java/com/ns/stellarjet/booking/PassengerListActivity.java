@@ -1,5 +1,6 @@
 package com.ns.stellarjet.booking;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPassengerListBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.*;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PassengerListActivity extends AppCompatActivity {
+public class PassengerListActivity extends AppCompatActivity implements PaymentResultListener {
 
     private ActivityPassengerListBinding activityPassengerBinding;
     private List<String> mGuestNamesList = new ArrayList<>();
@@ -61,6 +64,11 @@ public class PassengerListActivity extends AppCompatActivity {
         activityPassengerBinding = DataBindingUtil.setContentView(
                 this,
                 R.layout.activity_passenger_list);
+
+        /**
+         * Preload payment resources
+         */
+        Checkout.preload(getApplicationContext());
 
         activityPassengerBinding.buttonPassengerBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +97,7 @@ public class PassengerListActivity extends AppCompatActivity {
         activityPassengerBinding.buttonConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                startPayment();
                 processGuestDetails();
             }
         });
@@ -713,5 +722,65 @@ public class PassengerListActivity extends AppCompatActivity {
                 Log.d("splash", "onFailure: " + t);
             }
         });
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+
+    }
+
+    public void startPayment() {
+        /**
+         * Instantiate Checkout
+         */
+        Checkout checkout = new Checkout();
+
+        /**
+         * Set your logo here
+         */
+        checkout.setImage(R.mipmap.ic_stellar_launcher);
+
+        /**
+         * Reference to current activity
+         */
+        final Activity activity = PassengerListActivity.this;
+
+        /**
+         * Pass your payment options to the Razorpay Checkout as a JSONObject
+         */
+        try {
+            JSONObject options = new JSONObject();
+
+            /**
+             * Merchant Name
+             * eg: ACME Corp || HasGeek etc.
+             */
+            options.put("name", "Merchant Name");
+
+            /**
+             * Description can be anything
+             * eg: Order #123123
+             *     Invoice Payment
+             *     etc.
+             */
+            options.put("description", "Order #123456");
+
+            options.put("currency", "INR");
+
+            /**
+             * Amount is always passed in PAISE
+             * Eg: "500" = Rs 5.00
+             */
+            options.put("amount", "500");
+
+            checkout.open(activity, options);
+        } catch(Exception e) {
+            Log.e("Passenger ", "Error in starting Razorpay Checkout", e);
+        }
     }
 }
