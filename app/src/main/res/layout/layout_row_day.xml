@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:gravity="center"
+    android:layout_width="30dp"
+    android:layout_height="30dp">
+
+    <TextView
+        tools:text = "1"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:id="@+id/textView_row_days"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
+
+</LinearLayout>

@@ -148,7 +148,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
                     List<FlightScheduleData> mFlightScheduleDataList = response.body().getData();
                     Intent mCalendarIntent = new Intent(
                             getActivity() ,
-                            CalendarActivity.class
+                            DateSelectionActivity.class
                     );
                     mCalendarIntent.putExtra("dates" , (ArrayList<? extends Parcelable>)  mFlightScheduleDataList);
                     Objects.requireNonNull(getActivity()).startActivity(mCalendarIntent);
