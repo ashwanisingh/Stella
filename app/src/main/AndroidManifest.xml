@@ -26,14 +26,6 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".booking.DateSelectionActivity">
-        </activity>
-        <activity
-                android:name=".personalize.PersonalizeFoodListActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".personalize.PersonalizeFoodLaunchActivity"
-                android:screenOrientation="portrait"/>
         <activity
                 android:name=".SplashScreenActivity"
                 android:screenOrientation="portrait">
@@ -177,10 +169,22 @@
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".home.PrimaryUsersActivity"
-                android:screenOrientation="portrait"/> <!-- razor pay -->
+                android:screenOrientation="portrait"/>
+        <activity android:name=".drawer.PurchaseActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".booking.DateSelectionActivity"
+                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.PersonalizeFoodListActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".personalize.PersonalizeFoodLaunchActivity"
+                android:screenOrientation="portrait"/>
+
+        <!-- razor pay -->
         <meta-data
                 android:name="com.razorpay.ApiKey"
-                android:value="rzp_test_2KdwjEdlmpcdu4"/>
+                android:value="rzp_test_wgZ2yUsDJG9uYz"/>
     </application>
 
 </manifest>

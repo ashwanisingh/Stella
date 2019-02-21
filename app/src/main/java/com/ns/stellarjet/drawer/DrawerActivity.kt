@@ -66,6 +66,12 @@ class DrawerActivity : AppCompatActivity() {
                 Intent(this , PreferenceLaunchActivity::class.java)
             )
         }
+
+        textView_drawer_buy_seats.setOnClickListener {
+            startActivity(
+                Intent(this , PurchaseActivity::class.java)
+            )
+        }
     }
 
 

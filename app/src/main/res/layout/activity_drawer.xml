@@ -68,6 +68,19 @@
             android:alpha="0.1"
             android:background="@color/colorAddressDivider"
             android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    <TextView
+            android:id="@+id/textView_drawer_buy_seats"
+            style="@style/StellarTextView_20sp"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="center_vertical|start"
+            android:text="@string/drawer_info_buy_seats" />
+
+    <View
+            android:alpha="0.1"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="16dp"/>
 

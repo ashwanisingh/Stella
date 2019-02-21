@@ -157,6 +157,7 @@
 
     <!-- drawer -->
     <string name="drawer_info_preferences">Preferences</string>
+    <string name="drawer_info_buy_seats">Buy Seats</string>
     <string name="drawer_info_preferences_heading">Your preferences</string>
     <string name="drawer_info_boarding_pass">Boarding Pass</string>
     <string name="drawer_info_bookings">My Bookings</string>
@@ -482,4 +483,11 @@
     <!-- error strings-->
     <string name="error_not_connected_internet">Not Connected to Internet</string>
     <string name="error_server">Server Error</string>
+
+    <!-- buy seats -->
+    <string name="info_purchase_title">Purchase Seats</string>
+    <string name="info_purchase_sub_heading">Now enter your required number of seats</string>
+    <string name="info_purchase_required_seats">Required Seats</string>
+    <string name="info_purchase_pay_amount">Total payable amount</string>
+    <string name="info_purchase_buy_now">Buy Now</string>
 </resources>

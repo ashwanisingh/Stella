@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="26dp"
+        tools:context=".drawer.PurchaseActivity">
+
+    <Button
+            android:layout_marginStart="-2dp"
+            style="@style/StellarBackButton"
+            android:id="@+id/button_purchase_back"/>
+
+    <TextView
+            android:text="@string/info_purchase_title"
+            style="@style/StellarTextView_40sp"
+            android:id="@+id/textView_purchase_title"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            style="@style/StellarTextView_16sp"
+            android:gravity="start"
+            android:layout_marginTop="8dp"
+            android:alpha="0.5"
+            android:text="@string/info_purchase_sub_heading"
+            android:id="@+id/textView_purchase_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:alpha="0.56"
+            style="@style/StellarTextView_12sp"
+            android:text="@string/info_purchase_required_seats"
+            android:layout_marginTop="50dp"
+            android:id="@+id/textView_purchase_seats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/editText_purchase_seat_count"
+            style="@style/StellarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/drawable_edittext_background"
+            android:maxLength="3"
+            android:digits="0123456789"
+            android:inputType="number"/>
+
+    <TextView
+            android:alpha="0.56"
+            android:layout_marginTop="28dp"
+            style="@style/StellarTextView_14sp"
+            android:text="@string/info_purchase_pay_amount"
+            android:id="@+id/textView_purchase_amount_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            style="@style/StellarTextView_16sp"
+            tools:text = "Rs.10,50,000"
+            android:layout_marginTop="4dp"
+            android:id="@+id/textView_purchase_pay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:id="@+id/button_purchase_buy_now"
+            style="@style/StellarWhiteButton"
+            android:layout_marginTop="60dp"
+            android:gravity="center_vertical|start"
+            android:text="@string/info_purchase_buy_now"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="24dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="23dp"
+            android:layout_height="50dp"/>
+
+</LinearLayout>
