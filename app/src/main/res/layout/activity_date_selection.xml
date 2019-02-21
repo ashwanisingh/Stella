@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="38dp"
-                        android:text="@string/booking_date_dummy"/>
+                        tools:text="@string/booking_date_dummy"/>
 
                 <TextView
                         android:id="@+id/textView_schedule_seats_available"
@@ -143,8 +143,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="38dp"
                         android:layout_marginBottom="20dp"
-                        android:text="@string/booking_date_seats_available"/>
-
+                        tools:text="@string/booking_date_seats_available"/>
 
                 <Button
                         android:id="@+id/button_schedule_confirm_date"

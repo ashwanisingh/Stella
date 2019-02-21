@@ -287,9 +287,9 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
             String tempDate  = mFlightScheduleDataList.get(i).getJourney_date();
             if(selectedDate.equalsIgnoreCase(tempDate)){
                 selectedIndex = i;
-                StellarJetUtils.getFormattedCalendarBookDate(
-                        mFlightScheduleDataList.get(i).getJourney_datetime_ms());
                 mActivityDateSelectionBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
+                mActivityDateSelectionBinding.textViewScheduleDate.setText(StellarJetUtils.getFormattedCalendarBookDate(
+                        mFlightScheduleDataList.get(i).getJourney_datetime_ms()));
                 String seatsAvailable = mFlightScheduleDataList.get(i).getFlight_seat_availability()
                         .getAvailable_seats() +" seats available";
                 mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
