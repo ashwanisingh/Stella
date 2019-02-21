@@ -63,7 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }else{
             UiUtils.Companion.showSimpleDialog(
                     SplashScreenActivity.this ,
-                    getResources().getString(R.string.error_server)
+                    getResources().getString(R.string.error_not_connected_internet)
             );
         }
     }
