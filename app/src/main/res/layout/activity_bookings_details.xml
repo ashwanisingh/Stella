@@ -16,10 +16,9 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 tools:context=".drawer.BookingsDetailsActivity">
-
 
             <Button
                     android:layout_marginStart="20dp"
@@ -33,31 +32,52 @@
                     android:textAllCaps="false"
                     android:gravity="start"
                     android:lineSpacingExtra="5dp"
-                    android:layout_marginStart="24dp"
                     android:id="@+id/textView_bookings_details_from_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"/>
-
-            <TextView
-                    tools:text="@string/booking_summary_date_dummy"
-                    style="@style/StellarTextView_16sp"
-                    android:alpha="0.8"
                     android:layout_marginStart="24dp"
-                    android:id="@+id/textView_bookings_details_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                    style="@style/StellarTextView_16sp"
-                    android:alpha="0.8"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="16dp"
                     android:layout_marginStart="24dp"
-                    tools:text="@string/booking_summary_departure_time_dummy"
-                    android:layout_marginTop="6dp"
-                    android:id="@+id/textView_bookings_details_departure_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        tools:text="@string/booking_summary_date_dummy"
+                        style="@style/StellarTextView_16sp"
+                        android:alpha="0.8"
+                        android:id="@+id/textView_bookings_details_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@+id/textView_bookings_details_departure_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginBottom="8dp"/>
+
+                <TextView
+                        style="@style/StellarTextView_16sp"
+                        android:alpha="0.8"
+                        tools:text="@string/booking_summary_departure_time_dummy"
+                        android:id="@+id/textView_bookings_details_departure_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/imageView_booking_details_cancelled"
+                        android:src="@mipmap/ic_cancelled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                     android:alpha="0.2"
@@ -171,6 +191,7 @@
                         android:drawablePadding="18dp"/>
 
                 <ImageView
+                        android:id="@+id/imageView_booking_details_cab_arrow"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_date_next"
                         android:layout_width="wrap_content"
@@ -205,6 +226,7 @@
                         android:layout_weight="1"/>
 
                 <ImageView
+                        android:id="@+id/imageView_booking_details_dining_arrow"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_date_next"
                         android:layout_width="wrap_content"
@@ -218,6 +240,18 @@
                     android:background="@color/colorAddressDivider"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"/>
+
+            <Button
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:text="@string/booking_summary_cancel_booking"
+                    android:textColor="@color/colorCancelBooking"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="24dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/button_bookings_details_cancel_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 

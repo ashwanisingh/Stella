@@ -2,25 +2,31 @@ package com.ns.stellarjet.drawer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.Booking
+import com.ns.networking.model.CancelBookingResponse
+import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBookingsDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.CabPreferencesActivity
 import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
 import com.ns.stellarjet.personalize.PersonalizeFoodLaunchActivity
-import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.StellarJetUtils
-import com.ns.stellarjet.utils.UIConstants
+import com.ns.stellarjet.utils.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BookingsDetailsActivity : AppCompatActivity() {
 
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
+    private var bookingData: Booking? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +36,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             R.layout.activity_bookings_details
         )
 
-        val bookingData: Booking? = intent.extras?.getParcelable("bookingDetails")
+        bookingData = intent.extras?.getParcelable("bookingDetails")!!
         val bookingType = intent.extras?.getString("bookingType")
 
         SharedPreferencesHelper.saveFoodPersonalize(
@@ -42,7 +48,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             false
         )
 
-
         if(bookingType.equals("completed" , true)){
             binding.viewBookingsDetailsDivider.visibility = View.GONE
             binding.layoutBookingsDetailsCabBase.visibility = View.GONE
@@ -50,6 +55,38 @@ class BookingsDetailsActivity : AppCompatActivity() {
             binding.viewCabAfterDivider.visibility = View.GONE
             binding.viewFoodAfterDivider.visibility = View.GONE
             binding.viewDetaisAfterDivider.visibility = View.GONE
+        }
+
+        if(bookingData!!.status.equals("Cancelled" , true)){
+            var address = ""
+            if(!bookingData!!.pick_address_main!!.isEmpty()){
+                address = bookingData!!.pick_address_main!!
+            }
+
+            if(!bookingData!!.drop_address_main!!.isEmpty()){
+                address = if(address.isEmpty()){
+                    bookingData!!.drop_address_main!!
+                }else{
+                    "\n"+ bookingData!!.drop_address_main
+                }
+            }
+
+
+            if(!address.isEmpty()){
+                binding.textViewBookingsDetailsCabsTitle.text = address
+                binding.imageViewBookingDetailsCabArrow.visibility = View.GONE
+            }else{
+                binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+                binding.viewCabAfterDivider.visibility = View.GONE
+            }
+            if(bookingData?.service.equals("Usual", true) ){
+                binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
+                binding.viewFoodAfterDivider.visibility = View.GONE
+                binding.viewDetaisAfterDivider.visibility = View.GONE
+            }
+//            binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
+            binding.imageViewBookingDetailsCancelled.visibility = View.VISIBLE
+            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
         }
         binding.bookings = bookingData
 
@@ -63,7 +100,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
         var seatsName = ""
         if(bookingData?.travelling_self ==1){
             passengersName = HomeActivity.sUserData.name
-            seatsName = bookingData.customer_seat?.seat_code!!
+            seatsName = bookingData!!.customer_seat?.seat_code!!
         }
         val guests = bookingData?.guest_seats
         guests?.forEach {
@@ -88,9 +125,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
         binding.textViewBookingsDetailsPassengers.text = passengersName
         binding.textViewBookingsDetailsSeats.text = seatsName
         binding.textViewBookingsDetailsDate.text = StellarJetUtils.getFormattedBookingsDate(bookingData?.journey_datetime!!)
-        val journeyTime = StellarJetUtils.getFormattedhoursInAPM(bookingData.journey_datetime)
+        val journeyTime = StellarJetUtils.getFormattedhoursInAPM(bookingData!!.journey_datetime)
         binding.textViewBookingsDetailsDepartureTime.text = journeyTime
-        SharedPreferencesHelper.saveBookingId(this , bookingData.booking_id.toString())
+        SharedPreferencesHelper.saveBookingId(this , bookingData!!.booking_id.toString())
 
         if(bookingData?.prefs?.main_passenger == null){
             binding.viewBookingsDetailsDivider.visibility = View.GONE
@@ -103,8 +140,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         binding.layoutBookingsDetailsCabBase.setOnClickListener {
             val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
-            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , bookingData.from_city_info!!.name)
-            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY , bookingData.to_city_info!!.name)
+            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , bookingData?.from_city_info!!.name)
+            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY , bookingData?.to_city_info!!.name)
             cabPersonalizeIntent.putExtra("FlowFrom" , "drawer")
             startActivity(cabPersonalizeIntent)
         }
@@ -113,26 +150,26 @@ class BookingsDetailsActivity : AppCompatActivity() {
             val foodItems = bookingData?.prefs?.main_passenger?.food_items
             val foodPersonalizeIntent = Intent(this , PersonalizeFoodLaunchActivity::class.java)
 //            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
-            foodPersonalizeIntent.putExtra("JourneyDate" , bookingData.journey_date)
-            foodPersonalizeIntent.putExtra("ScheduleId" , bookingData.schedule_id)
+            foodPersonalizeIntent.putExtra("JourneyDate" , bookingData?.journey_date)
+            foodPersonalizeIntent.putExtra("ScheduleId" , bookingData?.schedule_id)
             foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
             startActivity(foodPersonalizeIntent)
         }
 
-        if(!bookingData.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!){
+        if(!bookingData?.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!){
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
             isCabPersonalized = true
-            SharedPreferencesHelper.saveCabPickupPersoalize(this , bookingData.pick_address)
-            SharedPreferencesHelper.saveCabDropPersonalize(this , bookingData.drop_address)
-        }else if(bookingData.drop_address_main?.isEmpty()!! && bookingData.pick_address_main?.isEmpty()!!){
+            SharedPreferencesHelper.saveCabPickupPersoalize(this , bookingData?.pick_address)
+            SharedPreferencesHelper.saveCabDropPersonalize(this , bookingData?.drop_address)
+        }else if(bookingData?.drop_address_main?.isEmpty()!! && bookingData?.pick_address_main?.isEmpty()!!){
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0, 0 ,0 ,0
             )
         }
 
-        if(bookingData.service.equals("standard", true) ){
+        if(bookingData?.service.equals("Usual", true) ){
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0 , 0 ,0 ,0
             )
@@ -141,6 +178,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
             isFoodPersonalized = true
+        }
+        binding.buttonBookingsDetailsCancelBooking.setOnClickListener {
+            showCancelConfirmation()
         }
     }
 
@@ -176,5 +216,67 @@ class BookingsDetailsActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         FoodPreferencesLaunchActivity.mPersonalizationFoodId.clear()
+    }
+
+
+    private fun showCancelConfirmation(){
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Cancel booking")
+        alertDialogBuilder.setMessage("Do you want to cancel this booking ?" )
+        alertDialogBuilder.setPositiveButton("Ok") { _, _ ->
+            run {
+                //                UiUtils.showToast(this@BookingsDetailsActivity , "Cancel ok")
+                cancelBooking()
+            }
+        }
+
+        alertDialogBuilder.setNegativeButton("Cancel") { _dialog, _ ->
+            run {
+                _dialog.dismiss()
+            }
+        }
+
+        val cancelBookingDialog = alertDialogBuilder.create()
+        cancelBookingDialog.setCanceledOnTouchOutside(false)
+        cancelBookingDialog.setCancelable(false)
+        cancelBookingDialog.setOnShowListener {
+            cancelBookingDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+            cancelBookingDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorButtonNew))
+        }
+
+        cancelBookingDialog.show()
+    }
+
+    private fun cancelBooking(){
+        val progress = Progress.getInstance()
+        progress.showProgress(this@BookingsDetailsActivity)
+        val cancelBookingCall: Call<CancelBookingResponse> = RetrofitAPICaller.getInstance(this@BookingsDetailsActivity)
+            .stellarJetAPIs.cancelBooking(
+            SharedPreferencesHelper.getUserToken(this@BookingsDetailsActivity),
+            bookingData?.booking_id!!
+        )
+
+        cancelBookingCall.enqueue(object : Callback<CancelBookingResponse> {
+            override fun onResponse(
+                call: Call<CancelBookingResponse>,
+                response:
+                Response<CancelBookingResponse>) {
+                progress.hideProgress()
+                finish()
+                UiUtils.showToast(this@BookingsDetailsActivity , "Booking Canceled")
+                /*if (response.body()!=null){
+                    UiUtils.showToast(this@BookingsDetailsActivity , response.message())
+                    finish()
+                }else{
+//                    UiUtils.showToast(this@BookingsDetailsActivity , "Something went wrong")
+                }*/
+            }
+
+            override fun onFailure(call: Call<CancelBookingResponse>, t: Throwable) {
+                Log.d("Booking", "onResponse: $t")
+                progress.hideProgress()
+                UiUtils.showServerErrorDialog(this@BookingsDetailsActivity)
+            }
+        })
     }
 }

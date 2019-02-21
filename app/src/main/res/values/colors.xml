@@ -34,5 +34,6 @@
     <color name="colorSeatBg">#26273F</color>
     <color name="colorSeatNotationBg">#313248</color>
     <color name="colorDateSelectionBg">#0f1026</color>
+    <color name="colorCancelBooking">#EE5555</color>
 
 </resources>

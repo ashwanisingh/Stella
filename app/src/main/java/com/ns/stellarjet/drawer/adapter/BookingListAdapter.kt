@@ -3,6 +3,7 @@ package com.ns.stellarjet.drawer.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class BookingListAdapter(
         private val mBookingsTime: TextView = itemView.findViewById(R.id.textView_bookings_departure_time)
         private val mPersonalizeStatus: TextView = itemView.findViewById(R.id.textView_booking_personalize_status)
         private val mDivider: View = itemView.findViewById(R.id.view_bookings_two)
+        private val mCancelImageView: ImageView = itemView.findViewById(R.id.imageView_booking_cancelled)
 
 
         fun bind(
@@ -53,6 +55,10 @@ class BookingListAdapter(
             mBookingsTime.text = journeyTime
             itemView.setOnClickListener {
                 onSelectDishListenerParams(bookings)
+            }
+
+            if(bookings.status.equals("Cancelled" , true)){
+                mCancelImageView.visibility = View.VISIBLE
             }
 
             if(bookingType.equals("Completed" , true)){

@@ -221,6 +221,13 @@ public interface StellarApiService {
             @Query("journey_date") String journey_date
     );
 
+    @FormUrlEncoded
+    @POST(Constants.BOOKING_CANCEL_API)
+    Call<CancelBookingResponse> cancelBooking(
+            @Field("token") String token ,
+            @Field("booking_id") int booking_id
+    );
+
 /*
 @GET(Constants.CITY_LIST_API)
     Call<CityListResponse> getCityList(

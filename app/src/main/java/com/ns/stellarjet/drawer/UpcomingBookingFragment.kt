@@ -73,7 +73,7 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 Response<BookingHistoryResponse>) {
                 progress.hideProgress()
                 mUpcomingBookingHistoryList = response.body()!!.data.booking_list
-                adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
+                    adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
                     "Upcoming" ,
                     this@UpcomingBookingFragment)
                 val layoutManager = LinearLayoutManager(
