@@ -27,6 +27,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
     private var bookingData: Booking? = null
+    private var mSeatCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +57,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
             binding.viewFoodAfterDivider.visibility = View.GONE
             binding.viewDetaisAfterDivider.visibility = View.GONE
         }
+
+        /* set seat count */
+        if(bookingData?.travelling_self == 1){
+            mSeatCount += 1
+        }else{
+            mSeatCount = 0
+        }
+
+        mSeatCount += bookingData?.prefs?.co_passengers?.size!!
 
         if(bookingData!!.status.equals("Cancelled" , true)){
             var address = ""
@@ -275,8 +285,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 response:
                 Response<CancelBookingResponse>) {
                 progress.hideProgress()
-                finish()
+                var subscriptionSeats = SharedPreferencesHelper.getSeatCount(this@BookingsDetailsActivity)
+                mSeatCount += subscriptionSeats
+                SharedPreferencesHelper.saveSeatCount(this@BookingsDetailsActivity , mSeatCount)
                 UiUtils.showToast(this@BookingsDetailsActivity , "Booking Canceled")
+                finish()
                 /*if (response.body()!=null){
                     UiUtils.showToast(this@BookingsDetailsActivity , response.message())
                     finish()

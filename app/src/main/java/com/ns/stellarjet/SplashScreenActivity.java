@@ -98,6 +98,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.body()!=null){
                     Log.d("Splash", "onResponse: " + response.body());
+                    /* save seat count */
+                    SharedPreferencesHelper.saveSeatCount(
+                            SplashScreenActivity.this,
+                            response.body().getData().getUser_data().getCustomer_prefs().getSeats_available());
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,
                             TouchIdActivity.class

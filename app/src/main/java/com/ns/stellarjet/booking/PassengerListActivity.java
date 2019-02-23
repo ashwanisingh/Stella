@@ -627,7 +627,15 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                     SharedPreferencesHelper.saveBookingId(
                             PassengerListActivity.this ,
                             String.valueOf(response.body().getData().getBooking_id()));
-                    getUserData();
+                    int seatCount = 0;
+                    if(selfTravelling == 1){
+                        seatCount = 1;
+                    }
+                    seatCount = seatCount + mGuestList.size();
+                    int subscriptionSeatCount = SharedPreferencesHelper.getSeatCount(PassengerListActivity.this);
+                    seatCount = subscriptionSeatCount - seatCount;
+                    SharedPreferencesHelper.saveSeatCount(PassengerListActivity.this , seatCount);
+//                    getUserData();
                     Intent mIntent = new Intent(
                             PassengerListActivity.this ,
                             BookingConfirmedActivity.class

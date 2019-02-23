@@ -412,5 +412,6 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         SharedPreferencesHelper.saveUserEmail(PassCodeActivity.this , mUserData.getEmail());
         SharedPreferencesHelper.saveUserPhone(PassCodeActivity.this , mUserData.getPhone());
         SharedPreferencesHelper.saveLoginStatus(PassCodeActivity.this , true);
+        SharedPreferencesHelper.saveSeatCount(PassCodeActivity.this , mUserData.getCustomer_prefs().getSeats_available());
     }
 }

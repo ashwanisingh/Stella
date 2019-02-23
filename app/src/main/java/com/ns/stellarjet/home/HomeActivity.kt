@@ -3,7 +3,6 @@ package com.ns.stellarjet.home
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.text.SpannableString
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -31,6 +30,8 @@ import java.io.IOException
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var activityHomeBinding: ActivityHomeBinding
+
     companion object {
         lateinit var sUserData: UserData
         @JvmField var mSeatNamesId : MutableList<Int> = ArrayList()
@@ -45,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityHomeBinding: ActivityHomeBinding = DataBindingUtil.setContentView(
+        activityHomeBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_home
         )
@@ -85,17 +86,6 @@ class HomeActivity : AppCompatActivity() {
         val displayName = resources.getString(R.string.home_title_hello_again) + sUserData.name+ ","+
                 resources.getString(R.string.home_title_welcome_back)
         activityHomeBinding.textviewHomeHelloAgain.text = displayName
-
-
-        /* set the seats limit  */
-        val seatsAvailable = sUserData.customer_prefs.seats_available
-        val seatsRemaining: SpannableString
-        activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
-        val displaySeats = resources.getString(R.string.home_remaining_seats_first_half) + " " +
-                seatsAvailable + " "+
-                resources.getString(R.string.home_remaining_seats_second_half)
-        activityHomeBinding.textViewSeatLimits.text = displaySeats
-
 
         if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
             activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
@@ -148,6 +138,14 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        /* set the seats limit  */
+        val seatsAvailable = SharedPreferencesHelper.getSeatCount(this@HomeActivity)
+//        val seatsRemaining: SpannableString
+        activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
+        val displaySeats = resources.getString(R.string.home_remaining_seats_first_half) + " " +
+                seatsAvailable + " "+
+                resources.getString(R.string.home_remaining_seats_second_half)
+        activityHomeBinding.textViewSeatLimits.text = displaySeats
         sendDeviceTokenToServer()
     }
 

@@ -403,6 +403,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveSeatCount(Context mContext , Integer seatCount){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_SEAT_COUNT, seatCount);
+        mEditor.apply();
+    }
+
+    public static int getSeatCount(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_SEAT_COUNT, 0
+        );
+    }
+
 
 
     /**
