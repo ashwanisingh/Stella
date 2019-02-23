@@ -74,7 +74,7 @@ class BookingListAdapter(
             val pickUpAddress = bookings.pick_address_main
             val dropAddress = bookings.drop_address_main
             var isCabPersonalized = false
-            val isFoodPersonalized: Boolean = !bookings.service.equals("standard", true)
+            val isFoodPersonalized: Boolean = !bookings.service.equals("Usual", true)
             if(pickUpAddress?.isEmpty()!! && dropAddress?.isEmpty()!!){
                 isCabPersonalized = false
             }else if(pickUpAddress.isEmpty().not() || dropAddress?.isEmpty()?.not()!!){

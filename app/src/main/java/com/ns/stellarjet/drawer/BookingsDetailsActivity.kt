@@ -83,6 +83,19 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
                 binding.viewFoodAfterDivider.visibility = View.GONE
                 binding.viewDetaisAfterDivider.visibility = View.GONE
+            }else{
+                var foodsSelected = ""
+                bookingData?.prefs?.main_passenger?.food_items?.forEach {
+                    foodsSelected = if(foodsSelected.isEmpty()){
+                        it.name!!
+                    }else{
+                        foodsSelected + ","+it.name!!
+                    }
+                }
+                if(foodsSelected.isNotEmpty()){
+                    binding.textViewBookingsDetailsFoodTitle.text = foodsSelected
+                    binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
+                }
             }
 //            binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
             binding.imageViewBookingDetailsCancelled.visibility = View.VISIBLE
