@@ -78,6 +78,7 @@
             android:text="@string/drawer_info_buy_seats" />
 
     <View
+            android:id="@+id/view_buy_seats"
             android:alpha="0.1"
             android:background="@color/colorAddressDivider"
             android:layout_width="match_parent"

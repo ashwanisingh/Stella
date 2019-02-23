@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ns.stellarjet.R
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.PermissionUtils
+import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 
@@ -65,6 +67,12 @@ class DrawerActivity : AppCompatActivity() {
             startActivity(
                 Intent(this , PreferenceLaunchActivity::class.java)
             )
+        }
+
+        val userType = SharedPreferencesHelper.getUserType(this@DrawerActivity)
+        if(userType.equals("secondary" , true)){
+            textView_drawer_buy_seats.visibility = View.INVISIBLE
+            view_buy_seats.visibility = View.INVISIBLE
         }
 
         textView_drawer_buy_seats.setOnClickListener {

@@ -111,6 +111,7 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
              * Amount is always passed in PAISE
              * Eg: "500" = Rs 5.00
              */
+//            options.put("amount", displayPrice)
             options.put("amount", 100)
 
             checkout.open(activity, options)
