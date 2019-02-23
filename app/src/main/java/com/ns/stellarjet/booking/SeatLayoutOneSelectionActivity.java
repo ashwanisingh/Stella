@@ -1,5 +1,6 @@
 package com.ns.stellarjet.booking;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
@@ -20,6 +22,7 @@ import com.ns.networking.model.guestrequest.BookedSeatsRequest;
 import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.drawer.PurchaseActivity;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
@@ -95,6 +98,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
     private boolean isReturnFromPassenger = false;
     private int mNumOfSeatsLocked = 0;
     private int numOfSeatsAvailable = 0;
+    private int mGlobalSeatCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +175,13 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                 startActivity(mGuestAddIntent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGlobalSeatCount = SharedPreferencesHelper.getSeatCount(SeatLayoutOneSelectionActivity.this);
+        mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
     }
 
     @Override
@@ -579,6 +590,19 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
                     mSeatsAvailableTextView.setText(seatsAvailable);
+                    mGlobalSeatCount = mGlobalSeatCount -1;
+                    Log.wtf("SeatCount", "onResponse: lock==> " + mGlobalSeatCount);
+                    /* Subscription seats avail check*/
+                    String userType = SharedPreferencesHelper.getUserType(SeatLayoutOneSelectionActivity.this);
+                    if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("primary")){
+                        // launch dialog to ask recharge status and launch com.ns.stellarjet.drawer.PurchaseActivity
+                        showPrimaryUserSeatUnavailabilityDialog();
+                    }else if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("secondary")){
+                        String primaryUsername = SharedPreferencesHelper.getCurrentPrimaryUserName(SeatLayoutOneSelectionActivity.this);
+                        UiUtils.Companion.showSimpleDialog(
+                                SeatLayoutOneSelectionActivity.this , "You ran out of seats .Please contact Mr."+primaryUsername
+                                        + "to recharge the seats ");
+                    }
                     selectButtonSelection(mDesiredButton, seatPosition ,true);
                     mSelectedSeatList.get(position).setSelected(true);
                 }else if(response.code()==400){
@@ -653,6 +677,8 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
                     mSeatsAvailableTextView.setText(seatsAvailable);
+                    mGlobalSeatCount = mGlobalSeatCount + 1;
+                    Log.wtf("SeatCount", "onResponse: unlock ==>" + mGlobalSeatCount);
                     selectButtonSelection(mDesiredButton, seatPosition ,false);
                     mSelectedSeatList.get(position).setSelected(false);
                 }else if(response.code()==500){
@@ -732,5 +758,28 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         resetSeats(mFoxtrotButton);
         resetSeats(mGolfButton);
         resetSeats(mHotelButton);
+    }
+
+    private void showPrimaryUserSeatUnavailabilityDialog(){
+        String userName = SharedPreferencesHelper.getUserName(SeatLayoutOneSelectionActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Hi Mr."+userName+", you have consumed your seats.Please recharge");
+        alertDialogBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        startActivity(new Intent(SeatLayoutOneSelectionActivity.this , PurchaseActivity.class));
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
