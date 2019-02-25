@@ -13,6 +13,7 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.PermissionUtils
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.UIConstants
 import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 
@@ -71,6 +72,11 @@ class DrawerActivity : AppCompatActivity() {
 
         val userType = SharedPreferencesHelper.getUserType(this@DrawerActivity)
         if(userType.equals("secondary" , true)){
+            textView_drawer_buy_seats.visibility = View.INVISIBLE
+            view_buy_seats.visibility = View.INVISIBLE
+        }
+        val memberShipType = SharedPreferencesHelper.getMembershipType(this@DrawerActivity)
+        if(memberShipType.equals(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO, true)){
             textView_drawer_buy_seats.visibility = View.INVISIBLE
             view_buy_seats.visibility = View.INVISIBLE
         }

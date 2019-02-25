@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.model.PrimaryUser;
 import com.ns.networking.retrofit.RetrofitAPICaller;
+import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.adapter.PrimaryUsersAdapter;
 import com.ns.stellarjet.utils.Progress;
@@ -100,9 +101,11 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
                     SharedPreferencesHelper.saveUserEmail(PrimaryUsersActivity.this , response.body().getData().getUser_data().getEmail());
                     SharedPreferencesHelper.saveUserPhone(PrimaryUsersActivity.this , response.body().getData().getUser_data().getPhone());
                     SharedPreferencesHelper.saveLoginStatus(PrimaryUsersActivity.this , true);
-                    SharedPreferencesHelper.saveCurrentPrimaryUserId(PrimaryUsersActivity.this , response.body().getData().getUser_data().getUser_id());
-                    SharedPreferencesHelper.saveCurrentPrimaryUserName(PrimaryUsersActivity.this , response.body().getData().getUser_data().getName());
+                    SharedPreferencesHelper.saveCurrentPrimaryUserId(PrimaryUsersActivity.this , placeId);
+                    SharedPreferencesHelper.saveCurrentPrimaryUserName(PrimaryUsersActivity.this , placeName);
                     SharedPreferencesHelper.setPrimaryUserSelectionStatus(PrimaryUsersActivity.this , true);
+                    SharedPreferencesHelper.saveSeatCount(PrimaryUsersActivity.this ,
+                            response.body().getData().getUser_data().getCustomer_prefs().getSeats_available());
                     Intent mHomeIntent = new Intent(
                             PrimaryUsersActivity.this ,
                             HomeActivity.class

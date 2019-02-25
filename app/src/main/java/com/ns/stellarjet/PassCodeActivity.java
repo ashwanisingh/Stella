@@ -368,7 +368,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 isPrimaryUserSelected){
             launchHomeActivity();
         }else if(userType.equalsIgnoreCase("Secondary") &&
-                currentPrimaryUserId!=0 &&
+                currentPrimaryUserId==0 &&
                 !isPrimaryUserSelected){
             launchPrimaryUserListActivity();
         }
@@ -384,6 +384,7 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void launchPrimaryUserListActivity(){
+        saveLoginData();
         Intent mHomeIntent = new Intent(PassCodeActivity.this , PrimaryUsersActivity.class);
         // send bundle
         mHomeIntent.putParcelableArrayListExtra(UIConstants.BUNDLE_SECONDARY_USER_DATA,
@@ -413,5 +414,23 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
         SharedPreferencesHelper.saveUserPhone(PassCodeActivity.this , mUserData.getPhone());
         SharedPreferencesHelper.saveLoginStatus(PassCodeActivity.this , true);
         SharedPreferencesHelper.saveSeatCount(PassCodeActivity.this , mUserData.getCustomer_prefs().getSeats_available());
+        SharedPreferencesHelper.saveSeatCount(
+                PassCodeActivity.this,
+                mUserData.getCustomer_prefs().getSeats_available());
+        String prepaidTerms = mUserData.getCustomer_prefs().getMembership_details()
+                .getPrepaid_terms();
+        if(prepaidTerms.equalsIgnoreCase("true")){
+            SharedPreferencesHelper.saveMembershipType(
+                    PassCodeActivity.this,
+                    UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION);
+        }else if(prepaidTerms.equalsIgnoreCase("false")){
+            SharedPreferencesHelper.saveMembershipType(
+                    PassCodeActivity.this,
+                    UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO);
+        }
+
+        String seatCost = mUserData.getCustomer_prefs()
+                .getMembership_details().getSeat_cost();
+        SharedPreferencesHelper.saveSeatCost(PassCodeActivity.this , Integer.valueOf(seatCost));
     }
 }

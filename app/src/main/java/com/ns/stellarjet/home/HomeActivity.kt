@@ -151,6 +151,7 @@ class HomeActivity : AppCompatActivity() {
         }else if(memberShipType.equals(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
             activityHomeBinding.textViewSeatLimits.visibility = View.GONE
         }
+
         sendDeviceTokenToServer()
     }
 

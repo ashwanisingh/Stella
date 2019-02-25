@@ -530,10 +530,24 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                         List<Integer> mLockedSeatList = new ArrayList<>();
                         mLockedSeatList.add(Integer.valueOf(mSelectedSeatList.get(i).getSeatId()));
                         if(!isReturnFromPassenger){
-                            confirmSingleSeats(mLockedSeatList ,
-                                    mSelectedButton ,
-                                    seatPosition ,
-                                    i);
+                            if(mGlobalSeatCount==0){
+                                String userType = SharedPreferencesHelper.getUserType(SeatLayoutOneSelectionActivity.this);
+                                if(userType.equalsIgnoreCase("primary")){
+                                    // launch dialog ;;to ask recharge status and launch com.ns.stellarjet.drawer.PurchaseActivity
+                                    showPrimaryUserSeatUnavailabilityDialog();
+                                }else if(userType.equalsIgnoreCase("secondary")){
+                                    String primaryUsername = SharedPreferencesHelper.getCurrentPrimaryUserName(SeatLayoutOneSelectionActivity.this);
+                                    UiUtils.Companion.showSimpleDialog(
+                                            SeatLayoutOneSelectionActivity.this , "You ran out of seats .Please contact Mr."+primaryUsername
+                                                    + "to recharge the seats ");
+                                }
+                            }else {
+                                confirmSingleSeats(mLockedSeatList ,
+                                        mSelectedButton ,
+                                        seatPosition ,
+                                        i);
+                            }
+
                         }
                     }
                 }else {
