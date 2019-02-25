@@ -224,4 +224,8 @@ public class UIConstants {
      * String constant for SharedPreferences membership user type - subscription
      */
     public static final String PREFERENCES_MEMBERSHIP_SUBSCRIPTION= "Subscription";
+    /**
+     * String constant for SharedPreferences individual seat cost
+     */
+    public static final String PREFERENCES_SEAT_COST = "seatCost";
 }

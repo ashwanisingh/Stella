@@ -26,7 +26,7 @@ import java.util.*
 class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
 
 
-    private val mSeatPrice = 100000
+    private var mSeatPrice = 0
     private var totalPrice: Int = 0
     private var mTotalSeats:Int = 0
     private var mPurchaseId:Int = 0
@@ -40,6 +40,8 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
          * Preload payment resources
          */
         Checkout.preload(applicationContext)
+
+        mSeatPrice = SharedPreferencesHelper.getSeatCost(this@PurchaseActivity)
 
         editText_purchase_seat_count.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -151,7 +153,9 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
              * Amount is always passed in PAISE
              * Eg: "500" = Rs 5.00
              */
-            options.put("amount", mTotalSeats.times(100000).times(100))
+//            options.put("amount", mTotalSeats.times(100000).times(100))
+            val totalCost = mTotalSeats * SharedPreferencesHelper.getSeatCost(this@PurchaseActivity) * 100
+            options.put("amount", totalCost)
 //            options.put("amount", 100)
 
             checkout.open(activity, options)

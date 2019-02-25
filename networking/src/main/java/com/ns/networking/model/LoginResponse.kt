@@ -62,8 +62,6 @@ data class CustomerPrefs(
 @Parcelize
 data class CustomerPrefs(
     val flight_days: List<String>,
-    val food_categories: FoodCategories,
-    val food_prefs: List<String>,
     val gstin: String,
     val member_type: String,
     val member_type_text: String,

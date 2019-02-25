@@ -427,6 +427,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveSeatCost(Context mContext , Integer seatCost){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putInt(UIConstants.PREFERENCES_SEAT_COST, seatCost);
+        mEditor.apply();
+    }
+
+    public static int getSeatCost(Context mContext){
+        return getSharedPreferences(mContext).getInt(
+                UIConstants.PREFERENCES_SEAT_COST, 0
+        );
+    }
+
 
 
     /**

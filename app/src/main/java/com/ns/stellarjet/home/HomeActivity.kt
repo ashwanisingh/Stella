@@ -138,19 +138,23 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        /* set the seats limit  */
-        val seatsAvailable = SharedPreferencesHelper.getSeatCount(this@HomeActivity)
+        val memberShipType = SharedPreferencesHelper.getMembershipType(this@HomeActivity)
+        if(memberShipType.equals(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+            /* set the seats limit  */
+            val seatsAvailable = SharedPreferencesHelper.getSeatCount(this@HomeActivity)
 //        val seatsRemaining: SpannableString
-        activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
-        val displaySeats = resources.getString(R.string.home_remaining_seats_first_half) + " " +
-                seatsAvailable + " "+
-                resources.getString(R.string.home_remaining_seats_second_half)
-        activityHomeBinding.textViewSeatLimits.text = displaySeats
+            activityHomeBinding.textViewSeatLimits.visibility = View.VISIBLE
+            val displaySeats = resources.getString(R.string.home_remaining_seats_first_half) + " " +
+                    seatsAvailable + " "+
+                    resources.getString(R.string.home_remaining_seats_second_half)
+            activityHomeBinding.textViewSeatLimits.text = displaySeats
+        }else if(memberShipType.equals(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
+            activityHomeBinding.textViewSeatLimits.visibility = View.GONE
+        }
         sendDeviceTokenToServer()
     }
 
     private fun launchDialog(){
-
         var lockedFromCity = ""
         var lockedToCity = ""
         sUserData.cities.forEach {

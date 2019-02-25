@@ -18,10 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import com.ns.networking.model.BookingConfirmResponse;
-import com.ns.networking.model.Contact;
-import com.ns.networking.model.GuestConfirmResponse;
-import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.*;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
@@ -56,6 +53,10 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     private boolean isOnlyGuestsSelected = false;
     private boolean isOnlyNewGuestsAdded = false;
     private int numOfGuests;
+    private int mTotalSeats = 0;
+    private int mPurchaseId = 0;
+    private String mPaymentId = "";
+    private String membershipType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,8 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
             activityPassengerBinding.textViewPassengerGuests.setText(getResources().getString(R.string.info_passenger_guests));
         }
 
+        mTotalSeats = numOfGuests;
+
         makeGuestList(numOfGuests);
         getGuestNames();
         makeEmptyListUI(numOfGuests);
@@ -104,6 +107,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
 
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
+            mTotalSeats = mTotalSeats +1;
             setMeAndGuestInfo();
             activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select_bg));
             activityPassengerBinding.textViewPassengerSelf.setTextColor(
@@ -118,6 +122,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
             if(isOnlySelfTravelling){
                 isOnlySelfTravelling  =false;
+                mTotalSeats = mTotalSeats -1;
                 setMeAndGuestInfo();
                 activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
                 activityPassengerBinding.textViewPassengerSelf.setTextColor(
@@ -218,7 +223,8 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         guestPrefsRequest.setAddGuestPrefsRequestList(addGuestPrefList);
 
         Log.d("guest", "makeGuestAddList: " + guestPrefsRequest);
-        String membershipType = SharedPreferencesHelper.getMembershipType(PassengerListActivity.this);
+
+        membershipType = SharedPreferencesHelper.getMembershipType(PassengerListActivity.this);
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             if(isGuestEdited){
                 confirmOnlyExistingGuests();
@@ -229,13 +235,13 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                     bookFlight();
                 }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
 //                    bookFlight();
-                    startPayment();
+                    getOrderId();
                 }
             }else if(isOnlySelfTravelling){
                 if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
                     bookFlight();
                 }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
-                    bookFlight();
+                    getOrderId();
                 }
             }
         }else{
@@ -548,8 +554,11 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                         mGuestResponseIds.add(response.body().getData().getNew_contacts().get(i).getGuest_id());
                     }
                     mGuestList.addAll(mGuestResponseIds);
-                    bookFlight();
-
+                    if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                        bookFlight();
+                    }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
+                        getOrderId();
+                    }
                 }
             }
 
@@ -587,7 +596,12 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                         mGuestResponseIds.add(response.body().getData().getNew_contacts().get(i).getGuest_id());
                     }
                     mGuestList.addAll(mGuestResponseIds);
-                    bookFlight();
+                    if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                        bookFlight();
+                    }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
+                        getOrderId();
+                    }
+//                    bookFlight();
                 }
             }
 
@@ -742,9 +756,11 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     }
 
     @Override
-    public void onPaymentSuccess(String s) {
+    public void onPaymentSuccess(String successMessage) {
         // call API and book flight
-        UiUtils.Companion.showToast(PassengerListActivity.this , s);
+//        UiUtils.Companion.showToast(PassengerListActivity.this , successMessage);
+        mPaymentId = successMessage;
+        verifyPurchase();
     }
 
     @Override
@@ -780,13 +796,19 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
              */
             options.put("name", getResources().getString(R.string.app_name));
 
+            JSONObject prefillDate = new JSONObject();
+            prefillDate.put("contact", SharedPreferencesHelper.getUserPhone(PassengerListActivity.this));
+            prefillDate.put("email", SharedPreferencesHelper.getUserEmail(PassengerListActivity.this));
+
+            options.put("prefill" , prefillDate);
+
             /**
              * Description can be anything
              * eg: Order #123123
              *     Invoice Payment
              *     etc.
              */
-            options.put("description", "Order #123456");
+            options.put("description", mPurchaseId);
 
             options.put("currency", "INR");
 
@@ -794,11 +816,69 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
              * Amount is always passed in PAISE
              * Eg: "500" = Rs 5.00
              */
-            options.put("amount", 100);
+//            options.put("amount", mTotalSeats*100000*100);
+            int totalCost = mTotalSeats * SharedPreferencesHelper.getSeatCost(PassengerListActivity.this)*100;
+            options.put("amount", totalCost);
 
             checkout.open(activity, options);
         } catch(Exception e) {
             Log.e("Passenger ", "Error in starting Razorpay Checkout", e);
         }
+    }
+
+    private void getOrderId(){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassengerListActivity.this);
+        Call<PurchaseSeatsResponse> mPurchaseIdCall = RetrofitAPICaller.getInstance(PassengerListActivity.this)
+                .getStellarJetAPIs().getGuestOrderId(
+                        SharedPreferencesHelper.getUserToken(PassengerListActivity.this) ,
+                        mTotalSeats
+                );
+
+        mPurchaseIdCall.enqueue(new Callback<PurchaseSeatsResponse>() {
+            @Override
+            public void onResponse(Call<PurchaseSeatsResponse> call, Response<PurchaseSeatsResponse> response) {
+                progress.hideProgress();
+                if(response.body()!=null){
+                    mPurchaseId = response.body().getData().getPurchase_id();
+                    startPayment();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PurchaseSeatsResponse> call, Throwable t) {
+                progress.hideProgress();
+                UiUtils.Companion.showServerErrorDialog(PassengerListActivity.this);
+            }
+        });
+
+    }
+
+    private void verifyPurchase(){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassengerListActivity.this);
+        Call<VerifyPurchaseResponse> verifyPurchaseCall = RetrofitAPICaller.getInstance(PassengerListActivity.this)
+                .getStellarJetAPIs().verifyPurchase(
+                        SharedPreferencesHelper.getUserToken(PassengerListActivity.this) ,
+                        mPaymentId,
+                        String.valueOf(mPurchaseId)
+                );
+
+        verifyPurchaseCall.enqueue(new Callback<VerifyPurchaseResponse>() {
+            @Override
+            public void onResponse(Call<VerifyPurchaseResponse> call, Response<VerifyPurchaseResponse> response) {
+                progress.hideProgress();
+                if(response.body()!=null){
+                    bookFlight();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerifyPurchaseResponse> call, Throwable t) {
+                progress.hideProgress();
+                UiUtils.Companion.showServerErrorDialog(PassengerListActivity.this);
+            }
+        });
+
     }
 }

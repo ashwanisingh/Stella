@@ -113,6 +113,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 SplashScreenActivity.this,
                                 UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO);
                     }
+
+                    String seatCost = response.body().getData().getUser_data().getCustomer_prefs()
+                            .getMembership_details().getSeat_cost();
+                    SharedPreferencesHelper.saveSeatCost(SplashScreenActivity.this , Integer.valueOf(seatCost));
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,
                             TouchIdActivity.class

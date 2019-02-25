@@ -235,6 +235,13 @@ public interface StellarApiService {
     );
 
     @FormUrlEncoded
+    @POST(Constants.ORDERID_GUESTS_API)
+    Call<PurchaseSeatsResponse> getGuestOrderId(
+            @Field("token") String token ,
+            @Field("no_of_seats") int numOfSeats
+    );
+
+    @FormUrlEncoded
     @POST(Constants.VERIFY_PURCHASE_API)
     Call<VerifyPurchaseResponse> verifyPurchase(
             @Field("token") String token ,
