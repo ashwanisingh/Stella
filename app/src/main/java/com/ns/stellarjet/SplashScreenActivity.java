@@ -107,11 +107,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if(prepaidTerms.equalsIgnoreCase("true")){
                         SharedPreferencesHelper.saveMembershipType(
                                 SplashScreenActivity.this,
-                                UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO);
+                                UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION);
                     }else if(prepaidTerms.equalsIgnoreCase("false")){
                         SharedPreferencesHelper.saveMembershipType(
                                 SplashScreenActivity.this,
-                                UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION);
+                                UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO);
                     }
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,

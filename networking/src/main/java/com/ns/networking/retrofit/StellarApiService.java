@@ -8,7 +8,6 @@ import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.model.schedulefood.ScheduleFoodListResponse;
 import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.DeactivateSecondaryUserResponse;
-import com.ns.networking.model.secondaryusers.SecondaryUser;
 import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
 import retrofit2.Call;
@@ -226,6 +225,21 @@ public interface StellarApiService {
     Call<CancelBookingResponse> cancelBooking(
             @Field("token") String token ,
             @Field("booking_id") int booking_id
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.ORDERID_API)
+    Call<PurchaseSeatsResponse> getOrderId(
+            @Field("token") String token ,
+            @Field("no_of_seats") int numOfSeats
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.VERIFY_PURCHASE_API)
+    Call<VerifyPurchaseResponse> verifyPurchase(
+            @Field("token") String token ,
+            @Field("payment_id") String paymentId ,
+            @Field("purchase_id") String purchaseId
     );
 
 /*

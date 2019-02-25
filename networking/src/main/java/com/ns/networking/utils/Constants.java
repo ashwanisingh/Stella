@@ -32,5 +32,7 @@ public class Constants {
     public static final String DEACTIVATE_SECONDARY_USER_API = "secondary_user/active_deactive";
     public static final String FOOD_SCHEDULE_LIST_API = "foodmenu/list";
     public static final String BOOKING_CANCEL_API = "booking/cancel";
+    public static final String ORDERID_API = "purchase/seats";
+    public static final String VERIFY_PURCHASE_API = "purchase/verify";
 
 }

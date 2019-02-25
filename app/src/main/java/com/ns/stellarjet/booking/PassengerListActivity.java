@@ -744,11 +744,12 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     @Override
     public void onPaymentSuccess(String s) {
         // call API and book flight
+        UiUtils.Companion.showToast(PassengerListActivity.this , s);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-
+        UiUtils.Companion.showToast(PassengerListActivity.this , s);
     }
 
     public void startPayment() {
@@ -777,7 +778,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
              * Merchant Name
              * eg: ACME Corp || HasGeek etc.
              */
-            options.put("name", "Merchant Name");
+            options.put("name", getResources().getString(R.string.app_name));
 
             /**
              * Description can be anything
@@ -793,7 +794,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
              * Amount is always passed in PAISE
              * Eg: "500" = Rs 5.00
              */
-            options.put("amount", "500");
+            options.put("amount", 100);
 
             checkout.open(activity, options);
         } catch(Exception e) {
