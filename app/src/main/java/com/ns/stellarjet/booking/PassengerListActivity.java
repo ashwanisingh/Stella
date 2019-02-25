@@ -218,16 +218,25 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         guestPrefsRequest.setAddGuestPrefsRequestList(addGuestPrefList);
 
         Log.d("guest", "makeGuestAddList: " + guestPrefsRequest);
-
+        String membershipType = SharedPreferencesHelper.getMembershipType(PassengerListActivity.this);
         if(StellarJetUtils.isConnectingToInternet(getApplicationContext())){
             if(isGuestEdited){
                 confirmOnlyExistingGuests();
             }else if(isOnlyNewGuestsAdded){
                 confirmGuests();
             }else if(isOnlyGuestsSelected){
-                bookFlight();
+                if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                    bookFlight();
+                }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
+//                    bookFlight();
+                    startPayment();
+                }
             }else if(isOnlySelfTravelling){
-                bookFlight();
+                if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                    bookFlight();
+                }else if(membershipType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO)){
+                    bookFlight();
+                }
             }
         }else{
             UiUtils.Companion.showSimpleDialog(
@@ -734,7 +743,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
 
     @Override
     public void onPaymentSuccess(String s) {
-
+        // call API and book flight
     }
 
     @Override

@@ -415,6 +415,18 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveMembershipType(Context mContext , String membershipType){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putString(UIConstants.PREFERENCES_USER_MEMBERSHIP_TYPE, membershipType);
+        mEditor.apply();
+    }
+
+    public static String getMembershipType(Context mContext){
+        return getSharedPreferences(mContext).getString(
+                UIConstants.PREFERENCES_USER_MEMBERSHIP_TYPE, ""
+        );
+    }
+
 
 
     /**

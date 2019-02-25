@@ -102,6 +102,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                     SharedPreferencesHelper.saveSeatCount(
                             SplashScreenActivity.this,
                             response.body().getData().getUser_data().getCustomer_prefs().getSeats_available());
+                    String prepaidTerms = response.body().getData().getUser_data().getCustomer_prefs().getMembership_details()
+                            .getPrepaid_terms();
+                    if(prepaidTerms.equalsIgnoreCase("true")){
+                        SharedPreferencesHelper.saveMembershipType(
+                                SplashScreenActivity.this,
+                                UIConstants.PREFERENCES_MEMBERSHIP_PAY_AS_U_GO);
+                    }else if(prepaidTerms.equalsIgnoreCase("false")){
+                        SharedPreferencesHelper.saveMembershipType(
+                                SplashScreenActivity.this,
+                                UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION);
+                    }
                     Intent mHomeIntent = new Intent(
                             SplashScreenActivity.this ,
                             TouchIdActivity.class

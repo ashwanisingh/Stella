@@ -13,7 +13,6 @@ import com.ns.networking.model.FoodPersonalizeResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferenceListBinding
-import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodListAdapter
 import com.ns.stellarjet.utils.*
 import kotlinx.android.synthetic.main.activity_food_preference_list.*
@@ -90,9 +89,9 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
                 response: Response<CommonPersonalizeFoodResponse>){
                 Log.d("Booking", "onResponse: $response")
                 if(response.code() == 200){
-                    HomeActivity.sUserData.customer_prefs.foods?.forEach {
+                    /*HomeActivity.sUserData.customer_prefs.foods?.forEach {
                         it.pref = FoodPreferencesLaunchActivity.mCommonPreferenceFoodId.contains(it.id.toString())
-                    }
+                    }*/
                     finish()
                 }else if(response.code() == 400){
                     try {
@@ -188,7 +187,7 @@ class FoodPreferenceListActivity : AppCompatActivity(), (String , Boolean , Int)
     }
 
     private fun makeFoodListByCategory(foodType : String) :  MutableList<Food>{
-        mFoodsList = HomeActivity.sUserData.customer_prefs.foods
+//        mFoodsList = HomeActivity.sUserData.customer_prefs.foods
 
         val mFoodsDisplayList : MutableList<Food> = ArrayList()
 

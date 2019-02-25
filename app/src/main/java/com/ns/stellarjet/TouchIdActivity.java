@@ -57,17 +57,17 @@ public class TouchIdActivity extends AppCompatActivity{
 
             if (!fingerprintManager.isHardwareDetected()) {
 //                textView.setText("Your device doesn't support fingerprint authentication");
-                launchPasscodeActivity();
+                launchPassCodeActivity();
             }
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
 //                textView.setText("Please enable the fingerprint permission");
-                launchPasscodeActivity();
+                launchPassCodeActivity();
             }
 
             if (!fingerprintManager.hasEnrolledFingerprints()) {
 //                textView.setText("No fingerprint configured. Please register at least one fingerprint in your device's Settings");
-                launchPasscodeActivity();
+                launchPassCodeActivity();
             }
 
             if (!keyguardManager.isKeyguardSecure()) {
@@ -95,14 +95,14 @@ public class TouchIdActivity extends AppCompatActivity{
                                 .build()
                                 .authenticate(TouchIdActivity.this);
                     }catch (java.lang.RuntimeException e){
-                        launchPasscodeActivity();
+                        launchPassCodeActivity();
                     }
                 }*/else {
-                    launchPasscodeActivity();
+                    launchPassCodeActivity();
                 }
             }
         }else {
-            launchPasscodeActivity();
+            launchPassCodeActivity();
         }
     }
 
@@ -125,7 +125,7 @@ public class TouchIdActivity extends AppCompatActivity{
                                 KeyProperties.ENCRYPTION_PADDING_PKCS7)
                         .build());
             }else {
-                launchPasscodeActivity();
+                launchPassCodeActivity();
             }
 
             keyGenerator.generateKey();
@@ -177,27 +177,27 @@ public class TouchIdActivity extends AppCompatActivity{
 
     /*@Override
     public void onSdkVersionNotSupported() {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
     public void onBiometricAuthenticationNotSupported() {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
     public void onBiometricAuthenticationNotAvailable() {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
     public void onBiometricAuthenticationPermissionNotGranted() {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
     public void onBiometricAuthenticationInternalError(String error) {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
@@ -207,7 +207,7 @@ public class TouchIdActivity extends AppCompatActivity{
 
     @Override
     public void onAuthenticationCancelled() {
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }
 
     @Override
@@ -223,7 +223,7 @@ public class TouchIdActivity extends AppCompatActivity{
     @Override
     public void onAuthenticationError(int errorCode, CharSequence errString) {
 //        Toast.makeText(getApplicationContext(), errString, Toast.LENGTH_LONG).show();
-        launchPasscodeActivity();
+        launchPassCodeActivity();
     }*/
 
     private void launchHomeActivity(){
@@ -234,7 +234,7 @@ public class TouchIdActivity extends AppCompatActivity{
         finish();
     }
 
-    private void launchPasscodeActivity(){
+    private void launchPassCodeActivity(){
         Intent mPasscodeIntent = new Intent(TouchIdActivity.this , PassCodeActivity.class);
         // send bundle
         mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);

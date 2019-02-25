@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.FoodItems
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityFoodPreferencesLaunchBinding
-import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.personalize.adapter.FoodCategoryListAdapter
 import com.ns.stellarjet.utils.UIConstants
 import java.util.*
@@ -65,13 +64,13 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
      * this methods makes the food types in a list from the global list
      * */
     private fun makeFoodTypeList() : List<String>{
-        val mFoodsList = HomeActivity.sUserData.customer_prefs.foods
+//        val mFoodsList = HomeActivity.sUserData.customer_prefs.foods
         val foodType : HashSet<String> = HashSet()
         val mFoodsTypeList : MutableList<String> = ArrayList()
 
-        mFoodsList!!.forEach {
+       /* mFoodsList!!.forEach {
             foodType.add(it.food_type_text!!)
-        }
+        }*/
 
         if(flow.equals("personalize",true)){
             if(mPersonalizationFoodId.size==0 || mPersonalizationFoodId.isEmpty()){
@@ -82,11 +81,11 @@ class FoodPreferencesLaunchActivity : AppCompatActivity(), (String) -> Unit {
                 }
             }
         }else{
-            mFoodsList.forEach {
+            /*mFoodsList.forEach {
                 if(it.pref!!){
                     mCommonPreferenceFoodId.add(it.id.toString())
                 }
-            }
+            }*/
         }
 
         foodType.forEach {

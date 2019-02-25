@@ -211,4 +211,17 @@ public class UIConstants {
      * String constant for SharedPreferences subscription seats count
      */
     public static final String PREFERENCES_SEAT_COUNT    = "seatCount";
+    /**
+     * String constant for SharedPreferences membership user type(pay_as_u_go/subscription)
+     */
+    public static final String PREFERENCES_USER_MEMBERSHIP_TYPE = "membershipUserType";
+
+    /**
+     * String constant for SharedPreferences membership user type - pay_as_u_go
+     */
+    public static final String PREFERENCES_MEMBERSHIP_PAY_AS_U_GO= "PayAsYouGo";
+    /**
+     * String constant for SharedPreferences membership user type - subscription
+     */
+    public static final String PREFERENCES_MEMBERSHIP_SUBSCRIPTION= "Subscription";
 }

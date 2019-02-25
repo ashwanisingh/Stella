@@ -23,10 +23,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.drawer.PurchaseActivity;
 import com.ns.stellarjet.home.HomeActivity;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UiUtils;
+import com.ns.stellarjet.utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -113,6 +110,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private int mNumOfSeatsLocked = 0;
     private int numOfSeatsAvailable = 0;
     private int mGlobalSeatCount = 0;
+    private String membershipUserType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +198,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         super.onResume();
         mGlobalSeatCount = SharedPreferencesHelper.getSeatCount(SeatSelectionActivity.this);
         mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
+        membershipUserType = SharedPreferencesHelper.getMembershipType(SeatSelectionActivity.this);
     }
 
     @Override
@@ -637,18 +636,21 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                             String.valueOf(numOfSeatsAvailable)
                                     +" seats available";
                     mSeatsAvailableTextView.setText(seatsAvailable);
-                    mGlobalSeatCount = mGlobalSeatCount - 1;
-                    Log.wtf("SeatCount", "onResponse: lock==> " + mGlobalSeatCount);
+
                     /* Subscription seats avail check*/
                     String userType = SharedPreferencesHelper.getUserType(SeatSelectionActivity.this);
-                    if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("primary")){
-                        // launch dialog to ask recharge status and launch com.ns.stellarjet.drawer.PurchaseActivity
-                        showPrimaryUserSeatUnavailabilityDialog();
-                    }else if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("secondary")){
-                        String primaryUsername = SharedPreferencesHelper.getCurrentPrimaryUserName(SeatSelectionActivity.this);
-                        UiUtils.Companion.showSimpleDialog(
-                                SeatSelectionActivity.this , "You ran out of seats .Please contact Mr."+primaryUsername
-                                        + "to recharge the seats ");
+                    if(membershipUserType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                        mGlobalSeatCount = mGlobalSeatCount - 1;
+                        Log.wtf("SeatCount", "onResponse: lock==> " + mGlobalSeatCount);
+                        if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("primary")){
+                            // launch dialog to ask recharge status and launch com.ns.stellarjet.drawer.PurchaseActivity
+                            showPrimaryUserSeatUnavailabilityDialog();
+                        }else if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("secondary")){
+                            String primaryUsername = SharedPreferencesHelper.getCurrentPrimaryUserName(SeatSelectionActivity.this);
+                            UiUtils.Companion.showSimpleDialog(
+                                    SeatSelectionActivity.this , "You ran out of seats .Please contact Mr."+primaryUsername
+                                            + "to recharge the seats ");
+                        }
                     }
                     selectButtonSelection(mDesiredButton, seatPosition ,true);
                     mSelectedSeatList.get(position).setSelected(true);
@@ -716,8 +718,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                                 String.valueOf(numOfSeatsAvailable)
                                         +" seats available";
                         mSeatsAvailableTextView.setText(seatsAvailable);
-                        mGlobalSeatCount = mGlobalSeatCount + 1;
-                        Log.wtf("SeatCount", "onResponse: unlock ==>" + mGlobalSeatCount);
+                        if(membershipUserType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                            mGlobalSeatCount = mGlobalSeatCount + 1;
+                            Log.wtf("SeatCount", "onResponse: unlock ==>" + mGlobalSeatCount);
+                        }
                         selectButtonSelection(mDesiredButton, seatPosition ,false);
                         mSelectedSeatList.get(position).setSelected(false);
                     }else if(response.code()==500){
