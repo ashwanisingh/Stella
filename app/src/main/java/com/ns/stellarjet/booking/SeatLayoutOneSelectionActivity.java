@@ -522,8 +522,6 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             if(mSelectedSeatList.get(i).getSeatId().equalsIgnoreCase(seatId)){
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
                 isSelected = !isSelected;
-//                setSeatSelectionOn.State( mSelectedSeatList.get(i).getSeatName(), isSelected);
-                mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){
@@ -782,21 +780,15 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Hi Mr."+userName+", you have consumed your seats.Please recharge");
         alertDialogBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(SeatLayoutOneSelectionActivity.this , PurchaseActivity.class));
-                    }
-                });
+                (arg0, arg1) -> startActivity(new Intent(SeatLayoutOneSelectionActivity.this , PurchaseActivity.class)));
 
-        alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setOnShowListener(dialog -> {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
+        });
         alertDialog.show();
     }
 }

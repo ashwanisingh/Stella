@@ -571,7 +571,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             if(mSelectedSeatList.get(i).getSeatId().equalsIgnoreCase(seatId)){
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
                 isSelected = !isSelected;
-                mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){
@@ -836,21 +835,15 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Hi Mr."+userName+", you have consumed your seats.Please recharge");
         alertDialogBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(SeatSelectionActivity.this , PurchaseActivity.class));
-                    }
-                });
+                (arg0, arg1) -> startActivity(new Intent(SeatSelectionActivity.this , PurchaseActivity.class)));
 
-        alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setOnShowListener(dialog -> {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorButtonNew));
+        });
         alertDialog.show();
     }
 }
