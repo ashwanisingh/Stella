@@ -1,6 +1,5 @@
 package com.ns.stellarjet.booking;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -542,6 +541,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
         }
         mNumOfSeatsLocked = mSelectedAndLockedSeatsList.size();
+        mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
         mSeatConfirmedButton.setText(confirmSeatsDisplay);
         for (int i = 0; i < mSelectedAndLockedSeatsList.size(); i++) {
             mConfirmedSeatsList.add(mSelectedAndLockedSeatsList.get(i).getFlight_seat_id());

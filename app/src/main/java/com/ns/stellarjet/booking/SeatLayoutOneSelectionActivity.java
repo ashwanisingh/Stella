@@ -1,6 +1,5 @@
 package com.ns.stellarjet.booking;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -496,6 +495,7 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
             mConfirmedSeatsList.add(mSelectedAndLockedSeatsList.get(i).getFlight_seat_id());
         }
         mNumOfSeatsLocked = mSelectedAndLockedSeatsList.size();
+        mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
         for (int i = 0; i < mBookedSeatsList.size(); i++) {
             int seatId = mBookedSeatsList.get(i).getSeatId();
             String seatPosition = mBookedSeatsList.get(i).getSeatPosition();
