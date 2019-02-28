@@ -18,7 +18,7 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
     private List<Calendar> mScheduledList;
     private int daysToPostPone ;
     private onDateSelectClickListener mOnDateSelectClickListener;
-    private int selectedPosition;
+    private int lastCheckedPos = 0;
 
     public CalendarDaysAdapter( onDateSelectClickListener mOnDateSelectClickListenerParams,
                                 List<Calendar> itemsParams,
@@ -91,9 +91,10 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
                 if(!mScheduledList.contains(calendar)){
                     mPlaceTextView.setAlpha(0.4f);
                     mPlaceTextView.setEnabled(false);
+                    mPlaceTextView.setOnClickListener(null);
                 }
             }
-            if(index!=0 && index ==  selectedPosition){
+            /*if(index!=0 && index ==  selectedPosition){
                 if(!mPlaceTextView.getText().toString().isEmpty()){
                     itemView.setBackgroundResource(R.drawable.drawable_selected_circle);
                     mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
@@ -105,6 +106,25 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
                     mOnDateSelectClickListener.onDateSelected(items.get(index));
                     selectedPosition = index;
                     notifyDataSetChanged();
+                }
+            });*/
+            if(position == lastCheckedPos){
+                itemView.setBackgroundResource(R.drawable.drawable_selected_circle);
+                mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
+            }else {
+                itemView.setBackgroundResource(android.R.color.transparent);
+                mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(android.R.color.white));
+            }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnDateSelectClickListener.onDateSelected(items.get(index));
+                    int prevPos = lastCheckedPos;
+                    lastCheckedPos = position;
+                    notifyDataSetChanged();
+                    notifyItemChanged(prevPos);
+                    notifyItemChanged(lastCheckedPos);
                 }
             });
         }

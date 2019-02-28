@@ -29,6 +29,7 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
     private int initialMonth =0;
     private int lastMonth = 0;
     private int selectedIndex ;
+    private boolean isDateSelected = false;
     private List<String> mDaysList = new ArrayList<>();
 
     @Override
@@ -59,11 +60,11 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
         mActivityDateSelectionBinding.textViewCalendarTo.setText(SharedPreferencesHelper.getToCity(DateSelectionActivity.this));
 
         mActivityDateSelectionBinding.buttonScheduleConfirmDate.setOnClickListener(v -> {
-            if(selectedIndex == -1){
+            if(!isDateSelected){
                 UiUtils.Companion.showSimpleDialog(
-                        DateSelectionActivity.this, "No Flights are available"
+                        DateSelectionActivity.this, "Please select a date"
                 );
-            }else {
+            }else if(isDateSelected){
                 SharedPreferencesHelper.saveJourneyDate(
                         DateSelectionActivity.this ,
                         mFlightScheduleDataList.get(selectedIndex).getJourney_date());
@@ -287,6 +288,7 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
             String tempDate  = mFlightScheduleDataList.get(i).getJourney_date();
             if(selectedDate.equalsIgnoreCase(tempDate)){
                 selectedIndex = i;
+                isDateSelected = true;
                 mActivityDateSelectionBinding.textViewScheduleDate.setVisibility(View.VISIBLE);
                 mActivityDateSelectionBinding.textViewScheduleDate.setText(StellarJetUtils.getFormattedCalendarBookDate(
                         mFlightScheduleDataList.get(i).getJourney_datetime_ms()));
@@ -295,9 +297,6 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
                 mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
             }
         }
-        /*mActivityDateSelectionBinding.textViewScheduleDate.setText(
-                StellarJetUtils.getFormattedCalendarBookDate(
-                        mScheduledCalendar.getTimeInMillis()));*/
         mActivityDateSelectionBinding.scrollviewCalendar.fullScroll(View.FOCUS_DOWN);
     }
 }
