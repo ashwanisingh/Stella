@@ -179,7 +179,8 @@ public interface StellarApiService {
     Call<UpdateDeviceToken> updateDeviceToken(
             @Field("token") String token,
             @Field("usertype") String userType,
-            @Field("device_token") String deviceToken
+            @Field("device_token") String deviceToken,
+            @Field("device_type") String deviceType
     );
 
     @FormUrlEncoded
@@ -247,6 +248,12 @@ public interface StellarApiService {
             @Field("token") String token ,
             @Field("payment_id") String paymentId ,
             @Field("purchase_id") String purchaseId
+    );
+
+    @GET(Constants.BOOKING_DETAILS_API)
+    Call<BookingDetailsResponse> getBookingDetails(
+            @Query("token") String token ,
+            @Query("booking_id") String paymentId
     );
 
 /*

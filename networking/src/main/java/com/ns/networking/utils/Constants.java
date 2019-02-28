@@ -35,5 +35,6 @@ public class Constants {
     public static final String ORDERID_API = "purchase/seats";
     public static final String ORDERID_GUESTS_API = "purchase/guest_seats";
     public static final String VERIFY_PURCHASE_API = "purchase/verify";
+    public static final String BOOKING_DETAILS_API = "booking/details";
 
 }

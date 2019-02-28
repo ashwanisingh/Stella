@@ -86,6 +86,7 @@
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".drawer.DrawerActivity"
+                android:parentActivityName=".home.HomeActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".drawer.MyBookingsActivity"
@@ -171,6 +172,7 @@
                 android:name=".home.PrimaryUsersActivity"
                 android:screenOrientation="portrait"/>
         <activity android:name=".drawer.PurchaseActivity"
+                  android:parentActivityName=".drawer.DrawerActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".booking.DateSelectionActivity"
                   android:screenOrientation="portrait"/>
