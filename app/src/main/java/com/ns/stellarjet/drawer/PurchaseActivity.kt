@@ -65,14 +65,24 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
             }
         })
 
+        button_purchase_back.setOnClickListener {
+            onBackPressed()
+        }
+
         button_purchase_buy_now.setOnClickListener {
-            mTotalSeats = editText_purchase_seat_count.text.toString().toInt()
-            if(mTotalSeats !=0){
+            val totalSeats = editText_purchase_seat_count.text.toString()
+            if(totalSeats.isNotEmpty()){
+                mTotalSeats = totalSeats.toInt()
+                if(mTotalSeats !=0){
 //                startPayment()
-                getOrderId()
+                    getOrderId()
+                }else{
+                    UiUtils.showToast(this@PurchaseActivity , "Please enter the seats required")
+                }
             }else{
                 UiUtils.showToast(this@PurchaseActivity , "Please enter the seats required")
             }
+
         }
     }
 
