@@ -28,8 +28,7 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
         this.items = itemsParams;
         daysToPostPone = daysToPostponeparams;
         mScheduledList = mScheduledCalendarListParams;
-        Log.d("CalendarDaysAdapter", "CalendarDaysAdapter: POstpone " + daysToPostPone);
-        Log.d("CalendarDaysAdapter", "CalendarDaysAdapter: items size " + items.size());
+        lastCheckedPos = 0;
     }
 
     /**
@@ -72,11 +71,10 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
         void bind(final int position){
             final int index = ((position)-(daysToPostPone));
             if(position <daysToPostPone){
-                Log.d("CalendarDaysAdapter", "bind: if  " + position);
                 mPlaceTextView.setText("");
                 itemView.setVisibility(View.INVISIBLE);
+                Log.d("CalendarDaysAdapter", "bind: if  " + position);
             }else {
-                Log.d("CalendarDaysAdapter", "bind: else " + index);
                 mPlaceTextView.setText(String.valueOf(items.get(index).get(Calendar.DAY_OF_MONTH)));
                 Calendar calendar = items.get(index);
                 /*Calendar currentCalendar = Calendar.getInstance();
@@ -109,23 +107,23 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
                 }
             });*/
             if(position == lastCheckedPos){
+                Log.d("CalendarDaysAdapter", "bind: if((position == lastCheckedPos)) " + position);
                 itemView.setBackgroundResource(R.drawable.drawable_selected_circle);
                 mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
             }else {
+                Log.d("CalendarDaysAdapter", "bind: else of if(position == lastCheckedPos)  " + position);
                 itemView.setBackgroundResource(android.R.color.transparent);
                 mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(android.R.color.white));
+                itemView.setVisibility(View.VISIBLE);
             }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnDateSelectClickListener.onDateSelected(items.get(index));
-                    int prevPos = lastCheckedPos;
-                    lastCheckedPos = position;
-                    notifyDataSetChanged();
-                    notifyItemChanged(prevPos);
-                    notifyItemChanged(lastCheckedPos);
-                }
+            itemView.setOnClickListener(v -> {
+                mOnDateSelectClickListener.onDateSelected(items.get(index));
+                int prevPos = lastCheckedPos;
+                lastCheckedPos = position;
+                notifyItemChanged(prevPos);
+                notifyItemChanged(lastCheckedPos);
+                notifyDataSetChanged();
             });
         }
     }
