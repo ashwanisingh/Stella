@@ -658,7 +658,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                     int subscriptionSeatCount = SharedPreferencesHelper.getSeatCount(PassengerListActivity.this);
                     seatCount = subscriptionSeatCount - seatCount;
                     SharedPreferencesHelper.saveSeatCount(PassengerListActivity.this , seatCount);
-//                    getUserData();
+                    getUserData();
                     Intent mIntent = new Intent(
                             PassengerListActivity.this ,
                             BookingConfirmedActivity.class
