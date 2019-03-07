@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_marginTop="36dp"
+            tools:text="Non Vegetarian"
+            style="@style/StellarTextView_18sp"
+            android:id="@+id/textView_row_global_food_name"
+            android:layout_marginEnd="32dp"
+            android:drawableEnd="@mipmap/ic_food_unselect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="CheckBox"
+            android:button="@null"
+            android:layout_marginEnd="32dp"
+            android:drawableEnd="@drawable/drawable_food_select"
+            style="@style/StellarTextView_18sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <LinearLayout
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:gravity="center|start"
+                style="@style/StellarTextView_14sp"
+                android:alpha="0.5"
+                android:drawableEnd="@drawable/ic_down"
+                android:text="@string/info_global_row_days"
+                android:id="@+id/textView_row_global_food_days_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:src="@drawable/ic_down"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+    <View
+            android:alpha="0.2"
+            android:background="@color/colorAddressDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+</LinearLayout>

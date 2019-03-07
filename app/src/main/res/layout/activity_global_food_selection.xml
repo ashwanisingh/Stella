@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="28dp"
+        android:fitsSystemWindows="true"
+        tools:context=".drawer.GlobalFoodSelectionActivity">
+
+    <Button
+            android:layout_marginStart="-2dp"
+            android:id="@+id/button_global_food_back"
+            style="@style/StellarBackButton"/>
+
+    <TextView
+            android:id="@+id/textView_global_food_title"
+            style="@style/StellarTextView_22sp"
+            android:gravity="start"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="45dp"
+            android:text="@string/info_global_food_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:text="@string/info_global_food_heading"
+            android:id="@+id/textView_global_food_heading"
+            style="@style/StellarTextView_16sp"
+            android:alpha="0.5"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <ScrollView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+        <LinearLayout
+                android:id="@+id/layout_global_food"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </ScrollView>
+
+
+    <Button
+            android:id="@+id/button"
+            style="@style/StellarWhiteButton"
+            android:text="@string/confirm_button"
+            android:gravity="start|center_vertical"
+            android:layout_marginBottom="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

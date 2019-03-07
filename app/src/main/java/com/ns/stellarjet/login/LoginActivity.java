@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                 setContentView(this , R.layout.activity_login);
 
         /* remove the dummy login */
-        mActivityLoginBinding.editTextAccountId.setText("vignesh.p@ninestars.in");
+//        mActivityLoginBinding.editTextAccountId.setText("vignesh.p@ninestars.in");
 
         mActivityLoginBinding.btnLoginConfirm.setOnClickListener(v -> {
             String userName = mActivityLoginBinding.editTextAccountId.getText().toString();

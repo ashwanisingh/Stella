@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
     </data>
@@ -109,6 +109,159 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"/>
-        <include layout="@layout/layout_keypad"/>
+        <!--<include layout="@layout/layout_keypad"/>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".PassCodeActivity">
+
+            <Button
+                    android:id="@+id/button_passcode_one"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/passcode_kwypad_one"
+                    app:layout_constraintEnd_toStartOf="@+id/button_passcode_two"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                    android:id="@+id/button_passcode_two"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_two"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_one"
+                    app:layout_constraintEnd_toStartOf="@+id/button_passcode_three"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button_passcode_one"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_one"/>
+
+            <Button
+                    android:id="@+id/button_passcode_three"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_three"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_one"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button_passcode_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_one"/>
+
+
+            <Button
+                    android:id="@+id/button_passcode_four"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_four"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_one"
+                    app:layout_constraintTop_toBottomOf="@+id/button_passcode_one"/>
+
+            <Button
+                    android:id="@+id/button_passcode_five"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_five"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_four"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_two"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_four"/>
+
+            <Button
+                    android:id="@+id/button_passcode_six"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_six"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_five"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_three"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_three"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_five"/>
+
+            <Button
+                    android:id="@+id/button_passcode_seven"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_seven"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_four"
+                    app:layout_constraintTop_toBottomOf="@+id/button_passcode_four"/>
+
+            <Button
+                    android:id="@+id/button_passcode_eight"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_eight"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_seven"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_five"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_five"/>
+
+            <Button
+                    android:id="@+id/button_passcode_nine"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_nine"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_eight"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_six"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_six"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_eight"/>
+
+            <Button
+                    android:id="@+id/button_passcode_zero"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@android:color/transparent"
+                    android:padding="2dp"
+                    android:text="@string/passcode_kwypad_zero"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_eight"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_eight"
+                    app:layout_constraintTop_toBottomOf="@+id/button_passcode_eight"/>
+
+
+            <Button
+                    android:id="@+id/button_passcode_del"
+                    style="@style/StellarTextView_30sp"
+                    android:layout_width="26dp"
+                    android:layout_height="19dp"
+                    android:background="@drawable/ic_keypad_del"
+                    android:padding="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_passcode_zero"
+                    app:layout_constraintEnd_toEndOf="@+id/button_passcode_nine"
+                    app:layout_constraintStart_toStartOf="@+id/button_passcode_nine"
+                    app:layout_constraintTop_toTopOf="@+id/button_passcode_zero"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

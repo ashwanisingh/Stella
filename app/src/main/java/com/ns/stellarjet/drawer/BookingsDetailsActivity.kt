@@ -27,9 +27,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
-    private var bookingData: Booking? = null
     private var bookingType: String = ""
     private var mSeatCount = 0
+    private var mTravellingUsers = 0
+    companion object {
+        var bookingData: Booking? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,8 +94,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
         alertDialogBuilder.setMessage("Do you want to cancel this booking ?" )
         alertDialogBuilder.setPositiveButton("Ok") { _, _ ->
             run {
-                //                UiUtils.showToast(this@BookingsDetailsActivity , "Cancel ok")
-                cancelBooking()
+                if(StellarJetUtils.isConnectingToInternet(this@BookingsDetailsActivity)){
+                    cancelBooking()
+                }else{
+                    UiUtils.showNoInternetDialog(this@BookingsDetailsActivity)
+                }
             }
         }
 
@@ -114,12 +120,19 @@ class BookingsDetailsActivity : AppCompatActivity() {
     }
 
     private fun cancelBooking(){
+        val seatIdList : MutableList<Int> = ArrayList()
+        if (bookingData?.travelling_self == 1) {
+            seatIdList.add(bookingData!!.prefs?.main_passenger?.seats_info?.seat_id!!)
+        }else{
+            seatIdList.add(bookingData?.prefs?.co_passengers?.get(0)?.seats_info?.seat_id!!)
+        }
         val progress = Progress.getInstance()
         progress.showProgress(this@BookingsDetailsActivity)
         val cancelBookingCall: Call<CancelBookingResponse> = RetrofitAPICaller.getInstance(this@BookingsDetailsActivity)
             .stellarJetAPIs.cancelBooking(
             SharedPreferencesHelper.getUserToken(this@BookingsDetailsActivity),
-            bookingData?.booking_id!!
+            bookingData?.booking_id!!,
+            seatIdList
         )
 
         cancelBookingCall.enqueue(object : Callback<CancelBookingResponse> {
@@ -187,6 +200,17 @@ class BookingsDetailsActivity : AppCompatActivity() {
             false
         )
 
+        if(bookingData?.travelling_self == 1){
+            Log.d("Cancel Tickets " , bookingData?.prefs?.main_passenger?.name+"")
+            Log.d("Cancel Tickets " , bookingData?.prefs?.main_passenger?.seats_info?.seat_code+"")
+        }
+
+        val coPassengerSize= bookingData?.prefs?.co_passengers?.size!!
+        for (i in 0 until coPassengerSize){
+            Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.name)
+            Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.seats_info?.seat_code)
+        }
+
         if(bookingType.equals("completed" , true)){
             binding.viewBookingsDetailsDivider.visibility = View.GONE
             binding.layoutBookingsDetailsCabBase.visibility = View.GONE
@@ -206,6 +230,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
         mSeatCount += bookingData?.prefs?.co_passengers?.size!!
 
         if(bookingData!!.status.equals("Cancelled" , true)){
+            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
             var address = ""
             if(!bookingData!!.pick_address_main!!.isEmpty()){
                 address = bookingData!!.pick_address_main!!
@@ -260,17 +285,35 @@ class BookingsDetailsActivity : AppCompatActivity() {
         var passengersName = ""
         var seatsName = ""
         if(bookingData?.travelling_self ==1){
-            passengersName = HomeActivity.sUserData.name
-            seatsName = bookingData!!.customer_seat?.seat_code!!
+            if(bookingData?.prefs?.main_passenger?.status.equals("Confirmed" , true)){
+                passengersName = HomeActivity.sUserData.name
+                seatsName = bookingData!!.customer_seat?.seat_code!!
+                mTravellingUsers += 1
+            }
         }
-        val guests = bookingData?.guest_seats
+        val guests = bookingData?.prefs!!.co_passengers
         guests?.forEach {
             if(passengersName.isEmpty()){
-                passengersName = it.name!!
-                seatsName = it.seat_code!!
+                if(it.status.equals("Confirmed" , true)){
+                    passengersName = it.name!!
+                    mTravellingUsers += 1
+                }
             }else{
-                passengersName = passengersName + ", " + it.name
-                seatsName = seatsName +", " +it.seat_code
+                if(it.status.equals("Confirmed" , true)){
+                    passengersName = passengersName + ", " + it.name
+                    mTravellingUsers += 1
+                }
+            }
+        }
+        guests?.forEach {
+            if(seatsName.isEmpty()){
+                if(it.status.equals("Confirmed" , true)){
+                    seatsName = it.seats_info?.seat_code!!
+                }
+            }else{
+                if(it.status.equals("Confirmed" , true)){
+                    seatsName = seatsName +", " +it.seats_info?.seat_code!!
+                }
             }
         }
 
@@ -341,7 +384,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
             isFoodPersonalized = true
         }
         binding.buttonBookingsDetailsCancelBooking.setOnClickListener {
-            showCancelConfirmation()
+            if(mTravellingUsers==1){
+                showCancelConfirmation()
+//                UiUtils.showToast(this@BookingsDetailsActivity , "1 seats")
+            }else{
+//                UiUtils.showToast(this@BookingsDetailsActivity , "More then 1 seats")
+                val intent  = Intent(this@BookingsDetailsActivity , CancelBookingActivity::class.java)
+                intent.putExtra("BookingData" , bookingData)
+                startActivity(intent)
+            }
         }
     }
 }

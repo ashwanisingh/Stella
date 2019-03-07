@@ -104,6 +104,11 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="StellarTextView_8sp" parent="android:Widget.Material.TextView">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="StellarTextView_40sp" parent="android:Widget.Material.TextView">
         <item name="android:textSize">40sp</item>
         <item name="android:textColor">@android:color/white</item>

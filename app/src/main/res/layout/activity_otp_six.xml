@@ -17,7 +17,7 @@
             android:text="@string/login_title"/>
 
     <TextView
-            android:id="@+id/textView_passcode_heading"
+            android:id="@+id/textView_otp_six_heading"
             style="@style/StellarTextView_16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

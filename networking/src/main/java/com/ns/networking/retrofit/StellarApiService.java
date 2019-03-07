@@ -1,8 +1,11 @@
 package com.ns.networking.retrofit;
 
+import com.google.gson.JsonArray;
+import com.ns.networking.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
+import com.ns.networking.model.guestrequest.BookingUserRelation;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.model.schedulefood.ScheduleFoodListResponse;
@@ -10,6 +13,7 @@ import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.DeactivateSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
+import org.json.JSONArray;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -95,8 +99,14 @@ public interface StellarApiService {
             @Field("seat_ids[]") List<Integer> mSeatsCodeList,
             @Field("guests[]") List<Integer> mGuestId,
             @Field("travelling_self") int selfTravelling,
-            @Field("schedule_id") String scheduleId
+            @Field("schedule_id") String scheduleId,
+            @Field("seat_passenger_relation") JSONArray bookingUserRelation
 //            @Field("guest_prefs[]")ArrayList<GuestPrefsDataRequest> guestPrefs
+    );
+
+    @POST(Constants.BOOK_SEATS_API)
+    Call<BookingConfirmResponse> confirmFlightBookingSeats(
+            @Body BookingRequest bookingRequest
     );
 
     @POST(Constants.GUEST_CONFIRM_API)
@@ -225,7 +235,8 @@ public interface StellarApiService {
     @POST(Constants.BOOKING_CANCEL_API)
     Call<CancelBookingResponse> cancelBooking(
             @Field("token") String token ,
-            @Field("booking_id") int booking_id
+            @Field("booking_id") int booking_id,
+            @Field("seat_ids[]") List<Integer> mSeatsId
     );
 
     @FormUrlEncoded

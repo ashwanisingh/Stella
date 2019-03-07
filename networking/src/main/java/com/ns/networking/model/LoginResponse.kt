@@ -49,17 +49,42 @@ data class Subscription(
     val no_of_seats: Int?
 ):Parcelable
 
-/*@Parcelize
+@Parcelize
 data class CustomerPrefs(
-    val foods: List<Food>?,
-    val payment_prefs: String?,
-    val seat_prefs: List<SeatPreferences>?,
-    val seats_available: Int?,
-    val subscription_expiry: Long?,
-    val subscription_expiry_datetime: String?
-):Parcelable*/
+    val flight_days: List<String>,
+    val food_categories: List<FoodCategory>,
+    val food_prefs: List<FoodPref>,
+    val gstin: String,
+    val member_type: String,
+    val member_type_text: String,
+    val membership_details: MembershipDetails,
+    val seats_available: Int,
+    val subscription_expiry: Long,
+    val subscription_expiry_datetime: String
+):Parcelable
 
 @Parcelize
+data class MembershipDetails(
+    val id: Int,
+    val prepaid_terms: String,
+    val seat_cost: String,
+    val title: String
+):Parcelable
+
+@Parcelize
+data class FoodPref(
+    val days: List<String>,
+    val food_category: String
+):Parcelable
+
+@Parcelize
+data class FoodCategory(
+    val cat_key: String,
+    val cat_text: String,
+    val show_days: Boolean
+):Parcelable
+
+/*@Parcelize
 data class CustomerPrefs(
     val flight_days: List<String>,
     val gstin: String,
@@ -77,7 +102,7 @@ data class MembershipDetails(
     val prepaid_terms: String,
     val seat_cost: String,
     val title: String
-):Parcelable
+):Parcelable*/
 
 @Parcelize
 data class FoodCategories(

@@ -4,18 +4,35 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class CoPassenger(
-    val food_items: List<FoodItems>?,
-    val name: String?
+    val last_modified_by: String?,
+    val modified_user_type: String?,
+    val name: String?,
+    val passenger: Int?,
+    val phone: String?,
+    val seats_info: SeatsInfo?,
+    val status: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.createTypedArrayList(FoodItems.CREATOR),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readParcelable(SeatsInfo::class.java.classLoader),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeTypedList(food_items)
+        parcel.writeString(last_modified_by)
+        parcel.writeString(modified_user_type)
         parcel.writeString(name)
+        if (passenger != null) {
+            parcel.writeInt(passenger)
+        }
+        parcel.writeString(phone)
+        parcel.writeParcelable(seats_info, flags)
+        parcel.writeString(status)
     }
 
     override fun describeContents(): Int {

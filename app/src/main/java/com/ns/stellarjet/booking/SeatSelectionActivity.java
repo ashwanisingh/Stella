@@ -2,6 +2,7 @@ package com.ns.stellarjet.booking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.flightsseats.FlightSeats;
 import com.ns.networking.model.flightsseats.SeatsLockedByUser;
 import com.ns.networking.model.guestrequest.BookedSeatsRequest;
+import com.ns.networking.model.guestrequest.SeatInfo;
 import com.ns.networking.model.seatrequest.SeatSelectionRequest;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
@@ -36,68 +38,37 @@ import java.util.Objects;
 
 public class SeatSelectionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.button_two_seat_confirmed)
     Button mSeatConfirmedButton;
-    @BindView(R.id.button_seat_selection_back)
     Button mBackButton;
-    @BindView(R.id.button_seats_alpha)
     Button mAlphaButton;
-    @BindView(R.id.button_seats_beta)
     Button mBetaButton;
-    @BindView(R.id.button_seats_charlie)
     Button mCharlieButton;
-    @BindView(R.id.button_seats_delta)
     Button mDeltaButton;
-    @BindView(R.id.button_seats_echo)
     Button mEchoButton;
-    @BindView(R.id.button_seats_foxtrot)
     Button mFoxtrotButton;
-    @BindView(R.id.button_seats_golf)
     Button mGolfButton;
-    @BindView(R.id.button_seats_hotel)
     Button mHotelButton;
-    @BindView(R.id.button_seats_indigo)
     Button mIndigoButton;
-    @BindView(R.id.button_seats_juliet)
     Button mJulietButton;
-    @BindView(R.id.button_seats_kilo)
     Button mKiloButton;
-    @BindView(R.id.button_seats_lima)
     Button mLimoButton;
 
-    @BindView(R.id.textView_seat_alpha)
     TextView mAlphaTextView;
-    @BindView(R.id.textView_seat_beta)
     TextView mBetaTextView;
-    @BindView(R.id.textView_seat_charlie)
     TextView mCharlieTextView;
-    @BindView(R.id.textView_seat_delta)
     TextView mDeltaTextView;
-    @BindView(R.id.textView_seat_echo)
     TextView mEchoTextView;
-    @BindView(R.id.textView_seat_foxtrot)
     TextView mFoxtrotTextView;
-    @BindView(R.id.textView_seat_golf)
     TextView mGolfTextView;
-    @BindView(R.id.textView_seat_hotel)
     TextView mHotelTextView;
-    @BindView(R.id.textView_seat_indigo)
     TextView mIndigoTextView;
-    @BindView(R.id.textView_seat_juliet)
     TextView mJulietTextView;
-    @BindView(R.id.textView_seat_kilo)
     TextView mKiloTextView;
-    @BindView(R.id.textView_seat_lima)
     TextView mLimoTextView;
-    @BindView(R.id.textView_two_right_sun_status)
     TextView mRightSunTextView;
-    @BindView(R.id.textView_two_left_sun_status)
     TextView mLeftSunTextView;
-    @BindView(R.id.layout_two_left_sun_status)
     LinearLayout mLeftLinearLayout;
-    @BindView(R.id.layout_two_right_sun_status)
     LinearLayout mRightLinearLayout;
-    @BindView(R.id.textView_seat_twelve_available_seats)
     TextView mSeatsAvailableTextView;
 
     private List<FlightSeats> mFlightSeatList = new ArrayList<>();
@@ -110,6 +81,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     private int numOfSeatsAvailable = 0;
     private int mGlobalSeatCount = 0;
     private String membershipUserType;
+    private ArrayList<String> mSeatNamesList = new ArrayList<>();
+    private List<SeatInfo> mSeatInfoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +91,39 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.layout_seat_twelve);
 
         ButterKnife.bind(SeatSelectionActivity.this);
+
+        mSeatConfirmedButton = findViewById(R.id.button_two_seat_confirmed);
+        mBackButton = findViewById(R.id.button_seat_selection_back);
+        mAlphaButton = findViewById(R.id.button_seats_alpha);
+        mBetaButton= findViewById(R.id.button_seats_beta);
+        mCharlieButton = findViewById(R.id.button_seats_charlie);
+        mDeltaButton = findViewById(R.id.button_seats_delta);
+        mEchoButton = findViewById(R.id.button_seats_echo);
+        mFoxtrotButton = findViewById(R.id.button_seats_foxtrot);
+        mGolfButton = findViewById(R.id.button_seats_golf);
+        mHotelButton = findViewById(R.id.button_seats_hotel);
+        mIndigoButton = findViewById(R.id.button_seats_indigo);
+        mJulietButton = findViewById(R.id.button_seats_juliet);
+        mKiloButton = findViewById(R.id.button_seats_kilo);
+        mLimoButton= findViewById(R.id.button_seats_lima);
+        mAlphaTextView = findViewById(R.id.textView_seat_alpha);
+        mBetaTextView= findViewById(R.id.textView_seat_beta);
+        mCharlieTextView= findViewById(R.id.textView_seat_charlie);
+        mDeltaTextView= findViewById(R.id.textView_seat_delta);
+        mEchoTextView= findViewById(R.id.textView_seat_echo);
+        mFoxtrotTextView= findViewById(R.id.textView_seat_foxtrot);
+        mGolfTextView= findViewById(R.id.textView_seat_golf);
+        mHotelTextView= findViewById(R.id.textView_seat_hotel);
+        mIndigoTextView= findViewById(R.id.textView_seat_indigo);
+        mJulietTextView= findViewById(R.id.textView_seat_juliet);
+        mKiloTextView= findViewById(R.id.textView_seat_kilo);
+        mLimoTextView= findViewById(R.id.textView_seat_lima);
+        mSeatsAvailableTextView = findViewById(R.id.textView_seat_twelve_available_seats);
+        mRightSunTextView = findViewById(R.id.textView_two_right_sun_status);
+        mLeftSunTextView= findViewById(R.id.textView_two_left_sun_status);
+        mLeftLinearLayout = findViewById(R.id.layout_two_left_sun_status);
+        mRightLinearLayout = findViewById(R.id.layout_two_right_sun_status);
+
 
 
         String direction = Objects.requireNonNull(getIntent().getExtras()).getString("direction");
@@ -176,6 +182,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
             }else {
                 Intent mGuestAddIntent = new Intent(SeatSelectionActivity.this , PassengerListActivity.class);
                 mGuestAddIntent.putExtra("numOfGuests" , numOfGuests);
+                mGuestAddIntent.putStringArrayListExtra("seatNamesList" , mSeatNamesList);
+                mGuestAddIntent.putParcelableArrayListExtra("seatInfoList" , (ArrayList<? extends Parcelable>) mSeatInfoList);
                 startActivity(mGuestAddIntent);
             }
         });
@@ -480,7 +488,6 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-
     // sets the booked amd locked seats button to disable state
     private void setBookedAndLockedSeats(List<Integer> mSelectedAndLockedSeatsList){
         for (int i = 0; i < mBookedSeatsList.size(); i++) {
@@ -570,6 +577,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         for (int i = 0; i < mSelectedSeatList.size(); i++) {
             if(mSelectedSeatList.get(i).getSeatId().equalsIgnoreCase(seatId)){
                 boolean isSelected = mSelectedSeatList.get(i).isSelected();
+                String seatName = mSelectedSeatList.get(i).getSeatName();
                 isSelected = !isSelected;
                 mSelectedSeatList.get(i).setSelected(isSelected);
                 if(isSelected){
@@ -593,7 +601,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                                 confirmSingleSeats(mLockedSeatList,
                                         mSelectedButton ,
                                         seatPosition ,
-                                        i);
+                                        i ,
+                                        seatName ,
+                                        seatId);
                             }
                         }
                     }
@@ -605,7 +615,9 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         unlockSingleSeats(mLockedSeatList,
                                 mSelectedButton ,
                                 seatPosition,
-                                i);
+                                i ,
+                                seatName,
+                                seatId);
                     }
                 }
             }
@@ -613,7 +625,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
     }
 
     private void confirmSingleSeats(List<Integer> mLockSeatsList, Button mDesiredButton, String seatPosition,
-                                    int position){
+                                    int position, String seatName, String seatId){
         Progress mProgress = Progress.getInstance();
         mProgress.showProgress(SeatSelectionActivity.this);
 
@@ -667,6 +679,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     }
                     selectButtonSelection(mDesiredButton, seatPosition ,true);
                     mSelectedSeatList.get(position).setSelected(true);
+                    mSeatNamesList.add(seatName);
+                    mSeatInfoList.add(new SeatInfo(seatName , Integer.parseInt(seatId)));
                 }else if(response.code()==400){
                     mSelectedSeatList.get(position).setSelected(false);
                     JSONObject mJsonObject;
@@ -691,8 +705,8 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    private void unlockSingleSeats(List<Integer> mUnlockSeatsList , Button mDesiredButton,
-                                   String seatPosition,int position){
+    private void unlockSingleSeats(List<Integer> mUnlockSeatsList, Button mDesiredButton,
+                                   String seatPosition, int position, String seatName, String seatId){
         Progress mProgress = Progress.getInstance();
         mProgress.showProgress(SeatSelectionActivity.this);
 
@@ -737,6 +751,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         }
                         selectButtonSelection(mDesiredButton, seatPosition ,false);
                         mSelectedSeatList.get(position).setSelected(false);
+                        mSeatNamesList.remove(seatName);
+                        for (int i = 0; i < mSeatInfoList.size(); i++) {
+                            if(mSeatInfoList.get(i).getSeatName().equalsIgnoreCase(seatName)){
+                                mSeatInfoList.remove(i);
+                            }
+                        }
                     }else if(response.code()==500){
                         UiUtils.Companion.showServerErrorDialog(SeatSelectionActivity.this);
                     }else if(response.code()==400){

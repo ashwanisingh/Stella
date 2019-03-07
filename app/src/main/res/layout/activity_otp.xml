@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/textView_passcode_heading"
+            android:id="@+id/textView_otp_heading"
             style="@style/StellarTextView_16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:textSize="40sp"
             app:layout_constraintEnd_toStartOf="@+id/editText_passcode_number_two"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_passcode_heading" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_otp_heading" />
 
     <EditText
             android:id="@+id/editText_passcode_number_two"

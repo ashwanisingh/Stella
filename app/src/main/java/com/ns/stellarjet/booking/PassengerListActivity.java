@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import com.ns.networking.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
@@ -28,6 +29,7 @@ import com.ns.stellarjet.utils.*;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -35,9 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class PassengerListActivity extends AppCompatActivity implements PaymentResultListener {
 
@@ -57,6 +57,9 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     private int mPurchaseId = 0;
     private String mPaymentId = "";
     private String membershipType;
+    private List<String> mSeatNamesList = new ArrayList<>();
+    private List<BookingUserRelation> mRelationList = new ArrayList<>();
+    private List<SeatInfo> mSeatInfoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,16 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
 
         // get the number of guests
         numOfGuests = Objects.requireNonNull(getIntent().getExtras()).getInt("numOfGuests");
+        mSeatNamesList = getIntent().getStringArrayListExtra("seatNamesList");
+        mSeatInfoList = getIntent().getParcelableArrayListExtra("seatInfoList");
+        Collections.sort(mSeatNamesList, ALPHABETICAL_ORDER);
+        Collections.sort(mSeatInfoList, new Comparator<SeatInfo>() {
+            public int compare(SeatInfo v1, SeatInfo v2) {
+                return v1.getSeatName().compareTo(v2.getSeatName());
+            }
+        });
+        Log.d("seatNames", "onCreate: " + mSeatNamesList);
+        Log.d("seatNames", "onCreate: " + mSeatInfoList);
 
         // change the self and guests name
         if(numOfGuests == 1){
@@ -222,6 +235,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         guestPrefsRequest.setEditGuestPrefsRequestList(editGuestPrefList);
         guestPrefsRequest.setAddGuestPrefsRequestList(addGuestPrefList);
 
+
         Log.d("guest", "makeGuestAddList: " + guestPrefsRequest);
 
         membershipType = SharedPreferencesHelper.getMembershipType(PassengerListActivity.this);
@@ -307,6 +321,12 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
             mAddGuestRequestData.setGuestFoodPreferences(0);
             mGuestRequestDataList.add(mAddGuestRequestData);
         }
+        for (int i = 0; i < numOfGuests; i++) {
+            BookingUserRelation mBookingUserRelation= new BookingUserRelation();
+            mBookingUserRelation.setPassenger(0);
+            mBookingUserRelation.setSeatId(mSeatInfoList.get(i).getSeatId());
+            mRelationList.add(mBookingUserRelation);
+        }
     }
 
     private void makeEmptyListUI(int numOfGuests){
@@ -337,7 +357,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                             .findViewById(R.id.autoComplete_passenger_self_name);
             if (isOnlySelfTravelling) {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Me");
+                passengerName.setText("Me-"+mSeatNamesList.get(0));
 
                 mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
                 mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
@@ -347,7 +367,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 mMobileNumberEditText.setAlpha(0.4f);
             }else {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Passenger Name (1) ");
+                passengerName.setText("Passenger Name (1) -"+mSeatNamesList.get(0));
                 mNamesAutoCompleteTextView.getText().clear();
                 mMobileNumberEditText.getText().clear();
                 mNamesAutoCompleteTextView.setEnabled(true);
@@ -372,7 +392,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         int childCount = activityPassengerBinding.layoutPassengerScroll.getChildCount();
         for (int i = 0; i < childCount; i++) {
             TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(i).findViewById(R.id.textView_passenger_self);
-            passengerName.setText("Passenger Name ("+(i+1)+")");
+            passengerName.setText("Passenger Name ("+(i+1)+")- "+mSeatNamesList.get(i));
             EditText mMobileNumberEditText =
                     activityPassengerBinding.layoutPassengerScroll
                             .getChildAt(i)
@@ -466,7 +486,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                             .findViewById(R.id.autoComplete_passenger_self_name);
             if (isOnlySelfTravelling) {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Me");
+                passengerName.setText("Me-"+mSeatNamesList.get(0));
 
                 mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
                 mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
@@ -476,7 +496,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 mMobileNumberEditText.setAlpha(0.4f);
             }else{
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Passenger Name");
+                passengerName.setText("Passenger Name -"+mSeatNamesList.get(0));
             }
         }
     }
@@ -621,8 +641,27 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         int selfTravelling;
         if(isOnlySelfTravelling){
             selfTravelling = 1;
+            mRelationList.get(0).setPassenger(0);
+            for (int i = 0; i < mGuestList.size(); i++) {
+                mRelationList.get(i+1).setPassenger(mGuestList.get(i));
+            }
         }else {
             selfTravelling = 0;
+            for (int i = 0; i < mGuestList.size(); i++) {
+                mRelationList.get(i).setPassenger(mGuestList.get(i));
+            }
+        }
+        Log.d("Booking", "bookFlight: " +mGuestList);
+        JSONArray mRelationJsonArray = new JSONArray();
+        for (int i = 0; i < mRelationList.size(); i++) {
+            JSONObject mIndividualJsonObject = new JSONObject();
+            try {
+                mIndividualJsonObject.put("seat_id" , mRelationList.get(i).getSeatId());
+                mIndividualJsonObject.put("passenger" , mRelationList.get(i).getPassenger());
+                mRelationJsonArray.put(mIndividualJsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         final Progress progress = Progress.getInstance();
         progress.showProgress(PassengerListActivity.this);
@@ -638,9 +677,9 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                         HomeActivity.mSeatNamesId ,
                         mGuestList ,
                         selfTravelling,
-                        SharedPreferencesHelper.getScheduleId(PassengerListActivity.this)
+                        SharedPreferencesHelper.getScheduleId(PassengerListActivity.this),
+                        mRelationJsonArray
                 );
-
         mBookingConfirmResponseCall.enqueue(new Callback<BookingConfirmResponse>() {
             @Override
             public void onResponse(@NotNull Call<BookingConfirmResponse> call, @NotNull Response<BookingConfirmResponse> response) {
@@ -879,6 +918,15 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 UiUtils.Companion.showServerErrorDialog(PassengerListActivity.this);
             }
         });
-
     }
+
+    private static Comparator<String> ALPHABETICAL_ORDER = new Comparator<String>() {
+        public int compare(String str1, String str2) {
+            int res = String.CASE_INSENSITIVE_ORDER.compare(str1, str2);
+            if (res == 0) {
+                res = str1.compareTo(str2);
+            }
+            return res;
+        }
+    };
 }

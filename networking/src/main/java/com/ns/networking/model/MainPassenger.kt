@@ -5,11 +5,22 @@ import android.os.Parcelable
 
 data class MainPassenger(
     val food_items: List<FoodItems>?,
-    val name: String?
+    val name: String?,
+    val phone: String?,
+    val status: String?,
+    val last_modified_by: String?,
+    val modified_user_type: String?,
+    val seats_info: SeatsInfo?
+
 ) : Parcelable {
     constructor(source: Parcel) : this(
         source.createTypedArrayList(FoodItems.CREATOR),
-        source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readParcelable<SeatsInfo>(SeatsInfo::class.java.classLoader)
     )
 
     override fun describeContents() = 0
@@ -17,6 +28,11 @@ data class MainPassenger(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeTypedList(food_items)
         writeString(name)
+        writeString(phone)
+        writeString(status)
+        writeString(last_modified_by)
+        writeString(modified_user_type)
+        writeParcelable(seats_info, 0)
     }
 
     companion object {

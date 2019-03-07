@@ -225,11 +225,11 @@
     <string name="seat_juliet">Juliet</string>
     <string name="seat_kilo">Kilo</string>
     <string name="seat_lima">Lima</string>
-    <string name="seat_m">M</string>
-    <string name="seat_n">N</string>
-    <string name="seat_o">O</string>
-    <string name="seat_p">P</string>
-    <string name="seat_q">Q</string>
+    <string name="seat_m">Mike</string>
+    <string name="seat_n">November</string>
+    <string name="seat_o">Oscar</string>
+    <string name="seat_p">Papa</string>
+    <string name="seat_q">Quebec</string>
 
     <string name="info_use_current_location">Current Location</string>
     <string name="info_using_gps">Using GPS</string>
@@ -245,6 +245,8 @@
 
     <string name="tag_seat_straight">Straight</string>
     <string name="tag_seat_reverse">Reverse</string>
+    <string name="tag_seat_left">Left</string>
+    <string name="tag_seat_right">Right</string>
 
     <string name="title_activity_add_address_maps">Map</string>
     <string name="hint_search_map">Search your area in</string>
@@ -490,4 +492,26 @@
     <string name="info_purchase_required_seats">Required Seats</string>
     <string name="info_purchase_pay_amount">Total payable amount</string>
     <string name="info_purchase_buy_now">Buy Now</string>
+
+    <!-- global food preferences-->
+    <string name="info_global_food_title">What sort of menu do you usually prefer?</string>
+    <string name="info_global_food_heading">Our menus change constantly, but this is the kind of mouthwatering
+        food you can expect.
+    </string>
+    <string name="info_global_row_days">Restrict Non Vegetarian for these days</string>
+    <string name="info_global_row_day_mon">Mon</string>
+    <string name="info_global_row_day_tue">Tue</string>
+    <string name="info_global_row_day_wed">Wed</string>
+    <string name="info_global_row_day_thu">Thu</string>
+    <string name="info_global_row_day_fri">Fri</string>
+    <string name="info_global_row_day_sat">Sat</string>
+    <string name="info_global_row_day_sun">Sun</string>
+
+    <!--cancel booking -->
+    <string name="info_cancel_booking_title">Cancel Booking</string>
+    <string name="info_cancel_booking_heading">You can cancel your booking here…</string>
+    <string name="info_cancel_booking_all_seats">Cancel all seats</string>
+    <string name="info_cancel_booking_seats">Cancel by seats</string>
+
+
 </resources>

@@ -99,6 +99,12 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
                     mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
                     mSeatsIntent.putExtra("flowFrom", "calendar");
                     startActivity(mSeatsIntent);
+                }else if(numSeats == 17){
+                    Intent mSeatsIntent = new Intent(DateSelectionActivity.this , CabinSeatActivity.class);
+                    mSeatsIntent.putExtra("direction" , direction);
+                    mSeatsIntent.putExtra("sunRiseSet" , sunRiseSet);
+                    mSeatsIntent.putExtra("flowFrom", "calendar");
+                    startActivity(mSeatsIntent);
                 }
             }
         });

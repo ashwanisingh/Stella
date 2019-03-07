@@ -43,6 +43,11 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_upcoming_booking, container, false)
+        /*if(StellarJetUtils.isConnectingToInternet(activity)){
+            getUpcomingBookings()
+        }else{
+            context?.let { UiUtils.showNoInternetDialog(it) }
+        }*/
         return binding.root
     }
 
@@ -62,7 +67,7 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
             .stellarJetAPIs.getBookingHistoryResponse(
             SharedPreferencesHelper.getUserToken(activity),
             0,
-            150,
+            10,
             "upcoming"
         )
 

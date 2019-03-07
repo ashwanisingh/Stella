@@ -64,7 +64,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     Button mPasscodeZeroButton;
     @BindView(R.id.button_passcode_del)
     Button mPasscodeDelButton;
-    @BindView(R.id.textView_passcode_heading)
+    @BindView(R.id.textView_otp_heading)
     TextView mPasswordHeading;
     @BindView(R.id.editText_passcode_number_one)
     EditText mNumberOneEditText;

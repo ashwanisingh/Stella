@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ns.stellarjet.R
-import com.ns.stellarjet.personalize.FoodPreferencesLaunchActivity
 import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.UIConstants
 import kotlinx.android.synthetic.main.activity_preference_launch.*
@@ -43,12 +42,12 @@ class PreferenceLaunchActivity : AppCompatActivity() {
         }
 
         layout_preferences_food.setOnClickListener {
-            val FoodPrefencesIntent =  Intent(
+            val foodPreferencesIntent =  Intent(
                 this ,
-                FoodPreferencesLaunchActivity::class.java
+                GlobalFoodSelectionActivity::class.java
             )
-            FoodPrefencesIntent.putExtra("FlowFrom" , "drawer")
-            startActivity(FoodPrefencesIntent)
+            foodPreferencesIntent.putExtra("FlowFrom" , "drawer")
+            startActivity(foodPreferencesIntent)
         }
     }
 }

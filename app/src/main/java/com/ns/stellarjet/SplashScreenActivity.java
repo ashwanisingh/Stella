@@ -1,8 +1,12 @@
 package com.ns.stellarjet;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ns.networking.model.LoginResponse;
@@ -156,15 +160,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             return;
         if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
-                getUserData();
+//                getUserData();
+                decideNextLaunchActivity();
             }else {
-                startActivity(new Intent(SplashScreenActivity.this , LoginActivity.class));
-                finish();
+                launchLoginActivty();
             }
         }else{
             UiUtils.Companion.showSimpleDialog(
                     SplashScreenActivity.this ,
-                    getResources().getString(R.string.error_server)
+                    getResources().getString(R.string.error_not_connected_internet)
             );
         }
     }
