@@ -55,7 +55,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
             .stellarJetAPIs.getBoardingPassResponse(
             SharedPreferencesHelper.getUserToken(this) ,
             0 ,
-            250
+            15
         )
 
         boardingPassCall.enqueue(object : Callback<BoardingPassResponse> {

@@ -72,6 +72,9 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
         }else{
             binding.textViewBoardingPassDetailsFoodsNo.text = "N/A"
         }
+        if(foodNames.isEmpty()){
+            binding.textViewBoardingPassDetailsFoodsNo.text = "N/A"
+        }
         if(journeyTime.contains("pm" , true)){
             binding.textViewBoardingPassDetailsFoods.text = resources.getString(R.string.boarding_passengers_dinner)
         }
