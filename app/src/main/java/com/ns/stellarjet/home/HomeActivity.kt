@@ -12,6 +12,7 @@ import com.ns.networking.model.UpdateDeviceToken
 import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
+import com.ns.stellarjet.booking.CabinSeatActivity
 import com.ns.stellarjet.booking.PlaceSelectionActivity
 import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
@@ -200,6 +201,12 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(mSeatsIntent)
                 } else if (numOfSeats == 12) {
                     val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
+                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    mSeatsIntent.putExtra("flowFrom", "home")
+                    startActivity(mSeatsIntent)
+                }else if (numOfSeats == 17) {
+                    val mSeatsIntent = Intent(this@HomeActivity, CabinSeatActivity::class.java)
                     mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
                     mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
                     mSeatsIntent.putExtra("flowFrom", "home")

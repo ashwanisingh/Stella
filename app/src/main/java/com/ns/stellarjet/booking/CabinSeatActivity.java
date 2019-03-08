@@ -181,6 +181,7 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
         mMikeButton.setOnClickListener(this);
         mNovemberButton.setOnClickListener(this);
         mOscarButton.setOnClickListener(this);
+        mPapaButton.setOnClickListener(this);
         mQuebecButton.setOnClickListener(this);
 
         mBackButton.setOnClickListener(v -> onBackPressed());
@@ -274,6 +275,10 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available);
         }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
             mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available_reverse);
+        }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_right))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available_right_face);
+        }else if(seatPOsition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_left))){
+            mDesiredButton.setBackgroundResource(R.drawable.ic_seat_available_left_face);
         }
     }
 
@@ -619,7 +624,8 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void setLockedSeatsByUser(List<SeatsLockedByUser> mSelectedAndLockedSeatsList){
+    private void
+    setLockedSeatsByUser(List<SeatsLockedByUser> mSelectedAndLockedSeatsList){
         int numOfConfirmedSeats = mSelectedAndLockedSeatsList.size();
         String confirmSeatsDisplay;
         if(numOfConfirmedSeats == 0){
@@ -664,6 +670,10 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
                 String seatName = mSelectedSeatList.get(i).getSeatName();
                 isSelected = !isSelected;
                 mSelectedSeatList.get(i).setSelected(isSelected);
+                if(flowFrom.equalsIgnoreCase("home")){
+                    mSeatNamesList.add(seatName);
+                    mSeatInfoList.add(new SeatInfo(seatName , Integer.parseInt(seatId)));
+                }
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){

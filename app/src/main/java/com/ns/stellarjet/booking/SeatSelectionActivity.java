@@ -580,6 +580,10 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                 String seatName = mSelectedSeatList.get(i).getSeatName();
                 isSelected = !isSelected;
                 mSelectedSeatList.get(i).setSelected(isSelected);
+                if(flowFrom.equalsIgnoreCase("home")){
+                    mSeatNamesList.add(seatName);
+                    mSeatInfoList.add(new SeatInfo(seatName , Integer.parseInt(seatId)));
+                }
                 if(isSelected){
                     // call confirm seats
                     if(!flowFrom.equalsIgnoreCase("home")){

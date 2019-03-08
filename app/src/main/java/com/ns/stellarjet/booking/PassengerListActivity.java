@@ -723,10 +723,18 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                         if(errorCode == 4){
                             // Operation timed out . please reselect seats
                             showTimeOutDialog();
+                        }else {
+                            UiUtils.Companion.showToast(
+                                    PassengerListActivity.this,
+                                    mJsonObject.get("error_message").toString());
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
+                }else if(response.code()==500){
+                    UiUtils.Companion.showToast(
+                            PassengerListActivity.this,
+                            "Internal Server Error");
                 }
             }
 
