@@ -73,8 +73,8 @@ data class MembershipDetails(
 
 @Parcelize
 data class FoodPref(
-    val days: List<String>,
-    val food_category: String
+    var days: MutableList<String> ,
+    var food_category: String
 ):Parcelable
 
 @Parcelize

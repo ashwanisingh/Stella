@@ -1,4 +1,4 @@
-package com.ns.networking;
+package com.ns.networking.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ns.networking.model.guestrequest.BookingUserRelation;

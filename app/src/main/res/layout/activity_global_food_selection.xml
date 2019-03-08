@@ -5,12 +5,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginStart="28dp"
         android:fitsSystemWindows="true"
         tools:context=".drawer.GlobalFoodSelectionActivity">
 
     <Button
-            android:layout_marginStart="-2dp"
             android:id="@+id/button_global_food_back"
             style="@style/StellarBackButton"/>
 
@@ -18,6 +16,7 @@
             android:id="@+id/textView_global_food_title"
             style="@style/StellarTextView_22sp"
             android:gravity="start"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="45dp"
             android:text="@string/info_global_food_title"
@@ -29,12 +28,14 @@
             android:id="@+id/textView_global_food_heading"
             style="@style/StellarTextView_16sp"
             android:alpha="0.5"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="45dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     <ScrollView
+            android:id="@+id/scrollView_global_food"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
@@ -46,11 +47,13 @@
 
     </ScrollView>
 
-
     <Button
-            android:id="@+id/button"
+            android:id="@+id/button_global_food_confirm"
             style="@style/StellarWhiteButton"
+            android:textAllCaps="false"
             android:text="@string/confirm_button"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="22dp"
             android:gravity="start|center_vertical"
             android:layout_marginBottom="14dp"
             android:layout_width="match_parent"

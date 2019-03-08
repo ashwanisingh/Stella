@@ -1,11 +1,10 @@
 package com.ns.networking.retrofit;
 
-import com.google.gson.JsonArray;
-import com.ns.networking.BookingRequest;
+import com.ns.networking.model.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.flightsseats.FlightSeatListResponse;
+import com.ns.networking.model.foods.GlobalFoodPrefResponse;
 import com.ns.networking.model.guestrequest.AddGuestPrefsRequest;
-import com.ns.networking.model.guestrequest.BookingUserRelation;
 import com.ns.networking.model.guestrequest.EditGuestPrefsRequest;
 import com.ns.networking.model.guestrequest.GuestPrefsRequest;
 import com.ns.networking.model.schedulefood.ScheduleFoodListResponse;
@@ -265,6 +264,13 @@ public interface StellarApiService {
     Call<BookingDetailsResponse> getBookingDetails(
             @Query("token") String token ,
             @Query("booking_id") String paymentId
+    );
+
+    @FormUrlEncoded
+    @POST(Constants.COMMON_FOOD_UPDATE_API)
+    Call<GlobalFoodPrefResponse> updateGlobalFoodPreferences(
+            @Field("token") String token,
+            @Field("food_prefs") JSONArray foodArray
     );
 
 /*

@@ -11,7 +11,7 @@ import com.ns.stellarjet.R
 
 class FoodDaysAdapter(
     private val mSecondaryUsersList: MutableList<out FoodDaysSelection>,
-    private val onSelectUsersListener: (FoodDaysSelection) -> Unit) : RecyclerView.Adapter<FoodDaysAdapter.FoodDaysListViewHolder>() {
+    private val onSelectUsersListener: (FoodDaysSelection , Int) -> Unit) : RecyclerView.Adapter<FoodDaysAdapter.FoodDaysListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodDaysListViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_row_food_days, parent, false)
@@ -32,12 +32,24 @@ class FoodDaysAdapter(
 
         fun bind(
             mUsers: FoodDaysSelection,
-            onSelectUsersListener: (FoodDaysSelection) -> Unit,
+            onSelectUsersListener: (FoodDaysSelection , Int) -> Unit,
             position: Int){
 
-            mManagersName.text = mUsers.daysName
+            mManagersName.text = mUsers.daysName.substring(0,3)
+            if(mUsers.isSelected){
+                mManagersName.alpha = 1.0f
+            }else{
+                mManagersName.alpha = 0.2f
+            }
             mManagersName.setOnClickListener {
-                onSelectUsersListener.invoke(mUsers)
+                if(mUsers.isSelected){
+                    mManagersName.alpha = 0.2f
+                    mUsers.isSelected = false
+                }else{
+                    mManagersName.alpha = 1.0f
+                    mUsers.isSelected = true
+                }
+                onSelectUsersListener.invoke(mUsers , position)
             }
         }
     }

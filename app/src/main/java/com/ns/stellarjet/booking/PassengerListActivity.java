@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import com.ns.networking.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
