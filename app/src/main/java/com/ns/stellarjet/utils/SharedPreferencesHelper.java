@@ -439,7 +439,17 @@ public class SharedPreferencesHelper {
         );
     }
 
+    public static void saveEntryLogin(Context mContext , boolean isEntryDone){
+        SharedPreferences.Editor mEditor = getSharedPreferences(mContext).edit();
+        mEditor.putBoolean(UIConstants.PREFERENCES_FIRST_TIME_UI, isEntryDone);
+        mEditor.apply();
+    }
 
+    public static boolean isEntryLogin(Context mContext){
+        return getSharedPreferences(mContext).getBoolean(
+                UIConstants.PREFERENCES_FIRST_TIME_UI, false
+        );
+    }
 
     /**
      * clears all SharedPreferences if passcode attempts are failed

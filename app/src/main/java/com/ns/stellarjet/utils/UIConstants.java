@@ -228,4 +228,8 @@ public class UIConstants {
      * String constant for SharedPreferences individual seat cost
      */
     public static final String PREFERENCES_SEAT_COST = "seatCost";
+    /**
+     * String constant for SharedPreferences individual seat cost
+     */
+    public static final String PREFERENCES_FIRST_TIME_UI = "EntryUI";
 }

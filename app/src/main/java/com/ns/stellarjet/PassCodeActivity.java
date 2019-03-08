@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import butterknife.ButterKnife;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.databinding.ActivityPassCodeBinding;
 import com.ns.stellarjet.home.HomeActivity;
@@ -47,18 +46,26 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
 
+        boolean isEntryDone = SharedPreferencesHelper.isEntryLogin(PassCodeActivity.this);
+
+        if(isEntryDone){
+            binding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_hello_again));
+        }else {
+            binding.textViewPasscodeTitle.setText(getResources().getString(R.string.passcode_title_hello));
+        }
+
         String savedPassCode = SharedPreferencesHelper.getPassCode(PassCodeActivity.this);
         if (savedPassCode.isEmpty()){
-            
+
             binding.textViewPasscodeHeading.setText(getResources().getString(R.string.passcode_title_heading_create));
         }else {
             binding.textViewPasscodeHeading.setText(getResources().getString(R.string.passcode_title_heading));
         }
 
-        
+
         binding.passcodeBack.setOnClickListener(v -> onBackPressed());
 
-        
+
         binding.buttonPasscodeOne.setOnClickListener(this);
         binding.buttonPasscodeTwo.setOnClickListener(this);
         binding.buttonPasscodeThree.setOnClickListener(this);

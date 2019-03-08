@@ -83,9 +83,18 @@ class HomeActivity : AppCompatActivity() {
             activityHomeBinding.textViewHomeSeeAgain.visibility = View.VISIBLE
         }*/
 
-        val displayName = resources.getString(R.string.home_title_hello_again) + sUserData.name+ ","+
-                resources.getString(R.string.home_title_welcome_back)
-        activityHomeBinding.textviewHomeHelloAgain.text = displayName
+        val isEntryDone = SharedPreferencesHelper.isEntryLogin(this@HomeActivity)
+
+        if(isEntryDone){
+            val displayName = resources.getString(R.string.home_title_hello_again) + sUserData.name+ ","+
+                    resources.getString(R.string.home_title_welcome_back)
+            activityHomeBinding.textviewHomeHelloAgain.text = displayName
+        }else{
+            val displayName = resources.getString(R.string.home_title_hello) + sUserData.name+ ","+
+                    resources.getString(R.string.home_title_welcome)
+            activityHomeBinding.textviewHomeHelloAgain.text = displayName
+        }
+
 
         if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
             activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
@@ -250,6 +259,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        SharedPreferencesHelper.saveEntryLogin(this@HomeActivity , true)
         mSeatNames.clear()
         mSeatNamesId.clear()
     }

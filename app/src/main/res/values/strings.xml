@@ -34,7 +34,9 @@
     <string name="home_button_book_flight">Book a Flight</string>
     <string name="home_title_hello_again_dummy">Hello again Ragav, Welcome back</string>
     <string name="home_title_hello_again">Hello again \n</string>
+    <string name="home_title_hello">Hello \n</string>
     <string name="home_title_welcome_back">\nWelcome back</string>
+    <string name="home_title_welcome">\nWelcome </string>
     <string name="home_booking_for">Booking for</string>
     <string name="home_booking_for_primary">Mr.Raghav Sekar</string>
 
@@ -172,6 +174,7 @@
 
     <!-- passcode  -->
     <string name="passcode_title_hello_again">Hello again.</string>
+    <string name="passcode_title_hello">Hello </string>
     <string name="passcode_title_create_passcode">Create Passcode</string>
     <string name="passcode_title_confirm_passcode">Confirm Passcode</string>
     <string name="passcode_title_enter_passcode">Enter Passcode</string>

@@ -22,7 +22,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginStart="36dp"
                 android:layout_height="wrap_content"
-                android:text="@string/passcode_title_hello_again"/>
+                android:text="@string/passcode_title_hello"/>
 
         <TextView
                 android:id="@+id/textView_passcode_heading"
