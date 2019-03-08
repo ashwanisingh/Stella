@@ -10,23 +10,14 @@
             style="@style/StellarTextView_18sp"
             android:id="@+id/textView_row_global_food_name"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
             android:drawableEnd="@mipmap/ic_food_unselect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="CheckBox"
-            android:button="@null"
-            android:layout_marginEnd="32dp"
-            android:drawableEnd="@drawable/drawable_food_select"
-            style="@style/StellarTextView_18sp"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-
     <LinearLayout
+            android:id="@+id/layout_row_global_days"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -43,6 +34,7 @@
                 android:layout_height="wrap_content"/>
 
         <ImageView
+                android:id="@+id/imageView_row_global_days"
                 android:src="@drawable/ic_down"
                 android:layout_width="24dp"
                 android:layout_height="24dp"/>
@@ -50,6 +42,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_food_days"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>

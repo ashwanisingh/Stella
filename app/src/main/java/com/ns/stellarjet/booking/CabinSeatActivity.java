@@ -508,19 +508,19 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
                 makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
             case R.id.button_seats_m:
-                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_left));
+                makeSelectedSeatList(mMikeButton, getResources().getString(R.string.tag_seat_left));
                 break;
             case R.id.button_seats_n:
-                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_left));
+                makeSelectedSeatList(mNovemberButton, getResources().getString(R.string.tag_seat_left));
                 break;
             case R.id.button_seats_o:
-                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_left));
+                makeSelectedSeatList(mOscarButton, getResources().getString(R.string.tag_seat_left));
                 break;
             case R.id.button_seats_p:
-                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_straight));
+                makeSelectedSeatList(mPapaButton, getResources().getString(R.string.tag_seat_straight));
                 break;
             case R.id.button_seats_q:
-                makeSelectedSeatList(mLimoButton, getResources().getString(R.string.tag_seat_reverse));
+                makeSelectedSeatList(mQuebecButton, getResources().getString(R.string.tag_seat_reverse));
                 break;
         }
     }
@@ -645,6 +645,10 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected);
                     }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_reverse))){
                         mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected_reverse);
+                    }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_left))){
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected_left_face);
+                    }else if(seatPosition.equalsIgnoreCase(getResources().getString(R.string.tag_seat_right))){
+                        mDesiredButton.setBackgroundResource(R.drawable.ic_seat_selected_right_face);
                     }
                 }
             }

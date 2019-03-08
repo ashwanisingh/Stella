@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_margin="8dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <TextView
+            style="@style/StellarTextView_12sp"
+            tools:text="Thu"
+            android:gravity="center"
+            android:textColor="@color/colorDateSelectionBg"
+            android:background="@drawable/drawable_selected_circle"
+            android:id="@+id/textView_row_food_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
