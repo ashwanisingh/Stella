@@ -211,14 +211,14 @@ class BookingsDetailsActivity : AppCompatActivity() {
             Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.seats_info?.seat_code)
         }
 
-        if(bookingType.equals("completed" , true)){
+        /*if(bookingType.equals("completed" , true)){
             binding.viewBookingsDetailsDivider.visibility = View.GONE
             binding.layoutBookingsDetailsCabBase.visibility = View.GONE
             binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
             binding.viewCabAfterDivider.visibility = View.GONE
             binding.viewFoodAfterDivider.visibility = View.GONE
             binding.viewDetaisAfterDivider.visibility = View.GONE
-        }
+        }*/
 
         /* set seat count */
         if(bookingData?.travelling_self == 1){
@@ -229,7 +229,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         mSeatCount += bookingData?.prefs?.co_passengers?.size!!
 
-        if(bookingData!!.status.equals("Cancelled" , true)){
+        if(bookingType.equals("completed" , true) ||bookingData!!.status.equals("Cancelled" , true)){
             binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
             var address = ""
             if(!bookingData!!.pick_address_main!!.isEmpty()){
@@ -289,6 +289,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 passengersName = HomeActivity.sUserData.name
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
+            }else if(bookingType.equals("completed" , true) &&
+                bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
+                passengersName = HomeActivity.sUserData.name
+                seatsName = bookingData!!.customer_seat?.seat_code!!
+                mTravellingUsers += 1
             }
         }
         val guests = bookingData?.prefs!!.co_passengers
@@ -297,11 +302,17 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 if(it.status.equals("Confirmed" , true)){
                     passengersName = it.name!!
                     mTravellingUsers += 1
+                }else if(bookingType.equals("completed" , true) &&
+                    bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
+                    passengersName = it.name!!
                 }
             }else{
                 if(it.status.equals("Confirmed" , true)){
                     passengersName = passengersName + ", " + it.name
                     mTravellingUsers += 1
+                }else if(bookingType.equals("completed" , true) &&
+                    bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
+                    passengersName = passengersName + ", " + it.name
                 }
             }
         }
@@ -309,9 +320,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
             if(seatsName.isEmpty()){
                 if(it.status.equals("Confirmed" , true)){
                     seatsName = it.seats_info?.seat_code!!
+                }else if(bookingType.equals("completed" , true) &&
+                    bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
+                    seatsName = it.seats_info?.seat_code!!
                 }
             }else{
                 if(it.status.equals("Confirmed" , true)){
+                    seatsName = seatsName +", " +it.seats_info?.seat_code!!
+                }else if(bookingType.equals("completed" , true) &&
+                    bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
                     seatsName = seatsName +", " +it.seats_info?.seat_code!!
                 }
             }
