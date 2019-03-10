@@ -7,7 +7,7 @@ data class MainPassenger(
     val food_items: List<FoodItems>?,
     val name: String?,
     val phone: String?,
-    val status: String?,
+    var status: String?,
     val last_modified_by: String?,
     val modified_user_type: String?,
     val seats_info: SeatsInfo?

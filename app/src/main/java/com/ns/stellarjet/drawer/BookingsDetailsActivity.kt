@@ -29,7 +29,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private lateinit var binding:ActivityBookingsDetailsBinding
     private var bookingType: String = ""
     private var mSeatCount = 0
+    private var mSelectedIndex = 0
     private var mTravellingUsers = 0
+    private var flowFrom: String = ""
     companion object {
         var bookingData: Booking? = null
     }
@@ -43,8 +45,13 @@ class BookingsDetailsActivity : AppCompatActivity() {
         )
 
         bookingType = intent.extras?.getString("bookingType")!!
-        val from = intent.extras?.getString("from")
-        if(from.equals("notifications",true)){
+        mSelectedIndex = intent.extras?.getInt("selectedBookingPosition")!!
+        flowFrom = intent.extras?.getString("from")!!
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(flowFrom.equals("notifications",true)){
             val bookingId = intent.extras?.getString("bookingId")
             getBookingDetails(bookingId!!)
         }else{
@@ -141,17 +148,27 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 response:
                 Response<CancelBookingResponse>) {
                 progress.hideProgress()
-                var subscriptionSeats = SharedPreferencesHelper.getSeatCount(this@BookingsDetailsActivity)
-                mSeatCount += subscriptionSeats
-                SharedPreferencesHelper.saveSeatCount(this@BookingsDetailsActivity , mSeatCount)
-                UiUtils.showToast(this@BookingsDetailsActivity , "Booking Canceled")
+
                 finish()
-                /*if (response.body()!=null){
+                if (response.body()!=null){
+                    val subscriptionSeats = SharedPreferencesHelper.getSeatCount(this@BookingsDetailsActivity)
+                    mSeatCount += subscriptionSeats
+                    SharedPreferencesHelper.saveSeatCount(this@BookingsDetailsActivity , mSeatCount)
                     UiUtils.showToast(this@BookingsDetailsActivity , response.message())
-                    finish()
+                    var isSelfTravelling = UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex]
+                        .travelling_self
+                    if(mTravellingUsers == 1 && isSelfTravelling == 1){
+                        UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].prefs!!.main_passenger?.
+                            status =  "Cancelled"
+                    }else if(mTravellingUsers == 1){
+                        UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].prefs!!.co_passengers!![0]
+                            .status = "Cancelled"
+                    }
+                    UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].status = "Cancelled"
                 }else{
-//                    UiUtils.showToast(this@BookingsDetailsActivity , "Something went wrong")
-                }*/
+                    UiUtils.showToast(this@BookingsDetailsActivity , "Something went wrong")
+                }
+                finish()
             }
 
             override fun onFailure(call: Call<CancelBookingResponse>, t: Throwable) {
@@ -350,6 +367,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
 //                UiUtils.showToast(this@BookingsDetailsActivity , "More then 1 seats")
                 val intent  = Intent(this@BookingsDetailsActivity , CancelBookingActivity::class.java)
                 intent.putExtra("BookingData" , bookingData)
+                intent.putExtra("selectedBookingPosition" , mSelectedIndex)
                 startActivity(intent)
             }
         }

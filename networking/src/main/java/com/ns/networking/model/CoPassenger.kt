@@ -10,7 +10,7 @@ data class CoPassenger(
     val passenger: Int?,
     val phone: String?,
     val seats_info: SeatsInfo?,
-    val status: String?
+    var status: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),

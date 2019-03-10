@@ -27,7 +27,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
+class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
 
     private lateinit var binding : FragmentUpcomingBookingBinding
     private var loading = true
@@ -120,10 +120,12 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking) {
+    override fun invoke(booking: Booking , position : Int) {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
+        mDetailsIntent.putExtra("selectedBookingPosition" , position)
         mDetailsIntent.putExtra("bookingType" , "upcoming")
+        mDetailsIntent.putExtra("from" , "upcoming")
         requireActivity().startActivity(mDetailsIntent)
     }
 }// Required empty public constructor

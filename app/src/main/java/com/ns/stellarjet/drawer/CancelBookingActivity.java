@@ -39,6 +39,7 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
     private boolean isAllSelected = false;
     private ActivityCancelBookingBinding activityBinding;
     private Booking mBooking;
+    private int mSelectedIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,8 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
         activityBinding = DataBindingUtil.
                 setContentView(this , R.layout.activity_cancel_booking);
 
-        mBooking = getIntent().getExtras().getParcelable("BookingData");
+        mBooking = Objects.requireNonNull(getIntent().getExtras()).getParcelable("BookingData");
+        mSelectedIndex = getIntent().getExtras().getInt("selectedBookingPosition");
 
         if(isAllSelected){
             activityBinding.imageViewCancelBookingAll.setImageResource(R.mipmap.ic_food_select);
@@ -272,16 +274,35 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
                     int seatCount  =subsriptionSeats + mSeatIdList.size();
                     SharedPreferencesHelper.saveSeatCount(CancelBookingActivity.this , seatCount);
                     UiUtils.Companion.showToast(CancelBookingActivity.this , "Booking Cancelled");
-                    /*if(BookingsDetailsActivity.Companion.getBookingData().getTravelling_self()==1){
-                        int seatId = BookingsDetailsActivity.Companion.getBookingData()
-                                .getPrefs().getMain_passenger().getSeats_info().getSeat_id();
+                    int isSelfTravelling = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                            .get(mSelectedIndex).getTravelling_self();
+                    if(isSelfTravelling == 1){
+                        String seatName = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                .get(mSelectedIndex).getPrefs().getMain_passenger()
+                                .getSeats_info().getSeat_code();
                         for (int i = 0; i < mSelectedUserList.size(); i++) {
-                            if(mSelectedUserList.get(i).getSeatId() == seatId){
-                                BookingsDetailsActivity.Companion.getBookingData()
-                                        .getPrefs().getMain_passenger().get
+                            if(mSelectedUserList.get(i).getSeatName().equalsIgnoreCase(seatName)){
+                                UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                        .get(mSelectedIndex).getPrefs().getMain_passenger().setStatus("Cancelled");
                             }
                         }
-                    }*/
+                    }else {
+                        for (int i = 0; i < UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                .get(mSelectedIndex).getPrefs().getCo_passengers().size(); i++) {
+                            String seatName = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                    .get(mSelectedIndex).getPrefs().getCo_passengers().get(i).getSeats_info().getSeat_code();
+                            for (int j = 0; j < mSelectedUserList.size(); j++) {
+                                if(mSelectedUserList.get(j).getSeatName().equalsIgnoreCase(seatName)){
+                                    UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                            .get(mSelectedIndex).getPrefs().getCo_passengers().get(i).setStatus("Cancelled");
+                                }
+                            }
+                        }
+                    }
+                    if(mUsersList.size() == mSelectedUserList.size()){
+                        UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+                                .get(mSelectedIndex).setStatus("Cancelled");
+                    }
                     finish();
                 }else{
                     UiUtils.Companion.showServerErrorDialog(CancelBookingActivity.this);

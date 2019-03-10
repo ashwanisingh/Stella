@@ -27,7 +27,7 @@ data class Booking(
     val prefs: Prefs?,
     val service: String?,
     val schedule_id: String?,
-    val status: String?,
+    var status: String?,
     val to_city: Int,
     val to_city_info: ToCityInfo?,
     val transaction_id: Int,

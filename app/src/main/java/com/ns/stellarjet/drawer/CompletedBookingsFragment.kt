@@ -28,7 +28,7 @@ import retrofit2.Response
 /**
  * A simple [Fragment] subclass.
  */
-class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
+class CompletedBookingsFragment : Fragment(), (Booking,Int) -> Unit {
 
     private var loading = true
     private var pastVisiblesItems: Int = 0
@@ -111,7 +111,7 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
         })
     }
 
-    override fun invoke(booking: Booking) {
+    override fun invoke(booking: Booking , position : Int) {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
         mDetailsIntent.putExtra("bookingType" , "Completed")
