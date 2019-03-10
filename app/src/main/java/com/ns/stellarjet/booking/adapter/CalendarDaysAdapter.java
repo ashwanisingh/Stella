@@ -87,10 +87,36 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
                     mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
                 }*/
                 if(!mScheduledList.contains(calendar)){
+                    Log.d("CalendarDaysAdapter", "" +
+                            "Calendar day " + calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                            calendar.get(Calendar.MONTH));
                     mPlaceTextView.setAlpha(0.4f);
-                    mPlaceTextView.setEnabled(false);
-                    mPlaceTextView.setOnClickListener(null);
+                    mPlaceTextView.setClickable(false);
                 }
+
+                if(mScheduledList.contains(calendar)){
+                    if(position == lastCheckedPos){
+//                    Log.d("CalendarDaysAdapter", "bind: if((position == lastCheckedPos)) " + position);
+                        itemView.setBackgroundResource(R.drawable.drawable_selected_circle);
+                        mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
+                    }else {
+//                    Log.d("CalendarDaysAdapter", "bind: else of if(position == lastCheckedPos)  " + position);
+                        itemView.setBackgroundResource(android.R.color.transparent);
+                        mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(android.R.color.white));
+                        itemView.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                itemView.setOnClickListener(v -> {
+                    if(mScheduledList.contains(calendar)){
+                        mOnDateSelectClickListener.onDateSelected(items.get(index));
+                        int prevPos = lastCheckedPos;
+                        lastCheckedPos = position;
+                        notifyItemChanged(prevPos);
+                        notifyItemChanged(lastCheckedPos);
+                        notifyDataSetChanged();
+                    }
+                });
             }
             /*if(index!=0 && index ==  selectedPosition){
                 if(!mPlaceTextView.getText().toString().isEmpty()){
@@ -106,25 +132,7 @@ public class CalendarDaysAdapter extends RecyclerView.Adapter<CalendarDaysAdapte
                     notifyDataSetChanged();
                 }
             });*/
-            if(position == lastCheckedPos){
-                Log.d("CalendarDaysAdapter", "bind: if((position == lastCheckedPos)) " + position);
-                itemView.setBackgroundResource(R.drawable.drawable_selected_circle);
-                mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(R.color.colorDateSelectionBg));
-            }else {
-                Log.d("CalendarDaysAdapter", "bind: else of if(position == lastCheckedPos)  " + position);
-                itemView.setBackgroundResource(android.R.color.transparent);
-                mPlaceTextView.setTextColor(itemView.getContext().getResources().getColor(android.R.color.white));
-                itemView.setVisibility(View.VISIBLE);
-            }
 
-            itemView.setOnClickListener(v -> {
-                mOnDateSelectClickListener.onDateSelected(items.get(index));
-                int prevPos = lastCheckedPos;
-                lastCheckedPos = position;
-                notifyItemChanged(prevPos);
-                notifyItemChanged(lastCheckedPos);
-                notifyDataSetChanged();
-            });
         }
     }
 }

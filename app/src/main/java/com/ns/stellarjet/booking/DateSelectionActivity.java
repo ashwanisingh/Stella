@@ -112,6 +112,7 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
         mActivityDateSelectionBinding.buttonNextMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSelectedInfo();
                 mActivityDateSelectionBinding.buttonLastMonth.setEnabled(true);
                 mActivityDateSelectionBinding.buttonLastMonth.setAlpha(1.0f);
                 if(currentMonth!=lastMonth){
@@ -128,6 +129,7 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
         mActivityDateSelectionBinding.buttonLastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSelectedInfo();
                 mActivityDateSelectionBinding.buttonNextMonth.setEnabled(true);
                 mActivityDateSelectionBinding.buttonNextMonth.setAlpha(1.0f);
                 if(initialMonth!=currentMonth){
@@ -300,9 +302,16 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
                         mFlightScheduleDataList.get(i).getJourney_datetime_ms()));
                 String seatsAvailable = mFlightScheduleDataList.get(i).getFlight_seat_availability()
                         .getAvailable_seats() +" seats available";
+                mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setVisibility(View.VISIBLE);
                 mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
             }
         }
         mActivityDateSelectionBinding.scrollviewCalendar.fullScroll(View.FOCUS_DOWN);
+    }
+
+    private void hideSelectedInfo(){
+        isDateSelected = false;
+        mActivityDateSelectionBinding.textViewScheduleDate.setVisibility(View.INVISIBLE);
+        mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setVisibility(View.INVISIBLE);
     }
 }
