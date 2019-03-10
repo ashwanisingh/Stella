@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ns.networking.model.Booking
 import com.ns.networking.model.BookingHistoryResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
-import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.FragmentUpcomingBookingBinding
 import com.ns.stellarjet.drawer.adapter.BookingListAdapter
 import com.ns.stellarjet.utils.Progress
@@ -25,13 +24,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 /**
  * A simple [Fragment] subclass.
  */
 class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
 
     private lateinit var binding : FragmentUpcomingBookingBinding
+    private var loading = true
+    private var pastVisiblesItems: Int = 0
+    private var visibleItemCount:Int = 0
+    private var totalItemCount:Int = 0
+    private var offset = 0
+    private var limit = 10
+
+    private var mLayoutManager: LinearLayoutManager? = null
+
     companion object {
         var mUpcomingBookingHistoryList: List<Booking> = ArrayList()
         var adapter: BookingListAdapter? = null
@@ -42,22 +49,36 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_upcoming_booking, container, false)
-        /*if(StellarJetUtils.isConnectingToInternet(activity)){
-            getUpcomingBookings()
-        }else{
-            context?.let { UiUtils.showNoInternetDialog(it) }
-        }*/
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
+        binding = DataBindingUtil.inflate(inflater ,
+            com.ns.stellarjet.R.layout.fragment_upcoming_booking, container, false)
         if(StellarJetUtils.isConnectingToInternet(activity)){
             getUpcomingBookings()
         }else{
             context?.let { UiUtils.showNoInternetDialog(it) }
         }
+
+        binding.recyclerViewBookingsUpcoming.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager!!.childCount
+                    totalItemCount = mLayoutManager!!.itemCount
+                    pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
+
+                    if (loading && mUpcomingBookingHistoryList.size==limit) {
+                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+                            loading = false
+                            //pagination.. i.e. fetch new data
+                            offset += 10
+                            limit += 10
+                            getUpcomingBookings()
+                        }
+                    }
+                }
+            }
+        })
+        return binding.root
     }
 
     private fun getUpcomingBookings() {
@@ -66,8 +87,8 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
         val upcomingBook: Call<BookingHistoryResponse> = RetrofitAPICaller.getInstance(activity)
             .stellarJetAPIs.getBookingHistoryResponse(
             SharedPreferencesHelper.getUserToken(activity),
-            0,
-            10,
+            offset,
+            limit,
             "upcoming"
         )
 
@@ -78,16 +99,17 @@ class UpcomingBookingFragment : Fragment(), (Booking) -> Unit {
                 Response<BookingHistoryResponse>) {
                 progress.hideProgress()
                 mUpcomingBookingHistoryList = response.body()!!.data.booking_list
-                    adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
+                adapter = BookingListAdapter(mUpcomingBookingHistoryList ,
                     "Upcoming" ,
                     this@UpcomingBookingFragment)
-                val layoutManager = LinearLayoutManager(
+                mLayoutManager = LinearLayoutManager(
                     activity ,
                     RecyclerView.VERTICAL ,
                     false
                 )
                 binding.recyclerViewBookingsUpcoming.adapter = adapter
-                binding.recyclerViewBookingsUpcoming.layoutManager = layoutManager
+                binding.recyclerViewBookingsUpcoming.layoutManager = mLayoutManager
+                binding.recyclerViewBookingsUpcoming.scrollToPosition(offset)
             }
 
             override fun onFailure(call: Call<BookingHistoryResponse>, t: Throwable) {

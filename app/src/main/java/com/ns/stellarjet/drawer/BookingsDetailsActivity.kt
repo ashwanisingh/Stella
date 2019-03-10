@@ -211,15 +211,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.seats_info?.seat_code)
         }
 
-        /*if(bookingType.equals("completed" , true)){
-            binding.viewBookingsDetailsDivider.visibility = View.GONE
-            binding.layoutBookingsDetailsCabBase.visibility = View.GONE
-            binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
-            binding.viewCabAfterDivider.visibility = View.GONE
-            binding.viewFoodAfterDivider.visibility = View.GONE
-            binding.viewDetaisAfterDivider.visibility = View.GONE
-        }*/
-
         /* set seat count */
         if(bookingData?.travelling_self == 1){
             mSeatCount += 1
@@ -229,51 +220,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         mSeatCount += bookingData?.prefs?.co_passengers?.size!!
 
-        if(bookingType.equals("completed" , true) ||bookingData!!.status.equals("Cancelled" , true)){
-            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
-            var address = ""
-            if(!bookingData!!.pick_address_main!!.isEmpty()){
-                address = bookingData!!.pick_address_main!!
-            }
-
-            if(!bookingData!!.drop_address_main!!.isEmpty()){
-                address = if(address.isEmpty()){
-                    bookingData!!.drop_address_main!!
-                }else{
-                    "\n"+ bookingData!!.drop_address_main
-                }
-            }
-
-
-            if(!address.isEmpty()){
-                binding.textViewBookingsDetailsCabsTitle.text = address
-                binding.imageViewBookingDetailsCabArrow.visibility = View.GONE
-            }else{
-                binding.layoutBookingsDetailsCabBase.visibility = View.GONE
-                binding.viewCabAfterDivider.visibility = View.GONE
-            }
-            if(bookingData?.service.equals("Usual", true) ){
-                binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
-                binding.viewFoodAfterDivider.visibility = View.GONE
-                binding.viewDetaisAfterDivider.visibility = View.GONE
-            }else{
-                var foodsSelected = ""
-                bookingData?.prefs?.main_passenger?.food_items?.forEach {
-                    foodsSelected = if(foodsSelected.isEmpty()){
-                        it.name!!
-                    }else{
-                        foodsSelected + ","+it.name!!
-                    }
-                }
-                if(foodsSelected.isNotEmpty()){
-                    binding.textViewBookingsDetailsFoodTitle.text = foodsSelected
-                    binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
-                }
-            }
-//            binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
-            binding.imageViewBookingDetailsCancelled.visibility = View.VISIBLE
-            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
-        }
         binding.bookings = bookingData
 
         binding.executePendingBindings()
@@ -336,10 +282,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         val cities = bookingData?.from_city_info?.name + " to \n"+ bookingData?.to_city_info?.name
         binding.textViewBookingsDetailsFromCity.text = cities
-
-        /*val expiryTime = getString(R.string.booking_summary_personalize_time_expiry) +
-                StellarJetUtils.getPersonalizationHours(bookingData.journey_datetime)
-        binding.textViewBookingsDetailsPersonalizeTime.text = expiryTime*/
 
         val bookedBy =  resources.getString(R.string.bookings_booked_by) + " "+bookingData?.booked_by
         binding.textViewBookingDetailsBookedBy.text = bookedBy
@@ -410,6 +352,110 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 intent.putExtra("BookingData" , bookingData)
                 startActivity(intent)
             }
+        }
+        if(bookingType.equals("completed" , true) ||
+            bookingData!!.status.equals("Cancelled" , true)){
+            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
+            var address = ""
+            if(!bookingData!!.pick_address_main!!.isEmpty()){
+                address = bookingData!!.pick_address_main!!
+            }
+
+            if(!bookingData!!.drop_address_main!!.isEmpty()){
+                address = if(address.isEmpty()){
+                    bookingData!!.drop_address_main!!
+                }else{
+                    "\n"+ bookingData!!.drop_address_main
+                }
+            }
+
+
+            if(!address.isEmpty()){
+                binding.textViewBookingsDetailsCabsTitle.text = address
+                binding.imageViewBookingDetailsCabArrow.visibility = View.GONE
+            }else{
+                binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+                binding.viewCabAfterDivider.visibility = View.GONE
+            }
+            if(bookingData?.service.equals("Usual", true) ){
+                binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
+                binding.viewFoodAfterDivider.visibility = View.GONE
+                binding.viewDetaisAfterDivider.visibility = View.GONE
+            }else{
+                var foodsSelected = ""
+                bookingData?.prefs?.main_passenger?.food_items?.forEach {
+                    foodsSelected = if(foodsSelected.isEmpty()){
+                        it.name!!
+                    }else{
+                        foodsSelected + ","+it.name!!
+                    }
+                }
+                if(foodsSelected.isNotEmpty()){
+                    binding.textViewBookingsDetailsFoodTitle.text = foodsSelected
+                    binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
+                }
+            }
+//            binding.imageViewBookingDetailsDiningArrow.visibility = View.GONE
+            if(bookingData!!.status.equals("Cancelled" , true)){
+                binding.imageViewBookingDetailsCancelled.visibility = View.VISIBLE
+            }else{
+                binding.imageViewBookingDetailsCancelled.visibility = View.GONE
+            }
+            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
+            var passengersName = ""
+            var seatsName = ""
+            if(bookingData?.travelling_self ==1){
+                passengersName = HomeActivity.sUserData.name
+                seatsName = bookingData!!.customer_seat?.seat_code!!
+                mTravellingUsers += 1
+            }
+            val guests = bookingData?.prefs!!.co_passengers
+            guests?.forEach {
+                if(passengersName.isEmpty()){
+                    if(it.status.equals("Confirmed" , true)){
+                        passengersName = it.name!!
+                        mTravellingUsers += 1
+                    }else if(bookingType.equals("completed" , true) ||
+                        it.status.equals("Cancelled" , true)){
+                        if(bookingData?.travelling_self == 0 ){
+                            passengersName = it.name!!
+                        }
+                    }
+                }else{
+                    if(it.status.equals("Confirmed" , true)){
+                        passengersName = passengersName + ", " + it.name
+                        mTravellingUsers += 1
+                    }else if(bookingType.equals("completed" , true) ||
+                        it.status.equals("Cancelled" , true)){
+                        if(bookingData?.travelling_self == 0 ){
+                            passengersName = passengersName + ", " + it.name
+                        }
+                    }
+                }
+            }
+            guests?.forEach {
+                if(seatsName.isEmpty()){
+                    if(it.status.equals("Confirmed" , true)){
+                        seatsName = it.seats_info?.seat_code!!
+                    }else if(bookingType.equals("completed" , true) ||
+                        it.status.equals("Cancelled" , true)){
+                        if(bookingData?.travelling_self == 0 ){
+                            seatsName = it.seats_info?.seat_code!!
+                        }
+                    }
+                }else{
+                    if(it.status.equals("Confirmed" , true)){
+                        seatsName = seatsName +", " +it.seats_info?.seat_code!!
+                    }else if(bookingType.equals("completed" , true) &&
+                        it.status.equals("Cancelled" , true)){
+                        if(bookingData?.travelling_self == 0 ){
+                            seatsName = seatsName +", " +it.seats_info?.seat_code!!
+                        }
+                    }
+                }
+            }
+            binding.textViewBookingsDetailsPassengers.text = passengersName
+            binding.textViewBookingsDetailsSeats.text = seatsName
         }
     }
 }

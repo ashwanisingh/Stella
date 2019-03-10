@@ -30,6 +30,15 @@ import retrofit2.Response
  */
 class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
 
+    private var loading = true
+    private var pastVisiblesItems: Int = 0
+    private var visibleItemCount:Int = 0
+    private var totalItemCount:Int = 0
+    private var offset = 0
+    private var limit = 10
+
+    private var mLayoutManager: LinearLayoutManager? = null
+
     private lateinit var binding : FragmentCompletedBookingsBinding
     private var mCompletedBookingHistoryList: List<Booking> = ArrayList()
 
@@ -39,11 +48,32 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater ,R.layout.fragment_completed_bookings, container, false)
-        if(StellarJetUtils.isConnectingToInternet(activity)){
+        if(StellarJetUtils.isConnectingToInternet(this.activity)){
             getCompletedBookings()
         }else{
             context?.let { UiUtils.showSimpleDialog(it, resources.getString(R.string.error_not_connected_internet)) }
         }
+        binding.recyclerViewBookingsCompleted.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager!!.childCount
+                    totalItemCount = mLayoutManager!!.itemCount
+                    pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
+
+                    if (loading && mCompletedBookingHistoryList.size==limit) {
+                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+                            loading = false
+                            //pagination.. i.e. fetch new data
+                            offset += 10
+                            limit += 10
+                            getCompletedBookings()
+                        }
+                    }
+                }
+            }
+        })
         return binding.root
     }
 
@@ -51,8 +81,8 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
         val upcomingBook : Call<BookingHistoryResponse> = RetrofitAPICaller.getInstance(activity)
             .stellarJetAPIs.getBookingHistoryResponse(
             SharedPreferencesHelper.getUserToken(activity) ,
-            1 ,
-            150 ,
+            offset,
+            limit ,
             "completed"
         )
 
@@ -64,13 +94,14 @@ class CompletedBookingsFragment : Fragment(), (Booking) -> Unit {
                 val adapter = BookingListAdapter(mCompletedBookingHistoryList ,
                     "Completed",
                     this@CompletedBookingsFragment)
-                val layoutManager = LinearLayoutManager(
+                mLayoutManager = LinearLayoutManager(
                     activity ,
                     RecyclerView.VERTICAL ,
                     false
                 )
                 binding.recyclerViewBookingsCompleted.adapter = adapter
-                binding.recyclerViewBookingsCompleted.layoutManager = layoutManager
+                binding.recyclerViewBookingsCompleted.layoutManager = mLayoutManager
+                binding.recyclerViewBookingsCompleted.scrollToPosition(offset)
             }
 
             override fun onFailure(call: Call<BookingHistoryResponse>, t: Throwable) {

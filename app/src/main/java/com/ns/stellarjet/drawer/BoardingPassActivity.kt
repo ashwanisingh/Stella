@@ -27,6 +27,15 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
 
     private lateinit var binding:ActivityBoardingPassBinding
     private var mBoardingPassList : List<Booking> = ArrayList()
+    private var loading = true
+    private var pastVisiblesItems: Int = 0
+    private var visibleItemCount:Int = 0
+    private var totalItemCount:Int = 0
+    private var offset = 0
+    private var limit = 10
+
+    private var mLayoutManager: LinearLayoutManager? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +51,28 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
             UiUtils.showNoInternetDialog(this@BoardingPassActivity)
         }
 
+        binding.recyclerViewBoardingPass.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager!!.childCount
+                    totalItemCount = mLayoutManager!!.itemCount
+                    pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
+
+                    if (loading && mBoardingPassList.size==limit) {
+                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+                            loading = false
+                            //pagination.. i.e. fetch new data
+                            offset += 10
+                            limit += 10
+                            getBoardingPass()
+                        }
+                    }
+                }
+            }
+        })
+
         button_boarding_pass_back.setOnClickListener {
             onBackPressed()
         }
@@ -54,8 +85,8 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
         val boardingPassCall: Call<BoardingPassResponse> = RetrofitAPICaller.getInstance(this)
             .stellarJetAPIs.getBoardingPassResponse(
             SharedPreferencesHelper.getUserToken(this) ,
-            0 ,
-            15
+            offset,
+            limit
         )
 
         boardingPassCall.enqueue(object : Callback<BoardingPassResponse> {
@@ -66,13 +97,13 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
                 progress.hideProgress()
                 mBoardingPassList = response.body()!!.data.boarding_pass
                 val adapter = BoardingListAdapter(mBoardingPassList , this@BoardingPassActivity)
-                val layoutManager = LinearLayoutManager(
+                mLayoutManager = LinearLayoutManager(
                     this@BoardingPassActivity ,
                     RecyclerView.VERTICAL ,
                     false
                 )
                 binding.recyclerViewBoardingPass.adapter = adapter
-                binding.recyclerViewBoardingPass.layoutManager = layoutManager
+                binding.recyclerViewBoardingPass.layoutManager = mLayoutManager
 
             }
 
