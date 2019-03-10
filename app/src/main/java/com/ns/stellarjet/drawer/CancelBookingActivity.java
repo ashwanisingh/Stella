@@ -54,6 +54,12 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
             activityBinding.imageViewCancelBookingAll.setImageResource(R.mipmap.ic_food_select);
         }
 
+        activityBinding.buttonCancelBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mUsersList = new ArrayList<>();
 
         if (mBooking != null && mBooking.getTravelling_self() == 1) {

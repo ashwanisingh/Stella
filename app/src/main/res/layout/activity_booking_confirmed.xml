@@ -11,7 +11,7 @@
             android:fitsSystemWindows="true"
             tools:context=".booking.BookingConfirmedActivity">
 
-        <Button
+        <ImageButton
                 android:id="@+id/button_home"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

@@ -39,6 +39,10 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
         makeFoodListLayout()
         fillFoodListLayout()
 
+        button_global_food_back.setOnClickListener {
+            onBackPressed()
+        }
+
         button_global_food_confirm.setOnClickListener {
             val jsonArray = JSONArray()
             for (it in mSelectedFoodList){

@@ -26,6 +26,13 @@
         <item name="android:paddingStart">30dp</item>
     </style>
 
+    <style name="StellarImageButton" parent="android:Widget.Material.ImageButton">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
     <style name="StellarTextView_22sp" parent="android:Widget.TextView">
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@android:color/white</item>
