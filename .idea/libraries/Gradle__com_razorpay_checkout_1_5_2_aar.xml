@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.razorpay:checkout:1.5.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/checkout-1.5.2.aar/127c0f05f215ffb0430cf0b60c9fc769/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/checkout-1.5.2.aar/127c0f05f215ffb0430cf0b60c9fc769/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.razorpay/checkout/1.5.2/113e9b8bb5cafddcad3a08914d6c41925a670c9a/checkout-1.5.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

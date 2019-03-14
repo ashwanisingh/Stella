@@ -18,9 +18,7 @@ import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
-import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.UIConstants
-import com.ns.stellarjet.utils.UiUtils
+import com.ns.stellarjet.utils.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -29,7 +27,21 @@ import retrofit2.Response
 import java.io.IOException
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
+
+    override fun onTcSliderVisibilityChanged(visibility: Int) {
+
+
+    }
+
+    override fun onTCButtonClick(isUserAgree: Boolean) {
+        if(isUserAgree) {
+
+        } else {
+
+        }
+
+    }
 
     private lateinit var activityHomeBinding: ActivityHomeBinding
 
@@ -51,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
             this,
             R.layout.activity_home
         )
+
+
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
 
@@ -124,6 +138,9 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // Bottom to Top Slider Wrapper Initialisation
+        var tcPanel = TermsConditionPanel(this, this, "Proceed")
+
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
@@ -132,7 +149,9 @@ class HomeActivity : AppCompatActivity() {
                 PlaceSelectionActivity::class.java
             )
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
-            startActivity(mPlaceSelectionIntent)
+//            startActivity(mPlaceSelectionIntent)
+
+            tcPanel.showTcSlider();
         }
 
         /* launch DrawerActivity */
@@ -144,6 +163,8 @@ class HomeActivity : AppCompatActivity() {
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
             startActivity(mDrawerActivityIntent)
         }
+
+
     }
 
     override fun onResume() {

@@ -67,11 +67,12 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation(group: 'com.an.biometric', name: 'biometric-auth', version: '0.1.0', ext: 'aar', classifier: '')
+    implementation 'com.an.biometric:biometric-auth:0.1.0@aar'
     // firebase
     implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.google.firebase:firebase-messaging:17.4.0'
     // razorpay
     implementation 'com.razorpay:checkout:1.5.2'
+    implementation project(':sliderlibrary')
 }
 apply plugin: 'com.google.gms.google-services'

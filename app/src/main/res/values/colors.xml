@@ -36,4 +36,7 @@
     <color name="colorDateSelectionBg">#0f1026</color>
     <color name="colorCancelBooking">#EE5555</color>
 
+    <color name="tcSliderHeader">#3b3d58</color>
+    <color name="tcSliderBg">#34354c</color>
+
 </resources>
