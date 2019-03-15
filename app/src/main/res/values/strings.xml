@@ -70,6 +70,7 @@
 
     <string name="booking_seat_choose">Choose Your Seats</string>
     <string name="booking_confirm_seats">Confirm Seats</string>
+    <string name="booking_confirm_seat">Confirm Seat</string>
     <string name="booking_confirm_date">Confirm Date</string>
 
     <string name="booking_row_airport">airport</string>

@@ -489,7 +489,11 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
         if(numOfConfirmedSeats == 0){
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
         }else {
-            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+            if(numOfConfirmedSeats > 1) {
+                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + numOfConfirmedSeats;
+            } else {
+                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + numOfConfirmedSeats;
+            }
         }
         mSeatConfirmedButton.setText(confirmSeatsDisplay);
         for (int i = 0; i < mSelectedAndLockedSeatsList.size(); i++) {
@@ -601,10 +605,13 @@ public class SeatLayoutOneSelectionActivity extends AppCompatActivity implements
                     Log.d("Booking", "onResponse: " +response.body());
                     mConfirmedSeatsList.addAll(mLockSeatsList);
                     mNumOfSeatsLocked = mNumOfSeatsLocked + 1;
-                    String confirmSeatsDisplay =
-                            getResources().getString(R.string.booking_confirm_seats) + " - "+
-                                    mNumOfSeatsLocked;
-                    mSeatConfirmedButton.setText(confirmSeatsDisplay);
+                    String confirmSeatsDisplay = "";
+
+                    if(mNumOfSeatsLocked > 1) {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + mNumOfSeatsLocked;
+                    } else {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + mNumOfSeatsLocked;
+                    }
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
                     numOfSeatsAvailable = numOfSeatsAvailable  - 1;
                     String seatsAvailable =

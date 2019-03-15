@@ -631,7 +631,15 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
         if(numOfConfirmedSeats == 0){
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
         }else {
-            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+            if(numOfConfirmedSeats > 1) {
+                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + numOfConfirmedSeats;
+            } else {
+                if(numOfConfirmedSeats > 1) {
+                    confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + numOfConfirmedSeats;
+                } else {
+                    confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + numOfConfirmedSeats;
+                }
+            }
         }
         mNumOfSeatsLocked = mSelectedAndLockedSeatsList.size();
         mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
@@ -746,9 +754,13 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
                     mConfirmedSeatsList.addAll(mLockSeatsList);
                     /* increase locked seats count to thi booking */
                     mNumOfSeatsLocked = mNumOfSeatsLocked + 1;
-                    String confirmSeatsDisplay =
-                            getResources().getString(R.string.booking_confirm_seats) + " - "+
-                                    mNumOfSeatsLocked;
+                    String confirmSeatsDisplay = "";
+
+                    if(mNumOfSeatsLocked > 1) {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + mNumOfSeatsLocked;
+                    } else {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + mNumOfSeatsLocked;
+                    }
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
                     numOfSeatsAvailable = numOfSeatsAvailable  - 1;
                     String seatsAvailable =

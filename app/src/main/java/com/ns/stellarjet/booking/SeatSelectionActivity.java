@@ -545,7 +545,11 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
         if(numOfConfirmedSeats == 0){
             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
         }else {
-            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - "+ numOfConfirmedSeats;
+            if(numOfConfirmedSeats > 1) {
+                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + numOfConfirmedSeats;
+            } else {
+                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + numOfConfirmedSeats;
+            }
         }
         mNumOfSeatsLocked = mSelectedAndLockedSeatsList.size();
         mGlobalSeatCount = mGlobalSeatCount - mNumOfSeatsLocked;
@@ -656,9 +660,13 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                     mConfirmedSeatsList.addAll(mLockSeatsList);
                     /* increase locked seats count to thi booking */
                     mNumOfSeatsLocked = mNumOfSeatsLocked + 1;
-                    String confirmSeatsDisplay =
-                            getResources().getString(R.string.booking_confirm_seats) + " - "+
-                                    mNumOfSeatsLocked;
+                    String confirmSeatsDisplay = "";
+
+                    if(mNumOfSeatsLocked > 1) {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + mNumOfSeatsLocked;
+                    } else {
+                        confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + mNumOfSeatsLocked;
+                    }
                     mSeatConfirmedButton.setText(confirmSeatsDisplay);
                     numOfSeatsAvailable = numOfSeatsAvailable  - 1;
                     String seatsAvailable =
@@ -668,7 +676,7 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
 
                     /* Subscription seats avail check*/
                     String userType = SharedPreferencesHelper.getUserType(SeatSelectionActivity.this);
-                    if(membershipUserType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)){
+                    if(membershipUserType.equalsIgnoreCase(UIConstants.PREFERENCES_MEMBERSHIP_SUBSCRIPTION)) {
                         mGlobalSeatCount = mGlobalSeatCount - 1;
                         Log.wtf("SeatCount", "onResponse: lock==> " + mGlobalSeatCount);
                         if(mGlobalSeatCount==0&& userType.equalsIgnoreCase("primary")){
@@ -739,9 +747,12 @@ public class SeatSelectionActivity extends AppCompatActivity implements View.OnC
                         String confirmSeatsDisplay;
                         if(mNumOfSeatsLocked == 0){
                             confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats);
-                        }else {
-                            confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats)
-                                    + " - "+ mNumOfSeatsLocked;
+                        } else {
+                            if(mNumOfSeatsLocked > 1) {
+                                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seats) + " - " + mNumOfSeatsLocked;
+                            } else {
+                                confirmSeatsDisplay = getResources().getString(R.string.booking_confirm_seat) + " - " + mNumOfSeatsLocked;
+                            }
                         }
                         mSeatConfirmedButton.setText(confirmSeatsDisplay);
                         numOfSeatsAvailable = numOfSeatsAvailable + 1;
