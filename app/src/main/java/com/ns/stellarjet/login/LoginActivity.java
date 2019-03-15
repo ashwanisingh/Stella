@@ -11,10 +11,7 @@ import com.ns.networking.model.ValidateCustomerResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityLoginBinding;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UiUtils;
+import com.ns.stellarjet.utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -23,9 +20,11 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
 
     private ActivityLoginBinding mActivityLoginBinding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         mActivityLoginBinding = DataBindingUtil.
                 setContentView(this , R.layout.activity_login);
 
-        /* remove the dummy login */
-//        mActivityLoginBinding.editTextAccountId.setText("vignesh.p@ninestars.in");
+
 
         mActivityLoginBinding.btnLoginConfirm.setOnClickListener(v -> {
             String userName = mActivityLoginBinding.editTextAccountId.getText().toString();
@@ -110,4 +108,8 @@ public class LoginActivity extends AppCompatActivity {
         animShake.setDuration(50);
         mActivityLoginBinding.editTextAccountId.startAnimation(animShake);
     }
+
+
+
+
 }

@@ -9,9 +9,31 @@ import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBoardingPassDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.StellarJetUtils
+import com.ns.stellarjet.utils.TermsConditionPanel
+import com.ns.stellarjet.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_boarding_pass_details.*
 
-class BoardingPassDetailsActivity : AppCompatActivity() {
+class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
+
+    var tcPanel: TermsConditionPanel? = null;
+
+    override fun onTcSliderVisibilityChanged(visibility: Int) {
+
+
+    }
+
+    override fun onTCButtonClick(isUserAgree: Boolean) {
+        if(isUserAgree) {
+
+        } else {
+
+        }
+
+    }
+
+    override fun onTCSliderSlide(percentage: Float) {
+        button_boarding_pass_details_back.alpha = 1-((100-percentage) / 100);
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +42,9 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
             this ,
             R.layout.activity_boarding_pass_details
         )
+
+        // Bottom to Top Slider Wrapper Initialisation
+        tcPanel = TermsConditionPanel(this, this, "Download")
 
         val boardingPass : Booking? = intent.extras?.getParcelable("BoardingPass")
 
@@ -82,5 +107,23 @@ class BoardingPassDetailsActivity : AppCompatActivity() {
         button_boarding_pass_details_back.setOnClickListener {
             onBackPressed()
         }
+
+
+        binding.buttonDownload.setOnClickListener {
+            ToastUtils.showToast(this, "Under Progress.")
+            tcPanel?.showTcSlider();
+        }
     }
+
+    override fun onBackPressed() {
+        if(tcPanel?.isVisible() == true) {
+            tcPanel?.hideTcSlider();
+            return;
+        }
+
+        super.onBackPressed()
+    }
+
+
+
 }

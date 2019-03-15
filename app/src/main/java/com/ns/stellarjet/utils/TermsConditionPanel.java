@@ -44,8 +44,10 @@ public class TermsConditionPanel {
         slideUp = new SlideUpBuilder(sliderView)
                 .withListeners(new SlideUp.Listener.Events() {
                     @Override
-                    public void onSlide(float percent) {
-
+                    public void onSlide(float percentage) {
+                        if(tcSliderListener != null) {
+                            tcSliderListener.onTCSliderSlide(percentage);
+                        }
                     }
 
                     @Override
@@ -111,6 +113,11 @@ public class TermsConditionPanel {
     public interface TCSliderListener {
         void onTcSliderVisibilityChanged(int visibility);
         void onTCButtonClick(boolean isUserAgree);
+        void onTCSliderSlide(float percentage);
+    }
+
+    public boolean isVisible() {
+        return slideUp.isVisible();
     }
 
 }

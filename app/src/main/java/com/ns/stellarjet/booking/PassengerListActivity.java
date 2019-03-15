@@ -38,7 +38,7 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.*;
 
-public class PassengerListActivity extends AppCompatActivity implements PaymentResultListener {
+public class PassengerListActivity extends AppCompatActivity implements PaymentResultListener, TermsConditionPanel.TCSliderListener {
 
     private ActivityPassengerListBinding activityPassengerBinding;
     private List<String> mGuestNamesList = new ArrayList<>();
@@ -60,6 +60,8 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     private List<BookingUserRelation> mRelationList = new ArrayList<>();
     private List<SeatInfo> mSeatInfoList = new ArrayList<>();
 
+    private TermsConditionPanel tcPanel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,10 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         activityPassengerBinding = DataBindingUtil.setContentView(
                 this,
                 R.layout.activity_passenger_list);
+
+        // Bottom to Top Slider Wrapper Initialisation
+        tcPanel = new TermsConditionPanel(this, this, "Confirm Booking");
+
 
         /**
          * Preload payment resources
@@ -113,7 +119,11 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
             @Override
             public void onClick(View v) {
 //                startPayment();
-                processGuestDetails();
+
+                tcPanel.showTcSlider();
+
+                // Commented By Ashwani
+                //processGuestDetails();
             }
         });
 
@@ -936,4 +946,34 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
             return res;
         }
     };
+
+    @Override
+    public void onTcSliderVisibilityChanged(int visibility) {
+
+    }
+
+    @Override
+    public void onTCButtonClick(boolean isUserAgree) {
+        if(isUserAgree) {
+            tcPanel.hideTcSlider();
+            processGuestDetails();
+        } else {
+
+        }
+    }
+
+
+    @Override
+    public void onTCSliderSlide(float percentage) {
+        activityPassengerBinding.buttonPassengerBack.setAlpha(1 - ((100-percentage) / 100));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(tcPanel.isVisible()) {
+            tcPanel.hideTcSlider();
+            return;
+        }
+        super.onBackPressed();
+    }
 }

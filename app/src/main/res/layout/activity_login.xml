@@ -3,6 +3,7 @@
     <data>
 
     </data>
+
     <LinearLayout
             android:animateLayoutChanges="true"
             android:layout_width="match_parent"
@@ -70,4 +71,5 @@
                 android:text="@string/confirm_button"/>
 
     </LinearLayout>
+
 </layout>

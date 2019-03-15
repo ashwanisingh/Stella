@@ -4,9 +4,7 @@
     <data>
 
     </data>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true">
+
 
         <LinearLayout
                 android:id="@+id/rootView"
@@ -129,7 +127,5 @@
 
         </LinearLayout>
 
-        <include layout="@layout/tc_content_slide_up_view"
-                 tools:visibility="gone"/>
-    </RelativeLayout>
+
 </layout>

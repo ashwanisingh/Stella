@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_margin="8dp"
     android:gravity="center"
-    android:layout_width="30dp"
+    android:layout_width="wrap_content"
     android:layout_height="30dp">
 
     <TextView
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:id="@+id/textView_row_days"
-        android:layout_width="24dp"
+        android:layout_width="40dp"
         android:layout_height="24dp"/>
 
 </LinearLayout>

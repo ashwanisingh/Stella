@@ -27,21 +27,8 @@ import retrofit2.Response
 import java.io.IOException
 
 
-class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
+class HomeActivity : AppCompatActivity() {
 
-    override fun onTcSliderVisibilityChanged(visibility: Int) {
-
-
-    }
-
-    override fun onTCButtonClick(isUserAgree: Boolean) {
-        if(isUserAgree) {
-
-        } else {
-
-        }
-
-    }
 
     private lateinit var activityHomeBinding: ActivityHomeBinding
 
@@ -63,7 +50,6 @@ class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
             this,
             R.layout.activity_home
         )
-
 
 
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
@@ -114,7 +100,7 @@ class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
         if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("primary" , true)){
             activityHomeBinding.textViewHomeBookingFor.visibility = View.GONE
             activityHomeBinding.textViewHomeBookingPrimaryUser.visibility = View.GONE
-        }else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
+        } else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
             activityHomeBinding.textViewHomeBookingPrimaryUser.text =
                 SharedPreferencesHelper.getCurrentPrimaryUserName(this@HomeActivity)
             if(sUserData.primary_users.size > 1){
@@ -138,9 +124,6 @@ class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
             }
         }
 
-        // Bottom to Top Slider Wrapper Initialisation
-        var tcPanel = TermsConditionPanel(this, this, "Proceed")
-
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
@@ -149,9 +132,9 @@ class HomeActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
                 PlaceSelectionActivity::class.java
             )
 //            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
-//            startActivity(mPlaceSelectionIntent)
+            startActivity(mPlaceSelectionIntent)
 
-            tcPanel.showTcSlider();
+//            tcPanel?.showTcSlider();
         }
 
         /* launch DrawerActivity */

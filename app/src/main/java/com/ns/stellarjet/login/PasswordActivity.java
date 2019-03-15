@@ -22,9 +22,11 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-public class PasswordActivity extends AppCompatActivity {
+public class PasswordActivity extends AppCompatActivity implements TermsConditionPanel.TCSliderListener {
 
     private ActivityPasswordBinding mActivityPasswordBinding;
+    private TermsConditionPanel tcPanel;
+    private LoginResponse mLoginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class PasswordActivity extends AppCompatActivity {
                 .setTransformationMethod(
                         new MyPasswordTransformationMethod()
                 );
+
+        // Bottom to Top Slider Wrapper Initialisation
+        tcPanel = new TermsConditionPanel(this, this, "Proceed");
 
         String username = getIntent().getStringExtra("userEmail");
 
@@ -99,7 +104,12 @@ public class PasswordActivity extends AppCompatActivity {
                 progress.hideProgress();
                 if (response.body()!=null){
                     Log.d("Password", "onResponse: " + response.body());
-                    SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
+
+                    tcPanel.showTcSlider();
+                    mLoginResponse = response.body();
+
+                    // Commented By Ashwani
+                    /*SharedPreferencesHelper.saveUserToken(PasswordActivity.this , response.body().getData().getToken());
                     SharedPreferencesHelper.saveUserId(PasswordActivity.this , String.valueOf(response.body().getData().getUser_data().getUser_id()));
                     SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, response.body().getData().getRefresh_token());
                     Intent mPassCodeIntent = new Intent(
@@ -108,7 +118,7 @@ public class PasswordActivity extends AppCompatActivity {
                     );
                     mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
                     mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(mPassCodeIntent);
+                    startActivity(mPassCodeIntent);*/
                 }else {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
@@ -129,12 +139,49 @@ public class PasswordActivity extends AppCompatActivity {
         });
     }
 
-    private void showPasswordErrorField(){
+    private void showPasswordErrorField() {
         mActivityPasswordBinding.editTextAccountPassword.setTextColor(getResources().getColor(android.R.color.holo_red_light));
         mActivityPasswordBinding.editTextAccountPassword.setBackground(getDrawable(R.drawable.drawable_edittext_error_background));
         final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
         animShake.setDuration(50);
         mActivityPasswordBinding.editTextAccountPassword.startAnimation(animShake);
+    }
+
+    @Override
+    public void onTcSliderVisibilityChanged(int visibility) {
+
+    }
+
+    @Override
+    public void onTCButtonClick(boolean isUserAgree) {
+
+        if(isUserAgree) {
+            SharedPreferencesHelper.saveUserToken(PasswordActivity.this, mLoginResponse.getData().getToken());
+            SharedPreferencesHelper.saveUserId(PasswordActivity.this, String.valueOf(mLoginResponse.getData().getUser_data().getUser_id()));
+            SharedPreferencesHelper.saveUserRefreshToken(PasswordActivity.this, mLoginResponse.getData().getRefresh_token());
+            Intent mPassCodeIntent = new Intent(
+                    PasswordActivity.this,
+                    PassCodeActivity.class
+            );
+            mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, mLoginResponse.getData().getUser_data());
+            mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(mPassCodeIntent);
+        }
+
+    }
+
+    @Override
+    public void onTCSliderSlide(float percentage) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(tcPanel.isVisible()) {
+            tcPanel.hideTcSlider();
+            return;
+        }
+        super.onBackPressed();
     }
 
 }

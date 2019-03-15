@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <data>
 
     </data>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true">
         <ScrollView
                 android:id="@+id/scrollView_passenger"
                 android:fitsSystemWindows="true"
@@ -100,6 +100,9 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <include layout="@layout/tc_content_slide_up_view"
+                 tools:visibility="gone"/>
 
     </RelativeLayout>
 </layout>

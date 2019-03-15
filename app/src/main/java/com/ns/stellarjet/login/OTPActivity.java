@@ -32,47 +32,27 @@ import java.util.Objects;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener {
 
-/*    @BindView(R.id.editText_account_otp)
-    EditText mOtpEditText;
-    @BindView(R.id.btn_otp_login)
-    Button mOtpLoginButton;*/
 
     private EditText mCurrentEditText;
     private String mFirstEditTextPassCode;
     private String mSecondEditTextPassCode;
     private String mThreeEditTextPassCode;
     private String mFourEditTextPassCode;
-    @BindView(R.id.button_passcode_one)
     Button mPasscodeOneButton;
-    @BindView(R.id.button_passcode_two)
     Button mPasscodeTwoButton;
-    @BindView(R.id.button_passcode_three)
     Button mPasscodeThreeButton;
-    @BindView(R.id.button_passcode_four)
     Button mPasscodeFOurButton;
-    @BindView(R.id.button_passcode_five)
     Button mPasscodeFiveButton;
-    @BindView(R.id.button_passcode_six)
     Button mPasscodeSixButton;
-    @BindView(R.id.button_passcode_seven)
     Button mPasscodeSevenButton;
-    @BindView(R.id.button_passcode_eight)
     Button mPasscodeEightButton;
-    @BindView(R.id.button_passcode_nine)
     Button mPasscodeNineButton;
-    @BindView(R.id.button_passcode_zero)
     Button mPasscodeZeroButton;
-    @BindView(R.id.button_passcode_del)
     Button mPasscodeDelButton;
-    @BindView(R.id.textView_otp_heading)
     TextView mPasswordHeading;
-    @BindView(R.id.editText_passcode_number_one)
     EditText mNumberOneEditText;
-    @BindView(R.id.editText_passcode_number_two)
     EditText mNumberTwoEditText;
-    @BindView(R.id.editText_passcode_number_three)
     EditText mNumberThreeEditText;
-    @BindView(R.id.editText_passcode_number_four)
     EditText mNumberFourEditText;
 
     @Override
@@ -80,9 +60,26 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
 
-        ButterKnife.bind(OTPActivity.this);
-
         String username = getIntent().getStringExtra("userEmail");
+
+        mPasscodeOneButton = findViewById(R.id.button_passcode_one);
+        mPasscodeTwoButton = findViewById(R.id.button_passcode_two);
+        mPasscodeThreeButton = findViewById(R.id.button_passcode_three);
+        mPasscodeFOurButton = findViewById(R.id.button_passcode_four);
+        mPasscodeFiveButton = findViewById(R.id.button_passcode_five);
+        mPasscodeSixButton = findViewById(R.id.button_passcode_six);
+        mPasscodeSevenButton = findViewById(R.id.button_passcode_seven);
+        mPasscodeEightButton = findViewById(R.id.button_passcode_eight);
+        mPasscodeNineButton = findViewById(R.id.button_passcode_nine);
+        mPasscodeZeroButton = findViewById(R.id.button_passcode_zero);
+        mPasscodeDelButton = findViewById(R.id.button_passcode_del);
+
+        mNumberOneEditText = findViewById(R.id.editText_passcode_number_one);
+        mNumberTwoEditText = findViewById(R.id.editText_passcode_number_two);
+        mNumberThreeEditText = findViewById(R.id.editText_passcode_number_three);
+        mNumberFourEditText = findViewById(R.id.editText_passcode_number_four);
+
+        mPasswordHeading = findViewById(R.id.textView_otp_heading);
 
         mPasscodeOneButton.setOnClickListener(this);
         mPasscodeTwoButton.setOnClickListener(this);
