@@ -6,130 +6,128 @@
     </data>
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-    >
+                    android:fitsSystemWindows="true">
 
-
-    <LinearLayout
-            android:id="@+id/rootView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginStart="24dp"
-            android:fitsSystemWindows="true"
-            tools:context=".home.HomeActivity">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="49dp"
+        <LinearLayout
+                android:id="@+id/rootView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                android:fitsSystemWindows="true"
+                tools:context=".home.HomeActivity">
 
-            <TextView
-                    style="@style/StellarTextView_14sp"
-                    android:text="@string/home_booking_for"
-                    android:id="@+id/textView_home_booking_for"
-                    android:alpha="0.5"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="49dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        style="@style/StellarTextView_14sp"
+                        android:text="@string/home_booking_for"
+                        android:id="@+id/textView_home_booking_for"
+                        android:alpha="0.5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                        style="@style/StellarTextView_16sp"
+                        android:text="@string/home_booking_for_primary"
+                        android:id="@+id/textView_home_booking_primary_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:drawablePadding="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/textView_home_booking_for"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageButton
+                        style="@style/StellarImageButton"
+                        android:id="@+id/button_drawer"
+                        android:src="@drawable/ic_menu"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="33dp"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:background="@drawable/ic_logo"
+                    android:layout_marginTop="68dp"
+                    android:layout_gravity="start"/>
+
+            <TextView
+                    android:id="@+id/textview_home_hello_again"
+                    style="@style/StellarTextView_32sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="38dp"
+                    android:layout_width="wrap_content"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/home_title_hello_again_dummy"/>
+
+            <TextView
+                    android:text="@string/app_name"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="21dp"
+                    style="@style/StellarTextView_28sp"
+                    android:id="@+id/textView_home_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+            <TextView
+                    android:id="@+id/textView_home_see_again"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/StellarTextView_20sp"
+                    android:alpha="0.5"
+                    android:layout_marginBottom="38dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_gravity="center"
+                    android:text="@string/home_see_you_again"/>
+
+            <View
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
 
             <TextView
                     style="@style/StellarTextView_16sp"
-                    android:text="@string/home_booking_for_primary"
-                    android:id="@+id/textView_home_booking_primary_user"
+                    android:id="@+id/textView_seat_limits"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:drawablePadding="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_home_booking_for"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:layout_gravity="center"
+                    android:lineSpacingExtra="10dp"
+                    android:layout_marginBottom="35dp"
+                    android:text="@string/home_remaining_seats"/>
 
-            <ImageButton
-                    style="@style/StellarImageButton"
-                    android:id="@+id/button_drawer"
-                    android:src="@drawable/ic_menu"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginEnd="33dp"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <Button
+                    android:id="@+id/button_book_flight"
+                    style="@style/StellarWhiteButton"
+                    android:gravity="center_vertical|start"
+                    android:text="@string/home_button_book_flight"
+                    android:textAllCaps="false"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="24dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="23dp"
+                    android:layout_height="50dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_logo"
-                android:layout_marginTop="68dp"
-                android:layout_gravity="start"/>
-
-        <TextView
-                android:id="@+id/textview_home_hello_again"
-                style="@style/StellarTextView_32sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="38dp"
-                android:layout_width="wrap_content"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/home_title_hello_again_dummy"/>
-
-        <TextView
-                android:text="@string/app_name"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="21dp"
-                style="@style/StellarTextView_28sp"
-                android:id="@+id/textView_home_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
-
-        <TextView
-                android:id="@+id/textView_home_see_again"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/StellarTextView_20sp"
-                android:alpha="0.5"
-                android:layout_marginBottom="38dp"
-                android:layout_marginTop="14dp"
-                android:layout_gravity="center"
-                android:text="@string/home_see_you_again"/>
-
-        <View
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-
-        <TextView
-                style="@style/StellarTextView_16sp"
-                android:id="@+id/textView_seat_limits"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:lineSpacingExtra="10dp"
-                android:layout_marginBottom="35dp"
-                android:text="@string/home_remaining_seats"/>
-
-        <Button
-                android:id="@+id/button_book_flight"
-                style="@style/StellarWhiteButton"
-                android:gravity="center_vertical|start"
-                android:text="@string/home_button_book_flight"
-                android:textAllCaps="false"
-                android:layout_width="match_parent"
-                android:layout_marginEnd="24dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="23dp"
-                android:layout_height="50dp"/>
-
-    </LinearLayout>
+        </LinearLayout>
 
         <include layout="@layout/tc_content_slide_up_view"
                  tools:visibility="gone"/>

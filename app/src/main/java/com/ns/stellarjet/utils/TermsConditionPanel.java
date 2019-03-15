@@ -2,6 +2,7 @@ package com.ns.stellarjet.utils;
 
 import android.view.Gravity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class TermsConditionPanel {
 
     private ImageView mTCCrossImg;
     private Button mTcBotton;
-    private TextView mTCTextView;
+    private WebView mTCWebView;
     private TextView mIAgreetView;
     private boolean mIsUserAgree;
 
@@ -31,11 +32,13 @@ public class TermsConditionPanel {
         sliderView = activity.findViewById(R.id.slideView);
         mTCCrossImg = activity.findViewById(R.id.tc_cross_button);
         mTcBotton = activity.findViewById(R.id.tc_button);
-        mTCTextView = activity.findViewById(R.id.tc_textview);
+        mTCWebView = activity.findViewById(R.id.tc_textview);
         mIAgreetView = activity.findViewById(R.id.i_agree_textview);
 
         // Setting Button Name
         mTcBotton.setText(btnName);
+
+        mTCWebView.loadUrl("https://news.google.com/?hl=en-IN&gl=IN&ceid=IN:en");
 
         // Bottom to Top Slider
         slideUp = new SlideUpBuilder(sliderView)
