@@ -2,12 +2,15 @@ package com.ns.stellarjet.booking;
 
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,8 +63,10 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
         dataBinding.recyclerViewFrom.setAdapter(mPlaceSelectAdapter);
         dataBinding.recyclerViewFrom.setLayoutManager(layoutManager);
 
+        runLayoutAnimation(dataBinding.recyclerViewFrom);
 
-        int childCount = dataBinding.layoutFromBase.getChildCount();
+
+        /*int childCount = dataBinding.layoutFromBase.getChildCount();
         int minimumEnterAnimationTime = childCount * 150;
         int maximumExitAnimationTime = childCount * 150;
         for (int i = 0; i < childCount; i++) {
@@ -85,9 +90,22 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
             startEntryAnimation();
         }else {
             startReverseEntryAnimation();
-        }
+        }*/
 
         return mRootView;
+    }
+
+    private void runLayoutAnimation(RecyclerView mRecyclerView) {
+        final Context context = mRecyclerView.getContext();
+
+        int animRes = R.anim.layout_animation_from_right;
+
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, animRes);
+
+        mRecyclerView.setLayoutAnimation(controller);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        mRecyclerView.scheduleLayoutAnimation();
     }
 
     @Override
@@ -106,7 +124,11 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
                 .replace(R.id.frameLayout_container ,  new ToFragment())
                 .addToBackStack(null)
                 .commit(), 450);
+
+
     }
+
+
 
 
     private ObjectAnimator createEnterObjectAnimators(int width , View mChildView , int timeMillis){

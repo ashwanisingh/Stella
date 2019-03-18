@@ -2,6 +2,7 @@ package com.ns.stellarjet.booking;
 
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -80,7 +83,9 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         dataBinding.recyclerViewTo.setAdapter(mPlaceSelectAdapter);
         dataBinding.recyclerViewTo.setLayoutManager(layoutManager);
 
-        int childCount = dataBinding.layoutToBase.getChildCount();
+        runLayoutAnimation(dataBinding.recyclerViewTo);
+
+        /*int childCount = dataBinding.layoutToBase.getChildCount();
         int minimumEnterAnimationTime = childCount * 150;
         int maximumExitAnimationTime = childCount * 150;
         for (int i = 0; i < childCount; i++) {
@@ -104,9 +109,22 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
             startEntryAnimation();
         }else {
             startReverseEntryAnimation();
-        }
+        }*/
 
         return mRootView;
+    }
+
+    private void runLayoutAnimation(RecyclerView mRecyclerView) {
+        final Context context = mRecyclerView.getContext();
+
+        int animRes = R.anim.layout_animation_from_right;
+
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, animRes);
+
+        mRecyclerView.setLayoutAnimation(controller);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        mRecyclerView.scheduleLayoutAnimation();
     }
 
     @Override

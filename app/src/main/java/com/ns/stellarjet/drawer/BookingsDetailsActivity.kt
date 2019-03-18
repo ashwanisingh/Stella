@@ -27,11 +27,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
     private var isCabPersonalized = false
     private var isFoodPersonalized = false
     private lateinit var binding:ActivityBookingsDetailsBinding
-    private var bookingType: String = ""
+    private var bookingType: String? = ""
     private var mSeatCount = 0
-    private var mSelectedIndex = 0
+    private var mSelectedIndex: Int? = 0
     private var mTravellingUsers = 0
-    private var flowFrom: String = ""
+    private var flowFrom: String? = ""
     companion object {
         var bookingData: Booking? = null
     }
@@ -44,9 +44,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
             R.layout.activity_bookings_details
         )
 
-        bookingType = intent.extras?.getString("bookingType")!!
-        mSelectedIndex = intent.extras?.getInt("selectedBookingPosition")!!
-        flowFrom = intent.extras?.getString("from")!!
+        bookingType = intent.extras?.getString("bookingType")
+        mSelectedIndex = intent.extras?.getInt("selectedBookingPosition")
+        flowFrom = intent.extras?.getString("from")
     }
 
     override fun onResume() {
@@ -155,16 +155,19 @@ class BookingsDetailsActivity : AppCompatActivity() {
                     mSeatCount += subscriptionSeats
                     SharedPreferencesHelper.saveSeatCount(this@BookingsDetailsActivity , mSeatCount)
                     UiUtils.showToast(this@BookingsDetailsActivity , response.message())
-                    var isSelfTravelling = UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex]
+
+                    val selectedIndex = if (mSelectedIndex != null) mSelectedIndex else 0
+
+                    var isSelfTravelling = UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!]
                         .travelling_self
                     if(mTravellingUsers == 1 && isSelfTravelling == 1){
-                        UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].prefs!!.main_passenger?.
+                        UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].prefs!!.main_passenger?.
                             status =  "Cancelled"
                     }else if(mTravellingUsers == 1){
-                        UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].prefs!!.co_passengers!![0]
+                        UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].prefs!!.co_passengers!![0]
                             .status = "Cancelled"
                     }
-                    UpcomingBookingFragment.mUpcomingBookingHistoryList[mSelectedIndex].status = "Cancelled"
+                    UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].status = "Cancelled"
                 }else{
                     UiUtils.showToast(this@BookingsDetailsActivity , "Something went wrong")
                 }

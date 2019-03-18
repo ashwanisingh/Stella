@@ -24,9 +24,11 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         viewDataBinding.buttonFromBack.setOnClickListener(v -> onBackPressed());
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout_container ,  new FromFragment())
+                .add(R.id.frameLayout_container ,  new FromFragment())
                 .commit();
 
 
     }
+
+
 }
