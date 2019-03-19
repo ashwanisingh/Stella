@@ -36,7 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
-        /*try {
+        try {
             VideoView videoHolder = new VideoView(this);
             ViewGroup.LayoutParams mLayoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT ,
@@ -56,8 +56,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             videoHolder.start();
         } catch (Exception ex) {
             jump();
-        }*/
-        if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
+        }
+        /*if(StellarJetUtils.isConnectingToInternet(SplashScreenActivity.this)){
             if(SharedPreferencesHelper.isUserLoggedIn(SplashScreenActivity.this)){
 //                getUserData();
                 decideNextLaunchActivity();
@@ -69,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     SplashScreenActivity.this ,
                     getResources().getString(R.string.error_not_connected_internet)
             );
-        }
+        }*/
     }
 
     private void decideNextLaunchActivity(){
