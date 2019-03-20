@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.model.RefreshTokenResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
@@ -100,7 +101,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         mCustomerDataResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if(response.body()!=null){
+                if(response.body()!=null) {
                     Log.d("Splash", "onResponse: " + response.body());
                     /* save seat count */
                     SharedPreferencesHelper.saveSeatCount(
@@ -125,7 +126,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                             SplashScreenActivity.this ,
                             TouchIdActivity.class
                     );
-                    mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
+                    // Commented By Ashwani
+                    // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, response.body().getData().getUser_data());
+
+                    // Added By Ashwani
+                    SharedPreferencesHelper.saveUserData(SplashScreenActivity.this, response.body().getData().getUser_data());
+
+
                     startActivity(mHomeIntent);
                     finish();
                 }else {

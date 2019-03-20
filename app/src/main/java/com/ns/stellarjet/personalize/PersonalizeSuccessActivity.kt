@@ -22,7 +22,9 @@ class PersonalizeSuccessActivity : AppCompatActivity() {
                 this,
                 HomeActivity::class.java
             )
-            mIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
+            // Commented By Ashwani
+            //mIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
+
             startActivity(mIntent)
             finish()
         }

@@ -44,7 +44,10 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
 
         binding = DataBindingUtil.setContentView(this , R.layout.activity_pass_code);
 
-        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        // Commented By Ashwani
+        // mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+
+        mUserData = SharedPreferencesHelper.getUserData(this);
 
         boolean isEntryDone = SharedPreferencesHelper.isEntryLogin(PassCodeActivity.this);
 
@@ -350,7 +353,8 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
     private void launchHomeActivity(){
         Intent mHomeIntent = new Intent(PassCodeActivity.this , HomeActivity.class);
         // send bundle
-        mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        // Commented By Ashwani
+        // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mHomeIntent);
         finish();

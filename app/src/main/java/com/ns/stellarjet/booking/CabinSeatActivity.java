@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ns.networking.model.FlightSeatsConfirmResponse;
+import com.ns.networking.model.LockedSeats;
 import com.ns.networking.model.flightsseats.FlightSeatListResponse;
 import com.ns.networking.model.flightsseats.FlightSeats;
 import com.ns.networking.model.flightsseats.SeatsLockedByUser;
@@ -188,13 +189,18 @@ public class CabinSeatActivity extends AppCompatActivity implements View.OnClick
 
         mSeatConfirmedButton.setOnClickListener(v -> {
             Log.d("BookSeats", "onClick: " + mSelectedSeatList);
-            HomeActivity.mSeatNames.clear();
-            HomeActivity.mSeatNamesId.clear();
+            List<LockedSeats> lockedSeats = new ArrayList<>();
             for (int i = 0; i < mSelectedSeatList.size(); i++) {
                 if(mSelectedSeatList.get(i).isSelected()){
                     int seatID = Integer.valueOf(mSelectedSeatList.get(i).getSeatId());
                     HomeActivity.mSeatNames.add(mSelectedSeatList.get(i).getSeatName());
                     HomeActivity.mSeatNamesId.add(seatID);
+
+                    // Here i am doing for LockedSeats constructor, to update in "updateUserData_LockedSeat()"
+
+//                    LockedSeats seats = new LockedSeats();
+//                    seats.flight_seat.
+
                 }
             }
             int numOfGuests = HomeActivity.mSeatNamesId.size();

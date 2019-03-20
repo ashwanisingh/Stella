@@ -20,6 +20,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
+import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
@@ -325,7 +326,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 progress.hideProgress();
                 if(response.body()!=null){
                     Log.d("PrimaryUsers", "onResponse: " + response.body());
-                    HomeActivity.Companion.clearAllBookingData();
+                    // Commented By Ashwani
+                    // HomeActivity.Companion.clearAllBookingData();
                     SharedPreferencesHelper.saveUserToken(OTPActivity.this , response.body().getData().getToken());
                     SharedPreferencesHelper.saveUserRefreshToken(OTPActivity.this , response.body().getData().getRefresh_token());
                     SharedPreferencesHelper.saveUserRefreshToken(OTPActivity.this , response.body().getData().getRefresh_token());
@@ -339,8 +341,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                             OTPActivity.this ,
                             PassCodeActivity.class
                     );
+
+                    // Commented By Ashwani
+                    // mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
+
+                    // Added By Ashwani
+                    SharedPreferencesHelper.saveUserData(OTPActivity.this, response.body().getData().getUser_data());
+
                     mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
                     startActivity(mPassCodeIntent);
                 }else {
                     UiUtils.Companion.showToast(

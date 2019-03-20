@@ -24,12 +24,12 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private CancellationSignal cancellationSignal;
     private Context context;
-    private UserData mUserData;
+//    private UserData mUserData;
 
 
     public FingerprintHandler(Context mContext , UserData userDataParams) {
         context = mContext;
-        mUserData = userDataParams;
+//        mUserData = userDataParams;
     }
 
     public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
@@ -69,8 +69,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private void launchHomeActivity(){
         Intent mHomeIntent = new Intent(context, HomeActivity.class);
-        // send bundle
-        mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        // Commented By Ashwani
+        // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mHomeIntent);
         ((Activity)context).finish();
@@ -79,8 +79,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private void launchPasscodeActivity(){
         Intent mPasscodeIntent = new Intent(context , PassCodeActivity.class);
-        // send bundle
-        mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        // Commented By Ashwani
+        // mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         mPasscodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mPasscodeIntent);
         ((Activity)context).finish();

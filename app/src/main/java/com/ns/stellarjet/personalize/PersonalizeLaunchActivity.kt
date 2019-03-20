@@ -123,7 +123,9 @@ class PersonalizeLaunchActivity : AppCompatActivity() {
             this ,
             HomeActivity::class.java
         )
-        mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
+
+        // Commented By Ashwani
+        // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , HomeActivity.sUserData)
         startActivity(mHomeIntent)
         finish()
         clearPersonalizedPreferences()

@@ -49,7 +49,7 @@ public class FromFragment extends Fragment implements PlaceSelectAdapter.onPlace
         FragmentFromBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_from, container, false);
         View mRootView = dataBinding.getRoot();
 
-        List<City> mCitiesList = HomeActivity.sUserData.getCities();
+        List<City> mCitiesList = SharedPreferencesHelper.getUserData(getActivity()).getCities();
 
         PlaceSelectAdapter mPlaceSelectAdapter = new PlaceSelectAdapter(
                 this ,

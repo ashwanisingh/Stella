@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.Booking
 import com.ns.networking.model.BookingDetailsResponse
 import com.ns.networking.model.CancelBookingResponse
+import com.ns.networking.model.UserData
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBookingsDetailsBinding
@@ -36,6 +37,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
         var bookingData: Booking? = null
     }
 
+    // Added By Ashwani
+    var sUserData: UserData? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +47,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
             this ,
             R.layout.activity_bookings_details
         )
+
+        // Added By Ashwani
+        sUserData = SharedPreferencesHelper.getUserData(this)
 
         bookingType = intent.extras?.getString("bookingType")
         mSelectedIndex = intent.extras?.getInt("selectedBookingPosition")
@@ -252,12 +259,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
         var seatsName = ""
         if(bookingData?.travelling_self ==1){
             if(bookingData?.prefs?.main_passenger?.status.equals("Confirmed" , true)){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = sUserData?.name!!
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }else if(bookingType.equals("completed" , true) &&
                 bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = sUserData?.name!!
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }
@@ -426,7 +433,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             var passengersName = ""
             var seatsName = ""
             if(bookingData?.travelling_self ==1){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = sUserData?.name!!
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }

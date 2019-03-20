@@ -5,10 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ns.networking.model.LockedSeats;
+import com.ns.networking.model.UserData;
 import com.ns.stellarjet.booking.PassengerListActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SharedPreferencesHelper {
 
@@ -489,6 +492,31 @@ public class SharedPreferencesHelper {
         SharedPreferencesHelper.saveJourneyDate(context , "");
         SharedPreferencesHelper.saveArrivalTime(context , "");
         SharedPreferencesHelper.saveScheduleId(context , "");
+    }
+
+
+    public static void saveUserData(Context context, UserData userData) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(userData); // myObject - instance of MyObject
+        editor.putString("UserData", json);
+        editor.commit();
+    }
+
+    public static UserData getUserData(Context context) {
+        SharedPreferences preferences = getSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = preferences.getString("UserData", "");
+        return gson.fromJson(json, UserData.class);
+    }
+
+
+    public static void updateUserData_LockedSeat(Context context, UserData userData, List<LockedSeats> lockedSeats) {
+
+        List<LockedSeats> locked = userData.getLocked_seats();
+        locked = lockedSeats;
+        saveUserData(context, userData);
+
     }
 
 

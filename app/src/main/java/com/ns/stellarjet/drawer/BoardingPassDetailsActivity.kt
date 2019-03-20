@@ -5,9 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.Booking
+import com.ns.networking.model.UserData
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBoardingPassDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
+import com.ns.stellarjet.utils.SharedPreferencesHelper
 import com.ns.stellarjet.utils.StellarJetUtils
 import com.ns.stellarjet.utils.TermsConditionPanel
 import com.ns.stellarjet.utils.ToastUtils
@@ -16,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_boarding_pass_details.*
 class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCSliderListener {
 
     var tcPanel: TermsConditionPanel? = null;
+
+    // Added By Ashwani
+    var sUserData: UserData? = null
 
     override fun onTcSliderVisibilityChanged(visibility: Int) {
 
@@ -38,6 +43,9 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Added By Ashwani
+        sUserData = SharedPreferencesHelper.getUserData(this)
+
         val binding : ActivityBoardingPassDetailsBinding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_boarding_pass_details
@@ -54,7 +62,7 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
         var seatsName = ""
         var numSeats = 0
         if(boardingPass?.travelling_self ==1){
-            passengersName = HomeActivity.sUserData.name
+            passengersName = sUserData?.name!!
             seatsName = boardingPass.customer_seat?.seat_code!!
             numSeats += 1
         }

@@ -16,6 +16,7 @@ import com.ns.networking.model.PrimaryUser;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.SplashScreenActivity;
 import com.ns.stellarjet.home.adapter.PrimaryUsersAdapter;
 import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
@@ -93,7 +94,8 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
                 progress.hideProgress();
                 if(response.body()!=null){
                     Log.d("PrimaryUsers", "onResponse: " + response.body());
-                    HomeActivity.Companion.clearAllBookingData();
+                    // Commented By Ashwani
+                    // HomeActivity.Companion.clearAllBookingData();
                     SharedPreferencesHelper.saveUserToken(PrimaryUsersActivity.this , response.body().getData().getToken());
                     SharedPreferencesHelper.saveUserRefreshToken(PrimaryUsersActivity.this , response.body().getData().getRefresh_token());
                     SharedPreferencesHelper.saveUserRefreshToken(PrimaryUsersActivity.this , response.body().getData().getRefresh_token());
@@ -110,7 +112,13 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
                             PrimaryUsersActivity.this ,
                             HomeActivity.class
                     );
-                    mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
+
+                    // Commented By Ashwani
+                    // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
+
+                    // Added By Ashwani
+                    SharedPreferencesHelper.saveUserData(PrimaryUsersActivity.this, response.body().getData().getUser_data());
+
                     mHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mHomeIntent);
                 }else {

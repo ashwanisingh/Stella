@@ -18,6 +18,7 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.ns.networking.model.SavedAddressResponse;
 import com.ns.networking.model.SavedAddresse;
+import com.ns.networking.model.UserData;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivitySavedAddressBinding;
@@ -73,11 +74,14 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     SavedAddressListActivity.this ,
                     AddAddressScrollActivity.class
             );
+
+            UserData userData = SharedPreferencesHelper.getUserData(this);
+
             int selectedCityId = 0;
-            int citiesSize = HomeActivity.sUserData.getCities().size();
+            int citiesSize = userData.getCities().size();
             for (int i = 0; i < citiesSize; i++) {
-                if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
-                    selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                if(userData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                    selectedCityId = userData.getCities().get(i).getId();
                 }
             }
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
@@ -221,11 +225,13 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                             SavedAddressListActivity.this ,
                             AddAddressScrollActivity.class
                     );
+                    UserData userData = SharedPreferencesHelper.getUserData(this);
+
                     int selectedCityId = 0;
-                    int citiesSize = HomeActivity.sUserData.getCities().size();
+                    int citiesSize = userData.getCities().size();
                     for (int i = 0; i < citiesSize; i++) {
-                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
-                            selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                        if(userData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                            selectedCityId = userData.getCities().get(i).getId();
                         }
                     }
                     mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
@@ -246,11 +252,13 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                             SavedAddressListActivity.this ,
                             AddAddressScrollActivity.class
                     );
+                    UserData userData = SharedPreferencesHelper.getUserData(this);
+
                     int selectedCityId = 0;
-                    int citiesSize = HomeActivity.sUserData.getCities().size();
+                    int citiesSize = userData.getCities().size();
                     for (int i = 0; i < citiesSize; i++) {
-                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
-                            selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                        if(userData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                            selectedCityId = userData.getCities().get(i).getId();
                         }
                     }
                     mIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);

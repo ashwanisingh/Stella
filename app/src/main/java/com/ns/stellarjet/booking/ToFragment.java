@@ -59,7 +59,7 @@ public class ToFragment extends Fragment implements PlaceSelectAdapter.onPlaceSe
         FragmentToBinding dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_to, container, false);
         View mRootView = dataBinding.getRoot();
 
-        List<City> mCitiesList = HomeActivity.sUserData.getCities();
+        List<City> mCitiesList = SharedPreferencesHelper.getUserData(getActivity()).getCities();
 
         List<City> mDisplayCitiesList = new ArrayList<>();
 

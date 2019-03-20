@@ -13,6 +13,7 @@ import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.PassCodeActivity;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.databinding.ActivityPasswordBinding;
+import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -163,7 +164,13 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
                     PasswordActivity.this,
                     PassCodeActivity.class
             );
-            mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, mLoginResponse.getData().getUser_data());
+
+            // Commented By Ashwani
+            // mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA, mLoginResponse.getData().getUser_data());
+
+            // Added By Ashwani
+            SharedPreferencesHelper.saveUserData(PasswordActivity.this, mLoginResponse.getData().getUser_data());
+
             mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mPassCodeIntent);
         }

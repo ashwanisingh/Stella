@@ -184,7 +184,7 @@ data class UserInfo(
     val name: String?
 ) : Parcelable
 
-@Parcelize
+/*@Parcelize
 data class LockedSeats(
     val flight: Flight?,
     val flight_id: Int?,
@@ -203,7 +203,7 @@ data class LockedSeats(
     val direction : String?,
     val sun_rise_set : String?,
     val arrival_time : String?
-):Parcelable
+):Parcelable*/
 
 @Parcelize
 data class Flight(

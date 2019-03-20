@@ -9,19 +9,15 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.ns.networking.model.BookingConfirmResponse;
-import com.ns.networking.model.GuestConfirmResponse;
-import com.ns.networking.model.LoginResponse;
+import com.ns.networking.model.*;
 import com.ns.networking.model.guestrequest.*;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.SplashScreenActivity;
 import com.ns.stellarjet.booking.adapter.PassengersAdapter;
 import com.ns.stellarjet.databinding.ActivityPassengerBinding;
 import com.ns.stellarjet.home.HomeActivity;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
-import com.ns.stellarjet.utils.StellarJetUtils;
-import com.ns.stellarjet.utils.UIConstants;
+import com.ns.stellarjet.utils.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +44,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     private boolean isOnlyNewGuestsAdded = false;
     private List<Integer> mGuestIdsList = new ArrayList<>();
 
+    // Added By Ashwani
+    private UserData mUserData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +64,14 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
             activityPassengerBinding.textViewPassengerGuests.setText(getResources().getString(R.string.info_passenger_guests));
         }
 
+        // Added By Ashwani
+        mUserData = SharedPreferencesHelper.getUserData(this);
+
         /* set RecyclerView */
         PassengersAdapter mPassengersAdapter = new PassengersAdapter(
                 this ,
                 this,
-                HomeActivity.sUserData.getContacts() ,
+                mUserData,
                 numOfGuests ,
                 true
         );
@@ -94,7 +96,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
 
         activityPassengerBinding.textViewPassengerSelf.setOnClickListener(v -> {
             isOnlySelfTravelling  =true;
-            PassengersAdapter.changeSelfInfo(PassengerActivity.this , true);
+            PassengersAdapter.changeSelfInfo(PassengerActivity.this , true, mUserData);
             activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select_bg));
             activityPassengerBinding.textViewPassengerSelf.setTextColor(
                     ContextCompat.getColor(PassengerActivity.this , android.R.color.black)
@@ -112,7 +114,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         activityPassengerBinding.textViewPassengerGuests.setOnClickListener(v -> {
             if(isOnlySelfTravelling){
                 isOnlySelfTravelling  =false;
-                PassengersAdapter.changeSelfInfo(PassengerActivity.this,false);
+                PassengersAdapter.changeSelfInfo(PassengerActivity.this,false, mUserData);
                 activityPassengerBinding.textViewPassengerSelf.setBackground(getDrawable(R.drawable.drawable_passenger_select));
                 activityPassengerBinding.textViewPassengerSelf.setTextColor(
                         ContextCompat.getColor(PassengerActivity.this , R.color.colorPassengerText)
@@ -148,6 +150,7 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
     }
 
 
+
     private void bookFlight(){
         int selfTravelling;
         if(isOnlySelfTravelling){
@@ -157,6 +160,9 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
         }
         final Progress progress = Progress.getInstance();
         progress.showProgress(PassengerActivity.this);
+
+
+
         Call<BookingConfirmResponse> mBookingConfirmResponseCall =  RetrofitAPICaller.getInstance(PassengerActivity.this).getStellarJetAPIs()
                 .confirmFlightBooking(
                         SharedPreferencesHelper.getUserToken(PassengerActivity.this) ,
@@ -166,7 +172,10 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
                         SharedPreferencesHelper.getJourneyTime(PassengerActivity.this) ,
                         SharedPreferencesHelper.getArrivalTime(PassengerActivity.this) ,
                         SharedPreferencesHelper.getFlightId(PassengerActivity.this) ,
-                        HomeActivity.mSeatNamesId ,
+                        // Commented By Ashwani
+                        // HomeActivity.mSeatNamesId ,
+                        // Added By Ashwani
+                        UserUtil.getFligtSeatsId(mUserData),
                         mGuestList ,
                         selfTravelling ,
                         SharedPreferencesHelper.getScheduleId(PassengerActivity.this),
@@ -218,7 +227,10 @@ public class PassengerActivity extends AppCompatActivity implements PassengersAd
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.body()!=null){
-                    HomeActivity.sUserData = response.body().getData().getUser_data();
+                    // Commented By Ashwani
+                    // HomeActivity.sUserData = response.body().getData().getUser_data();
+                    // Added By Ashwani
+                    SharedPreferencesHelper.saveUserData(PassengerActivity.this, response.body().getData().getUser_data());
                 }else {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());

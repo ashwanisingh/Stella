@@ -297,7 +297,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     }
 
     private boolean isNamePresent(String name){
-        List<Contact> items = HomeActivity.sUserData.getContacts();
+        List<Contact> items = SharedPreferencesHelper.getUserData(this).getContacts();
         boolean result = false;
         for (int i = 0; i < items.size(); i++) {
             if(items.get(i).getName().equalsIgnoreCase(name)){
@@ -308,7 +308,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     }
 
     private boolean isMobileNumberPresent(String mobileNumber){
-        List<Contact> items = HomeActivity.sUserData.getContacts();
+        List<Contact> items = SharedPreferencesHelper.getUserData(this).getContacts();
         boolean result = false;
         for (int i = 0; i < items.size(); i++) {
             if(items.get(i).getPhone().equalsIgnoreCase(mobileNumber)){
@@ -368,8 +368,10 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
                 passengerName.setText("Me-"+mSeatNamesList.get(0));
 
-                mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
-                mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+                UserData userData = SharedPreferencesHelper.getUserData(this);
+
+                mNamesAutoCompleteTextView.setText(userData.getName());
+                mMobileNumberEditText.setText(userData.getPhone());
                 mNamesAutoCompleteTextView.setEnabled(false);
                 mNamesAutoCompleteTextView.setAlpha(0.4f);
                 mMobileNumberEditText.setEnabled(false);
@@ -497,8 +499,10 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
                 passengerName.setText("Me-"+mSeatNamesList.get(0));
 
-                mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
-                mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+                UserData userData = SharedPreferencesHelper.getUserData(this);
+
+                mNamesAutoCompleteTextView.setText(userData.getName());
+                mMobileNumberEditText.setText(userData.getPhone());
                 mNamesAutoCompleteTextView.setEnabled(false);
                 mNamesAutoCompleteTextView.setAlpha(0.4f);
                 mMobileNumberEditText.setEnabled(false);
@@ -540,7 +544,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     }
 
     private void getGuestNames(){
-        List<Contact> items = HomeActivity.sUserData.getContacts();
+        List<Contact> items = SharedPreferencesHelper.getUserData(this).getContacts();
         mGuestNamesList = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             mGuestNamesList.add(items.get(i).getName());
@@ -548,7 +552,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
     }
 
     private String makeFilledData(String name , int passengerPosition){
-        List<Contact> items = HomeActivity.sUserData.getContacts();
+        List<Contact> items = SharedPreferencesHelper.getUserData(this).getContacts();
         String mobileNumber = "";
         for (int i = 0; i < items.size(); i++) {
             if(items.get(i).getName().equalsIgnoreCase(name)){
@@ -784,7 +788,9 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.body()!=null){
-                    HomeActivity.sUserData = response.body().getData().getUser_data();
+                    // Commented By Ashwani
+                    // HomeActivity.sUserData = response.body().getData().getUser_data();
+                    SharedPreferencesHelper.saveUserData(PassengerListActivity.this, response.body().getData().getUser_data());
                 }else {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());

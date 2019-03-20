@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ns.networking.model.UserData
 import com.ns.networking.model.foods.FoodCategorySelection
 import com.ns.networking.model.foods.FoodDaysSelection
 import com.ns.networking.model.foods.GlobalFoodPrefResponse
@@ -32,9 +33,15 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
 
     private val mSelectedFoodList = mutableListOf<FoodCategorySelection>()
 
+    // Added By Ashwani
+    var sUserData: UserData? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.ns.stellarjet.R.layout.activity_global_food_selection)
+
+        // Added By Ashwani
+        sUserData = SharedPreferencesHelper.getUserData(this)
 
         makeFoodListLayout()
         fillFoodListLayout()
@@ -88,19 +95,19 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
                     UiUtils.showToast(this@GlobalFoodSelectionActivity  ,
                         response.body()?.message!!
                     )
-                    for(i in 0 until  mSelectedFoodList.size){
+                    for(i in 0 until  mSelectedFoodList.size) {
                         val foodType = mSelectedFoodList[i].foodType
-                        HomeActivity.sUserData.customer_prefs.food_prefs[i].food_category = foodType
-                        HomeActivity.sUserData.customer_prefs.food_prefs[i].days.clear()
+                        sUserData?.customer_prefs?.food_prefs!![i].food_category = foodType
+                        sUserData?.customer_prefs?.food_prefs!![i].days.clear()
                         for(foodDays in mSelectedFoodList[i].getmFoodDaysSelection()){
                             var daysList = mutableListOf<String>()
                             if(foodDays.isSelected){
                                 daysList.add(foodDays.daysName)
-                                HomeActivity.sUserData.customer_prefs.food_prefs[i].days.add(foodDays.daysName)
+                                sUserData?.customer_prefs?.food_prefs!![i].days.add(foodDays.daysName)
                             }
                         }
                     }
-                    Log.d("Food" , HomeActivity.sUserData.customer_prefs.toString())
+
                 }else{
                     UiUtils.showToast(this@GlobalFoodSelectionActivity  ,
                         "Please try again later"
@@ -118,18 +125,18 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
     }
 
     private fun makeFoodListLayout(){
-        val foodCount = HomeActivity.sUserData.customer_prefs.food_categories.size
+        val foodCount = sUserData?.customer_prefs?.food_categories?.size
         val layoutInflater: LayoutInflater = LayoutInflater.from(this@GlobalFoodSelectionActivity)
 
-        for (i in 0 until foodCount) {
+        for (i in 0 until foodCount!!) {
             val v = layoutInflater.inflate(R.layout.layout_row_global_food, null)
             v.tag = "FoodItems $i"
-            if(!HomeActivity.sUserData.customer_prefs.food_categories[i].show_days){
+            if(!sUserData?.customer_prefs?.food_categories!![i].show_days){
                 val daysLayout = v.findViewById<LinearLayout>(com.ns.stellarjet.R.id.layout_row_global_days)
                 daysLayout.visibility = View.GONE
             }
             layout_global_food.addView(v)
-            val foodType = HomeActivity.sUserData.customer_prefs.food_categories[i].cat_key
+            val foodType = sUserData?.customer_prefs?.food_categories!![i].cat_key
             var isSelected = false
             val mFoodDaysList = mutableListOf<FoodDaysSelection>()
             mFoodDaysList.add(FoodDaysSelection("Sunday" , false))
@@ -139,13 +146,17 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
             mFoodDaysList.add(FoodDaysSelection("Thursday" , false))
             mFoodDaysList.add(FoodDaysSelection("Friday" , false))
             mFoodDaysList.add(FoodDaysSelection("Saturday" , false))
-            if(HomeActivity.sUserData.customer_prefs.food_prefs.isNotEmpty() &&
-                HomeActivity.sUserData.customer_prefs.food_prefs[i].days.isNotEmpty()){
-                isSelected = true
-                for (day in HomeActivity.sUserData.customer_prefs.food_prefs[i].days){
-                    for (it in mFoodDaysList){
-                        if(day.equals(it.daysName, true)){
-                            it.isSelected = true
+            // 1st If condition is added By Ashwani
+            if(i < sUserData?.customer_prefs?.food_prefs!!.size) {
+                if (sUserData?.customer_prefs?.food_prefs!!.isNotEmpty() &&
+                    sUserData?.customer_prefs?.food_prefs!![i].days.isNotEmpty()
+                ) {
+                    isSelected = true
+                    for (day in sUserData?.customer_prefs?.food_prefs!![i].days) {
+                        for (it in mFoodDaysList) {
+                            if (day.equals(it.daysName, true)) {
+                                it.isSelected = true
+                            }
                         }
                     }
                 }
@@ -172,11 +183,11 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
                 .findViewById<ImageView>(com.ns.stellarjet.R.id.imageView_row_global_food_name)
             val daysRecyclerView = layout_global_food.getChildAt(i)
                 .findViewById<RecyclerView>(com.ns.stellarjet.R.id.recyclerView_food_days)
-            val foodType = HomeActivity.sUserData.customer_prefs.food_categories[i].cat_text
+            val foodType = sUserData?.customer_prefs?.food_categories!![i].cat_text
             textViewFoodName.text = foodType
             val foodTypeHeading = "Restrict $foodType for these days"
             textViewFoodTypeHeading.text = foodTypeHeading
-            val foodPrefSize = HomeActivity.sUserData.customer_prefs.food_prefs.size
+            val foodPrefSize = sUserData?.customer_prefs?.food_prefs!!.size
             if(mSelectedFoodList[i].isSelected){
                 foodNameImageView.setImageResource(R.mipmap.ic_food_select)
             }else{

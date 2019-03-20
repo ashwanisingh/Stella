@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.ns.networking.model.UserData
 import com.ns.stellarjet.R
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.PermissionUtils
@@ -21,9 +22,15 @@ class DrawerActivity : AppCompatActivity() {
 
     private val CALL_PHONE_PERMISSION_REQUEST_CODE = 1
 
+    // Added By Ashwani
+    var sUserData: UserData? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawer)
+
+        // Added By Ashwani
+        sUserData = SharedPreferencesHelper.getUserData(this)
 
         button_drawer_close.setOnClickListener {
             onBackPressed()
@@ -32,7 +39,7 @@ class DrawerActivity : AppCompatActivity() {
         button_drawer_personal_assistance.setOnClickListener {
             // TODO : contact number 180042577777
 
-            val customerCare = HomeActivity.sUserData.customer_care_info.phone
+            val customerCare = sUserData?.customer_care_info?.phone!!
             if (ContextCompat.checkSelfPermission(this@DrawerActivity, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
                 // Permission to access the location is missing.
                 PermissionUtils.requestPhonePermission(this ,
@@ -99,7 +106,7 @@ class DrawerActivity : AppCompatActivity() {
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,Manifest.permission.CALL_PHONE)) {
             // Call to customerCare.
-            val customerCare = HomeActivity.sUserData.customer_care_info.phone
+            val customerCare = sUserData?.customer_care_info?.phone!!
             val callIntent = Intent(Intent.ACTION_CALL)
             callIntent.data = Uri.parse("tel:$customerCare")//change the number
             startActivity(callIntent)

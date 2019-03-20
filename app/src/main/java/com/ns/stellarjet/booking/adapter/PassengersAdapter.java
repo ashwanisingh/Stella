@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ns.networking.model.Contact;
+import com.ns.networking.model.UserData;
 import com.ns.networking.model.guestrequest.AddGuestRequestData;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.home.HomeActivity;
@@ -24,13 +25,12 @@ import java.util.List;
 public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.PassengerInfoViewHolder> {
 
     private List<Contact> items;
+    private UserData sUserData;
     private int numOfGuests;
     private onConfirmButtonEnableStateListener mOnConfirmButtonEnableStateListener;
     private onConfirmButtonDisableStateListener mOnConfirmButtonDisableStateListener;
     private List<String> mGuestNamesList = new ArrayList<>();
     public static List<AddGuestRequestData> mGuestRequestDataList  = new ArrayList<>();
-    private List<Integer> mCompeletionList = new ArrayList<>();
-    private List<String> mSelectedNameList= new ArrayList<>();
     public  static List<String> mSelectedPhoneNumberList= new ArrayList<>();
     public static PassengerInfoViewHolder mPassengerInfoViewHolder;
     private boolean isSelfTravelling;
@@ -38,12 +38,13 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
     public PassengersAdapter(
             onConfirmButtonEnableStateListener onConfirmButtonEnableStateListenerParams,
             onConfirmButtonDisableStateListener onConfirmButtonDiaableStateListenerParams,
-            List<Contact> itemsParams ,
+            UserData userData ,
             int numOfGuestsParam ,
             boolean isSelfTravellingParams) {
         mOnConfirmButtonEnableStateListener = onConfirmButtonEnableStateListenerParams;
         mOnConfirmButtonDisableStateListener = onConfirmButtonDiaableStateListenerParams;
-        this.items = itemsParams;
+        this.items = userData.getContacts();
+        sUserData = userData;
         numOfGuests = numOfGuestsParam;
         makeGuestRequestDataList(numOfGuestsParam);
         makeGuestNamesList();
@@ -81,19 +82,19 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
         }
     }
 
-    public static void changeSelfInfo(Context mContext , boolean isSelfTravelling){
+    public static void changeSelfInfo(Context mContext , boolean isSelfTravelling, UserData sUserData){
         if(isSelfTravelling){
             if(mSelectedPhoneNumberList.contains(mGuestRequestDataList.get(0).getGuestMobileNUmber())){
                 mSelectedPhoneNumberList.remove(mGuestRequestDataList.get(0).getGuestMobileNUmber());
             }
             mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_self));
-            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
-            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+            mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText(sUserData.getName());
+            mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText(sUserData.getPhone());
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setEnabled(false);
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setAlpha(0.4f);
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setEnabled(false);
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
-            setSelfInfo();
+            setSelfInfo(sUserData);
         }else {
             if(mSelectedPhoneNumberList.contains(mGuestRequestDataList.get(0).getGuestMobileNUmber())){
                 mSelectedPhoneNumberList.remove(mGuestRequestDataList.get(0).getGuestMobileNUmber());
@@ -110,17 +111,17 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
             mGuestRequestDataList.get(0).setGuestMobileNUmber("");
             mGuestRequestDataList.get(0).setGuestId("");
             mGuestRequestDataList.get(0).setGuestStatus("");
-            mSelectedPhoneNumberList.remove(HomeActivity.sUserData.getPhone());
+            mSelectedPhoneNumberList.remove(sUserData.getPhone());
         }
     }
 
-    private static void setSelfInfo(){
-        mGuestRequestDataList.get(0).setGuestName(HomeActivity.sUserData.getName());
-        mGuestRequestDataList.get(0).setGuestMobileNUmber(HomeActivity.sUserData.getPhone());
+    private static void setSelfInfo( UserData userData){
+        mGuestRequestDataList.get(0).setGuestName(userData.getName());
+        mGuestRequestDataList.get(0).setGuestMobileNUmber(userData.getPhone());
         mGuestRequestDataList.get(0).setGuestId("");
         mGuestRequestDataList.get(0).setGuestStatus("");
-        if(!mSelectedPhoneNumberList.contains(HomeActivity.sUserData.getPhone())){
-            mSelectedPhoneNumberList.add(HomeActivity.sUserData.getPhone());
+        if(!mSelectedPhoneNumberList.contains(userData.getPhone())){
+            mSelectedPhoneNumberList.add(userData.getPhone());
         }
     }
 
@@ -150,13 +151,13 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
         public void bind(final int position){
             if(isSelfTravelling && position ==0 ){
                 mPassengerTitleTextView.setText("Self");
-                mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
-                mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
+                mPassengerNameAutoCompleteTextView.setText(sUserData.getName());
+                mPassengerSelfMobileNumberEditText.setText(sUserData.getPhone());
                 mPassengerNameAutoCompleteTextView.setEnabled(false);
                 mPassengerNameAutoCompleteTextView.setAlpha(0.4f);
                 mPassengerSelfMobileNumberEditText.setEnabled(false);
                 mPassengerSelfMobileNumberEditText.setAlpha(0.4f);
-                setSelfInfo();
+                setSelfInfo(sUserData);
             }else if(!isSelfTravelling && position ==0){
                 mPassengerTitleTextView.setText("Passenger 1");
                 mPassengerNameAutoCompleteTextView.setText("");
@@ -169,7 +170,7 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
                 mGuestRequestDataList.get(0).setGuestMobileNUmber("");
                 mGuestRequestDataList.get(0).setGuestId("");
                 mGuestRequestDataList.get(0).setGuestStatus("");
-                mSelectedPhoneNumberList.remove(HomeActivity.sUserData.getPhone());
+                mSelectedPhoneNumberList.remove(sUserData.getPhone());
             }else if(position!=0){
                 mPassengerTitleTextView.setText(
                         itemView.getContext().getResources().getString(R.string.info_passenger_text) +" "+(position+1));

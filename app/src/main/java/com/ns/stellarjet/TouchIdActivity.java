@@ -17,6 +17,7 @@ import androidx.legacy.app.ActivityCompat;
 import com.ns.networking.model.UserData;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.utils.FingerprintHandler;
+import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
 
 import javax.crypto.Cipher;
@@ -46,7 +47,11 @@ public class TouchIdActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toucd_id);
 
-        mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+        // Commented By Ashwani
+        // mUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelable(UIConstants.BUNDLE_USER_DATA);
+
+        // Added by Ashwani
+        SharedPreferencesHelper.getUserData(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 
@@ -228,16 +233,16 @@ public class TouchIdActivity extends AppCompatActivity{
 
     private void launchHomeActivity(){
         Intent mHomeIntent = new Intent(TouchIdActivity.this , HomeActivity.class);
-        // send bundle
-        mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        // Commented By Ashwani
+        // mHomeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         startActivity(mHomeIntent);
         finish();
     }
 
     private void launchPassCodeActivity(){
         Intent mPasscodeIntent = new Intent(TouchIdActivity.this , PassCodeActivity.class);
-        // send bundle
-        mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
+        // Commented By Ashwani
+        // mPasscodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , mUserData);
         startActivity(mPasscodeIntent);
         finish();
     }
