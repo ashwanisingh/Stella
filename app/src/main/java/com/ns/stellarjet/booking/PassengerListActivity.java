@@ -366,7 +366,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                             .findViewById(R.id.autoComplete_passenger_self_name);
             if (isOnlySelfTravelling) {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Me-"+mSeatNamesList.get(0));
+                passengerName.setText("Me - "+mSeatNamesList.get(0));
 
                 mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
                 mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
@@ -376,7 +376,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 mMobileNumberEditText.setAlpha(0.4f);
             }else {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Passenger Name (1) -"+mSeatNamesList.get(0));
+                passengerName.setText("Passenger Name (1) - "+mSeatNamesList.get(0));
                 mNamesAutoCompleteTextView.getText().clear();
                 mMobileNumberEditText.getText().clear();
                 mNamesAutoCompleteTextView.setEnabled(true);
@@ -401,7 +401,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         int childCount = activityPassengerBinding.layoutPassengerScroll.getChildCount();
         for (int i = 0; i < childCount; i++) {
             TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(i).findViewById(R.id.textView_passenger_self);
-            passengerName.setText("Passenger Name ("+(i+1)+")- "+mSeatNamesList.get(i));
+            passengerName.setText("Passenger Name ("+(i+1)+") - "+mSeatNamesList.get(i));
             EditText mMobileNumberEditText =
                     activityPassengerBinding.layoutPassengerScroll
                             .getChildAt(i)
@@ -495,7 +495,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                             .findViewById(R.id.autoComplete_passenger_self_name);
             if (isOnlySelfTravelling) {
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Me-"+mSeatNamesList.get(0));
+                passengerName.setText("Me - "+mSeatNamesList.get(0));
 
                 mNamesAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
                 mMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());
@@ -505,7 +505,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 mMobileNumberEditText.setAlpha(0.4f);
             }else{
                 TextView passengerName = activityPassengerBinding.layoutPassengerScroll.getChildAt(0).findViewById(R.id.textView_passenger_self);
-                passengerName.setText("Passenger Name -"+mSeatNamesList.get(0));
+                passengerName.setText("Passenger Name - "+mSeatNamesList.get(0));
             }
         }
     }
@@ -882,7 +882,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         }
     }
 
-    private void getOrderId(){
+    private void getOrderId() {
         final Progress progress = Progress.getInstance();
         progress.showProgress(PassengerListActivity.this);
         Call<PurchaseSeatsResponse> mPurchaseIdCall = RetrofitAPICaller.getInstance(PassengerListActivity.this)

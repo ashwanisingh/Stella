@@ -27,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GlobalFoodSelectionActivity : AppCompatActivity(){
+class GlobalFoodSelectionActivity : AppCompatActivity() {
 
 
     private val mSelectedFoodList = mutableListOf<FoodCategorySelection>()
@@ -45,31 +45,31 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
 
         button_global_food_confirm.setOnClickListener {
             val jsonArray = JSONArray()
-            for (it in mSelectedFoodList){
+            for (it in mSelectedFoodList) {
                 val mIndividualJsonObject = JSONObject()
-                mIndividualJsonObject.put("food_category" , it.foodType)
-                if(it.isSelected){
+                mIndividualJsonObject.put("food_category", it.foodType)
+                if (it.isSelected) {
                     val daysJsonArray = JSONArray()
-                    for (foodDays in it.getmFoodDaysSelection()){
-                        if(foodDays.isSelected){
-                            daysJsonArray.put( foodDays.daysName)
+                    for (foodDays in it.getmFoodDaysSelection()) {
+                        if (foodDays.isSelected) {
+                            daysJsonArray.put(foodDays.daysName)
                         }
                     }
-                    mIndividualJsonObject.put("days" , daysJsonArray)
+                    mIndividualJsonObject.put("days", daysJsonArray)
                     jsonArray.put(mIndividualJsonObject)
-                }else{
+                } else {
                     val daysJsonArray = JSONArray()
-                    mIndividualJsonObject.put("days" , daysJsonArray)
+                    mIndividualJsonObject.put("days", daysJsonArray)
                     jsonArray.put(mIndividualJsonObject)
                 }
             }
 
-            Log.d("GlobalFood" , jsonArray.toString())
+            Log.d("GlobalFood", jsonArray.toString())
             updateFoodPreferences(jsonArray)
         }
     }
 
-    private fun updateFoodPreferences(jsonArray : JSONArray) {
+    private fun updateFoodPreferences(jsonArray: JSONArray) {
         val progress = Progress.getInstance()
         progress.showProgress(this@GlobalFoodSelectionActivity)
         val upcomingBook: Call<GlobalFoodPrefResponse> = RetrofitAPICaller.getInstance(this@GlobalFoodSelectionActivity)
@@ -82,27 +82,30 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
             override fun onResponse(
                 call: Call<GlobalFoodPrefResponse>,
                 response:
-                Response<GlobalFoodPrefResponse>) {
+                Response<GlobalFoodPrefResponse>
+            ) {
                 progress.hideProgress()
-                if(response.code() == 200){
-                    UiUtils.showToast(this@GlobalFoodSelectionActivity  ,
+                if (response.code() == 200) {
+                    UiUtils.showToast(
+                        this@GlobalFoodSelectionActivity,
                         response.body()?.message!!
                     )
-                    for(i in 0 until  mSelectedFoodList.size){
+                    for (i in 0 until mSelectedFoodList.size) {
                         val foodType = mSelectedFoodList[i].foodType
                         HomeActivity.sUserData.customer_prefs.food_prefs[i].food_category = foodType
                         HomeActivity.sUserData.customer_prefs.food_prefs[i].days.clear()
-                        for(foodDays in mSelectedFoodList[i].getmFoodDaysSelection()){
+                        for (foodDays in mSelectedFoodList[i].getmFoodDaysSelection()) {
                             var daysList = mutableListOf<String>()
-                            if(foodDays.isSelected){
+                            if (foodDays.isSelected) {
                                 daysList.add(foodDays.daysName)
                                 HomeActivity.sUserData.customer_prefs.food_prefs[i].days.add(foodDays.daysName)
                             }
                         }
                     }
-                    Log.d("Food" , HomeActivity.sUserData.customer_prefs.toString())
-                }else{
-                    UiUtils.showToast(this@GlobalFoodSelectionActivity  ,
+                    Log.d("Food", HomeActivity.sUserData.customer_prefs.toString())
+                } else {
+                    UiUtils.showToast(
+                        this@GlobalFoodSelectionActivity,
                         "Please try again later"
                     )
                 }
@@ -117,14 +120,14 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
         })
     }
 
-    private fun makeFoodListLayout(){
+    private fun makeFoodListLayout() {
         val foodCount = HomeActivity.sUserData.customer_prefs.food_categories.size
         val layoutInflater: LayoutInflater = LayoutInflater.from(this@GlobalFoodSelectionActivity)
 
         for (i in 0 until foodCount) {
             val v = layoutInflater.inflate(R.layout.layout_row_global_food, null)
             v.tag = "FoodItems $i"
-            if(!HomeActivity.sUserData.customer_prefs.food_categories[i].show_days){
+            if (!HomeActivity.sUserData.customer_prefs.food_categories[i].show_days) {
                 val daysLayout = v.findViewById<LinearLayout>(com.ns.stellarjet.R.id.layout_row_global_days)
                 daysLayout.visibility = View.GONE
             }
@@ -132,32 +135,39 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
             val foodType = HomeActivity.sUserData.customer_prefs.food_categories[i].cat_key
             var isSelected = false
             val mFoodDaysList = mutableListOf<FoodDaysSelection>()
-            mFoodDaysList.add(FoodDaysSelection("Sunday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Monday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Tuesday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Wednesday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Thursday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Friday" , false))
-            mFoodDaysList.add(FoodDaysSelection("Saturday" , false))
-            if(HomeActivity.sUserData.customer_prefs.food_prefs.isNotEmpty() &&
-                HomeActivity.sUserData.customer_prefs.food_prefs[i].days.isNotEmpty()){
-                isSelected = true
-                for (day in HomeActivity.sUserData.customer_prefs.food_prefs[i].days){
-                    for (it in mFoodDaysList){
-                        if(day.equals(it.daysName, true)){
-                            it.isSelected = true
-                        }
+            mFoodDaysList.add(FoodDaysSelection("Sunday", false))
+            mFoodDaysList.add(FoodDaysSelection("Monday", false))
+            mFoodDaysList.add(FoodDaysSelection("Tuesday", false))
+            mFoodDaysList.add(FoodDaysSelection("Wednesday", false))
+            mFoodDaysList.add(FoodDaysSelection("Thursday", false))
+            mFoodDaysList.add(FoodDaysSelection("Friday", false))
+            mFoodDaysList.add(FoodDaysSelection("Saturday", false))
+            // Commented By Ashwani
+            /*if (HomeActivity.sUserData.customer_prefs.food_prefs.isNotEmpty() &&
+                HomeActivity.sUserData.customer_prefs.food_prefs[i].days.isNotEmpty()
+            ) {*/
+
+            // Added By Ashwani
+            var dd = 0;
+
+            isSelected = true
+            for (day in HomeActivity.sUserData.customer_prefs.food_prefs[dd].days) {
+                for (it in mFoodDaysList) {
+                    if (day.equals(it.daysName, true)) {
+                        it.isSelected = true
                     }
                 }
+                dd++;
             }
-            val foodCategorySelection = FoodCategorySelection(foodType , isSelected ,mFoodDaysList)
+            //}
+            val foodCategorySelection = FoodCategorySelection(foodType, isSelected, mFoodDaysList)
             mSelectedFoodList.add(foodCategorySelection)
         }
     }
 
-    private fun fillFoodListLayout(){
+    private fun fillFoodListLayout() {
         val foodCount = layout_global_food.childCount
-        for (i in 0 until foodCount){
+        for (i in 0 until foodCount) {
             val textViewFoodName = layout_global_food.getChildAt(i)
                 .findViewById<TextView>(com.ns.stellarjet.R.id.textView_row_global_food_name)
             val textViewFoodTypeHeading = layout_global_food.getChildAt(i)
@@ -177,46 +187,47 @@ class GlobalFoodSelectionActivity : AppCompatActivity(){
             val foodTypeHeading = "Restrict $foodType for these days"
             textViewFoodTypeHeading.text = foodTypeHeading
             val foodPrefSize = HomeActivity.sUserData.customer_prefs.food_prefs.size
-            if(mSelectedFoodList[i].isSelected){
+            if (mSelectedFoodList[i].isSelected) {
                 foodNameImageView.setImageResource(R.mipmap.ic_food_select)
-            }else{
+            } else {
                 foodNameImageView.setImageResource(R.mipmap.ic_food_unselect)
             }
             foodsNameLayout.setOnClickListener {
-                if(mSelectedFoodList[i].isSelected){
+                if (mSelectedFoodList[i].isSelected) {
                     foodNameImageView.setImageResource(R.mipmap.ic_food_unselect)
                     mSelectedFoodList[i].isSelected = false
                     daysRecyclerView.visibility = View.GONE
                     daysImageView.setImageDrawable(getDrawable(R.drawable.ic_down))
-                }else{
+                } else {
                     foodNameImageView.setImageResource(R.mipmap.ic_food_select)
                     mSelectedFoodList[i].isSelected = true
                 }
             }
-            daysLayout.setOnClickListener{
-                if(mSelectedFoodList[i].isSelected){
+            daysLayout.setOnClickListener {
+                if (mSelectedFoodList[i].isSelected) {
                     scrollView_global_food.fullScroll(View.FOCUS_DOWN)
-                    if(daysRecyclerView.visibility == View.GONE){
+                    if (daysRecyclerView.visibility == View.GONE) {
                         daysImageView.setImageDrawable(getDrawable(R.drawable.ic_up))
                         daysRecyclerView.visibility = View.VISIBLE
-                    }else {
+                    } else {
                         daysImageView.setImageDrawable(getDrawable(R.drawable.ic_down))
                         daysRecyclerView.visibility = View.GONE
                     }
                 }
             }
-            val foodDaysAdapter = FoodDaysAdapter(mSelectedFoodList[i].getmFoodDaysSelection() ,
+            val foodDaysAdapter = FoodDaysAdapter(mSelectedFoodList[i].getmFoodDaysSelection(),
                 onSelectUsersListener = { foodDaysSelection: FoodDaysSelection, position: Int ->
-                    mSelectedFoodList[i].getmFoodDaysSelection()[position].daysName =foodDaysSelection.daysName
-                    mSelectedFoodList[i].getmFoodDaysSelection()[position].isSelected=foodDaysSelection.isSelected
+                    mSelectedFoodList[i].getmFoodDaysSelection()[position].daysName = foodDaysSelection.daysName
+                    mSelectedFoodList[i].getmFoodDaysSelection()[position].isSelected = foodDaysSelection.isSelected
                 })
             val layoutManager = LinearLayoutManager(
-                this@GlobalFoodSelectionActivity ,
-                RecyclerView.HORIZONTAL ,
-                false)
+                this@GlobalFoodSelectionActivity,
+                RecyclerView.HORIZONTAL,
+                false
+            )
 
             daysRecyclerView.layoutManager = layoutManager
-            daysRecyclerView.adapter= foodDaysAdapter
+            daysRecyclerView.adapter = foodDaysAdapter
         }
     }
 }

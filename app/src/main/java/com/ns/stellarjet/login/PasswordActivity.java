@@ -67,6 +67,8 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
 
 
     private void forgotPassword(String username){
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PasswordActivity.this);
         Call<ForgotPasswordResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
                 .getStellarJetAPIs().forgotPassword(username);
 
@@ -81,12 +83,14 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
                 }else if(response.errorBody()!=null){
                     UiUtils.Companion.showServerErrorDialog(PasswordActivity.this);
                 }
+                progress.hideProgress();
             }
 
             @Override
             public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
                 Log.d("Password", "onFailure: " + t);
                 UiUtils.Companion.showServerErrorDialog(PasswordActivity.this);
+                progress.hideProgress();
             }
         });
 

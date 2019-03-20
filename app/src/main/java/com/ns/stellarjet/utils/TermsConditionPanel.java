@@ -21,7 +21,7 @@ public class TermsConditionPanel {
 
     private ImageView mTCCrossImg;
     private Button mTcBotton;
-    private TextView mTCWebView;
+    private WebView mTCWebView;
     private TextView mIAgreetView;
     private boolean mIsUserAgree;
 
@@ -39,8 +39,10 @@ public class TermsConditionPanel {
         // Setting Button Name
         mTcBotton.setText(btnName);
 
-        mTCWebView.setText(tc);
-        mTCWebView.setMovementMethod(new ScrollingMovementMethod());
+        mTCWebView.loadUrl("http://dev.stellarjet.com/app/static/terms.html");
+
+//        mTCWebView.setText(tc);
+//        mTCWebView.setMovementMethod(new ScrollingMovementMethod());
 
 //        mTCWebView.loadUrl("https://news.google.com/?hl=en-IN&gl=IN&ceid=IN:en");
 
