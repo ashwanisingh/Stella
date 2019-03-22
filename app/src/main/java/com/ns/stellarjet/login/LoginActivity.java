@@ -54,8 +54,7 @@ public class LoginActivity extends AppCompatActivity  {
     private void validateUser(String userName){
         final Progress progress = Progress.getInstance();
         progress.showProgress(LoginActivity.this);
-        Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this)
-                .getStellarJetAPIs().doValidateCustomer(userName );
+        Call<ValidateCustomerResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(LoginActivity.this).getStellarJetAPIs().doValidateCustomer(userName );
 
         mLoginResponseCall.enqueue(new Callback<ValidateCustomerResponse>() {
             @Override

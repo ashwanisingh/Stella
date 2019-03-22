@@ -118,9 +118,16 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
         activityPassengerBinding.buttonConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startPayment();
 
-                tcPanel.showTcSlider();
+                if(isAllDataEntered()){
+                    tcPanel.showTcSlider();
+                }else {
+                    UiUtils.Companion.showSimpleDialog(
+                            PassengerListActivity.this ,
+                            "Passenger details needs to be filled"
+                    );
+                }
+
 
                 // Commented By Ashwani
                 //processGuestDetails();

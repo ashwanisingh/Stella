@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import com.google.gson.JsonElement;
 import com.ns.networking.model.ForgotPasswordResponse;
 import com.ns.networking.model.LoginResponse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
@@ -99,6 +100,8 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
     private void doLogin(String username , String password){
         final Progress progress = Progress.getInstance();
         progress.showProgress(PasswordActivity.this);
+
+//        LoginResponse
         Call<LoginResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PasswordActivity.this)
                 .getStellarJetAPIs().doLogin(username , password);
 
@@ -123,7 +126,7 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
                     mPassCodeIntent.putExtra(UIConstants.BUNDLE_USER_DATA , response.body().getData().getUser_data());
                     mPassCodeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mPassCodeIntent);*/
-                }else {
+                } else {
                     try {
                         JSONObject mJsonObject  = new JSONObject(response.errorBody().string());
                         String errorMessage = mJsonObject.getString("message");

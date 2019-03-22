@@ -1,5 +1,6 @@
 package com.ns.networking.retrofit;
 
+import com.google.gson.JsonElement;
 import com.ns.networking.model.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.flightsseats.FlightSeatListResponse;
