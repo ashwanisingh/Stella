@@ -1,13 +1,15 @@
 package com.ns.stellarjet.drawer;
 
-import android.content.DialogInterface;
+import android.content.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ns.networking.model.Booking;
@@ -40,6 +42,8 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
     private ActivityCancelBookingBinding activityBinding;
     private Booking mBooking;
     private int mSelectedIndex = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +147,8 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
                 }
             }
         });
+
+
     }
 
 
@@ -343,4 +349,9 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
             }
         })*/
     }
+
+
+
+
+
 }

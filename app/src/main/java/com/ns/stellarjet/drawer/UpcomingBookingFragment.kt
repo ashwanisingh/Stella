@@ -44,6 +44,9 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
         var adapter: BookingListAdapter? = null
     }
 
+    var mUpcomingBookingHistoryList: List<Booking> = ArrayList()
+    var adapter: BookingListAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,6 +82,10 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
             }
         })
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun getUpcomingBookings() {
@@ -126,8 +133,10 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
         mDetailsIntent.putExtra("selectedBookingPosition" , position)
         mDetailsIntent.putExtra("bookingType" , "upcoming")
         mDetailsIntent.putExtra("from" , "upcoming")
-        requireActivity().startActivity(mDetailsIntent)
+         requireActivity().startActivity(mDetailsIntent)
     }
+
+
 }// Required empty public constructor
 
 

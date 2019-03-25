@@ -152,7 +152,6 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                             addresses.add(response.body().getData().getAddresses().get(i));
                         }
                     }
-//                    addresses = response.body().getData().getAddresses();
                     setSavedAddress(addresses);
                 }
             }

@@ -1,7 +1,11 @@
 package com.ns.stellarjet.drawer
 
+import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -21,6 +25,9 @@ import com.ns.stellarjet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+
+
 
 class BookingsDetailsActivity : AppCompatActivity() {
 
@@ -35,6 +42,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
     companion object {
         var bookingData: Booking? = null
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,6 +136,13 @@ class BookingsDetailsActivity : AppCompatActivity() {
     }
 
     private fun cancelBooking(){
+        /*if(1==1) {
+            val intent = Intent("TicketCancelBroadcast")
+            LocalBroadcastManager.getInstance(this@BookingsDetailsActivity).sendBroadcast(intent)
+
+            finish()
+            return
+        }*/
         val seatIdList : MutableList<Int> = ArrayList()
         if (bookingData?.travelling_self == 1) {
             seatIdList.add(bookingData!!.prefs?.main_passenger?.seats_info?.seat_id!!)
@@ -142,6 +158,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
             seatIdList
         )
 
+
+
         cancelBookingCall.enqueue(object : Callback<CancelBookingResponse> {
             override fun onResponse(
                 call: Call<CancelBookingResponse>,
@@ -149,7 +167,8 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 Response<CancelBookingResponse>) {
                 progress.hideProgress()
 
-                finish()
+                // Commented By Ashwani
+                // finish()
                 if (response.body()!=null){
                     val subscriptionSeats = SharedPreferencesHelper.getSeatCount(this@BookingsDetailsActivity)
                     mSeatCount += subscriptionSeats
@@ -168,10 +187,23 @@ class BookingsDetailsActivity : AppCompatActivity() {
                             .status = "Cancelled"
                     }
                     UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].status = "Cancelled"
+
+
+                    // Sending Local Broadcast and finishing current activity
+                    Handler().postDelayed(Runnable {
+                        val intent = Intent("TicketCancelBroadcast")
+                        LocalBroadcastManager.getInstance(this@BookingsDetailsActivity).sendBroadcast(intent)
+
+                        finish()
+                    }, 1000)
+
+
+
                 }else{
                     UiUtils.showToast(this@BookingsDetailsActivity , "Something went wrong")
                 }
-                finish()
+
+
             }
 
             override fun onFailure(call: Call<CancelBookingResponse>, t: Throwable) {
@@ -479,4 +511,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             binding.textViewBookingsDetailsSeats.text = seatsName
         }
     }
+
+
 }
