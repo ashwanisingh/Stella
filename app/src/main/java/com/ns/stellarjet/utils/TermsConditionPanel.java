@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mancj.slideup.SlideUp;
 import com.mancj.slideup.SlideUpBuilder;
 import com.ns.stellarjet.R;
+import com.ns.stellarjet.booking.DateSelectionActivity;
 
 public class TermsConditionPanel {
 
@@ -84,6 +85,12 @@ public class TermsConditionPanel {
             @Override
             public void onClick(View v) {
                 if(tcSliderListener != null) {
+                    if(!mIsUserAgree) {
+                        UiUtils.Companion.showSimpleDialog(
+                                v.getContext(), "Please accept T&C."
+                        );
+                        return;
+                    }
                     tcSliderListener.onTCButtonClick(mIsUserAgree);
                 }
             }

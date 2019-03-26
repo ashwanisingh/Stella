@@ -41,11 +41,12 @@
                     android:text="@string/info_preferences_managers_heading"
                     android:alpha="0.5"
                     style="@style/StellarTextView_16sp"
-                    android:lineSpacingExtra="5dp"
+                    android:lineSpacingExtra="7sp"
                     android:id="@+id/textView_managers_help"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:letterSpacing="0.03"/>
 
 
             <androidx.recyclerview.widget.RecyclerView

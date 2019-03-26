@@ -90,7 +90,7 @@ class BookingListAdapter(
 //                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
                 mPersonalizeStatus.setTextColor(ContextCompat.getColor(itemView.context , R.color.colorBookingsPersonalize))
             }else{
-                mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_need_personalize)
+                mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_cancel_ticket)
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_info_personalize , 0 , 0 , 0
                 )

@@ -306,7 +306,8 @@ public class DateSelectionActivity extends AppCompatActivity implements Calendar
                 mActivityDateSelectionBinding.textViewScheduleSeatsAvailable.setText(seatsAvailable);
             }
         }
-        mActivityDateSelectionBinding.scrollviewCalendar.fullScroll(View.FOCUS_DOWN);
+        // Commented By Ashwani
+//        mActivityDateSelectionBinding.scrollviewCalendar.fullScroll(View.FOCUS_DOWN);
     }
 
     private void hideSelectedInfo(){
