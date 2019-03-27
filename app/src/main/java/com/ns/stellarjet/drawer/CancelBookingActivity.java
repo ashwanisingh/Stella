@@ -259,6 +259,7 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
     }
 
     private void cancelBooking(){
+
         List<Integer> mSeatIdList = new ArrayList<>();
         for (int i = 0; i < mSelectedUserList.size(); i++) {
             mSeatIdList.add(mSelectedUserList.get(i).getSeatId());
@@ -280,7 +281,9 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
                     int seatCount  =subsriptionSeats + mSeatIdList.size();
                     SharedPreferencesHelper.saveSeatCount(CancelBookingActivity.this , seatCount);
                     UiUtils.Companion.showToast(CancelBookingActivity.this , "Booking Cancelled");
-                    int isSelfTravelling = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
+
+                    // Commented By Ashwani
+                    /*int isSelfTravelling = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
                             .get(mSelectedIndex).getTravelling_self();
                     if(isSelfTravelling == 1){
                         String seatName = UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
@@ -308,7 +311,11 @@ public class CancelBookingActivity extends AppCompatActivity implements Function
                     if(mUsersList.size() == mSelectedUserList.size()){
                         UpcomingBookingFragment.Companion.getMUpcomingBookingHistoryList()
                                 .get(mSelectedIndex).setStatus("Cancelled");
-                    }
+                    }*/
+
+                    // Added by Ashwani, this call onActivityResult of Booking DetailsActivity.kt
+                    setResult(RESULT_CANCELED);
+
                     finish();
                 }else{
                     UiUtils.Companion.showServerErrorDialog(CancelBookingActivity.this);

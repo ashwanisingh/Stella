@@ -175,7 +175,9 @@ class BookingsDetailsActivity : AppCompatActivity() {
                     SharedPreferencesHelper.saveSeatCount(this@BookingsDetailsActivity , mSeatCount)
                     UiUtils.showToast(this@BookingsDetailsActivity , response.message())
 
-                    val selectedIndex = if (mSelectedIndex != null) mSelectedIndex else 0
+
+                    // Commented By Ashwani
+                    /*val selectedIndex = if (mSelectedIndex != null) mSelectedIndex else 0
 
                     var isSelfTravelling = UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!]
                         .travelling_self
@@ -186,16 +188,19 @@ class BookingsDetailsActivity : AppCompatActivity() {
                         UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].prefs!!.co_passengers!![0]
                             .status = "Cancelled"
                     }
-                    UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].status = "Cancelled"
+                    UpcomingBookingFragment.mUpcomingBookingHistoryList[selectedIndex!!].status = "Cancelled"*/
 
 
+                    // Added By Ashwani
                     // Sending Local Broadcast and finishing current activity
-                    Handler().postDelayed(Runnable {
+                    /*Handler().postDelayed(Runnable {
                         val intent = Intent("TicketCancelBroadcast")
                         LocalBroadcastManager.getInstance(this@BookingsDetailsActivity).sendBroadcast(intent)
 
                         finish()
-                    }, 1000)
+                    }, 1000)*/
+
+                    killThisActivity();
 
 
 
@@ -403,7 +408,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 val intent  = Intent(this@BookingsDetailsActivity , CancelBookingActivity::class.java)
                 intent.putExtra("BookingData" , bookingData)
                 intent.putExtra("selectedBookingPosition" , mSelectedIndex)
-                startActivity(intent)
+                startActivityForResult(intent, 1000)
             }
         }
         if(bookingType.equals("completed" , true) ||
@@ -509,6 +514,20 @@ class BookingsDetailsActivity : AppCompatActivity() {
             }
             binding.textViewBookingsDetailsPassengers.text = passengersName
             binding.textViewBookingsDetailsSeats.text = seatsName
+        }
+    }
+
+    fun  killThisActivity() {
+        val intent = Intent("TicketCancelBroadcast")
+        LocalBroadcastManager.getInstance(this@BookingsDetailsActivity).sendBroadcast(intent)
+        finish()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_CANCELED) {
+            killThisActivity();
         }
     }
 
