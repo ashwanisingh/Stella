@@ -54,7 +54,7 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
         var seatsName = ""
         var numSeats = 0
         if(boardingPass?.travelling_self ==1){
-            passengersName = HomeActivity.sUserData.name
+            passengersName = HomeActivity.sUserData?.name!!
             seatsName = boardingPass.customer_seat?.seat_code!!
             numSeats += 1
         }

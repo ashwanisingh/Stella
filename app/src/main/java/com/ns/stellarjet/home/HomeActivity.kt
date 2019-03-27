@@ -32,8 +32,8 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var activityHomeBinding: ActivityHomeBinding
 
-    companion object {
-        lateinit var sUserData: UserData
+    public companion object {
+        @JvmField var sUserData: UserData? = null
         @JvmField var mSeatNamesId : MutableList<Int> = ArrayList()
         @JvmField var mSeatNames : MutableList<String> = ArrayList()
 
@@ -55,19 +55,19 @@ class HomeActivity : AppCompatActivity() {
         sUserData = intent.extras?.getParcelable(UIConstants.BUNDLE_USER_DATA)!!
 
 //        set locked seats data and pass to Seat layout Activity
-        if(sUserData.locked_seats?.isNotEmpty()!!){
-            SharedPreferencesHelper.saveFromCityId(this@HomeActivity ,sUserData.locked_seats!![0].from_city!!)
-            SharedPreferencesHelper.saveToCityId(this@HomeActivity ,sUserData.locked_seats!![0].to_city!!)
-            SharedPreferencesHelper.saveJourneyDate(this@HomeActivity ,sUserData.locked_seats!![0].journey_date!!)
-            SharedPreferencesHelper.saveJourneyTime(this@HomeActivity ,sUserData.locked_seats!![0].journey_time!!)
-            SharedPreferencesHelper.saveJourneyTimeImMillis(this@HomeActivity ,sUserData.locked_seats!![0].datetime_ms!!)
-            SharedPreferencesHelper.saveArrivalTime(this@HomeActivity ,sUserData.locked_seats!![0].arrival_time)
-            SharedPreferencesHelper.saveFlightId(this@HomeActivity ,sUserData.locked_seats!![0].flight_id!!)
+        if(sUserData?.locked_seats?.isNotEmpty()!!){
+            SharedPreferencesHelper.saveFromCityId(this@HomeActivity ,sUserData?.locked_seats!![0].from_city!!)
+            SharedPreferencesHelper.saveToCityId(this@HomeActivity ,sUserData?.locked_seats!![0].to_city!!)
+            SharedPreferencesHelper.saveJourneyDate(this@HomeActivity ,sUserData?.locked_seats!![0].journey_date!!)
+            SharedPreferencesHelper.saveJourneyTime(this@HomeActivity ,sUserData?.locked_seats!![0].journey_time!!)
+            SharedPreferencesHelper.saveJourneyTimeImMillis(this@HomeActivity ,sUserData?.locked_seats!![0].datetime_ms!!)
+            SharedPreferencesHelper.saveArrivalTime(this@HomeActivity ,sUserData?.locked_seats!![0].arrival_time)
+            SharedPreferencesHelper.saveFlightId(this@HomeActivity ,sUserData?.locked_seats!![0].flight_id!!)
 
-            sUserData.locked_seats!!.forEach {
+            sUserData?.locked_seats!!.forEach {
                 mSeatNamesId.add(it.flight_seat_id!!)
             }
-            sUserData.locked_seats!!.forEach {
+            sUserData?.locked_seats!!.forEach {
                 mSeatNames.add(it.flight_seat!!.seat_code!!)
             }
 
@@ -87,11 +87,11 @@ class HomeActivity : AppCompatActivity() {
         val isEntryDone = SharedPreferencesHelper.isEntryLogin(this@HomeActivity)
 
         if(isEntryDone){
-            val displayName = resources.getString(R.string.home_title_hello_again) + sUserData.name+ ","+
+            val displayName = resources.getString(R.string.home_title_hello_again) + sUserData?.name+ ","+
                     resources.getString(R.string.home_title_welcome_back)
             activityHomeBinding.textviewHomeHelloAgain.text = displayName
         }else{
-            val displayName = resources.getString(R.string.home_title_hello) + sUserData.name+ ","+
+            val displayName = resources.getString(R.string.home_title_hello) + sUserData?.name+ ","+
                     resources.getString(R.string.home_title_welcome)
             activityHomeBinding.textviewHomeHelloAgain.text = displayName
         }
@@ -103,18 +103,18 @@ class HomeActivity : AppCompatActivity() {
         } else if(SharedPreferencesHelper.getUserType(this@HomeActivity).equals("secondary" , true)){
             activityHomeBinding.textViewHomeBookingPrimaryUser.text =
                 SharedPreferencesHelper.getCurrentPrimaryUserName(this@HomeActivity)
-            if(sUserData.primary_users.size > 1){
+            if(sUserData?.primary_users?.size!! > 1){
                 activityHomeBinding.textViewHomeBookingPrimaryUser.setCompoundDrawablesWithIntrinsicBounds(
                     0 , 0 ,R.drawable.ic_user_dropdown,0
                 )
             }
             activityHomeBinding.textViewHomeBookingPrimaryUser.setOnClickListener {
-                if(sUserData.primary_users.size > 1){
+                if(sUserData?.primary_users?.size!! > 1){
                     val mHomeIntent = Intent(this@HomeActivity, PrimaryUsersActivity::class.java)
                     // send bundle
                     mHomeIntent.putParcelableArrayListExtra(
                         UIConstants.BUNDLE_SECONDARY_USER_DATA,
-                        sUserData.primary_users as java.util.ArrayList<out Parcelable >
+                        sUserData?.primary_users as java.util.ArrayList<out Parcelable >
                     )
                     startActivity(mHomeIntent)
                 }else{
@@ -170,17 +170,17 @@ class HomeActivity : AppCompatActivity() {
     private fun launchDialog(){
         var lockedFromCity = ""
         var lockedToCity = ""
-        sUserData.cities.forEach {
+        sUserData?.cities?.forEach {
             if(it.id == SharedPreferencesHelper.getFromCityId(this)){
                 lockedFromCity = it.name
             }
         }
-        sUserData.cities.forEach {
+        sUserData?.cities?.forEach {
             if(it.id == SharedPreferencesHelper.getToCityId(this)){
                 lockedToCity = it.name
             }
         }
-        val numOfSeats = sUserData.locked_seats!![0].flight?.no_of_seats
+        val numOfSeats = sUserData?.locked_seats!![0].flight?.no_of_seats
 
         var seatNames  = ""
 
@@ -199,20 +199,20 @@ class HomeActivity : AppCompatActivity() {
             run {
                 if (numOfSeats == 8) {
                     val mSeatsIntent = Intent(this@HomeActivity, SeatLayoutOneSelectionActivity::class.java)
-                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
-                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    mSeatsIntent.putExtra("direction", sUserData?.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData?.locked_seats!![0].sun_rise_set)
                     mSeatsIntent.putExtra("flowFrom", "home")
                     startActivity(mSeatsIntent)
                 } else if (numOfSeats == 12) {
                     val mSeatsIntent = Intent(this@HomeActivity, SeatSelectionActivity::class.java)
-                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
-                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    mSeatsIntent.putExtra("direction", sUserData?.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData?.locked_seats!![0].sun_rise_set)
                     mSeatsIntent.putExtra("flowFrom", "home")
                     startActivity(mSeatsIntent)
                 }else if (numOfSeats == 17) {
                     val mSeatsIntent = Intent(this@HomeActivity, CabinSeatActivity::class.java)
-                    mSeatsIntent.putExtra("direction", sUserData.locked_seats!![0].direction)
-                    mSeatsIntent.putExtra("sunRiseSet", sUserData.locked_seats!![0].sun_rise_set)
+                    mSeatsIntent.putExtra("direction", sUserData?.locked_seats!![0].direction)
+                    mSeatsIntent.putExtra("sunRiseSet", sUserData?.locked_seats!![0].sun_rise_set)
                     mSeatsIntent.putExtra("flowFrom", "home")
                     startActivity(mSeatsIntent)
                 }

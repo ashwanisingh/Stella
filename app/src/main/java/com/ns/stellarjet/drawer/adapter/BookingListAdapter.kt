@@ -60,11 +60,16 @@ class BookingListAdapter(
 
             if(bookings.status.equals("Cancelled" , true)){
                 mCancelImageView.visibility = View.VISIBLE
+            } else {
+                mCancelImageView.visibility = View.GONE
             }
 
             if(bookingType.equals("Completed" , true)){
                 mDivider.visibility = View.GONE
                 mPersonalizeStatus.visibility = View.GONE
+            } else {
+                mDivider.visibility = View.VISIBLE
+                mPersonalizeStatus.visibility = View.VISIBLE
             }
 
             if(bookings.prefs?.main_passenger == null){
@@ -89,14 +94,20 @@ class BookingListAdapter(
                 )
 //                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
                 mPersonalizeStatus.setTextColor(ContextCompat.getColor(itemView.context , R.color.colorBookingsPersonalize))
-            }else{
-                mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_cancel_ticket)
+            } else {
+                if(bookings.status.equals("Cancelled" , true)) {
+                    mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_cancel_ticket)
+                } else {
+                    mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
+                }
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_info_personalize , 0 , 0 , 0
                 )
 //                mPersonalizeStatus.setTextColor(itemView.context.resources.getColor(R.color.colorBookingsPersonalize))
                 mPersonalizeStatus.setTextColor(ContextCompat.getColor(itemView.context ,R.color.colorBookingsPersonalize))
             }
+
+
         }
     }
 

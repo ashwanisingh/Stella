@@ -32,7 +32,7 @@ class DrawerActivity : AppCompatActivity() {
         button_drawer_personal_assistance.setOnClickListener {
             // TODO : contact number 180042577777
 
-            val customerCare = HomeActivity.sUserData.customer_care_info.phone
+            val customerCare = HomeActivity.sUserData?.customer_care_info?.phone
             if (ContextCompat.checkSelfPermission(this@DrawerActivity, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
                 // Permission to access the location is missing.
                 PermissionUtils.requestPhonePermission(this ,
@@ -99,7 +99,7 @@ class DrawerActivity : AppCompatActivity() {
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,Manifest.permission.CALL_PHONE)) {
             // Call to customerCare.
-            val customerCare = HomeActivity.sUserData.customer_care_info.phone
+            val customerCare = HomeActivity.sUserData?.customer_care_info?.phone
             val callIntent = Intent(Intent.ACTION_CALL)
             callIntent.data = Uri.parse("tel:$customerCare")//change the number
             startActivity(callIntent)

@@ -86,6 +86,7 @@ public class PassengersAdapter extends RecyclerView.Adapter<PassengersAdapter.Pa
             if(mSelectedPhoneNumberList.contains(mGuestRequestDataList.get(0).getGuestMobileNUmber())){
                 mSelectedPhoneNumberList.remove(mGuestRequestDataList.get(0).getGuestMobileNUmber());
             }
+
             mPassengerInfoViewHolder.mPassengerTitleTextView.setText(mContext.getResources().getString(R.string.info_passenger_self));
             mPassengerInfoViewHolder.mPassengerNameAutoCompleteTextView.setText(HomeActivity.sUserData.getName());
             mPassengerInfoViewHolder.mPassengerSelfMobileNumberEditText.setText(HomeActivity.sUserData.getPhone());

@@ -284,12 +284,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
         var seatsName = ""
         if(bookingData?.travelling_self ==1){
             if(bookingData?.prefs?.main_passenger?.status.equals("Confirmed" , true)){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = HomeActivity.sUserData!!.name
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }else if(bookingType.equals("completed" , true) &&
                 bookingData?.prefs?.main_passenger?.status.equals("Cancelled" , true)){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = HomeActivity.sUserData!!.name
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }
@@ -458,7 +458,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
             var passengersName = ""
             var seatsName = ""
             if(bookingData?.travelling_self ==1){
-                passengersName = HomeActivity.sUserData.name
+                passengersName = HomeActivity.sUserData!!.name
                 seatsName = bookingData!!.customer_seat?.seat_code!!
                 mTravellingUsers += 1
             }

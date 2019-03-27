@@ -60,7 +60,8 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
             context?.let { UiUtils.showNoInternetDialog(it) }
         }
 
-        binding.recyclerViewBookingsUpcoming.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        // Commented By Ashwani
+        /*binding.recyclerViewBookingsUpcoming.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0)
                 //check for scroll down
@@ -80,7 +81,7 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
                     }
                 }
             }
-        })
+        })*/
         return binding.root
     }
 
