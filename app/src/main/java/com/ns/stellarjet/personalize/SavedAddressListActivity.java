@@ -12,10 +12,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.compat.Place;
+import com.google.android.libraries.places.compat.ui.PlaceAutocompleteFragment;
+import com.google.android.libraries.places.compat.ui.PlaceSelectionListener;
 import com.ns.networking.model.SavedAddressResponse;
 import com.ns.networking.model.SavedAddresse;
 import com.ns.networking.retrofit.RetrofitAPICaller;
@@ -31,10 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class SavedAddressListActivity extends AppCompatActivity implements Function1<SavedAddresse, Unit> {
 
@@ -74,10 +71,13 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     AddAddressScrollActivity.class
             );
             int selectedCityId = 0;
-            int citiesSize = HomeActivity.sUserData.getCities().size();
-            for (int i = 0; i < citiesSize; i++) {
-                if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
-                    selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+            int citiesSize = 0;
+            if(HomeActivity.sUserData != null && HomeActivity.sUserData.getCities() != null) {
+                citiesSize = HomeActivity.sUserData.getCities().size();
+                for (int i = 0; i < citiesSize; i++) {
+                    if (HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)) {
+                        selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
+                    }
                 }
             }
             mAddAddressIntent.putExtra(UIConstants.BUNDLE_SELECTED_CITY_ID , selectedCityId);
@@ -95,14 +95,23 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         autocompleteFragment.setHint("Search your area in " + selectedCity);
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15.0f);
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+
+        autocompleteFragment.getView().setBackground(getResources().getDrawable(R.drawable.drawable_location_picker_searc_icon));
+
+
+
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input)).setTextSize(13.5f);
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input))
                 .setTextColor(getResources().getColor(android.R.color.black));
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
-                .setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
-                .setBackground(getResources().getDrawable(R.drawable.drawable_location_picker));
-        /*((Button)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button))
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input))
+                .setHintTextColor(getResources().getColor(android.R.color.black));
+
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input))
+                .setBackground(getResources().getDrawable(R.drawable.drawable_location_picker_searc_edit));
+
+
+        // Already it was commented
+       /*((Button)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button))
                 .setVisibility(View.GONE);*/
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -130,6 +139,29 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     getResources().getString(R.string.error_not_connected_internet)
             );
         }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Initialize Places.
+        /*Places.initialize(getApplicationContext(), "AIzaSyC1uZYkROp06LPKTv6kkj7Zt1FUmsZGAq");
+
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
+
+
+        // Define a Place ID.
+        String placeId = "INSERT_PLACE_ID_HERE";
+
+        // Specify the fields to return.
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+
+        // Construct a request object, passing the place ID and fields array.
+        FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();*/
+
+
+
     }
 
 

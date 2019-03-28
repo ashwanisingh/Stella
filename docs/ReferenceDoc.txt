@@ -1,0 +1,4 @@
+Migrating to the New Places SDK Client
+https://developers.google.com/places/android-sdk/client-migration
+
+

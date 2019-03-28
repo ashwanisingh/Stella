@@ -43,9 +43,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
@@ -73,6 +71,23 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.4.0'
     // razorpay
     implementation 'com.razorpay:checkout:1.5.2'
+    // Slider Library from bottom to top
     implementation project(':sliderlibrary')
+
+    // Play services
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    // Commented By Ashwani, because it is deprecated and will be removed on 29th July 2019
+    // implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.libraries.places:places-compat:1.0.0'
+
+    // Place search
+//    implementation 'com.google.android.libraries.places:places:1.0.0'
+
+
+}
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -192,14 +192,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
 
                     // Added By Ashwani
-                    // Sending Local Broadcast and finishing current activity
-                    /*Handler().postDelayed(Runnable {
-                        val intent = Intent("TicketCancelBroadcast")
-                        LocalBroadcastManager.getInstance(this@BookingsDetailsActivity).sendBroadcast(intent)
-
-                        finish()
-                    }, 1000)*/
-
                     killThisActivity();
 
 

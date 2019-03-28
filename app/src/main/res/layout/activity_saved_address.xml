@@ -26,10 +26,17 @@
                     android:layout_marginEnd="16dp"
                     android:gravity="center"
                     android:id="@+id/place_autocomplete_fragment"
-                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    android:name="com.google.android.libraries.places.compat.ui.PlaceAutocompleteFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="bottom"/>
+                    android:background="@android:color/holo_red_dark"
+                    />
+
+            <!--<fragment android:id="@+id/autocomplete_fragment"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />-->
 
         </LinearLayout>
 
@@ -40,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/info_use_current_location"
                 android:drawableStart="@drawable/ic_tracker"
-                android:drawablePadding="20dp"
+                android:drawablePadding="15dp"
                 android:id="@+id/textView_saved_address_current_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
