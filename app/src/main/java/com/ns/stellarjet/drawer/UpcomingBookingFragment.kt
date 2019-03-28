@@ -35,7 +35,7 @@ class UpcomingBookingFragment : Fragment(), (Booking , Int) -> Unit {
     private var visibleItemCount:Int = 0
     private var totalItemCount:Int = 0
     private var offset = 0
-    private var limit = 10
+    private var limit = 1000
 
     private var mLayoutManager: LinearLayoutManager? = null
 

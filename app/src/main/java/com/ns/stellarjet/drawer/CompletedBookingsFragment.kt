@@ -35,7 +35,7 @@ class CompletedBookingsFragment : Fragment(), (Booking,Int) -> Unit {
     private var visibleItemCount:Int = 0
     private var totalItemCount:Int = 0
     private var offset = 0
-    private var limit = 10
+    private var limit = 1000
 
     private var mLayoutManager: LinearLayoutManager? = null
 
@@ -53,7 +53,7 @@ class CompletedBookingsFragment : Fragment(), (Booking,Int) -> Unit {
         }else{
             context?.let { UiUtils.showSimpleDialog(it, resources.getString(R.string.error_not_connected_internet)) }
         }
-        binding.recyclerViewBookingsCompleted.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*binding.recyclerViewBookingsCompleted.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0)
                 //check for scroll down
@@ -73,7 +73,7 @@ class CompletedBookingsFragment : Fragment(), (Booking,Int) -> Unit {
                     }
                 }
             }
-        })
+        })*/
         return binding.root
     }
 

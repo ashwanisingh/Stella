@@ -93,6 +93,7 @@
                 android:layout_marginTop="10dp"
                 android:imeOptions="actionNext"
                 android:background="@drawable/drawable_edittext_background"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:inputType="textPersonName"/>
 
         <TextView
