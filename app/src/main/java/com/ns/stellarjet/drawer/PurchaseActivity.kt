@@ -177,7 +177,11 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
 
 
     override fun onPaymentError(p0: Int, errorMessage: String?) {
-        UiUtils.showToast(this@PurchaseActivity , "Error : $errorMessage")
+        // Commented By Ashwani
+//        UiUtils.showToast(this@PurchaseActivity , "Error : $errorMessage")
+
+        // Added By Ashwani
+        UiUtils.showSimpleDialog(this@PurchaseActivity, errorMessage!!)
     }
 
     override fun onPaymentSuccess(successMessage: String?) {
@@ -188,7 +192,7 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
         verifyPurchase()
     }
 
-    private fun verifyPurchase(){
+    private fun verifyPurchase() {
         val progress = Progress.getInstance()
         progress.showProgress(this@PurchaseActivity)
         val getOrderIdCall: Call<VerifyPurchaseResponse> = RetrofitAPICaller.getInstance(this@PurchaseActivity)

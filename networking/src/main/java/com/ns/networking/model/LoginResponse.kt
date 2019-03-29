@@ -30,7 +30,6 @@ data class UserData(
     val locked_seats: List<LockedSeats>?,
     val name: String,
     val phone: String,
-    val subscriptions: List<Subscription>,
     val user_id: Int
 ):Parcelable
 
