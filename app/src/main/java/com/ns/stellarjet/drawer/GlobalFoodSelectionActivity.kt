@@ -1,5 +1,6 @@
 package com.ns.stellarjet.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,22 +11,27 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ns.networking.model.LoginResponse
 import com.ns.networking.model.foods.FoodCategorySelection
 import com.ns.networking.model.foods.FoodDaysSelection
 import com.ns.networking.model.foods.GlobalFoodPrefResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
+import com.ns.stellarjet.TouchIdActivity
 import com.ns.stellarjet.drawer.adapter.FoodDaysAdapter
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
+import com.ns.stellarjet.utils.UIConstants
 import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_global_food_selection.*
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class GlobalFoodSelectionActivity : AppCompatActivity() {
 
@@ -133,15 +139,14 @@ class GlobalFoodSelectionActivity : AppCompatActivity() {
             }
             layout_global_food.addView(v)
             val foodType = HomeActivity.sUserData!!.customer_prefs.food_categories[i].cat_key
-            var isSelected = false
             val mFoodDaysList = mutableListOf<FoodDaysSelection>()
-            mFoodDaysList.add(FoodDaysSelection("Sunday", false))
-            mFoodDaysList.add(FoodDaysSelection("Monday", false))
-            mFoodDaysList.add(FoodDaysSelection("Tuesday", false))
-            mFoodDaysList.add(FoodDaysSelection("Wednesday", false))
-            mFoodDaysList.add(FoodDaysSelection("Thursday", false))
-            mFoodDaysList.add(FoodDaysSelection("Friday", false))
-            mFoodDaysList.add(FoodDaysSelection("Saturday", false))
+            mFoodDaysList.add(FoodDaysSelection("Sunday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Sunday")))
+            mFoodDaysList.add(FoodDaysSelection("Monday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Monday")))
+            mFoodDaysList.add(FoodDaysSelection("Tuesday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Tuesday")))
+            mFoodDaysList.add(FoodDaysSelection("Wednesday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Wednesday")))
+            mFoodDaysList.add(FoodDaysSelection("Thursday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Thursday")))
+            mFoodDaysList.add(FoodDaysSelection("Friday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Friday")))
+            mFoodDaysList.add(FoodDaysSelection("Saturday", HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.contains("Saturday")))
             // Commented By Ashwani
             /*if (HomeActivity.sUserData.customer_prefs.food_prefs.isNotEmpty() &&
                 HomeActivity.sUserData.customer_prefs.food_prefs[i].days.isNotEmpty()
@@ -150,7 +155,7 @@ class GlobalFoodSelectionActivity : AppCompatActivity() {
             // Added By Ashwani
             var dd = 0;
 
-            isSelected = true
+            var isSelected = false
             for (day in HomeActivity.sUserData!!.customer_prefs.food_prefs[dd].days) {
                 for (it in mFoodDaysList) {
                     if (day.equals(it.daysName, true)) {
@@ -183,6 +188,8 @@ class GlobalFoodSelectionActivity : AppCompatActivity() {
             val daysRecyclerView = layout_global_food.getChildAt(i)
                 .findViewById<RecyclerView>(com.ns.stellarjet.R.id.recyclerView_food_days)
             val foodType = HomeActivity.sUserData!!.customer_prefs.food_categories[i].cat_text
+            var isSelectedByUser = HomeActivity.sUserData!!.customer_prefs.food_prefs[i].days.size > 0
+            mSelectedFoodList[i].isSelected = isSelectedByUser;
             textViewFoodName.text = foodType
             val foodTypeHeading = "Restrict $foodType for these days"
             textViewFoodTypeHeading.text = foodTypeHeading
@@ -230,4 +237,7 @@ class GlobalFoodSelectionActivity : AppCompatActivity() {
             daysRecyclerView.adapter = foodDaysAdapter
         }
     }
+
+
+
 }
