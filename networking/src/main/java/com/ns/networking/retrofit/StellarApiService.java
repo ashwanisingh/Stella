@@ -13,6 +13,7 @@ import com.ns.networking.model.secondaryusers.AddSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.DeactivateSecondaryUserResponse;
 import com.ns.networking.model.secondaryusers.SecondaryUsersListResponse;
 import com.ns.networking.utils.Constants;
+import okhttp3.ResponseBody;
 import org.json.JSONArray;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -273,6 +274,19 @@ public interface StellarApiService {
             @Field("token") String token,
             @Field("food_prefs") JSONArray foodArray
     );
+
+    @GET("content/getStatic")
+    Call<TCModel> getTC();
+
+    @FormUrlEncoded
+    @POST("booking/list")
+    Call<JsonElement> downloadBoardingPass(
+            @Field("token") String token
+    );
+
+    @GET
+    Call<ResponseBody> fetchCaptcha(@Url String url);
+
 
 /*
 @GET(Constants.CITY_LIST_API)

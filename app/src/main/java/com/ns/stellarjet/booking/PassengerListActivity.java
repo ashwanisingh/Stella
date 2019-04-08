@@ -71,7 +71,7 @@ public class PassengerListActivity extends AppCompatActivity implements PaymentR
                 R.layout.activity_passenger_list);
 
         // Bottom to Top Slider Wrapper Initialisation
-        tcPanel = new TermsConditionPanel(this, this, "Confirm Booking");
+        tcPanel = new TermsConditionPanel(this, this, "BOOKING");
 
 
         /**

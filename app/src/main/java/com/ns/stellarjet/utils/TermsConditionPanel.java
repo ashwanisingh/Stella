@@ -10,8 +10,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.mancj.slideup.SlideUp;
 import com.mancj.slideup.SlideUpBuilder;
+import com.ns.networking.model.TCModel;
+import com.ns.networking.model.ValidateCustomerResponse;
+import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
 import com.ns.stellarjet.booking.DateSelectionActivity;
+import com.ns.stellarjet.login.LoginActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TermsConditionPanel {
 
@@ -22,7 +29,8 @@ public class TermsConditionPanel {
 
     private ImageView mTCCrossImg;
     private Button mTcBotton;
-    private WebView mTCWebView;
+    private TextView mTCWebView;
+    private TextView mTCHeading;
     private TextView mIAgreetView;
     private boolean mIsUserAgree;
 
@@ -36,16 +44,21 @@ public class TermsConditionPanel {
         mTcBotton = activity.findViewById(R.id.tc_button);
         mTCWebView = activity.findViewById(R.id.tc_textview);
         mIAgreetView = activity.findViewById(R.id.i_agree_textview);
+        mTCHeading = activity.findViewById(R.id.tc_textviewHeading);
 
         // Setting Button Name
         mTcBotton.setText(btnName);
 
-        mTCWebView.loadUrl("http://dev.stellarjet.com/app/static/terms.html");
+//        mTCWebView.loadUrl("http://dev.stellarjet.com/app/static/terms.html");
 
 //        mTCWebView.setText(tc);
 //        mTCWebView.setMovementMethod(new ScrollingMovementMethod());
+//        mTCHeading.setText(tc_heading);
 
-//        mTCWebView.loadUrl("https://news.google.com/?hl=en-IN&gl=IN&ceid=IN:en");
+        makeRequest(activity, btnName);
+        mTCWebView.setMovementMethod(new ScrollingMovementMethod());
+        mTCHeading.setText(tc_heading);
+
 
         // Bottom to Top Slider
         slideUp = new SlideUpBuilder(sliderView)
@@ -133,6 +146,32 @@ public class TermsConditionPanel {
         return slideUp.isVisible();
     }
 
+
+    private void makeRequest(AppCompatActivity activity, final String screenType) {
+        Call<TCModel> mLoginResponseCall = RetrofitAPICaller.getInstance(activity).getStellarJetAPIs().getTC();
+        mLoginResponseCall.enqueue(new Callback<TCModel>() {
+            @Override
+            public void onResponse(Call<TCModel> call, Response<TCModel> response) {
+                TCModel model = response.body();
+                if(screenType.equals("SIGNUP")) {
+                    mTCWebView.setText(model.getData().get(0).getScreenContent());
+                }
+                else if(screenType.equals("BOOKING")) {
+                    mTCWebView.setText(model.getData().get(1).getScreenContent());
+                }
+                else if(screenType.equals("BOARDING")) {
+                    mTCWebView.setText(model.getData().get(2).getScreenContent());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TCModel> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     String tc = "Chances are unless you are very lucky you will go thru many different relationships before you find your special someone. Finding your sole mate is like gambling. In poker and blackjack you may have to play dozens of hands until you get a winning hand, and it is the same with relationships.\n" +
             "\n" +
             "During your life you will probably meet some people who seem like they may be the one, or that they are close, but still have the feeling that something else is missing. My advice is that if you are not happy, because something seems like it is missing, then it usually is not right.\n" +
@@ -150,5 +189,7 @@ public class TermsConditionPanel {
             "At first things were a little awkward for the both of us. We decided to hold of on actually meeting until we got to know each other first. We spent a month just talking everyday on the internet. You can really open up to someone and show them the real you and not have to worry about rejection on the internet, after all you are just a faceless ghost, and if things don’t work out you could be sitting next to her on the bus one day without ever knowing it.\n" +
             "\n" +
             "The key to finding happiness is realizing you are going to bust more then you are going to get blackjack, but you must keep trying, trying to remember you only need to find the real thing once.";
+
+    String tc_heading = "Please, agree Terms & Conditions to continue";
 
 }

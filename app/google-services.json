@@ -1,39 +1,32 @@
 {
   "project_info": {
-    "project_number": "74664283053",
-    "firebase_url": "https://stellarjet-f07d2.firebaseio.com",
-    "project_id": "stellarjet-f07d2",
-    "storage_bucket": "stellarjet-f07d2.appspot.com"
+    "project_number": "1032881739823",
+    "firebase_url": "https://stellarjet-2ff54.firebaseio.com",
+    "project_id": "stellarjet-2ff54",
+    "storage_bucket": "stellarjet-2ff54.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:74664283053:android:3ff9cb99b736b3cd",
+        "mobilesdk_app_id": "1:1032881739823:android:3ff9cb99b736b3cd",
         "android_client_info": {
           "package_name": "com.ns.stellarjet"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "74664283053-8njoenenehb4a28g6j0cahrik02vhcui.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC1uZYkROp06LPKTv6kkj7Zt1FUmsZGAq4"
+          "current_key": "AIzaSyCbWOJgWtTPlPOvMEmO1yeQOKhhQmWY8DM"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032881739823-b43m62df5k77ot9ska3e46h0ntpvqh66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -313,7 +313,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
 
     /////////////////////////////////////////
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,

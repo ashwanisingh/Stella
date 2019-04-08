@@ -40,6 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+
+
             <TextView
                     tools:text="@string/booking_summary_date_dummy"
                     style="@style/StellarTextView_18sp"

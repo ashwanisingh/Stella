@@ -44,7 +44,7 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
                 );
 
         // Bottom to Top Slider Wrapper Initialisation
-        tcPanel = new TermsConditionPanel(this, this, "Proceed");
+        tcPanel = new TermsConditionPanel(this, this, "SIGNUP");
 
         String username = getIntent().getStringExtra("userEmail");
 

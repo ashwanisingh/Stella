@@ -10,7 +10,8 @@ data class MainPassenger(
     var status: String?,
     val last_modified_by: String?,
     val modified_user_type: String?,
-    val seats_info: SeatsInfo?
+    val seats_info: SeatsInfo?,
+    var boarding_pass_url: String?
 
 ) : Parcelable {
     constructor(source: Parcel) : this(
@@ -20,7 +21,9 @@ data class MainPassenger(
         source.readString(),
         source.readString(),
         source.readString(),
-        source.readParcelable<SeatsInfo>(SeatsInfo::class.java.classLoader)
+        source.readParcelable<SeatsInfo>(SeatsInfo::class.java.classLoader),
+        source.readString()
+
     )
 
     override fun describeContents() = 0
@@ -33,6 +36,7 @@ data class MainPassenger(
         writeString(last_modified_by)
         writeString(modified_user_type)
         writeParcelable(seats_info, 0)
+        writeString(boarding_pass_url)
     }
 
     companion object {

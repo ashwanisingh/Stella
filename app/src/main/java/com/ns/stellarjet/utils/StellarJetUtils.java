@@ -3,15 +3,23 @@ package com.ns.stellarjet.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
+import okhttp3.ResponseBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -270,5 +278,56 @@ public class StellarJetUtils {
 
     public static int pxFromDp(final Context context, final float dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
+
+
+    public static boolean DownloadImage(ResponseBody body, Context context, String fileName) {
+
+        try {
+            Log.d("DownloadImage", "Reading and writing file");
+            InputStream in = null;
+            FileOutputStream out = null;
+
+            try {
+                in = body.byteStream();
+//                String path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + fileName+".jpg";
+
+                File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName+".jpg");
+
+                out = new FileOutputStream(outputFile);
+                int c;
+
+                while ((c = in.read()) != -1) {
+                    out.write(c);
+                }
+            }
+            catch (IOException e) {
+                Log.d("DownloadImage",e.toString());
+                return false;
+            }
+            finally {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            }
+
+            int width, height;
+//            ImageView image = (ImageView) findViewById(R.id.imageViewId);
+//            Bitmap bMap = BitmapFactory.decodeFile(context.getExternalFilesDir(null) + File.separator + "AndroidTutorialPoint.jpg");
+//            width = 2*bMap.getWidth();
+//            height = 6*bMap.getHeight();
+//            Bitmap bMap2 = Bitmap.createScaledBitmap(bMap, width, height, false);
+//            image.setImageBitmap(bMap2);
+
+            return true;
+
+        } catch (IOException e) {
+            Log.d("DownloadImage",e.toString());
+            return false;
+        }
     }
 }

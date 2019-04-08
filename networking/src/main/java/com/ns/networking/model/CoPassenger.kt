@@ -10,7 +10,8 @@ data class CoPassenger(
     val passenger: Int?,
     val phone: String?,
     val seats_info: SeatsInfo?,
-    var status: String?
+    var status: String?,
+    var boarding_pass_url: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -19,6 +20,7 @@ data class CoPassenger(
         parcel.readInt(),
         parcel.readString(),
         parcel.readParcelable(SeatsInfo::class.java.classLoader),
+        parcel.readString(),
         parcel.readString()
     ) {
     }
@@ -33,6 +35,7 @@ data class CoPassenger(
         parcel.writeString(phone)
         parcel.writeParcelable(seats_info, flags)
         parcel.writeString(status)
+        parcel.writeString(boarding_pass_url)
     }
 
     override fun describeContents(): Int {

@@ -45,11 +45,14 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
         ButterKnife.bind(PrimaryUsersActivity.this);
 
         if(SharedPreferencesHelper.getCurrentPrimaryUserId(PrimaryUsersActivity.this) == 0){
-            mBackButton.setVisibility(View.GONE);
+            if(mBackButton != null) {
+                mBackButton.setVisibility(View.GONE);
+            }
         }
 
-        mBackButton.setOnClickListener(v -> onBackPressed());
-
+        if(mBackButton != null) {
+            mBackButton.setOnClickListener(v -> onBackPressed());
+        }
 
         try {
             mSecondaryUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList(UIConstants.BUNDLE_SECONDARY_USER_DATA);
