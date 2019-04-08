@@ -31,6 +31,17 @@ import java.util.Objects;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+//        super.onMessageReceived(remoteMessage);
+        Log.d("MessageToken", "onMessageReceived: " + remoteMessage.getData().get("actionData"));
+        if(remoteMessage.getData()!=null){
+            getImage(remoteMessage);
+        }
+
+    }
+
     @Override
     public void onNewToken(String s) {
 //        super.onNewToken(s);
@@ -61,15 +72,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         });
     }
 
-    @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-//        super.onMessageReceived(remoteMessage);
-        Log.d("MessageToken", "onMessageReceived: " + remoteMessage.getData().get("actionData"));
-        if(remoteMessage.getData()!=null){
-            getImage(remoteMessage);
-        }
 
-    }
 
     private void getImage(final RemoteMessage remoteMessage) {
 
