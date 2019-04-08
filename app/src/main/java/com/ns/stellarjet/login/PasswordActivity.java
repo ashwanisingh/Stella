@@ -179,7 +179,7 @@ public class PasswordActivity extends AppCompatActivity implements TermsConditio
 
     @Override
     public void onTCSliderSlide(float percentage) {
-
+        mActivityPasswordBinding.mainLayout.setAlpha(1 - ((100-percentage) / 100));
     }
 
     @Override

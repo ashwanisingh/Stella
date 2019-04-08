@@ -31,9 +31,7 @@ import java.util.Objects;
 
 public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUsersAdapter.onPrimaryUsersSelectClickListener {
 
-    @BindView(R.id.recyclerView_booking_for)
     RecyclerView mPrimaryUsersRecyclerView;
-    @BindView(R.id.button_primary_users_back)
     Button mBackButton;
 
     private List<PrimaryUser> mSecondaryUserData = new ArrayList<>();
@@ -44,15 +42,14 @@ public class PrimaryUsersActivity extends AppCompatActivity implements PrimaryUs
 
         ButterKnife.bind(PrimaryUsersActivity.this);
 
+        mPrimaryUsersRecyclerView = findViewById(R.id.recyclerView_booking_for);
+        mBackButton = findViewById(R.id.button_primary_users_back);
+
         if(SharedPreferencesHelper.getCurrentPrimaryUserId(PrimaryUsersActivity.this) == 0){
-            if(mBackButton != null) {
                 mBackButton.setVisibility(View.GONE);
-            }
         }
 
-        if(mBackButton != null) {
-            mBackButton.setOnClickListener(v -> onBackPressed());
-        }
+        mBackButton.setOnClickListener(v -> onBackPressed());
 
         try {
             mSecondaryUserData = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList(UIConstants.BUNDLE_SECONDARY_USER_DATA);

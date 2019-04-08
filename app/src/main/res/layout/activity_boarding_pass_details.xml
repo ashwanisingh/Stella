@@ -216,6 +216,9 @@
     </ScrollView>
 
     <include layout="@layout/tc_content_slide_up_view"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
              tools:visibility="gone"/>
 </RelativeLayout>
 </layout>
