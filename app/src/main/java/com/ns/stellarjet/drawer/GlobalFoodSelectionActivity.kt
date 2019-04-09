@@ -1,6 +1,5 @@
 package com.ns.stellarjet.drawer
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,27 +10,23 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ns.networking.model.LoginResponse
+import com.ns.networking.model.FoodPref
 import com.ns.networking.model.foods.FoodCategorySelection
 import com.ns.networking.model.foods.FoodDaysSelection
 import com.ns.networking.model.foods.GlobalFoodPrefResponse
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
-import com.ns.stellarjet.TouchIdActivity
 import com.ns.stellarjet.drawer.adapter.FoodDaysAdapter
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.Progress
 import com.ns.stellarjet.utils.SharedPreferencesHelper
-import com.ns.stellarjet.utils.UIConstants
 import com.ns.stellarjet.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_global_food_selection.*
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 class GlobalFoodSelectionActivity : AppCompatActivity() {
 
@@ -127,10 +122,44 @@ class GlobalFoodSelectionActivity : AppCompatActivity() {
     }
 
     private fun makeFoodListLayout() {
-        val foodCount = HomeActivity.sUserData!!.customer_prefs.food_categories.size
+        val foodCategoryCount = HomeActivity.sUserData!!.customer_prefs.food_categories.size
+        var foodPrefCount = HomeActivity.sUserData!!.customer_prefs.food_prefs.size
         val layoutInflater: LayoutInflater = LayoutInflater.from(this@GlobalFoodSelectionActivity)
 
-        for (i in 0 until foodCount) {
+        var foodPrefList = HomeActivity.sUserData!!.customer_prefs.food_prefs
+        var foodCategoryList = HomeActivity.sUserData!!.customer_prefs.food_categories
+
+        if(foodCategoryCount != foodPrefCount) {
+
+
+//            for(foodCategory in foodCategoryList) {
+            for(i in 0 until foodCategoryCount) {
+                var daylist = mutableListOf<String>()
+
+                var foodPref = FoodPref(daylist, foodCategoryList[i].cat_key)
+                if(foodPrefList.contains(foodPref)) {
+                    Log.i("", "")
+                }
+                else {
+                    Log.i("", "")
+                    if(i < foodPrefCount) {
+                        foodPrefList.add(i, foodPref)
+                    } else {
+                        foodPrefList.add(foodPref)
+                    }
+
+                }
+            }
+
+        }
+
+        HomeActivity.sUserData!!.customer_prefs.food_prefs = foodPrefList
+
+
+        for (i in 0 until foodCategoryCount) {
+            /*if(i==foodPrefCount) {
+                break;
+            }*/
             val v = layoutInflater.inflate(R.layout.layout_row_global_food, null)
             v.tag = "FoodItems $i"
             if (!HomeActivity.sUserData!!.customer_prefs.food_categories[i].show_days) {

@@ -51,8 +51,8 @@ data class Subscription(
 @Parcelize
 data class CustomerPrefs(
     val flight_days: List<String>,
-    val food_categories: List<FoodCategory>,
-    val food_prefs: List<FoodPref>,
+    val food_categories: MutableList<FoodCategory>,
+    var food_prefs: MutableList<FoodPref>,
     val gstin: String,
     val member_type: String,
     val member_type_text: String,
@@ -74,14 +74,43 @@ data class MembershipDetails(
 data class FoodPref(
     var days: MutableList<String> ,
     var food_category: String
-):Parcelable
+):Parcelable {
+
+    override fun equals(other: Any?): Boolean {
+         super.equals(other)
+
+        if(other is FoodPref) {
+            var  pref: FoodPref = other as FoodPref;
+            return pref.food_category.equals(food_category)
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return food_category.hashCode()
+    }
+}
 
 @Parcelize
 data class FoodCategory(
     val cat_key: String,
     val cat_text: String,
     val show_days: Boolean
-):Parcelable
+):Parcelable  {
+    override fun equals(other: Any?): Boolean {
+        super.equals(other)
+
+        if(other is FoodCategory) {
+            var  pref: FoodCategory = other as FoodCategory;
+            return pref.cat_key.equals(cat_key)
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return cat_key.hashCode()
+    }
+}
 
 /*@Parcelize
 data class CustomerPrefs(

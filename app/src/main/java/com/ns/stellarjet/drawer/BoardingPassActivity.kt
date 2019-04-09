@@ -32,7 +32,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
     private var visibleItemCount:Int = 0
     private var totalItemCount:Int = 0
     private var offset = 0
-    private var limit = 10
+    private var limit = 1000
 
     private var mLayoutManager: LinearLayoutManager? = null
 
@@ -51,27 +51,29 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
             UiUtils.showNoInternetDialog(this@BoardingPassActivity)
         }
 
-        binding.recyclerViewBoardingPass.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0)
-                //check for scroll down
-                {
-                    visibleItemCount = mLayoutManager!!.childCount
-                    totalItemCount = mLayoutManager!!.itemCount
-                    pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
 
-                    if (loading && mBoardingPassList.size==limit) {
-                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
-                            loading = false
-                            //pagination.. i.e. fetch new data
-                            offset += 10
-                            limit += 10
-                            getBoardingPass()
-                        }
-                    }
-                }
-            }
-        })
+        // Commented By Ashwani
+//        binding.recyclerViewBoardingPass.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                if (dy > 0)
+//                //check for scroll down
+//                {
+//                    visibleItemCount = mLayoutManager!!.childCount
+//                    totalItemCount = mLayoutManager!!.itemCount
+//                    pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
+//
+//                    if (loading && mBoardingPassList.size==limit) {
+//                        if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+//                            loading = false
+//                            //pagination.. i.e. fetch new data
+//                            offset += 10
+//                            limit += 10
+//                            getBoardingPass()
+//                        }
+//                    }
+//                }
+//            }
+//        })
 
         button_boarding_pass_back.setOnClickListener {
             onBackPressed()
@@ -79,7 +81,7 @@ class BoardingPassActivity : AppCompatActivity(), (Booking) -> Unit {
     }
 
 
-    private fun getBoardingPass(){
+    private fun getBoardingPass() {
         val progress = Progress.getInstance()
         progress.showProgress(this)
         val boardingPassCall: Call<BoardingPassResponse> = RetrofitAPICaller.getInstance(this)
