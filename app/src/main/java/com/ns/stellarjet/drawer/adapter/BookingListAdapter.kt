@@ -98,7 +98,7 @@ class BookingListAdapter(
                 if(bookings.status.equals("Cancelled" , true)) {
                     mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_cancel_ticket)
                 } else {
-                    mPersonalizeStatus.text = itemView.context.getString(R.string.booking_summary_done_personalize)
+                    mPersonalizeStatus.text = itemView.context.getString(R.string.please_personalize_your_preferences)
                 }
                 mPersonalizeStatus.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_info_personalize , 0 , 0 , 0

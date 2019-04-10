@@ -12,14 +12,21 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import com.ns.networking.model.ForgotPasswordResponse;
 import com.ns.networking.model.UserData;
+import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.databinding.ActivityPassCodeBinding;
 import com.ns.stellarjet.home.HomeActivity;
 import com.ns.stellarjet.home.PrimaryUsersActivity;
 import com.ns.stellarjet.login.LoginActivity;
+import com.ns.stellarjet.login.PasswordActivity;
+import com.ns.stellarjet.utils.Progress;
 import com.ns.stellarjet.utils.SharedPreferencesHelper;
 import com.ns.stellarjet.utils.UIConstants;
 import com.ns.stellarjet.utils.UiUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -177,6 +184,45 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
+
+        binding.textviewForgotPassword.setOnClickListener(v -> {
+            String username = mUserData.getEmail();
+            forgotPassword(username);
+        });
+    }
+
+    private void forgotPassword(String username) {
+        final Progress progress = Progress.getInstance();
+        progress.showProgress(PassCodeActivity.this);
+        Call<ForgotPasswordResponse> mLoginResponseCall = RetrofitAPICaller.getInstance(PassCodeActivity.this)
+                .getStellarJetAPIs().forgotPassword(username);
+
+        mLoginResponseCall.enqueue(new Callback<ForgotPasswordResponse>() {
+            @Override
+            public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                if(response.body()!=null){
+                    SharedPreferencesHelper.clearAllSharedPreferencesData(PassCodeActivity.this);
+                    UiUtils.Companion.showToast(
+                            PassCodeActivity.this,
+                            response.body().getMessage()
+                    );
+
+                    startActivity(new Intent(PassCodeActivity.this , LoginActivity.class));
+                    finish();
+                }else if(response.errorBody()!=null){
+                    UiUtils.Companion.showServerErrorDialog(PassCodeActivity.this);
+                }
+                progress.hideProgress();
+            }
+
+            @Override
+            public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
+                Log.d("Password", "onFailure: " + t);
+                UiUtils.Companion.showServerErrorDialog(PassCodeActivity.this);
+                progress.hideProgress();
+            }
+        });
+
     }
 
     private void disableKeyPad() {

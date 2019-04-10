@@ -282,7 +282,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     );
                 }
             }else{
-                if(city.equalsIgnoreCase(selectedCity)){
+                if(city != null && city.equalsIgnoreCase(selectedCity)){
                     Intent mIntent = new Intent(
                             SavedAddressListActivity.this ,
                             AddAddressScrollActivity.class

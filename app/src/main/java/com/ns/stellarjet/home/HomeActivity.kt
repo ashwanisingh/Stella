@@ -1,5 +1,6 @@
 package com.ns.stellarjet.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.ns.networking.model.UpdateDeviceToken
 import com.ns.networking.model.UserData
@@ -18,6 +20,7 @@ import com.ns.stellarjet.booking.SeatLayoutOneSelectionActivity
 import com.ns.stellarjet.booking.SeatSelectionActivity
 import com.ns.stellarjet.databinding.ActivityHomeBinding
 import com.ns.stellarjet.drawer.DrawerActivity
+import com.ns.stellarjet.drawer.PurchaseActivity
 import com.ns.stellarjet.utils.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -127,14 +130,19 @@ class HomeActivity : AppCompatActivity() {
 
         /* launch the Booking flow */
         activityHomeBinding.buttonBookFlight.setOnClickListener {
-            val mPlaceSelectionIntent = Intent(
-                this ,
-                PlaceSelectionActivity::class.java
-            )
-//            mPlaceSelectionIntent.putExtra(UIConstants.BUNDLE_USER_DATA , userData)
-            startActivity(mPlaceSelectionIntent)
 
-//            tcPanel?.showTcSlider();
+            val seatsAvailable = SharedPreferencesHelper.getSeatCount(this@HomeActivity)
+
+            if(seatsAvailable == 0) {
+                showSimpleDialog(this@HomeActivity, "You don't have seat to Book a Flight, So please purchase now.")
+            } else {
+                val mPlaceSelectionIntent = Intent(
+                    this,
+                    PlaceSelectionActivity::class.java
+                )
+                startActivity(mPlaceSelectionIntent)
+            }
+
         }
 
         /* launch DrawerActivity */
@@ -148,6 +156,29 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+
+    fun showSimpleDialog(context: Context, message :String){
+        val alertDialogBuilder = AlertDialog.Builder(context)
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("Ok") { _dialog, _ ->
+            run {
+                _dialog.dismiss()
+                startActivity(
+                    Intent(this , PurchaseActivity::class.java)
+                )
+            }
+        }
+        val simpleDialog = alertDialogBuilder.create()
+        simpleDialog.setCanceledOnTouchOutside(false)
+        simpleDialog.setCancelable(false)
+        simpleDialog.setOnShowListener {
+            simpleDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                ContextCompat.getColor(context,R.color.colorButtonNew))
+        }
+        simpleDialog.show()
     }
 
     override fun onResume() {
