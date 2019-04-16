@@ -11,7 +11,9 @@ data class MainPassenger(
     val last_modified_by: String?,
     val modified_user_type: String?,
     val seats_info: SeatsInfo?,
-    var boarding_pass_url: String?
+    var boarding_pass_url: String?,
+    var pick_address: PickAddressBean?,
+    var drop_address: DropAddressBean?
 
 ) : Parcelable {
     constructor(source: Parcel) : this(
@@ -22,7 +24,9 @@ data class MainPassenger(
         source.readString(),
         source.readString(),
         source.readParcelable<SeatsInfo>(SeatsInfo::class.java.classLoader),
-        source.readString()
+        source.readString(),
+        source.readParcelable<PickAddressBean>(SeatsInfo::class.java.classLoader),
+        source.readParcelable<DropAddressBean>(SeatsInfo::class.java.classLoader)
 
     )
 
@@ -37,6 +41,8 @@ data class MainPassenger(
         writeString(modified_user_type)
         writeParcelable(seats_info, 0)
         writeString(boarding_pass_url)
+        writeParcelable(pick_address, 0)
+        writeParcelable(drop_address, 0)
     }
 
     companion object {

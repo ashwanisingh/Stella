@@ -1,11 +1,9 @@
 package com.ns.stellarjet.drawer
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -65,11 +63,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
             getBookingDetails(bookingId!!)
         }else{
             bookingData = intent.extras?.getParcelable("bookingDetails")!!
-            fillUIData()
+//            fillUIData()
+
+            var bookingId :String = bookingData!!.booking_id.toString()
+
+            getBookingDetails(bookingId)
         }
     }
 
-    override fun onRestart() {
+    /*override fun onRestart() {
         super.onRestart()
         val cabPersonalize = SharedPreferencesHelper.getCabPersonalize(
             this@BookingsDetailsActivity
@@ -77,7 +79,7 @@ class BookingsDetailsActivity : AppCompatActivity() {
         val foodPersonalize = SharedPreferencesHelper.getFoodPersonalize(
             this@BookingsDetailsActivity
         )
-        if(cabPersonalize){
+        if(cabPersonalize) {
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
@@ -89,11 +91,11 @@ class BookingsDetailsActivity : AppCompatActivity() {
             )
             isFoodPersonalized = true
         }
-    }
+    }*/
 
     override fun onBackPressed() {
         super.onBackPressed()
-        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
+//        SharedPreferencesHelper.saveCabPickupPersoalize(this , "")
         SharedPreferencesHelper.saveCabDropPersonalize(this , "")
         SharedPreferencesHelper.saveBookingId(this , "")
     }
@@ -240,26 +242,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
     }
 
     private fun fillUIData(){
-        SharedPreferencesHelper.saveFoodPersonalize(
-            this@BookingsDetailsActivity,
-            false
-        )
-        SharedPreferencesHelper.saveCabPersonalize(
-            this@BookingsDetailsActivity,
-            false
-        )
-
-        if(bookingData?.travelling_self == 1){
-            Log.d("Cancel Tickets " , bookingData?.prefs?.main_passenger?.name+"")
-            Log.d("Cancel Tickets " , bookingData?.prefs?.main_passenger?.seats_info?.seat_code+"")
-        }
-
-        val coPassengerSize= bookingData?.prefs?.co_passengers?.size!!
-        for (i in 0 until coPassengerSize){
-            Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.name)
-            Log.d("Cancel Tickets " , bookingData?.prefs?.co_passengers?.get(i)?.seats_info?.seat_code)
-        }
-
         /* set seat count */
         if(bookingData?.travelling_self == 1){
             mSeatCount += 1
@@ -343,54 +325,60 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
         if(bookingData?.prefs?.main_passenger == null){
             binding.viewBookingsDetailsDivider.visibility = View.GONE
-            binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+            binding.layoutBookingsDetailsCabBaseUpcoming.visibility = View.GONE
             binding.layoutBookingsDetailsFoodBase.visibility = View.GONE
             binding.viewCabAfterDivider.visibility = View.GONE
             binding.viewFoodAfterDivider.visibility = View.GONE
             binding.viewDetaisAfterDivider.visibility = View.GONE
         }
 
-        binding.layoutBookingsDetailsCabBase.setOnClickListener {
-            val cabPersonalizeIntent = Intent(this , CabPreferencesActivity::class.java)
-            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY , bookingData?.from_city_info!!.name)
-            cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY , bookingData?.to_city_info!!.name)
-            cabPersonalizeIntent.putExtra("FlowFrom" , "drawer")
-            startActivity(cabPersonalizeIntent)
+        if(flowFrom.equals("upcoming")) {
+            binding.layoutBookingsDetailsCabBaseUpcoming.setOnClickListener {
+                val cabPersonalizeIntent = Intent(this, CabPreferencesActivity::class.java)
+                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY, bookingData?.prefs?.main_passenger?.pick_address?.address)
+                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY, bookingData?.prefs?.main_passenger?.drop_address?.address)
+                cabPersonalizeIntent.putExtra("FlowFrom", "drawer")
+                startActivity(cabPersonalizeIntent)
+            }
         }
 
-        binding.layoutBookingsDetailsFoodBase.setOnClickListener {
-            val foodItems = bookingData?.prefs?.main_passenger?.food_items
-            val foodPersonalizeIntent = Intent(this , PersonalizeFoodLaunchActivity::class.java)
+        if(flowFrom.equals("upcoming")) {
+            binding.layoutBookingsDetailsFoodBase.setOnClickListener {
+                val foodItems = bookingData?.prefs?.main_passenger?.food_items
+                val foodPersonalizeIntent = Intent(this, PersonalizeFoodLaunchActivity::class.java)
 //            foodPersonalizeIntent.putExtra("FlowFrom" , "personalize")
-            foodPersonalizeIntent.putExtra("JourneyDate" , bookingData?.journey_date)
-            foodPersonalizeIntent.putExtra("ScheduleId" , bookingData?.schedule_id)
-            foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods" , java.util.ArrayList(foodItems))
-            startActivity(foodPersonalizeIntent)
+                foodPersonalizeIntent.putExtra("JourneyDate", bookingData?.journey_date)
+                foodPersonalizeIntent.putExtra("ScheduleId", bookingData?.schedule_id)
+                foodPersonalizeIntent.putParcelableArrayListExtra("selectedFoods", java.util.ArrayList(foodItems))
+                startActivity(foodPersonalizeIntent)
+            }
         }
 
-        if(!bookingData?.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!){
+        isCabPersonalized = isCabPersonalise()
+
+        if(isCabPersonalized) {
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
-            isCabPersonalized = true
-            SharedPreferencesHelper.saveCabPickupPersoalize(this , bookingData?.pick_address)
-            SharedPreferencesHelper.saveCabDropPersonalize(this , bookingData?.drop_address)
-        }else if(bookingData?.drop_address_main?.isEmpty()!! && bookingData?.pick_address_main?.isEmpty()!!){
+        } else {
             binding.textViewBookingsDetailsCabsTitle.setCompoundDrawablesWithIntrinsicBounds(
                 0, 0 ,0 ,0
             )
         }
 
-        if(bookingData?.service.equals("Usual", true) ){
-            binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
-                0 , 0 ,0 ,0
-            )
-        }else {
+
+        isFoodPersonalized = isFoodPersonalise()
+
+        if(isFoodPersonalized) {
             binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_tick_ok , 0 ,0 ,0
             )
-            isFoodPersonalized = true
+        } else {
+            binding.textViewBookingsDetailsFoodTitle.setCompoundDrawablesWithIntrinsicBounds(
+                0 , 0 ,0 ,0
+            )
         }
+
         binding.buttonBookingsDetailsCancelBooking.setOnClickListener {
             if(mTravellingUsers==1){
                 showCancelConfirmation()
@@ -403,28 +391,42 @@ class BookingsDetailsActivity : AppCompatActivity() {
                 startActivityForResult(intent, 1000)
             }
         }
+
+        if(flowFrom.equals("completed")) {
+            binding.layoutBookingsDetailsCabBaseUpcoming.visibility = View.GONE
+            binding.layoutBookingsDetailsCabBaseCompleted.visibility = View.VISIBLE
+                    binding.textViewBookingsDetailsCabsTitle1.text = bookingData!!.pick_address_main!!
+        binding.textViewBookingsDetailsCabsTitle2.text = bookingData!!.drop_address_main!!
+            binding.textViewBookingsDetailsFoodTitleCompleted.visibility = View.VISIBLE
+        } else if(flowFrom.equals("upcoming")) {
+            binding.layoutBookingsDetailsCabBaseUpcoming.visibility = View.VISIBLE
+            binding.layoutBookingsDetailsCabBaseCompleted.visibility = View.GONE
+//            binding.textView_bookings_details_food_title_completed =
+            binding.textViewBookingsDetailsFoodTitleCompleted.visibility = View.GONE
+        }
+
+        // This is executed when user click on item of Completed Tab
         if(bookingType.equals("completed" , true) ||
-            bookingData!!.status.equals("Cancelled" , true)){
+            bookingData!!.status.equals("Cancelled" , true)) {
             binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
-            var address = ""
+            var completedAddress = ""
             if(!bookingData!!.pick_address_main!!.isEmpty()){
-                address = bookingData!!.pick_address_main!!
+                completedAddress = bookingData!!.pick_address_main!!
             }
 
             if(!bookingData!!.drop_address_main!!.isEmpty()){
-                address = if(address.isEmpty()){
+                completedAddress = if(completedAddress.isEmpty()){
                     bookingData!!.drop_address_main!!
                 }else{
                     "\n"+ bookingData!!.drop_address_main
                 }
             }
 
-
-            if(!address.isEmpty()){
-                binding.textViewBookingsDetailsCabsTitle.text = address
+            if(!completedAddress.isEmpty()) {
+                binding.textViewBookingsDetailsCabsTitle.text = completedAddress
                 binding.imageViewBookingDetailsCabArrow.visibility = View.GONE
             }else{
-                binding.layoutBookingsDetailsCabBase.visibility = View.GONE
+                binding.layoutBookingsDetailsCabBaseUpcoming.visibility = View.GONE
                 binding.viewCabAfterDivider.visibility = View.GONE
             }
             if(bookingData?.service.equals("Usual", true) ){
@@ -521,6 +523,50 @@ class BookingsDetailsActivity : AppCompatActivity() {
         if(resultCode == Activity.RESULT_CANCELED) {
             killThisActivity();
         }
+    }
+
+
+    private fun isCabPersonalise(): Boolean {
+        /*if(!bookingData?.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!) {
+            Log.i("", "")
+            return true
+        }
+        else if(bookingData?.drop_address_main?.isEmpty()!! && bookingData?.pick_address_main?.isEmpty()!!) {
+            Log.i("", "")
+            return false
+        }*/
+
+        if(flowFrom.equals("completed", true)) {
+            return false
+        }
+        else if(bookingData?.prefs?.main_passenger == null) {
+            return false
+        }
+        else if((bookingData?.prefs?.main_passenger?.pick_address == null)
+            || bookingData?.prefs?.main_passenger?.drop_address == null) {
+            return false
+        }
+        else if((TextUtils.isEmpty(bookingData?.prefs?.main_passenger?.pick_address?.address_tag))
+            || (TextUtils.isEmpty(bookingData?.prefs?.main_passenger?.drop_address?.address_tag)) ) {
+            return false
+        }
+
+        return true
+    }
+
+    private fun isFoodPersonalise() : Boolean {
+        if(flowFrom.equals("completed", true)) {
+            return false
+        }
+        else if(bookingData?.service.equals("Usual", true) ) {
+            Log.i("", "")
+            return false
+        }
+        else if(bookingData?.service.equals("Preferred", true) ) {
+            Log.i("", "")
+            return true
+        }
+        return false
     }
 
 

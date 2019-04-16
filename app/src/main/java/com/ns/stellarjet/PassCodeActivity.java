@@ -202,10 +202,10 @@ public class PassCodeActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
                 if(response.body()!=null){
                     SharedPreferencesHelper.clearAllSharedPreferencesData(PassCodeActivity.this);
-                    UiUtils.Companion.showToast(
+                    /*UiUtils.Companion.showToast(
                             PassCodeActivity.this,
                             response.body().getMessage()
-                    );
+                    );*/
 
                     startActivity(new Intent(PassCodeActivity.this , LoginActivity.class));
                     finish();

@@ -115,6 +115,7 @@ class CompletedBookingsFragment : Fragment(), (Booking,Int) -> Unit {
         val mDetailsIntent = Intent(activity , BookingsDetailsActivity::class.java)
         mDetailsIntent.putExtra("bookingDetails" , booking)
         mDetailsIntent.putExtra("bookingType" , "Completed")
+        mDetailsIntent.putExtra("from" , "completed")
         requireActivity().startActivity(mDetailsIntent)
     }
 

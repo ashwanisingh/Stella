@@ -54,6 +54,7 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
 
             override fun afterTextChanged(s: Editable) {
                 val totalSeats = s.toString()
+
                 if(totalSeats.isNotEmpty()){
                     totalPrice = totalSeats.toIntOrNull()?.times(mSeatPrice)!!
                     val formatter = NumberFormat.getCurrencyInstance(Locale("en", "IN"))
@@ -71,7 +72,11 @@ class PurchaseActivity : AppCompatActivity(), PaymentResultListener {
 
         button_purchase_buy_now.setOnClickListener {
             val totalSeats = editText_purchase_seat_count.text.toString()
-            if(totalSeats.isNotEmpty()){
+            val tt:Int = totalSeats.toInt()
+            if(tt>10) {
+                UiUtils.showSimpleDialog(this@PurchaseActivity, "You are not allowed to purchase more than 10 seats.")
+            }
+            else if(totalSeats.isNotEmpty()){
                 mTotalSeats = totalSeats.toInt()
                 if(mTotalSeats !=0){
 //                startPayment()

@@ -492,5 +492,10 @@ public class SharedPreferencesHelper {
     }
 
 
+    private boolean isCabPersonalise() {
+
+        return false;
+    }
+
 
 }

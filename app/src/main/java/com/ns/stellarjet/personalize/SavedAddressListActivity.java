@@ -256,7 +256,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             }else {
                 citySelected = selectedCity;
             }
-            if(citySelected.equalsIgnoreCase("delhi")){
+            if(citySelected.equalsIgnoreCase("delhi")) {
                 if(city.equalsIgnoreCase("Delhi") || city.equalsIgnoreCase("New Delhi")){
                     Intent mIntent = new Intent(
                             SavedAddressListActivity.this ,
@@ -265,7 +265,7 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
                     int selectedCityId = 0;
                     int citiesSize = HomeActivity.sUserData.getCities().size();
                     for (int i = 0; i < citiesSize; i++) {
-                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)){
+                        if(HomeActivity.sUserData.getCities().get(i).getName().equalsIgnoreCase(selectedCity)) {
                             selectedCityId = HomeActivity.sUserData.getCities().get(i).getId();
                         }
                     }
