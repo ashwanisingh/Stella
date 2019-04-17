@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.View.GONE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -384,12 +385,15 @@ class BookingsDetailsActivity : AppCompatActivity() {
         }
 
         if(flowFrom.equals("completed", true)) {
-            binding.buttonBookingsDetailsCancelBooking.setText(R.string.booking_summary_feedback)
-            binding.buttonBookingsDetailsCancelBooking.setBackgroundResource(R.drawable.drawable_button_bg)
-            binding.buttonBookingsDetailsCancelBooking.setTextColor(resources.getColor(R.color.colorButtonNew))
-            binding.buttonBookingsDetailsCancelBooking.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
-            binding.buttonBookingsDetailsCancelBooking.setPadding(55, 0, 0, 0)
-//            style="@style/StellarWhiteButton"
+            if(bookingData?.feedback_available != null && bookingData?.feedback_available.equals("true")) {
+                binding.buttonBookingsDetailsCancelBooking.visibility = GONE;
+            } else {
+                binding.buttonBookingsDetailsCancelBooking.setText(R.string.booking_summary_feedback)
+                binding.buttonBookingsDetailsCancelBooking.setBackgroundResource(R.drawable.drawable_button_bg)
+                binding.buttonBookingsDetailsCancelBooking.setTextColor(resources.getColor(R.color.colorButtonNew))
+                binding.buttonBookingsDetailsCancelBooking.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+                binding.buttonBookingsDetailsCancelBooking.setPadding(55, 0, 0, 0)
+            }
         } else if(flowFrom.equals("upcoming", true)) {
             binding.buttonBookingsDetailsCancelBooking.setText(R.string.booking_summary_cancel_booking)
         }
@@ -420,6 +424,14 @@ class BookingsDetailsActivity : AppCompatActivity() {
                     binding.textViewBookingsDetailsCabsTitle1.text = bookingData!!.pick_address_main!!
         binding.textViewBookingsDetailsCabsTitle2.text = bookingData!!.drop_address_main!!
             binding.textViewBookingsDetailsFoodTitleCompleted.visibility = View.VISIBLE
+
+
+            var pickAddress = bookingData!!.pick_address_main!!
+            if(pickAddress == null || TextUtils.isEmpty(pickAddress)) {
+                binding.layoutBookingsDetailsCabBaseCompleted.visibility = View.GONE
+                binding.textViewBookingsDetailsFoodTitleCompleted.visibility = View.GONE
+            }
+
         } else if(flowFrom.equals("upcoming")) {
             binding.layoutBookingsDetailsCabBaseUpcoming.visibility = View.VISIBLE
             binding.layoutBookingsDetailsCabBaseCompleted.visibility = View.GONE
@@ -547,15 +559,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
 
 
     private fun isCabPersonalise(): Boolean {
-        /*if(!bookingData?.drop_address_main?.isEmpty()!! || !bookingData?.pick_address_main?.isEmpty()!!) {
-            Log.i("", "")
-            return true
-        }
-        else if(bookingData?.drop_address_main?.isEmpty()!! && bookingData?.pick_address_main?.isEmpty()!!) {
-            Log.i("", "")
-            return false
-        }*/
-
         if(flowFrom.equals("completed", true)) {
             return false
         }

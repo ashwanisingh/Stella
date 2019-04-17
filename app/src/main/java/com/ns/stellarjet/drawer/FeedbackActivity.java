@@ -3,21 +3,23 @@ package com.ns.stellarjet.drawer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.ns.networking.model.Booking;
 import com.ns.networking.retrofit.RetrofitAPICaller;
 import com.ns.stellarjet.R;
-import com.ns.stellarjet.utils.Progress;
-import com.ns.stellarjet.utils.SharedPreferencesHelper;
+import com.ns.stellarjet.utils.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class FeedbackActivity extends AppCompatActivity {
 
@@ -113,13 +115,25 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*if(1==1) {
+                    Toast.makeText(FeedbackActivity.this, "Under Progress", Toast.LENGTH_LONG).show();
+                    return;
+                }*/
+
                 Progress progress = Progress.getInstance();
                 progress.showProgress(FeedbackActivity.this);
 
                 String token = SharedPreferencesHelper.getUserToken(FeedbackActivity.this);
                 String booking_id = ""+mBooking.getBooking_id();
                 String passenger_id = ""+mBooking.getUser();
-                String passenger_type = mBooking.getBooked_by_user_type();
+                String passenger_type = "1";
+
+                if(mBooking.getBooked_by_user_type().equalsIgnoreCase("primary")) {
+                    passenger_type = "1";
+                } else if(mBooking.getBooked_by_user_type().equalsIgnoreCase("secondary")) {
+                    passenger_type = "2";
+                }
+
 
                 String flightExpId = "1";
                 String flightExpRating = ""+flightExperience_rating;
@@ -133,24 +147,68 @@ public class FeedbackActivity extends AppCompatActivity {
                 String limousineExpRating = ""+limousineExperience_rating;
                 String limousineExpDesc = limousineExperience_editText.getText().toString();
 
-                Call<JsonElement> call = RetrofitAPICaller.getInstance(FeedbackActivity.this).getStellarJetAPIs()
-                        .feedback(token, booking_id, passenger_id, passenger_type, flightExpId, flightExpRating,
-                                flightExpDesc, foodExpId, foodExpRating, foodExpDesc,
-                                limousineExpId, limousineExpRating, limousineExpDesc);
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("token", token);
+                jsonObject.addProperty("booking_id", booking_id);
+                jsonObject.addProperty("passenger_id", passenger_id);
+                jsonObject.addProperty("passenger_type", passenger_type);
 
-                /*call.enqueue(new Callback<JsonElement>() {
+                JsonArray jsonArray = new JsonArray();
+
+                JsonObject flightExpObject = new JsonObject();
+                flightExpObject.addProperty("ID", flightExpId);
+                flightExpObject.addProperty("RATING", flightExpRating);
+                flightExpObject.addProperty("DESCRIPTION", flightExpDesc);
+
+                JsonObject foodExpObject = new JsonObject();
+                foodExpObject.addProperty("ID", foodExpId);
+                foodExpObject.addProperty("RATING", foodExpRating);
+                foodExpObject.addProperty("DESCRIPTION", foodExpDesc);
+
+                JsonObject limousineExpObject = new JsonObject();
+                limousineExpObject.addProperty("ID", limousineExpId);
+                limousineExpObject.addProperty("RATING", limousineExpRating);
+                limousineExpObject.addProperty("DESCRIPTION", limousineExpDesc);
+
+                jsonArray.add(flightExpObject);
+                jsonArray.add(foodExpObject);
+                jsonArray.add(limousineExpObject);
+
+                jsonObject.add("feedback", jsonArray);
+
+                Call<JsonElement> call = RetrofitAPICaller.getInstance(FeedbackActivity.this).getStellarJetAPIs()
+                        .feedback("application/json", jsonObject);
+
+                call.enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         Log.i("", "");
                         progress.hideProgress();
+                        if(response.code() == 200) {
+                            StellarJetUtils.showToast(FeedbackActivity.this, "Your feedback is saved successfully.");
+                            finish();
+                        } else {
+                            InputStream inputStream = response.errorBody().byteStream();
+                            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+                            StringBuilder total = new StringBuilder();
+                            try {
+                                for (String line; (line = r.readLine()) != null; ) {
+                                    total.append(line).append('\n');
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            StellarJetUtils.showSimpleDialog(FeedbackActivity.this, total.toString());
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
                         Log.i("", "");
                         progress.hideProgress();
+                        StellarJetUtils.showSimpleDialog(FeedbackActivity.this, "Please try again.");
                     }
-                });*/
+                });
 
 
 

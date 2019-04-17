@@ -11,6 +11,7 @@
     <string name="login_accountId">Email/Mobile Number</string>
     <string name="login_password">Password</string>
     <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_forgot_passcode">Forgot Passcode?</string>
 
     <!-- password -->
     <string name="password_header">Now enter your password to confirm your identity.</string>

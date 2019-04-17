@@ -1,6 +1,7 @@
 package com.ns.networking.retrofit;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.ns.networking.model.BookingRequest;
 import com.ns.networking.model.*;
 import com.ns.networking.model.flightsseats.FlightSeatListResponse;
@@ -287,16 +288,38 @@ public interface StellarApiService {
     @GET
     Call<ResponseBody> fetchCaptcha(@Url String url);
 
-    @FormUrlEncoded
     @POST("feedback/update")
-    Call<JsonElement> feedback(@Field("token") String token,
-                               @Field("booking_id") String booking_id, @Field("passenger_id") String passenger_id, @Field("passenger_type") String passenger_type,
-                               @Field("feedback[0][ID]") String flightExpId, @Field("feedback[0][RATING]") String flightExpRating, @Field("feedback[0][DESCRIPTION]") String flightExpDesc,
-                               @Field("feedback[1][ID]") String foodExpId, @Field("feedback[1][RATING]") String foodExpRating, @Field("feedback[1][DESCRIPTION]") String foodExpDesc,
-                               @Field("feedback[2][ID]") String limousineExpId, @Field("feedback[2][RATING]") String limousineExpRating, @Field("feedback[2][DESCRIPTION]") String limousineExpDesc
-                               );
+    Call<JsonElement> feedback(@Header("Content-Type") String content_type, @Body JsonObject body);
+
+//    @FormUrlEncoded
+    /*@POST("feedback/update")
+    Call<JsonElement> feedback(@Query("token") String token,
+                               @Query("booking_id") String booking_id, @Query("passenger_id") String passenger_id, @Query("passenger_type") String passenger_type,
+                               @Query("feedback[0][ID]") String flightExpId, @Query("feedback[0][RATING]") String flightExpRating, @Query("feedback[0][DESCRIPTION]") String flightExpDesc,
+                               @Query("feedback[1][ID]") String foodExpId, @Query("feedback[1][RATING]") String foodExpRating, @Query("feedback[1][DESCRIPTION]") String foodExpDesc,
+                               @Query("feedback[2][ID]") String limousineExpId, @Query("feedback[2][RATING]") String limousineExpRating, @Query("feedback[2][DESCRIPTION]") String limousineExpDesc
+                               );*/
 
 
+    /*@POST("feedback/update")
+    Call<JsonElement> feedback(@Query(value = "token", encoded = false) String token,
+                               @Query(value = "booking_id", encoded = false) String booking_id,
+                               @Query(value = "passenger_id", encoded = false) String passenger_id,
+                               @Query(value = "passenger_type", encoded = false) String passenger_type,
+                               @Query(value = "feedback[0][ID]", encoded = false) String flightExpId,
+                               @Query(value = "feedback[0][RATING]", encoded = false) String flightExpRating,
+                               @Query(value = "feedback[0][DESCRIPTION]", encoded = false) String flightExpDesc,
+                               @Query(value = "feedback[1][ID]", encoded = false) String foodExpId,
+                               @Query(value = "feedback[1][RATING]", encoded = false) String foodExpRating,
+                               @Query(value = "feedback[1][DESCRIPTION]", encoded = false) String foodExpDesc,
+                               @Query(value = "feedback[2][ID]", encoded = false) String limousineExpId,
+                               @Query(value = "feedback[2][RATING]", encoded = false) String limousineExpRating,
+                               @Query(value = "feedback[2][DESCRIPTION]", encoded = false) String limousineExpDesc
+    );*/
+
+
+
+//    @Query(value = "token", encoded = false) String token
 /*
 @GET(Constants.CITY_LIST_API)
     Call<CityListResponse> getCityList(

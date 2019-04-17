@@ -4,7 +4,8 @@ public class Constants {
 
 
 //    public static final String BASE_URL = "http://35.154.43.51/app/v2/public/api/v2/";
-    public static final String BASE_URL = "http://dev.stellarjet.com/app/v2/public/api/v2/";
+//    public static final String BASE_URL = "http://dev.stellarjet.com/app/v2/public/api/v2/";
+    public static final String BASE_URL = "http://app.stellarjet.com/v1/api/";
     public static final String LOGIN_API = "auth/login";
     public static final String SWITCH_TO_PRIMARY_API = "secondary_user/switch_to_primary";
     public static final String VALIDATE_USER_API = "user/validate";

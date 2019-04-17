@@ -2,7 +2,9 @@ package com.ns.stellarjet.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,10 +14,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import com.ns.stellarjet.BuildConfig;
+import com.ns.stellarjet.R;
 import okhttp3.ResponseBody;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -349,6 +354,37 @@ public class StellarJetUtils {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         context.startActivity(intent);
+    }
+
+    public static void showToast(Context context, String message){
+        Toast toast = Toast.makeText(
+                context,
+                message
+                , Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    public static void showSimpleDialog(Context context, String message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog simpleDialog = alertDialogBuilder.create();
+        simpleDialog.setCanceledOnTouchOutside(false);
+        simpleDialog.setCancelable(false);
+        simpleDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                simpleDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                        ContextCompat.getColor(context, R.color.colorButtonNew));
+            }
+        });
+        simpleDialog.show();
     }
 
 
