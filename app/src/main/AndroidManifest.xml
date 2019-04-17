@@ -197,6 +197,21 @@
         <meta-data
                 android:name="com.razorpay.ApiKey"
                 android:value="rzp_test_wgZ2yUsDJG9uYz"/>
+
+        <activity
+                android:name="com.ns.stellarjet.drawer.FeedbackActivity"
+                android:screenOrientation="portrait"/>
+
+        <provider
+                android:name="com.ns.stellarjet.drawer.GenericFileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 
 </manifest>

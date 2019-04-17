@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true">
+
+    <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+            <Button
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/feedboack_backBtn"
+                    style="@style/StellarBackButton"/>
+
+            <TextView
+                    android:text="Your feedbacks are most welcome"
+                    style="@style/StellarTextView_30sp"
+                    android:alpha="0.9"
+                    android:textAllCaps="false"
+                    android:gravity="start"
+                    android:lineSpacingExtra="5dp"
+                    android:id="@+id/textView_bookings_details_from_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#ffffff"
+                    android:letterSpacing="0.03"
+                    android:lineSpacingExtra="7sp"
+                    android:alpha="0.4"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Our menus change constantly,"
+            />
+
+
+            <!--Start Flight Experience Layout -->
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="18dp">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#ffffff"
+                        android:letterSpacing="0.02"
+                        android:text="Flight Experience "
+                        android:layout_weight="1"
+                        android:layout_marginStart="30dp"
+                />
+                <ImageView
+                        android:id="@+id/flightExperience_btn"
+                        android:layout_width="35dp"
+                           android:layout_height="35dp"
+                           android:src="@drawable/ic_tik_check"
+                           android:scaleType="centerInside"
+                           android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+                />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_marginStart="24dp"
+                          android:layout_marginEnd="24dp"
+                          android:layout_marginTop="12dp"
+                          android:id="@+id/flightExperience_InputLayout">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                    <ImageView
+                            android:id="@+id/flightExperience_star1"
+                            android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/flightExperience_star2"
+                            android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/flightExperience_star3" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/flightExperience_star4" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/flightExperience_star5" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+
+                </LinearLayout>
+
+                <EditText
+                        android:id="@+id/flightExperience_editText"
+                        style="@style/StellarEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:padding="16dp"
+                        android:gravity="left|top"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/drawable_edittext_background"
+                        android:inputType="textPersonName"
+                        android:scrollbars = "vertical"
+                />
+
+            </LinearLayout>
+
+            <!--End "Flight Experience" Layout -->
+
+            <View
+                    android:alpha="0.2"
+                    android:background="@color/colorAddressDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"/>
+
+
+            <!--=====================================================================-->
+
+            <!--Start "Food Experience" Layout -->
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#ffffff"
+                        android:letterSpacing="0.02"
+                        android:text="Food Experience "
+                        android:layout_weight="1"
+                        android:layout_marginStart="30dp"
+                />
+                <ImageView
+                        android:id="@+id/foodExperience_btn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_tik_check"
+                        android:scaleType="centerInside"
+                        android:layout_marginEnd="24dp"
+
+                />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_marginStart="24dp"
+                          android:layout_marginEnd="24dp"
+                          android:layout_marginTop="12dp"
+                          android:id="@+id/foodExperience_InputLayout">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                >
+
+                    <ImageView
+                            android:id="@+id/foodExperience_star1"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/foodExperience_star2"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/foodExperience_star3" android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/foodExperience_star4" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/foodExperience_star5" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+
+                </LinearLayout>
+
+                <EditText
+                        android:id="@+id/foodExperience_editText"
+                        style="@style/StellarEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:padding="16dp"
+                        android:gravity="left|top"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/drawable_edittext_background"
+                        android:inputType="textPersonName"
+                        android:scrollbars = "vertical"/>
+
+            </LinearLayout>
+
+            <!--End "Food Experience" Layout -->
+
+            <View
+                    android:alpha="0.2"
+                    android:background="@color/colorAddressDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"/>
+
+
+            <!--=====================================================================-->
+
+            <!--Start "Limousine Experience" Layout -->
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#ffffff"
+                        android:letterSpacing="0.02"
+                        android:text="Limousine Experience "
+                        android:layout_weight="1"
+                        android:layout_marginStart="30dp"
+                />
+                <ImageView
+                        android:id="@+id/limousineExperience_btn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_tik_check"
+                        android:scaleType="centerInside"
+                        android:layout_marginEnd="24dp"
+                />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_marginStart="24dp"
+                          android:layout_marginEnd="24dp"
+                          android:layout_marginTop="12dp"
+                          android:id="@+id/limousineExperience_InputLayout">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                >
+
+                    <ImageView
+                            android:id="@+id/limousineExperience_star1"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/limousineExperience_star2"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView
+                            android:id="@+id/limousineExperience_star3" android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/star_disabled"
+                            android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/limousineExperience_star4" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+                    <ImageView android:id="@+id/limousineExperience_star5" android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               android:src="@drawable/star_disabled"
+                               android:scaleType="centerInside"
+                    />
+
+                </LinearLayout>
+
+                <EditText
+                        android:id="@+id/limousineExperience_editText"
+                        style="@style/StellarEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:padding="16dp"
+                        android:gravity="left|top"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/drawable_edittext_background"
+                        android:inputType="textPersonName"
+                        android:scrollbars = "vertical"/>
+
+            </LinearLayout>
+
+            <!--End "Food Experience" Layout -->
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="Submit"
+            style="@style/StellarWhiteButton"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/submitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

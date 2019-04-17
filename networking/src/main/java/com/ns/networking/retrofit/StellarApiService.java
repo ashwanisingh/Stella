@@ -287,6 +287,15 @@ public interface StellarApiService {
     @GET
     Call<ResponseBody> fetchCaptcha(@Url String url);
 
+    @FormUrlEncoded
+    @POST("feedback/update")
+    Call<JsonElement> feedback(@Field("token") String token,
+                               @Field("booking_id") String booking_id, @Field("passenger_id") String passenger_id, @Field("passenger_type") String passenger_type,
+                               @Field("feedback[0][ID]") String flightExpId, @Field("feedback[0][RATING]") String flightExpRating, @Field("feedback[0][DESCRIPTION]") String flightExpDesc,
+                               @Field("feedback[1][ID]") String foodExpId, @Field("feedback[1][RATING]") String foodExpRating, @Field("feedback[1][DESCRIPTION]") String foodExpDesc,
+                               @Field("feedback[2][ID]") String limousineExpId, @Field("feedback[2][RATING]") String limousineExpRating, @Field("feedback[2][DESCRIPTION]") String limousineExpDesc
+                               );
+
 
 /*
 @GET(Constants.CITY_LIST_API)

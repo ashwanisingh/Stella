@@ -29,13 +29,29 @@ class CabPreferencesActivity : AppCompatActivity() {
         )
 
         flow = intent?.extras?.getString("FlowFrom")!!
-        val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)!!
-        val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)!!
+        val fromCity = intent?.extras?.getString(UIConstants.BUNDLE_FROM_CITY)
+        val toCity = intent?.extras?.getString(UIConstants.BUNDLE_TO_CITY)
 
-        val displayFromCity = resources.getString(R.string.cab_personalize_pickup_location) + " ("+fromCity+")"
+        val fromCityPickUp = intent?.extras?.getString("fromCityPickUp")
+        val toCityPickUp = intent?.extras?.getString("toCityPickUp")
+
+        var displayFromCity: String? = ""
+        var displayToCity: String? = ""
+
+        if(fromCityPickUp != null) {
+            displayFromCity = resources.getString(R.string.cab_personalize_pickup_location) + " (" + fromCityPickUp + ")"
+        } else {
+            displayFromCity = resources.getString(R.string.cab_personalize_pickup_location) + " (" + fromCity + ")"
+        }
+
+        if(toCityPickUp != null) {
+            displayToCity = resources.getString(R.string.cab_personalize_drop_location) + " ("+toCityPickUp+")"
+        } else {
+            displayToCity = resources.getString(R.string.cab_personalize_drop_location) + " ("+toCity+")"
+        }
+
         binding.textViewCabPickupLocation.text =displayFromCity
         binding.textViewCabPickupLocation.alpha=1.0f
-        val displayToCity = resources.getString(R.string.cab_personalize_drop_location) + " ("+toCity+")"
         binding.textViewCabDropLocation.text =displayToCity
         binding.textViewCabDropLocation.alpha =1.0f
 

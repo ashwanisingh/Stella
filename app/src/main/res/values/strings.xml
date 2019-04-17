@@ -97,6 +97,7 @@
     <string name="booking_summary_personalize_time">Please update before 10-Dec-2018, 3:00 pm</string>
     <string name="booking_summary_personalize_time_expiry">Please update before</string>
     <string name="booking_summary_cancel_booking">Cancel Booking</string>
+    <string name="booking_summary_feedback">Your Feedback</string>
 
     <string name="booking_summary_pickup">PICK UP FROM</string>
     <string name="booking_summary_pickup_name">Delhi Office</string>

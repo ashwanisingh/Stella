@@ -67,6 +67,16 @@ public class SavedAddressListActivity extends AppCompatActivity implements Funct
             binding.textViewSavedAddressCurrentLocation.setText(getResources().getString(R.string.drop_current_location));
         }
 
+        if(selectedCity.contains("Bengaluru")) {
+            selectedCity = "Bengaluru";
+        } else if(selectedCity.contains("Bangalore")) {
+            selectedCity = "Bangalore";
+        } else if(selectedCity.contains("Mumbai")) {
+            selectedCity = "Mumbai";
+        } else if(selectedCity.contains("Delhi")) {
+            selectedCity = "Delhi";
+        }
+
         binding.textViewSavedAddressCurrentLocation.setOnClickListener(v -> {
             LatLng latLng = null;
             if(selectedCity.equalsIgnoreCase("Bengaluru")){

@@ -3,23 +3,24 @@ package com.ns.stellarjet.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.core.content.FileProvider;
+import com.ns.stellarjet.BuildConfig;
 import okhttp3.ResponseBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -281,53 +282,74 @@ public class StellarJetUtils {
     }
 
 
-
-    public static boolean DownloadImage(ResponseBody body, Context context, String fileName) {
-
+    public static boolean writeResponseBodyToDisk(ResponseBody body, String fileName) {
         try {
-            Log.d("DownloadImage", "Reading and writing file");
-            InputStream in = null;
-            FileOutputStream out = null;
+
+            File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
 
             try {
-                in = body.byteStream();
-//                String path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + fileName+".jpg";
+                byte[] fileReader = new byte[4096];
 
-                File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName+".jpg");
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
 
-                out = new FileOutputStream(outputFile);
-                int c;
 
-                while ((c = in.read()) != -1) {
-                    out.write(c);
+                inputStream = body.byteStream();
+                outputStream = new FileOutputStream(outputFile);
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+
+                    outputStream.write(fileReader, 0, read);
+
+                    fileSizeDownloaded += read;
+
                 }
-            }
-            catch (IOException e) {
-                Log.d("DownloadImage",e.toString());
+
+                outputStream.flush();
+
+                return true;
+            } catch (IOException e) {
                 return false;
-            }
-            finally {
-                if (in != null) {
-                    in.close();
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
                 }
-                if (out != null) {
-                    out.close();
+
+                if (outputStream != null) {
+                    outputStream.close();
                 }
             }
-
-            int width, height;
-//            ImageView image = (ImageView) findViewById(R.id.imageViewId);
-//            Bitmap bMap = BitmapFactory.decodeFile(context.getExternalFilesDir(null) + File.separator + "AndroidTutorialPoint.jpg");
-//            width = 2*bMap.getWidth();
-//            height = 6*bMap.getHeight();
-//            Bitmap bMap2 = Bitmap.createScaledBitmap(bMap, width, height, false);
-//            image.setImageBitmap(bMap2);
-
-            return true;
-
         } catch (IOException e) {
-            Log.d("DownloadImage",e.toString());
             return false;
         }
     }
+
+    public static boolean isFileExist(String fileName) {
+        File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+        return outputFile.exists();
+    }
+
+    public static void openPdfFile(String fileName, Context context) {
+        File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+//        Uri photoURI = Uri.fromFile(outputFile);
+        Uri photoURI = FileProvider.getUriForFile(context,
+                BuildConfig.APPLICATION_ID + ".provider",
+                outputFile);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(photoURI,"application/pdf");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        context.startActivity(intent);
+    }
+
+
 }

@@ -345,9 +345,11 @@
                         android:textColor="@color/colorCancelBooking"
                         android:background="@android:color/transparent"
                         android:layout_marginTop="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
                         android:layout_gravity="center"
                         android:id="@+id/button_bookings_details_cancel_booking"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
         </FrameLayout>

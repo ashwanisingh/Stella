@@ -18,6 +18,7 @@ import com.ns.networking.model.Booking
 import com.ns.networking.retrofit.RetrofitAPICaller
 import com.ns.stellarjet.R
 import com.ns.stellarjet.databinding.ActivityBoardingPassDetailsBinding
+import com.ns.stellarjet.databinding.ActivityBookingsDetailsBinding
 import com.ns.stellarjet.home.HomeActivity
 import com.ns.stellarjet.utils.*
 import kotlinx.android.synthetic.main.activity_boarding_pass_details.*
@@ -33,6 +34,9 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
     var citiesForFileName: String? = null
     var date: String? = null
     var boardingPassUrl: String? = null
+    var fileExtension: String? = null
+    var fileName: String? = null
+    private lateinit var binding: ActivityBoardingPassDetailsBinding
 
     override fun onTcSliderVisibilityChanged(visibility: Int) {
 
@@ -41,14 +45,16 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
 
     override fun onTCButtonClick(isUserAgree: Boolean) {
         if(isUserAgree) {
-            boardingPassUrl = "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+//            boardingPassUrl = "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
             tcPanel!!.hideTcSlider();
-            download(boardingPassUrl!!, citiesForFileName!!, date!!)
+            download(boardingPassUrl!!, fileName!!)
         } else {
 
         }
 
     }
+
+
 
     override fun onTCSliderSlide(percentage: Float) {
         button_boarding_pass_details_back.alpha = 1-((100-percentage) / 100);
@@ -57,7 +63,7 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding : ActivityBoardingPassDetailsBinding = DataBindingUtil.setContentView(
+        binding = DataBindingUtil.setContentView(
             this ,
             R.layout.activity_boarding_pass_details
         )
@@ -68,6 +74,7 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
         val boardingPass : Booking? = intent.extras?.getParcelable("BoardingPass")
 
         binding.boardingPass = boardingPass
+        boardingPassUrl = boardingPass?.prefs?.main_passenger?.boarding_pass_url
 
         var passengersName = ""
         var seatsName = ""
@@ -133,13 +140,18 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
         binding.buttonDownload.setOnClickListener {
 //            ToastUtils.showToast(this, "Under Progress.")
 
-            var isAllowed = true;
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                isAllowed = checkLocationPermission()
+            if(binding.buttonDownload.text.equals("Open")) {
+                StellarJetUtils.openPdfFile(fileName, this@BoardingPassDetailsActivity)
             }
+            else {
+                var isAllowed = true;
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    isAllowed = checkLocationPermission()
+                }
 
-            if(isAllowed) {
-                tcPanel?.showTcSlider()
+                if (isAllowed) {
+                    tcPanel?.showTcSlider()
+                }
             }
 
         }
@@ -164,6 +176,17 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
         })
 
 
+        fileExtension = boardingPassUrl?.substring(boardingPassUrl!!.lastIndexOf("."))
+
+        fileName = citiesForFileName+date+fileExtension
+
+        var isFileExist = StellarJetUtils.isFileExist(fileName)
+
+        if(isFileExist) {
+            binding.buttonDownload.text = "Open"
+        }
+
+        Log.i("", "");
 
     }
 
@@ -254,12 +277,13 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
 
 
 
-    fun download(url: String, sourceToDestination: String, date: String  ) {
+    private fun download(url: String,  fileName: String) {
 
         val progress = Progress.getInstance()
         progress.showProgress(this@BoardingPassDetailsActivity)
 
-        val call: Call<ResponseBody> = RetrofitAPICaller.getInstance(this@BoardingPassDetailsActivity).stellarJetAPIs.fetchCaptcha(url)
+        val call: Call<ResponseBody> = RetrofitAPICaller.getInstance(this@BoardingPassDetailsActivity)
+            .stellarJetAPIs.fetchCaptcha(url)
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -268,14 +292,27 @@ class BoardingPassDetailsActivity : AppCompatActivity(), TermsConditionPanel.TCS
                         // display the image data in a ImageView or save it
 
 
-                        var isDownloaded = StellarJetUtils.DownloadImage(response.body(),
-                            this@BoardingPassDetailsActivity, sourceToDestination+" "+date)
-                        Log.i("", "")
+//                        var isDownloaded = StellarJetUtils.DownloadImage(response.body(),
+//                            this@BoardingPassDetailsActivity, sourceToDestination+" "+date+"+"."+fileExtension)
 
-                        UiUtils.showToast(
-                            this@BoardingPassDetailsActivity,
-                            "Saved successfully in Gallery"
-                        )
+
+
+                        var isDownload = StellarJetUtils.writeResponseBodyToDisk(response.body(), fileName)
+
+                        if(isDownload) {
+                            binding.buttonDownload.text = "Open"
+                            UiUtils.showToast(
+                                this@BoardingPassDetailsActivity,
+                                "Saved successfully in Download"
+                            )
+                        } else {
+                            UiUtils.showToast(
+                                this@BoardingPassDetailsActivity,
+                                "Download Failed"
+                            )
+                        }
+
+
 
                     } else {
                         // TODO

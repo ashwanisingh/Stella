@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -159,7 +160,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             bookingData?.booking_id!!,
             seatIdList
         )
-
 
 
         cancelBookingCall.enqueue(object : Callback<CancelBookingResponse> {
@@ -335,8 +335,12 @@ class BookingsDetailsActivity : AppCompatActivity() {
         if(flowFrom.equals("upcoming")) {
             binding.layoutBookingsDetailsCabBaseUpcoming.setOnClickListener {
                 val cabPersonalizeIntent = Intent(this, CabPreferencesActivity::class.java)
-                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY, bookingData?.prefs?.main_passenger?.pick_address?.address)
-                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY, bookingData?.prefs?.main_passenger?.drop_address?.address)
+                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_FROM_CITY, bookingData?.from_city_info?.name)
+                cabPersonalizeIntent.putExtra(UIConstants.BUNDLE_TO_CITY, bookingData?.to_city_info?.name)
+
+                cabPersonalizeIntent.putExtra("fromCityPickUp", bookingData?.prefs?.main_passenger?.pick_address?.address)
+                cabPersonalizeIntent.putExtra("toCityPickUp", bookingData?.prefs?.main_passenger?.drop_address?.address)
+
                 cabPersonalizeIntent.putExtra("FlowFrom", "drawer")
                 startActivity(cabPersonalizeIntent)
             }
@@ -379,16 +383,34 @@ class BookingsDetailsActivity : AppCompatActivity() {
             )
         }
 
+        if(flowFrom.equals("completed", true)) {
+            binding.buttonBookingsDetailsCancelBooking.setText(R.string.booking_summary_feedback)
+            binding.buttonBookingsDetailsCancelBooking.setBackgroundResource(R.drawable.drawable_button_bg)
+            binding.buttonBookingsDetailsCancelBooking.setTextColor(resources.getColor(R.color.colorButtonNew))
+            binding.buttonBookingsDetailsCancelBooking.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+            binding.buttonBookingsDetailsCancelBooking.setPadding(55, 0, 0, 0)
+//            style="@style/StellarWhiteButton"
+        } else if(flowFrom.equals("upcoming", true)) {
+            binding.buttonBookingsDetailsCancelBooking.setText(R.string.booking_summary_cancel_booking)
+        }
+
         binding.buttonBookingsDetailsCancelBooking.setOnClickListener {
-            if(mTravellingUsers==1){
-                showCancelConfirmation()
-//                UiUtils.showToast(this@BookingsDetailsActivity , "1 seats")
-            }else{
-//                UiUtils.showToast(this@BookingsDetailsActivity , "More then 1 seats")
-                val intent  = Intent(this@BookingsDetailsActivity , CancelBookingActivity::class.java)
-                intent.putExtra("BookingData" , bookingData)
-                intent.putExtra("selectedBookingPosition" , mSelectedIndex)
-                startActivityForResult(intent, 1000)
+
+            if(flowFrom.equals("upcoming", true)) {
+                if (mTravellingUsers == 1) {
+                    showCancelConfirmation()
+                } else {
+                    val intent = Intent(this@BookingsDetailsActivity, CancelBookingActivity::class.java)
+                    intent.putExtra("BookingData", bookingData)
+                    intent.putExtra("selectedBookingPosition", mSelectedIndex)
+                    startActivityForResult(intent, 1000)
+                }
+            }
+            else if(flowFrom.equals("completed", true)) {
+                val intent = Intent(this@BookingsDetailsActivity, FeedbackActivity::class.java)
+                intent.putExtra("BookingData", bookingData)
+                intent.putExtra("selectedBookingPosition", mSelectedIndex)
+                startActivity(intent)
             }
         }
 
@@ -408,7 +430,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
         // This is executed when user click on item of Completed Tab
         if(bookingType.equals("completed" , true) ||
             bookingData!!.status.equals("Cancelled" , true)) {
-            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
             var completedAddress = ""
             if(!bookingData!!.pick_address_main!!.isEmpty()){
                 completedAddress = bookingData!!.pick_address_main!!
@@ -453,7 +474,6 @@ class BookingsDetailsActivity : AppCompatActivity() {
             }else{
                 binding.imageViewBookingDetailsCancelled.visibility = View.GONE
             }
-            binding.buttonBookingsDetailsCancelBooking.visibility = View.GONE
             var passengersName = ""
             var seatsName = ""
             if(bookingData?.travelling_self ==1){
